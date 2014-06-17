@@ -14,6 +14,7 @@ public class SnailAssalt extends ApplicationAdapter {
     private int height;
     private Player jimmy;
     private Enemy snail;
+    private int gameState, stateMainMenu, stateInGame, stateGameOver;
 	@Override
     public void render () {
         Gdx.gl.glClearColor(1, 1, 1, 1);
@@ -27,20 +28,35 @@ public class SnailAssalt extends ApplicationAdapter {
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
         camera = new OrthographicCamera(width, height);
+        stateMainMenu = 0;
+        stateInGame = 1;
+        stateGameOver = 2;
+        gameState = stateMainMenu;
         jimmy = new Player();
         snail = new Enemy();
         resetGame();
     }
 
-    public  void resetGame(){
+    public void resetGame(){
         camera.position.set(width/2, height/2, 0);
         snail.snailBound.x = 400;
         snail.snailBound.y = 400;
     }
 
     public void updateGame(){
-        if(snail.snailBound.contains(Gdx.input.getX(),Gdx.input.getY())){
-            snail.snailBound.x = 400;
+        if (gameState == stateMainMenu) {
+            if (Gdx.input.justTouched())
+                gameState = stateInGame;
+        }
+        else if (gameState == stateInGame) {
+            if (snail.snailBound.contains(Gdx.input.getX(), Gdx.input.getY())) {
+                snail.snailBound.x = 400;
+            }
+            //some code here to determine loss condition
+        }
+        else if (gameState == stateGameOver) {
+            if (Gdx.input.justTouched())
+                gameState = stateMainMenu;
         }
     }
 
@@ -48,6 +64,9 @@ public class SnailAssalt extends ApplicationAdapter {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
+        if (gameState == stateMainMenu) {
+
+        }
         batch.draw(jimmy.jimmy,0,0);
         batch.draw(snail.snail,snail.snailBound.x,snail.snailBound.y);
         if(snail.snailBound.contains(Gdx.input.getX(),Gdx.input.getY())){
