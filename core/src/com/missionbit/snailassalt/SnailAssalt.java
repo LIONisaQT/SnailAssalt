@@ -6,10 +6,12 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 public class SnailAssalt extends ApplicationAdapter {
     private SpriteBatch batch;
     private OrthographicCamera camera;
+    private BitmapFont font;
     private int width;
     private int height;
     private Player jimmy;
@@ -27,6 +29,7 @@ public class SnailAssalt extends ApplicationAdapter {
         batch = new SpriteBatch();
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
+        font = new BitmapFont(Gdx.files.internal("font.fnt"), Gdx.files.internal("font.png"), false);
         camera = new OrthographicCamera(width, height);
         stateMainMenu = 0;
         stateInGame = 1;
@@ -64,13 +67,21 @@ public class SnailAssalt extends ApplicationAdapter {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
+        font.setScale(2);
+        font.setColor(0, 0, 0, 1);
         if (gameState == stateMainMenu) {
-
+            font.draw(batch, "Tap to begin", 50, camera.position.y - (height / 4) - 50);
         }
-        batch.draw(jimmy.jimmy,0,0);
-        batch.draw(snail.snail,snail.snailBound.x,snail.snailBound.y);
-        if(snail.snailBound.contains(Gdx.input.getX(),Gdx.input.getY())){
-            batch.draw(snail.snail,snail.snailBound.x,snail.snailBound.y);
+        else if (gameState == stateInGame) {
+            batch.draw(jimmy.jimmy, 0, 0);
+            batch.draw(snail.snail, snail.snailBound.x, snail.snailBound.y);
+            if (snail.snailBound.contains(Gdx.input.getX(), Gdx.input.getY())) {
+                batch.draw(snail.snail, snail.snailBound.x, snail.snailBound.y);
+            }
+        }
+        else if (gameState == stateGameOver) {
+            font.draw(batch, "Game Over", 50, camera.position.y - (height / 4));
+            font.draw(batch, "Tap to restart", 50, camera.position.y - (height / 4) - 50);
         }
         batch.end();
     }
