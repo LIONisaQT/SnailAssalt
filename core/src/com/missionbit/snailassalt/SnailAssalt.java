@@ -4,7 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class SnailAssalt extends ApplicationAdapter {
@@ -40,12 +40,12 @@ public class SnailAssalt extends ApplicationAdapter {
         gameState = stateMainMenu;
         jimmy = new Player();
         standardSnail = new Enemy();
-        acidSnail=new Enemy();
+        acidSnail = new Enemy();
         flyingSnail=new Enemy();
-        healerSnail=new Enemy();
+        healerSnail = new Enemy();
         motherSnail=new Enemy();
         people=new Enemy();
-        boss = new Enemy();
+        boss=new Enemy();
         resetGame();
     }
 
@@ -53,24 +53,24 @@ public class SnailAssalt extends ApplicationAdapter {
         camera.position.set(width/2, height/2, 0);
         standardSnail.standardSnailBound.x = 400;
         standardSnail.standardSnailBound.y = 400;
-        acidSnail.acidSnailBound.x=0;
-        acidSnail.acidSnailBound.y=0;
-        flyingSnail.flyingSnailBound.x=0;
-        flyingSnail.flyingSnailBound.y=0;
-        healerSnail.healerSnailBound.x=0;
-        healerSnail.healerSnailBound.y=0;
-        motherSnail.motherSnailBound.x=0;
-        motherSnail.motherSnailBound.y=0;
-        people.peopleBound.x=0;
-        people.peopleBound.y=0;
-        boss.bossBound.x=0;
-        boss.bossBound.x=0;
         standardSnail.hp=20;
+        acidSnail.acidSnailBound.x = 0;
+        acidSnail.acidSnailBound.y = 0;
         acidSnail.hp=60;
+        flyingSnail.flyingSnailBound.x = 0;
+        flyingSnail.flyingSnailBound.y = 0;
         flyingSnail.hp=20;
+        healerSnail.healerSnailBound.x = 0;
+        healerSnail.healerSnailBound.y = 0;
         healerSnail.hp=40;
+        motherSnail.motherSnailBound.x = 0;
+        motherSnail.motherSnailBound.y = 0;
         motherSnail.hp=60;
+        people.peopleBound.x = 0;
+        people.peopleBound.y = 0;
         people.hp=40;
+        boss.bossBound.x = 0;
+        boss.bossBound.y = 0;
         boss.hp=100;
 
     }
