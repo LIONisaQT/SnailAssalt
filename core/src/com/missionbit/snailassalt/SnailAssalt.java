@@ -13,7 +13,13 @@ public class SnailAssalt extends ApplicationAdapter {
     private int width;
     private int height;
     private Player jimmy;
-    private Enemy snail;
+    private Enemy standardSnail;
+    private Enemy acidSnail;
+    private Enemy flyingSnail;
+    private Enemy healerSnail;
+    private Enemy motherSnail;
+    private Enemy people;
+    private Enemy boss;
     private int gameState, stateMainMenu, stateInGame, stateGameOver;
 	@Override
     public void render () {
@@ -33,14 +39,40 @@ public class SnailAssalt extends ApplicationAdapter {
         stateGameOver = 2;
         gameState = stateMainMenu;
         jimmy = new Player();
-        snail = new Enemy();
+        standardSnail = new Enemy();
+        acidSnail=new Enemy();
+        flyingSnail=new Enemy();
+        healerSnail=new Enemy();
+        motherSnail=new Enemy();
+        people=new Enemy();
+        boss = new Enemy();
         resetGame();
     }
 
     public void resetGame(){
         camera.position.set(width/2, height/2, 0);
-        snail.snailBound.x = 400;
-        snail.snailBound.y = 400;
+        standardSnail.standardSnailBound.x = 400;
+        standardSnail.standardSnailBound.y = 400;
+        acidSnail.acidSnailBound.x=0;
+        acidSnail.acidSnailBound.y=0;
+        flyingSnail.flyingSnailBound.x=0;
+        flyingSnail.flyingSnailBound.y=0;
+        healerSnail.healerSnailBound.x=0;
+        healerSnail.healerSnailBound.y=0;
+        motherSnail.motherSnailBound.x=0;
+        motherSnail.motherSnailBound.y=0;
+        people.peopleBound.x=0;
+        people.peopleBound.y=0;
+        boss.bossBound.x=0;
+        boss.bossBound.x=0;
+        standardSnail.hp=20;
+        acidSnail.hp=60;
+        flyingSnail.hp=20;
+        healerSnail.hp=40;
+        motherSnail.hp=60;
+        people.hp=40;
+        boss.hp=100;
+
     }
 
     public void updateGame(){
@@ -49,8 +81,8 @@ public class SnailAssalt extends ApplicationAdapter {
                 gameState = stateInGame;
         }
         else if (gameState == stateInGame) {
-            if (snail.snailBound.contains(Gdx.input.getX(), Gdx.input.getY())) {
-                snail.snailBound.x = 400;
+            if (standardSnail.standardSnailBound.contains(Gdx.input.getX(), Gdx.input.getY())) {
+                standardSnail.standardSnailBound.x = 400;
             }
             //some code here to determine loss condition
         }
@@ -68,9 +100,9 @@ public class SnailAssalt extends ApplicationAdapter {
 
         }
         batch.draw(jimmy.jimmy,0,0);
-        batch.draw(snail.snail,snail.snailBound.x,snail.snailBound.y);
-        if(snail.snailBound.contains(Gdx.input.getX(),Gdx.input.getY())){
-            batch.draw(snail.snail,snail.snailBound.x,snail.snailBound.y);
+        batch.draw(standardSnail.standardSnail,standardSnail.standardSnailBound.x,standardSnail.standardSnailBound.y);
+        if(standardSnail.standardSnailBound.contains(Gdx.input.getX(),Gdx.input.getY())){
+            batch.draw(standardSnail.standardSnail,standardSnail.standardSnailBound.x,standardSnail.standardSnailBound.y);
         }
         batch.end();
     }
