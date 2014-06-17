@@ -15,6 +15,4 @@ public class Enemy {
         snail = new Texture("snail.png");
         snailBound = new Rectangle(50,50,snail.getWidth(),snail.getHeight());
     }
-
-
 }
