@@ -79,7 +79,7 @@ public class SnailAssalt extends ApplicationAdapter {
                 batch.draw(snail.snail, snail.snailBound.x, snail.snailBound.y);
             }
         }
-        else if (gameState == stateGameOver) {
+        else if (gameState == stateGameOver) { //currently there are no conditions for loss
             font.draw(batch, "Game Over", 50, camera.position.y - (height / 4));
             font.draw(batch, "Tap to restart", 50, camera.position.y - (height / 4) - 50);
         }
