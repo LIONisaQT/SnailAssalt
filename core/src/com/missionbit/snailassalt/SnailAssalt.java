@@ -54,7 +54,7 @@ public class SnailAssalt extends ApplicationAdapter {
         batch.draw(jimmy.jimmy,0,0);
         batch.draw(snail.snail,snail.snailBound.x,snail.snailBound.y);
         if(snail.snailBound.contains(Gdx.input.getX(),Gdx.input.getY())){
-            batch.draw(snail.snail,-400,-400);
+            batch.draw(snail.snail,snail.snailBound.x,snail.snailBound.y);
 
         }
 
