@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -12,6 +13,7 @@ public class SnailAssalt extends ApplicationAdapter {
     private OrthographicCamera camera;
     private int width;
     private int height;
+    private BitmapFont font;
     private Player jimmy;
     private Enemy standardSnail;
     private Enemy acidSnail;
@@ -34,6 +36,7 @@ public class SnailAssalt extends ApplicationAdapter {
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
         camera = new OrthographicCamera(width, height);
+        font = new BitmapFont(Gdx.files.internal("font.fnt"), Gdx.files.internal("font.png"), false);
         stateMainMenu = 0;
         stateInGame = 1;
         stateGameOver = 2;
@@ -96,13 +99,21 @@ public class SnailAssalt extends ApplicationAdapter {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
+        font.setScale(2);
+        font.setColor(0, 0, 0, 1);
         if (gameState == stateMainMenu) {
-
+            font.draw(batch, "Tap to begin", 50, camera.position.y - (height / 4) - 50);
         }
-        batch.draw(jimmy.jimmy,0,0);
-        batch.draw(standardSnail.standardSnail,standardSnail.standardSnailBound.x,standardSnail.standardSnailBound.y);
-        if(standardSnail.standardSnailBound.contains(Gdx.input.getX(),Gdx.input.getY())){
-            batch.draw(standardSnail.standardSnail,standardSnail.standardSnailBound.x,standardSnail.standardSnailBound.y);
+        else if (gameState == stateInGame) {
+            batch.draw(jimmy.jimmy, 0, 0);
+            batch.draw(standardSnail.standardSnail, standardSnail.standardSnailBound.x, standardSnail.standardSnailBound.y);
+            if (standardSnail.standardSnailBound.contains(Gdx.input.getX(), Gdx.input.getY())) {
+                batch.draw(standardSnail.standardSnail, standardSnail.standardSnailBound.x, standardSnail.standardSnailBound.y);
+            }
+        }
+        else if (gameState == stateGameOver) {
+            font.draw(batch, "Game Over", 50, camera.position.y - (height / 4));
+            font.draw(batch, "Tap to restart", 50, camera.position.y - (height / 4) - 50);
         }
         batch.end();
     }
