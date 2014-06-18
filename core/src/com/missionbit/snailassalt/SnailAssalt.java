@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -42,7 +43,7 @@ public class SnailAssalt extends ApplicationAdapter {
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
         camera = new OrthographicCamera(width, height);
-        font=new BitmapFont(Gdx.files.internal("font.fnt.txt"),Gdx.files.internal("font.png"),false);
+        font = new BitmapFont(Gdx.files.internal("font.fnt"), Gdx.files.internal("font.png"), false);
         stateMainMenu = 0;
         stateInGame = 1;
         stateGameOver = 2;
