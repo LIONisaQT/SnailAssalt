@@ -66,26 +66,26 @@ public class SnailAssalt extends ApplicationAdapter {
         camera.position.set(width / 2, height / 2, 0);
         standardSnail.standardSnailBound.x = 400;
         standardSnail.standardSnailBound.y = 400;
-        standardSnail.hp = 20;
+        standardSnail.hp = 10;
         acidSnail.acidSnailBound.x = 0;
         acidSnail.acidSnailBound.y = 0;
-        acidSnail.hp = 60;
+        acidSnail.hp = 30;
         flyingSnail.flyingSnailBound.x = 0;
         flyingSnail.flyingSnailBound.y = 0;
-        flyingSnail.hp = 20;
+        flyingSnail.hp = 10;
         healerSnail.healerSnailBound.x = 0;
         healerSnail.healerSnailBound.y = 0;
-        healerSnail.hp = 40;
+        healerSnail.hp = 20;
         motherSnail.motherSnailBound.x = 0;
         motherSnail.motherSnailBound.y = 0;
-        motherSnail.hp = 60;
+        motherSnail.hp = 30;
         people.peopleBound.x = 0;
         people.peopleBound.y = 0;
-        people.hp = 40;
+        people.hp = 20;
         boss.bossBound.x = 0;
         boss.bossBound.y = 0;
         boss.hp = 100;
-        houseHp = 100;
+        houseHp = 50;
 
     }
 
@@ -122,10 +122,10 @@ public class SnailAssalt extends ApplicationAdapter {
             if (standardSnail.standardSnailBound.contains(Gdx.input.getX(), Gdx.input.getY())) {
                 batch.draw(standardSnail.standardSnail, standardSnail.standardSnailBound.x, standardSnail.standardSnailBound.y);
             }
-            if(houseHp>70){
+            if(houseHp>35){
                 batch.draw(house,-150,0);
 
-            }else if(houseHp<70& houseHp>0){
+            }else if(houseHp<35& houseHp>0){
                 batch.draw(houseBroken,-150,0);
             }
        } else if (gameState == stateGameOver || houseHp<=0) {
