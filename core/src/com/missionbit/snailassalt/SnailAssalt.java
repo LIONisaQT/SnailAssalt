@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
-import java.util.ArrayList;
 
 public class SnailAssalt extends ApplicationAdapter {
     private SpriteBatch batch;
@@ -38,7 +37,7 @@ public class SnailAssalt extends ApplicationAdapter {
     // game states -- 1 int to hold current game state, 5 ints to hold MAIN game states
     private int gameState, stateMainMenu, stateInGame, stateGameOver, stateShop, stateLevelSelect;
     //levels -- 1 String to hold current level, [int] Strings to hold levels
-    private ArrayList<Levels> levels;
+    //private ArrayList<Levels> levels;
     private int currentLevel;
     //private String currentLevel, level1, level2;
 	@Override
@@ -68,7 +67,7 @@ public class SnailAssalt extends ApplicationAdapter {
         //levels end
         temp = new Vector3();
         //buttons start
-        startButtonMenu = new StartButton(10, 10);
+        startButtonMenu = new StartButton(width/2-250, height/2-200);
         shopButtonMenu = new ShopButton(10, startButtonMenu.buttonGetHeight() + 20);
         backButtonGameOver = new BackButton(width - 210, 10);
         backButtonShop = new BackButton(width - 210, 10);
