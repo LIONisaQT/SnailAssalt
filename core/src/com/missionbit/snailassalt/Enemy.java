@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Rectangle;
  * Created by douglas on 6/17/14.
  */
 public class Enemy {
-
     public Texture standardSnail;
     public Rectangle standardSnailBound;
     public int hp;
@@ -23,8 +22,7 @@ public class Enemy {
     public Rectangle peopleBound;
     public Texture boss;
     public Rectangle bossBound;
-
-    public Enemy(){ //
+    public Enemy() {
         standardSnail = new Texture("snail.png");
         standardSnailBound = new Rectangle(50,50,standardSnail.getWidth(),standardSnail.getHeight());
         acidSnail= new Texture("snail.png");
