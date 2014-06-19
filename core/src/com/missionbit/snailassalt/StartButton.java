@@ -12,7 +12,7 @@ public class StartButton extends Button {
         yPos = y;
         buttonPosition = new Vector2();
         buttonBound = new Rectangle();
-        buttonImage = new Texture("startButton.png");
+        buttonImage = new Texture("start.png");
         buttonBound.set(getXPos(), getYPos(), buttonGetWidth(), buttonGetHeight());
     }
     public float getXPos() {return xPos;}
