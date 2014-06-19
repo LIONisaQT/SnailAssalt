@@ -68,7 +68,7 @@ public class SnailAssalt extends ApplicationAdapter {
         temp = new Vector3();
         //buttons start
         startButtonMenu = new StartButton(width/2-250, height/2-200);
-        shopButtonMenu = new ShopButton(10, startButtonMenu.buttonGetHeight() + 20);
+        shopButtonMenu = new ShopButton(width - 160, startButtonMenu.buttonGetHeight() + height/2+ 60 );
         backButtonGameOver = new BackButton(width - 210, 10);
         backButtonShop = new BackButton(width - 210, 10);
         backButtonLevelSelect = new BackButton(width - 210, 10);
