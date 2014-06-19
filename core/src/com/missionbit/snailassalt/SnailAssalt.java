@@ -166,7 +166,6 @@ public class SnailAssalt extends ApplicationAdapter {
             font.draw(batch, "Game Over", 10, 50);
             font.draw(batch, "Current state: game over", 10, height - 50);
         }
-        font.draw(batch, "Resolution: " + width + ", " + height, 10, height);
         batch.end();
     }
 }
