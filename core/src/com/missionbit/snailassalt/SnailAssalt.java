@@ -29,16 +29,16 @@ public class SnailAssalt extends ApplicationAdapter {
     //enemies start
     private Enemy standardSnail;
     private Enemy acidSnail;
-    private Enemy flyingSnail;
-    private Enemy healerSnail;
-    private Enemy motherSnail;
-    private Enemy people;
-    private Enemy boss;
+    //private Enemy flyingSnail;
+    //private Enemy healerSnail;
+    //private Enemy motherSnail;
+    //private Enemy people;
+    //private Enemy boss;
     //enemies end
     // game states -- 1 int to hold current game state, 5 ints to hold MAIN game states
     private int gameState, stateMainMenu, stateInGame, stateGameOver, stateShop, stateLevelSelect;
     //levels -- 1 String to hold current level, [int] Strings to hold levels
-    private ArrayList<Levels> levels;
+    //private ArrayList<Levels> levels;
     private int currentLevel;
     //private String currentLevel, level1, level2;
 	@Override
@@ -79,7 +79,6 @@ public class SnailAssalt extends ApplicationAdapter {
         jimmy = new Player();
         //enemies start
         standardSnail = new Enemy();
-        //pull vivian's enemies later
         //enemies end
         resetGame();
     }
@@ -95,8 +94,6 @@ public class SnailAssalt extends ApplicationAdapter {
         levelSelectButton.buttonPosition.set(levelSelectButton.getXPos(), levelSelectButton.getYPos());
         loseButton.buttonPosition.set(loseButton.getXPos(), loseButton.getYPos());
         //buttons end
-        //enemies start
-        //pull vivian's enemy stats later
         //enemies end
     }
     public Vector3 getTapPosition() {
