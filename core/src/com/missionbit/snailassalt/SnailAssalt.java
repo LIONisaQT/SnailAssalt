@@ -5,8 +5,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 
 public class SnailAssalt extends ApplicationAdapter {
@@ -27,6 +29,10 @@ public class SnailAssalt extends ApplicationAdapter {
     private Player jimmy;
     //enemies start
     private Enemy standardSnail;
+    private Texture frame1 ;
+    private Texture frame2;
+    private Animation snail;
+    float time = 0;
     private Enemy acidSnail;
     private Enemy flyingSnail;
     private Enemy healerSnail;
@@ -78,6 +84,10 @@ public class SnailAssalt extends ApplicationAdapter {
         jimmy = new Player();
         //enemies start
         standardSnail = new Enemy();
+        frame1 = new Texture("snail.png");
+        frame2 = new Texture("standardsnail2.png");
+        snail = new Animation(0.6f, new TextureRegion(frame1), new TextureRegion(frame2));
+        snail.setPlayMode(Animation.PlayMode.LOOP);
         //pull vivian's enemies later
         //enemies end
         resetGame();
@@ -103,6 +113,8 @@ public class SnailAssalt extends ApplicationAdapter {
         return camera.unproject(temp);
     }
     public void updateGame(){
+        float deltaTime = Gdx.graphics.getDeltaTime();
+        time += deltaTime;
         if (gameState == stateMainMenu) {
             if (Gdx.input.justTouched() && startButtonMenu.buttonBound.contains(getTapPosition().x, getTapPosition().y))
                 gameState = stateLevelSelect;
@@ -155,7 +167,7 @@ public class SnailAssalt extends ApplicationAdapter {
         else if (gameState == stateInGame) {
             batch.draw(loseButton.buttonImage, loseButton.buttonPosition.x, loseButton.buttonPosition.y);
             batch.draw(jimmy.jimmy, 0, 0);
-            batch.draw(standardSnail.standardSnail, standardSnail.standardSnailBound.x, standardSnail.standardSnailBound.y);
+            batch.draw(snail.getKeyFrame(time), standardSnail.standardSnailBound.x, standardSnail.standardSnailBound.y);
             if (standardSnail.standardSnailBound.contains(Gdx.input.getX(), Gdx.input.getY())) {
                 batch.draw(standardSnail.standardSnail, standardSnail.standardSnailBound.x, standardSnail.standardSnailBound.y);
             }
