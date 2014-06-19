@@ -43,7 +43,7 @@ public class SnailAssalt extends ApplicationAdapter {
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
         camera = new OrthographicCamera(width, height);
-        font = new BitmapFont(Gdx.files.internal("font.fnt"), Gdx.files.internal("font.png"), false);
+        font = new BitmapFont(Gdx.files.internal("font.fnt.txt"), Gdx.files.internal("font.png"), false);
         stateMainMenu = 0;
         stateInGame = 1;
         stateGameOver = 2;
@@ -117,20 +117,21 @@ public class SnailAssalt extends ApplicationAdapter {
         if (gameState == stateMainMenu) {
             font.draw(batch,"Tap to begin",50,camera.position.y-(height/4)-50);
         } else if (gameState == stateInGame) {
-            batch.draw(jimmy.jimmy, 0, 0);
+            batch.draw(jimmy.jimmy, 0,0);
             batch.draw(standardSnail.standardSnail, standardSnail.standardSnailBound.x, standardSnail.standardSnailBound.y);
             if (standardSnail.standardSnailBound.contains(Gdx.input.getX(), Gdx.input.getY())) {
                 batch.draw(standardSnail.standardSnail, standardSnail.standardSnailBound.x, standardSnail.standardSnailBound.y);
             }
             if(houseHp>70){
-                batch.draw(house,-20,0);
+                batch.draw(house,-150,0);
+
             }else if(houseHp<70& houseHp>0){
-                batch.draw(houseBroken,-20,0);
+                batch.draw(houseBroken,-150,0);
             }
        } else if (gameState == stateGameOver || houseHp<=0) {
                 font.draw(batch,"Game Over",50,camera.position.y-(height/4)-50);
-            font.draw(batch,"Tap to restart",50,camera.position.y-(height/4)-50);
-                batch.draw(houseGameOver,-20,0);
+                font.draw(batch,"Tap to restart",50,camera.position.y-(height/4)-50);
+                batch.draw(houseGameOver,-200,0);
 
             }
             batch.end();
