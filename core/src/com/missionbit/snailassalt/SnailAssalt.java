@@ -35,6 +35,10 @@ public class SnailAssalt extends ApplicationAdapter {
     private Enemy people;
     private Enemy boss;
     //enemies end
+    private Texture house;
+    private Texture houseBroken;
+    private Texture houseGameOver;
+    private int houseHp;
     // game states -- 1 int to hold current game state, 5 ints to hold MAIN game states
     private int gameState, stateMainMenu, stateInGame, stateGameOver, stateShop, stateLevelSelect;
     //levels -- 1 String to hold current level, [int] Strings to hold levels
@@ -79,8 +83,15 @@ public class SnailAssalt extends ApplicationAdapter {
         jimmy = new Player();
         //enemies start
         standardSnail = new Enemy();
-        //pull vivian's enemies later
-        //enemies end
+        acidSnail = new Enemy();
+        flyingSnail = new Enemy();
+        healerSnail = new Enemy();
+        motherSnail = new Enemy();
+        people = new Enemy();
+        boss = new Enemy();
+        house = new Texture("house.png");
+        houseBroken=new Texture("housebroken.png");
+        houseGameOver=new Texture("housegameover.png");
         resetGame();
     }
     public void resetGame(){
@@ -96,7 +107,28 @@ public class SnailAssalt extends ApplicationAdapter {
         loseButton.buttonPosition.set(loseButton.getXPos(), loseButton.getYPos());
         //buttons end
         //enemies start
-        //pull vivian's enemy stats later
+        standardSnail.standardSnailBound.x = 400;
+        standardSnail.standardSnailBound.y = 400;
+        standardSnail.hp = 10;
+        acidSnail.acidSnailBound.x = 0;
+        acidSnail.acidSnailBound.y = 0;
+        acidSnail.hp = 40;
+        flyingSnail.flyingSnailBound.x = 0;
+        flyingSnail.flyingSnailBound.y = 0;
+        flyingSnail.hp = 10;
+        healerSnail.healerSnailBound.x = 0;
+        healerSnail.healerSnailBound.y = 0;
+        healerSnail.hp = 20;
+        motherSnail.motherSnailBound.x = 0;
+        motherSnail.motherSnailBound.y = 0;
+        motherSnail.hp = 30;
+        people.peopleBound.x = 0;
+        people.peopleBound.y = 0;
+        people.hp = 30;
+        boss.bossBound.x = 0;
+        boss.bossBound.y = 0;
+        boss.hp = 100;
+        houseHp = 50;
         //enemies end
     }
     public Vector3 getTapPosition() {
@@ -125,6 +157,7 @@ public class SnailAssalt extends ApplicationAdapter {
                 gameState = stateGameOver;
             if (standardSnail.standardSnailBound.contains(Gdx.input.getX(), Gdx.input.getY()))
                 standardSnail.standardSnailBound.x = 400;
+
             //some code here to determine loss condition
         }
         else if (gameState == stateGameOver) {
@@ -159,6 +192,14 @@ public class SnailAssalt extends ApplicationAdapter {
             batch.draw(standardSnail.standardSnail, standardSnail.standardSnailBound.x, standardSnail.standardSnailBound.y);
             if (standardSnail.standardSnailBound.contains(Gdx.input.getX(), Gdx.input.getY())) {
                 batch.draw(standardSnail.standardSnail, standardSnail.standardSnailBound.x, standardSnail.standardSnailBound.y);
+            }
+            if(houseHp>35){
+                batch.draw(house,-150,0);
+            }else if (houseHp<35&&houseHp>10){
+                batch.draw(houseBroken,-150,0);
+            }
+            else if (houseHp<10){
+                batch.draw(houseGameOver,-150,0);
             }
             font.draw(batch, "Current state: in-game", 10, height - 50);
         }
