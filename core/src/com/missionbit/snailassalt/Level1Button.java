@@ -12,15 +12,15 @@ public class Level1Button extends Button {
     public Level1Button() {
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
-        buttonPosition = new Vector2();
-        buttonBound = new Rectangle();
-        buttonImage = new Texture("level1.png");
-        buttonBound.set(getXPos(), getYPos(), buttonGetWidth(), buttonGetHeight());
+        position = new Vector2();
+        bound = new Rectangle();
+        image = new Texture("level1.png");
+        bound.set(getXPos(), getYPos(), buttonGetWidth(), buttonGetHeight());
     }
     public float getXPos() {return 10;}
     public float getYPos() {return height - 410;}
-    public float buttonGetWidth() {return buttonImage.getWidth();}
-    public float buttonGetHeight() {return buttonImage.getHeight();}
+    public float buttonGetWidth() {return image.getWidth();}
+    public float buttonGetHeight() {return image.getHeight();}
     public boolean isPressed() {
         return true;
     }

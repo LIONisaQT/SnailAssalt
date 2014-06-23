@@ -14,10 +14,9 @@ import java.util.ArrayList;
 
 public class SnailAssalt extends ApplicationAdapter {
     private SpriteBatch batch;
-    private OrthographicCamera camera;
-    private int width;
-    private int height;
-    private Vector3 tap;
+    public static OrthographicCamera camera;
+    private int width, height;
+    private static Vector3 tap;
     private Texture background;
     private BitmapFont font;
     private Player jimmy;
@@ -30,9 +29,6 @@ public class SnailAssalt extends ApplicationAdapter {
     private Level1Button level1button;
     //level buttons end
     //buttons end
-    //enemies start
-    private Enemy standardSnail;
-    //enemies end
     //levels start
     private Level1 level1;
     //levels end
@@ -40,7 +36,6 @@ public class SnailAssalt extends ApplicationAdapter {
     private int gameState, stateMainMenu, stateInGame, stateGameOver, stateShop, stateLevelSelect;
     private ArrayList<Enemy> temp;
     private ArrayList<Projectile> water;
-    private float rot, touch, touchY, deltaX, deltaY;
     private Weapon waterGun;
 	@Override
     public void render () {
@@ -87,112 +82,81 @@ public class SnailAssalt extends ApplicationAdapter {
         camera.position.set(width/2, height/2, 0);
         gameState = stateMainMenu; //game starts at main menu
         //buttons start
-        startButtonMenu.buttonPosition.set(startButtonMenu.getXPos(), startButtonMenu.getYPos());
-        shopButtonMenu.buttonPosition.set(shopButtonMenu.getXPos(), shopButtonMenu.getYPos());
-        backButtonGameOver.buttonPosition.set(backButtonGameOver.getXPos(), backButtonGameOver.getYPos());
-        backButtonLevelSelect.buttonPosition.set(backButtonLevelSelect.getXPos(), backButtonLevelSelect.getYPos());
-        backButtonShop.buttonPosition.set(backButtonShop.getXPos(), backButtonShop.getYPos());
-        level1button.buttonPosition.set(level1button.getXPos(), level1button.getYPos());
-        loseButton.buttonPosition.set(loseButton.getXPos(), loseButton.getYPos());
+        startButtonMenu.position.set(startButtonMenu.getXPos(), startButtonMenu.getYPos());
+        shopButtonMenu.position.set(shopButtonMenu.getXPos(), shopButtonMenu.getYPos());
+        backButtonGameOver.position.set(backButtonGameOver.getXPos(), backButtonGameOver.getYPos());
+        backButtonLevelSelect.position.set(backButtonLevelSelect.getXPos(), backButtonLevelSelect.getYPos());
+        backButtonShop.position.set(backButtonShop.getXPos(), backButtonShop.getYPos());
+        level1button.position.set(level1button.getXPos(), level1button.getYPos());
+        loseButton.position.set(loseButton.getXPos(), loseButton.getYPos());
         //buttons end
         camera.position.set((float)width/2, (float)height/2, 0);
     }
-    public Vector3 getTapPosition() { //gets and translates coordinates of tap to game world coordinates
+    public static Vector3 getTapPosition() { //gets and translates coordinates of tap to game world coordinates
         tap.set(Gdx.input.getX(), Gdx.input.getY(),0);
         return camera.unproject(tap);
     }
-    public void updateGame(){
+    public void updateGame() {
         if (gameState == stateMainMenu) { //in main menu
-            if (Gdx.input.justTouched() && startButtonMenu.buttonBound.contains(getTapPosition().x, getTapPosition().y))
+            if (Gdx.input.justTouched() && startButtonMenu.bound.contains(getTapPosition().x, getTapPosition().y))
                 gameState = stateLevelSelect; //go to level select
-            if (Gdx.input.justTouched() && shopButtonMenu.buttonBound.contains(getTapPosition().x, getTapPosition().y))
+            if (Gdx.input.justTouched() && shopButtonMenu.bound.contains(getTapPosition().x, getTapPosition().y))
                 gameState = stateShop; //go to shop
         }
         else if (gameState == stateShop) { //in shop
-            if (Gdx.input.justTouched() && backButtonShop.buttonBound.contains(getTapPosition().x, getTapPosition().y))
+            if (Gdx.input.justTouched() && backButtonShop.bound.contains(getTapPosition().x, getTapPosition().y))
                 gameState = stateMainMenu; //go to main menu
         }
         else if (gameState == stateLevelSelect) { //in level select
             if (Gdx.input.justTouched()) {
-                if (level1button.buttonBound.contains(getTapPosition().x, getTapPosition().y)) {
+                if (level1button.bound.contains(getTapPosition().x, getTapPosition().y)) {
                     level1button.isPressed(); //level 1 returns true
                     temp = level1.getEnemies();
                     gameState = stateInGame; //go in-game
                 }
             }
-            if (Gdx.input.justTouched() && backButtonLevelSelect.buttonBound.contains(getTapPosition().x, getTapPosition().y))
+            if (Gdx.input.justTouched() && backButtonLevelSelect.bound.contains(getTapPosition().x, getTapPosition().y))
                 gameState = stateMainMenu; //go to main menu
         }
         else if (gameState == stateInGame) { //in-game
-            waterGun.standard.setPosition(300, 30);
-            waterGun.GunPosition(waterGun.gunBounds.x, waterGun.gunBounds.y);
-            touch = 0;
-            touchY = 0;
-            if (Gdx.input.justTouched()) {
-                touch = getTapPosition().x;
-                touchY = getTapPosition().y;
-                deltaX = touch - waterGun.standard.getX();
-                deltaY = touchY - waterGun.standard.getY();
-                rot = MathUtils.atan2(deltaY, deltaX) * 180 / MathUtils.PI;
-                waterGun.standard.setRotation(rot);
-                Projectile proj = new Projectile();
-                water.add(proj);
-                proj.waterBounds.setPosition(waterGun.gunBounds.x, waterGun.gunBounds.y);
-                proj.waterSpeed.setAngleRad(MathUtils.degreesToRadians * rot);
-            }
-            for (int i = 0; i < water.size(); i++) {
+            waterGun.Update(water);
+            for (int i = 0; i < water.size(); i++) { //projectiles hit detection
                 Projectile proj = water.get(i);
-                proj.move(proj.waterBounds.x  + proj.waterSpeed.x, proj.waterBounds.y + proj.waterSpeed.y);
-                if (proj.waterBounds.y >= height) {
+                proj.Update();
+                if (proj.bound.y >= height) {
                     water.remove(i);
                     i--;
                 }
-                if (proj.waterBounds.y < 0) {
+                if (proj.bound.y < 0) {
                     water.remove(i);
                     i--;
                 }
                 boolean projectileHit = false;
                 for (int a = 0; a < temp.size(); a++) {
 
-                    if (proj.waterBounds.overlaps(temp.get(a).standardSnailBound)) {
+                    if (proj.bound.overlaps(temp.get(a).bound)) {
                         projectileHit = true;
                         temp.remove(a);
                     }
-
                 }
                 if (projectileHit) {
                     water.remove(i);
                     i--;
                 }
-
             }
             for (int a = 0; a < temp.size(); a++) {
-                temp.get(a).standardSnailBound.x = temp.get(a).standardSnailBound.x + temp.get(a).standardSnailSpeed.x;
-                temp.get(a).standardSnailBound.y = temp.get(a).standardSnailBound.y + temp.get(a).standardSnailSpeed.y;
-                if(temp.get(a).standardSnailBound.x >= camera.position.x + width/2){
-                    temp.get(a).standardSnailSpeed.x = -temp.get(a).standardSnailSpeed.x;
-                }
-                if(temp.get(a).standardSnailBound.x <= camera.position.x - width/2){
-                    temp.get(a).standardSnailSpeed.x = -temp.get(a).standardSnailSpeed.x;
-                }
-                if(temp.get(a).standardSnailBound.y >= camera.position.y + height/2){
-                    temp.get(a).standardSnailSpeed.y = -temp.get(a).standardSnailSpeed.y;
-                }
-                if(temp.get(a).standardSnailBound.y <= camera.position.y - height/2){
-                    temp.get(a).standardSnailSpeed.y = -temp.get(a).standardSnailSpeed.y;
-                    //yas
-                }
+                temp.get(a).Update();
             }
-            if (Gdx.input.justTouched() && loseButton.buttonBound.contains(getTapPosition().x, getTapPosition().y))
+            if (loseButton.bound.contains(getTapPosition().x, getTapPosition().y))
                 gameState = stateGameOver; //go to game over
-            //some code here to determine loss condition
         }
+        //some code here to determine loss condition
         else if (gameState == stateGameOver) { //in game over
-            if (Gdx.input.justTouched() && backButtonGameOver.buttonBound.contains(getTapPosition().x, getTapPosition().y))
+            if (Gdx.input.justTouched() && backButtonGameOver.bound.contains(getTapPosition().x, getTapPosition().y))
                 for (int a = 0; a < temp.size(); a++) {
-                    temp.get(a).standardSnail.dispose();
+                    temp.get(a).texture.dispose();
                 }
-                gameState = stateMainMenu; //go to main menu
+            gameState = stateMainMenu; //go to main menu
         }
     }
     public void drawGame(){
@@ -207,8 +171,8 @@ public class SnailAssalt extends ApplicationAdapter {
         // ***
         if (gameState == stateMainMenu) { //in main menu
             batch.draw(background, 0, 0);
-            batch.draw(startButtonMenu.buttonImage, startButtonMenu.buttonPosition.x, startButtonMenu.buttonPosition.y);
-            batch.draw(shopButtonMenu.buttonImage, shopButtonMenu.buttonPosition.x, shopButtonMenu.buttonPosition.y);
+            startButtonMenu.draw(batch);
+            batch.draw(shopButtonMenu.image, shopButtonMenu.position.x, shopButtonMenu.position.y);
             font.draw(batch, "Current state: main menu", 10, height - 50);
         }
         // *** level select currently contains
@@ -216,31 +180,31 @@ public class SnailAssalt extends ApplicationAdapter {
         // level 1 button (goes in-game)
         // ***
         else if (gameState == stateLevelSelect) { //in level select
-            batch.draw(level1button.buttonImage, level1button.buttonPosition.x, level1button.buttonPosition.y);
-            batch.draw(backButtonLevelSelect.buttonImage, backButtonLevelSelect.buttonPosition.x, backButtonLevelSelect.buttonPosition.y);
+            batch.draw(level1button.image, level1button.position.x, level1button.position.y);
+            batch.draw(backButtonLevelSelect.image, backButtonLevelSelect.position.x, backButtonLevelSelect.position.y);
             font.draw(batch, "Current state: level select", 10, height - 50);
         }
         // *** shop currently contains ***
         // back button
         // ***
         else if (gameState == stateShop) { //in shop
-            batch.draw(backButtonShop.buttonImage, backButtonShop.buttonPosition.x, backButtonShop.buttonPosition.y);
+            batch.draw(backButtonShop.image, backButtonShop.position.x, backButtonShop.position.y);
             font.draw(batch, "Current state: shop", 10, height - 50);
         }
         // *** level 1 in-game state currently contains ***
         // lose button
-        // jimmy
+        // sprite
         // failure to draw multiple snails at different positions
         // ***
         else if (gameState == stateInGame && level1button.isPressed()) { //in level 1
-            batch.draw(loseButton.buttonImage, loseButton.buttonPosition.x, loseButton.buttonPosition.y);
-            batch.draw(jimmy.jimmy, 0, 0);
-            waterGun.standard.draw(batch);
+            batch.draw(loseButton.image, loseButton.position.x, loseButton.position.y);
+            batch.draw(jimmy.sprite, 0, 0);
+            waterGun.sprite.draw(batch);
             for (Projectile proj : water) {
                 proj.shot.draw(batch);
             }
             for (int a = 0; a < temp.size(); a++) {
-                batch.draw(temp.get(a).standardSnail, temp.get(a).standardSnailBound.x, temp.get(a).standardSnailBound.y);
+                batch.draw(temp.get(a).texture, temp.get(a).bound.x, temp.get(a).bound.y);
             }
             font.draw(batch, "Number of snails: " + temp.size(), 10, 50);
             font.draw(batch, "Current state: in-game", 10, height - 50);
@@ -249,7 +213,7 @@ public class SnailAssalt extends ApplicationAdapter {
         // back button
         // ***
         else if (gameState == stateGameOver) { //in game over
-            batch.draw(backButtonGameOver.buttonImage, backButtonGameOver.buttonPosition.x, backButtonGameOver.buttonPosition.y);
+            batch.draw(backButtonGameOver.image, backButtonGameOver.position.x, backButtonGameOver.position.y);
             font.draw(batch, "Game Over", 10, 50);
             font.draw(batch, "Current state: game over", 10, height - 50);
         }

@@ -17,7 +17,7 @@ public class Level1 {
     public ArrayList<Enemy> getEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<Enemy>();
         for (int a = 0; a < enemyCount; a++) {
-            enemies.add(new Enemy((float)Math.random() * width, (float)Math.random() * height));
+            enemies.add(new Enemy(0, a * (height/4), 10, 0));
         }
         return enemies;
     }
