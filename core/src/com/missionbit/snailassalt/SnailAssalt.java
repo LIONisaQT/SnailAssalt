@@ -210,11 +210,13 @@ public class SnailAssalt extends ApplicationAdapter {
         }
         //some code here to determine loss condition
         else if (gameState == stateGameOver) { //in game over
-            if (Gdx.input.justTouched() && backButtonGameOver.bound.contains(getTapPosition().x, getTapPosition().y))
+            if (Gdx.input.justTouched() && backButtonGameOver.bound.contains(getTapPosition().x, getTapPosition().y)) {
                 for (int a = 0; a < temp.size(); a++) {
                     temp.get(a).dispose();
+
                 }
-            gameState = stateMainMenu; //go to main menu
+                gameState = stateMainMenu; //go to main menu
+            }
         }
     }
     public void drawGame(){
