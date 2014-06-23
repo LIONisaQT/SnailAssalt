@@ -5,8 +5,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 
 public class SnailAssalt extends ApplicationAdapter {
@@ -27,19 +29,37 @@ public class SnailAssalt extends ApplicationAdapter {
     private Player jimmy;
     //enemies start
     private Enemy standardSnail;
+    private Texture frame1;
+    private Texture frame2;
+    private Animation snail;
+    float time = 0;
     private Enemy acidSnail;
+    private Texture frame3;
+    private Texture frame4;
+    private Animation acidsnail;
     private Enemy flyingSnail;
+    private Texture frame5;
+    private Texture frame6;
+    private Animation flyingsnail;
     private Enemy healerSnail;
+    private Texture frame7;
+    private Texture frame8;
+    private Animation healsnail;
     private Enemy motherSnail;
     private Enemy people;
     private Enemy boss;
     //enemies end
+    private Texture house;
+    private Texture houseBroken;
+    private Texture houseGameOver;
+    private int houseHp;
     // game states -- 1 int to hold current game state, 5 ints to hold MAIN game states
     private int gameState, stateMainMenu, stateInGame, stateGameOver, stateShop, stateLevelSelect;
     //levels -- 1 String to hold current level, [int] Strings to hold levels
     //private ArrayList<Levels> levels;
     private int currentLevel;
     //private String currentLevel, level1, level2;
+    private Texture balloon;
 	@Override
     public void render () {
         Gdx.gl.glClearColor(1, 1, 1, 1);
@@ -54,6 +74,7 @@ public class SnailAssalt extends ApplicationAdapter {
         camera = new OrthographicCamera(width, height);
         font = new BitmapFont(Gdx.files.internal("font.fnt"), Gdx.files.internal("font.png"), false);
         background = new Texture("sidewaysmenu.png");
+        balloon = new Texture("balloon icon.png");
         //game states start
         stateMainMenu = 0;
         stateInGame = 1;
@@ -78,7 +99,31 @@ public class SnailAssalt extends ApplicationAdapter {
         jimmy = new Player();
         //enemies start
         standardSnail = new Enemy();
-        //pull vivian's enemies later
+        frame1 = new Texture("snail.png");
+        frame2 = new Texture("standardsnail2.png");
+        snail = new Animation(0.7f, new TextureRegion(frame1), new TextureRegion(frame2));
+        snail.setPlayMode(Animation.PlayMode.LOOP);
+        acidSnail = new Enemy();
+        frame3= new Texture("acid snail.png");
+        frame4= new Texture("acid snail2.png");
+        acidsnail= new Animation(0.4f,new TextureRegion(frame3), new TextureRegion(frame4));
+        acidsnail.setPlayMode(Animation.PlayMode.LOOP);
+        flyingSnail = new Enemy();
+        frame5= new Texture("flying snail.png");
+        frame6= new Texture("flying snail2.png");
+        flyingsnail=new Animation(0.25f, new TextureRegion(frame5), new TextureRegion(frame6));
+        flyingsnail.setPlayMode(Animation.PlayMode.LOOP);
+        healerSnail = new Enemy();
+        frame7= new Texture("healsnail.png");
+        frame8=new Texture("healsnail2.png");
+        healsnail=new Animation(0.6f,new TextureRegion(frame7),new TextureRegion(frame8));
+        healsnail.setPlayMode(Animation.PlayMode.LOOP);
+        motherSnail = new Enemy();
+        people = new Enemy();
+        boss = new Enemy();
+        house = new Texture("house.png");
+        houseBroken=new Texture("housebroken.png");
+        houseGameOver=new Texture("housegameover.png");
         //enemies end
         resetGame();
     }
@@ -95,7 +140,29 @@ public class SnailAssalt extends ApplicationAdapter {
         loseButton.buttonPosition.set(loseButton.getXPos(), loseButton.getYPos());
         //buttons end
         //enemies start
-        //pull vivian's enemy stats later
+        standardSnail.standardSnailBound.x = 400;
+        standardSnail.standardSnailBound.y = 400;
+        standardSnail.hp = 10;
+        acidSnail.acidSnailBound.x = 600;
+        acidSnail.acidSnailBound.y = 600;
+        acidSnail.hp = 40;
+        flyingSnail.flyingSnailBound.x = 200;
+        flyingSnail.flyingSnailBound.y = 400;
+        flyingSnail.hp = 10;
+        healerSnail.healerSnailBound.x = 400;
+        healerSnail.healerSnailBound.y = 600;
+        healerSnail.hp = 20;
+        motherSnail.motherSnailBound.x = 0;
+        motherSnail.motherSnailBound.y = 0;
+        motherSnail.hp = 30;
+        people.peopleBound.x = 0;
+        people.peopleBound.y = 0;
+        people.hp = 40;
+        boss.bossBound.x = 0;
+        boss.bossBound.y = 0;
+        boss.hp = 100;
+        houseHp = 50;
+
         //enemies end
     }
     public Vector3 getTapPosition() {
@@ -103,6 +170,8 @@ public class SnailAssalt extends ApplicationAdapter {
         return camera.unproject(temp);
     }
     public void updateGame(){
+        float deltaTime = Gdx.graphics.getDeltaTime();
+        time += deltaTime;
         if (gameState == stateMainMenu) {
             if (Gdx.input.justTouched() && startButtonMenu.buttonBound.contains(getTapPosition().x, getTapPosition().y))
                 gameState = stateLevelSelect;
@@ -124,6 +193,9 @@ public class SnailAssalt extends ApplicationAdapter {
                 gameState = stateGameOver;
             if (standardSnail.standardSnailBound.contains(Gdx.input.getX(), Gdx.input.getY()))
                 standardSnail.standardSnailBound.x = 400;
+            if(houseHp==0){
+                gameState=stateGameOver;
+            }
             //some code here to determine loss condition
         }
         else if (gameState == stateGameOver) {
@@ -153,12 +225,33 @@ public class SnailAssalt extends ApplicationAdapter {
             font.draw(batch, "Current state: shop", 10, height - 50);
         }
         else if (gameState == stateInGame) {
+            batch.draw(balloon,width/2,height/2);
             batch.draw(loseButton.buttonImage, loseButton.buttonPosition.x, loseButton.buttonPosition.y);
             batch.draw(jimmy.jimmy, 0, 0);
-            batch.draw(standardSnail.standardSnail, standardSnail.standardSnailBound.x, standardSnail.standardSnailBound.y);
+            batch.draw(snail.getKeyFrame(time), standardSnail.standardSnailBound.x, standardSnail.standardSnailBound.y);
             if (standardSnail.standardSnailBound.contains(Gdx.input.getX(), Gdx.input.getY())) {
                 batch.draw(standardSnail.standardSnail, standardSnail.standardSnailBound.x, standardSnail.standardSnailBound.y);
             }
+            batch.draw(acidsnail.getKeyFrame(time),acidSnail.acidSnailBound.x,acidSnail.acidSnailBound.y);
+            if (acidSnail.acidSnailBound.contains(Gdx.input.getX(), Gdx.input.getY())){
+                batch.draw(acidSnail.acidSnail, acidSnail.acidSnailBound.x, acidSnail.acidSnailBound.y);
+            }
+            batch.draw(flyingsnail.getKeyFrame(time),flyingSnail.flyingSnailBound.x,flyingSnail.flyingSnailBound.y);
+            if(flyingSnail.flyingSnailBound.contains(Gdx.input.getX(),Gdx.input.getY())){
+               batch.draw(flyingSnail.flyingSnail, flyingSnail.flyingSnailBound.x,flyingSnail.flyingSnailBound.y);
+            }
+            batch.draw(healsnail.getKeyFrame(time),healerSnail.healerSnailBound.x,healerSnail.healerSnailBound.y);
+            if(standardSnail.standardSnailBound.contains(Gdx.input.getX(),Gdx.input.getY())){
+                batch.draw(healerSnail.healerSnail,healerSnail.healerSnailBound.x,healerSnail.healerSnailBound.y);
+            }
+            if(houseHp>35){
+                batch.draw(house,-300,0);
+            }else if(houseHp<35& houseHp>10){
+                batch.draw(houseBroken,-300,0);
+            }else if(houseHp<10){
+                batch.draw(houseGameOver,-300,0);
+            }
+
             font.draw(batch, "Current state: in-game", 10, height - 50);
         }
         else if (gameState == stateGameOver) {
