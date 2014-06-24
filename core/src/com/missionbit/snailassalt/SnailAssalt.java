@@ -26,6 +26,7 @@ public class SnailAssalt extends ApplicationAdapter {
     private Player jimmy;
     private Weapon waterGun;
     private Hydra hydra;
+    private Supersoaker supersoaker;
     float time = 0;
 
     //buttons start
@@ -67,6 +68,7 @@ public class SnailAssalt extends ApplicationAdapter {
         jimmy = new Player();
         waterGun = new Weapon();
         hydra = new Hydra();
+        supersoaker = new Supersoaker();
         water = new ArrayList<Projectile>();
         tap = new Vector3(); //location of tap
         //game states start
@@ -262,6 +264,7 @@ public class SnailAssalt extends ApplicationAdapter {
             batch.draw(jimmy.sprite, 0, 0);
             waterGun.sprite.draw(batch);
             hydra.sprite.draw(batch);
+            //supersoaker.sprite.draw(batch);
             batch.draw(hydraOn.image, hydraOn.position.x, hydraOn.position.y);
 
             for (Projectile proj : water) {
