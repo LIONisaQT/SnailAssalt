@@ -23,4 +23,7 @@ public class Level1 {
         enemies.add(new FlyingSnail(0,100,10,0));
         return enemies;
     }
+    public String getLevelName() {
+        return "1";
+    }
 }

@@ -24,6 +24,9 @@ public class SnailAssalt extends ApplicationAdapter {
     private Texture background;
     private BitmapFont font;
     private Player jimmy;
+    private Weapon waterGun;
+    float time = 0;
+
     //buttons start
     private StartButton startButtonMenu;
     private ShopButton shopButtonMenu;
@@ -33,35 +36,19 @@ public class SnailAssalt extends ApplicationAdapter {
     private Level1Button level1button;
     //level buttons end
     //buttons end
-
     //enemies start
-
-    float time = 0;
-    private Enemy motherSnail;
-    private Enemy people;
-    private Enemy boss;
-
-    private Texture house;
-    private Texture houseBroken;
-    private Texture houseGameOver;
-    private int houseHp;
-    // game states -- 1 int to hold current game state, 5 ints to hold MAIN game states
-
-    //levels -- 1 String to hold current level, [int] Strings to hold levels
-    //private ArrayList<Levels> levels;
-
-    //private String currentLevel, level1, level2;
-
     //levels start
     private Level1 level1;
     //levels end
-    //game states
     private int gameState, stateMainMenu, stateInGame, stateGameOver, stateShop, stateLevelSelect;
-    private ArrayList<Enemy> temp;
-    private ArrayList<Projectile> water;
-    private Weapon waterGun;
+    private ArrayList<Enemy> temp; //holds level's enemy arraylist
+    private ArrayList<Projectile> water; //holds watergun shots
 
-	@Override
+    //TEMP SHIT
+    private int houseHp;
+    private Texture house;
+    private Texture houseBroken;
+    private Texture houseGameOver;
     public void render () {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -75,13 +62,10 @@ public class SnailAssalt extends ApplicationAdapter {
         camera = new OrthographicCamera(width, height);
         font = new BitmapFont(Gdx.files.internal("font.fnt"), Gdx.files.internal("font.png"), false);
         background = new Texture("sidewaysmenu.png");
-
-
         jimmy = new Player();
         waterGun = new Weapon();
         water = new ArrayList<Projectile>();
         tap = new Vector3(); //location of tap
-
         //game states start
         stateMainMenu = 0;
         stateInGame = 1;
@@ -97,24 +81,21 @@ public class SnailAssalt extends ApplicationAdapter {
         backButtonLevelSelect = new BackButton(width - 210, 10);
         loseButton = new LoseButton(width - 210, height - 210);
         //level buttons start
-        level1button = new Level1Button();
+        level1button = new Level1Button(10, height - 410); //values given to level 1 button, eventually overridden
         //level buttons end
         //buttons end
-
         jimmy = new Player();
         //enemies start
-//        motherSnail = new Enemy();
-//        people = new Enemy();
-//        boss = new Enemy();
-       house = new Texture("house.png");
-        houseBroken=new Texture("housebroken.png");
-        houseGameOver=new Texture("housegameover.png");
         //enemies end
-
         //levels start
         level1 = new Level1(level1button);
         //levels end
 
+        //TEMP SHIT
+        house = new Texture("house.png");
+        houseBroken=new Texture("housebroken.png");
+        houseGameOver=new Texture("housegameover.png");
+        houseHp = 50;
         resetGame();
     }
     public void resetGame(){
@@ -129,53 +110,56 @@ public class SnailAssalt extends ApplicationAdapter {
         level1button.position.set(level1button.getXPos(), level1button.getYPos());
         loseButton.position.set(loseButton.getXPos(), loseButton.getYPos());
         //buttons end
-
-        //enemies start
-
-        houseHp = 50;
-
-        //enemies end
-
         camera.position.set((float)width/2, (float)height/2, 0);
-
     }
     public static Vector3 getTapPosition() { //gets and translates coordinates of tap to game world coordinates
         tap.set(Gdx.input.getX(), Gdx.input.getY(),0);
         return camera.unproject(tap);
     }
-
     public void updateGame() {
-        time=time+Gdx.graphics.getDeltaTime();
+        time+=Gdx.graphics.getDeltaTime();
+        // *** main menu currently contains ***
+        // main menu --> level select
+        // main menu --> shop
+        // ***
         if (gameState == stateMainMenu) { //in main menu
             if (Gdx.input.justTouched() && startButtonMenu.bound.contains(getTapPosition().x, getTapPosition().y))
                 gameState = stateLevelSelect; //go to level select
             if (Gdx.input.justTouched() && shopButtonMenu.bound.contains(getTapPosition().x, getTapPosition().y))
                 gameState = stateShop; //go to shop
-
         }
+        // *** shop currently contains ***
+        // shop --> main menu
+        // ***
         else if (gameState == stateShop) { //in shop
             if (Gdx.input.justTouched() && backButtonShop.bound.contains(getTapPosition().x, getTapPosition().y))
                 gameState = stateMainMenu; //go to main menu
         }
+        // *** level select currently contains ***
+        // level select --> in-game
+        // level select --> main menu
+        // ***
         else if (gameState == stateLevelSelect) { //in level select
             if (Gdx.input.justTouched()) {
-                if (level1button.bound.contains(getTapPosition().x, getTapPosition().y)) {
+                if (level1button.bound.contains(getTapPosition().x, getTapPosition().y)) { //play level 1
                     level1button.isPressed(); //level 1 returns true
-                    temp = level1.getEnemies();
+                    temp = level1.getEnemies(); //temp arraylist now holds level 1's enemies
                     gameState = stateInGame; //go in-game
                 }
-            }
-            if (Gdx.input.justTouched() && backButtonLevelSelect.bound.contains(getTapPosition().x, getTapPosition().y))
-                gameState = stateMainMenu; //go to main menu
+                if (backButtonLevelSelect.bound.contains(getTapPosition().x, getTapPosition().y))
+                    gameState = stateMainMenu;
+            } //go to main menu
         }
-
-
-
-            //some code here to determine loss condition
-
+        // *** in-game currently contains ***
+        // watergun logic
+        // projectile logic
+        // updates enemy arraylist
+        // loss condition
+        // in-game --> game over
+        // ***
         else if (gameState == stateInGame) { //in-game
             waterGun.Update(water);
-            for (int i = 0; i < water.size(); i++) { //projectiles hit detection
+            for (int i = 0; i < water.size(); i++) { //projectiles
                 Projectile proj = water.get(i);
                 proj.Update();
                 if (proj.bound.y >= height) {
@@ -188,7 +172,6 @@ public class SnailAssalt extends ApplicationAdapter {
                 }
                 boolean projectileHit = false;
                 for (int a = 0; a < temp.size(); a++) {
-
                     if (proj.bound.overlaps(temp.get(a).bound)) {
                         projectileHit = true;
                         temp.remove(a);
@@ -204,16 +187,17 @@ public class SnailAssalt extends ApplicationAdapter {
             }
             if (loseButton.bound.contains(getTapPosition().x, getTapPosition().y))
                 gameState = stateGameOver; //go to game over
-            if(houseHp==0) {
-                gameState = stateGameOver;
-            }
+            if (houseHp==0) //loss condition
+                gameState = stateGameOver; //go to game over
         }
-        //some code here to determine loss condition
+        // *** game over currently contains ***
+        // disposes temp arraylist
+        // game over --> main menu
+        // ***
         else if (gameState == stateGameOver) { //in game over
             if (Gdx.input.justTouched() && backButtonGameOver.bound.contains(getTapPosition().x, getTapPosition().y)) {
                 for (int a = 0; a < temp.size(); a++) {
-                    temp.get(a).dispose();
-
+                    temp.get(a).dispose(); //need to dispose everything in the arraylist to save memory
                 }
                 gameState = stateMainMenu; //go to main menu
             }
@@ -251,28 +235,37 @@ public class SnailAssalt extends ApplicationAdapter {
             batch.draw(backButtonShop.image, backButtonShop.position.x, backButtonShop.position.y);
             font.draw(batch, "Current state: shop", 10, height - 50);
         }
-
-        else if (gameState == stateInGame && level1button.isPressed()) { //in level 1
+        // *** in-game currently contains ***
+        // lose button
+        // back button
+        // jimmy
+        // watergun
+        // projectile
+        // draws and animates enemies
+        // [TEMP] house code
+        // ***
+        else if (gameState == stateInGame) { //in-game
             batch.draw(loseButton.image, loseButton.position.x, loseButton.position.y);
             batch.draw(jimmy.sprite, 0, 0);
             waterGun.sprite.draw(batch);
             for (Projectile proj : water) {
                 proj.shot.draw(batch);
             }
-
-            if(houseHp>35){
-                batch.draw(house,-300,0);
-            }else if(houseHp<35& houseHp>10){
-                batch.draw(houseBroken,-300,0);
-            }else if(houseHp<10){
-                batch.draw(houseGameOver,-300,0);
+            //move house code to House.java
+            if (houseHp > 35) {
+                batch.draw(house, -300, 0);
+            } else if (houseHp < 35 & houseHp > 10) {
+                batch.draw(houseBroken, -300, 0);
+            } else if (houseHp < 10) {
+                batch.draw(houseGameOver, -300, 0);
             }
-            for(int a=0; a<temp.size();a++){
-                temp.get(a).draw(batch,time);
+            for (int a = 0; a < temp.size(); a++) { //draws and animates enemies
+                temp.get(a).draw(batch, time);
             }
-
+            if (level1button.isPressed()) { //in level 1
+                font.draw(batch, "Current level: " + level1.getLevelName(), 10, 90);
+            }
             font.draw(batch, "Number of snails: " + temp.size(), 10, 50);
-
             font.draw(batch, "Current state: in-game", 10, height - 50);
         }
         // *** game over screen currently contains ***

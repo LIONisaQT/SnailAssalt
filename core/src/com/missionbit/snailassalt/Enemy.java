@@ -45,14 +45,12 @@ public class Enemy {
         }
         if (this.bound.y <= SnailAssalt.camera.position.y - height / 2) {
             this.speed.y = -this.speed.y;
-            //yas
         }
     }
     public void move() {
 
     }
     public void draw(SpriteBatch batch,float time){
-
         batch.draw(animation.getKeyFrame(time),bound.x,bound.y);
     }
     public void dispose(){
