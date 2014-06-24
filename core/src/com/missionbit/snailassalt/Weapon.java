@@ -18,9 +18,11 @@ public class Weapon {
     public Rectangle bound;
     public Vector2 speed;
     public float touch, touchY, deltaX, deltaY, rot;
-
     public Weapon(){
-        sprite = new Sprite(new Texture("waterGun.png"));
+        this("waterGun.png");
+    }
+    public Weapon (String image) {
+        sprite = new Sprite(new Texture(image));
         sprite.setPosition(300, 30);
         bound = new Rectangle();
         speed = new Vector2();
@@ -30,6 +32,7 @@ public class Weapon {
         touchY = 0;
         rot = 0;
     }
+
     public void GunPosition(float a, float b){
         bound.x = a;
         bound.y = b;

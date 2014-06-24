@@ -25,6 +25,7 @@ public class SnailAssalt extends ApplicationAdapter {
     private BitmapFont font;
     private Player jimmy;
     private Weapon waterGun;
+    private Hydra hydra;
     float time = 0;
 
     //buttons start
@@ -32,6 +33,7 @@ public class SnailAssalt extends ApplicationAdapter {
     private ShopButton shopButtonMenu;
     private BackButton backButtonShop, backButtonGameOver, backButtonLevelSelect; //different back buttons because their position will most likely be different
     private LoseButton loseButton;
+    private HydraOn hydraOn;
     //level buttons start
     private Level1Button level1button;
     //level buttons end
@@ -64,6 +66,7 @@ public class SnailAssalt extends ApplicationAdapter {
         background = new Texture("sidewaysmenu.png");
         jimmy = new Player();
         waterGun = new Weapon();
+        hydra = new Hydra();
         water = new ArrayList<Projectile>();
         tap = new Vector3(); //location of tap
         //game states start
@@ -80,6 +83,7 @@ public class SnailAssalt extends ApplicationAdapter {
         backButtonShop = new BackButton(width - 210, 10);
         backButtonLevelSelect = new BackButton(width - 210, 10);
         loseButton = new LoseButton(width - 210, height - 210);
+        hydraOn = new HydraOn(10, 510);
         //level buttons start
         level1button = new Level1Button(10, height - 410); //values given to level 1 button, eventually overridden
         //level buttons end
@@ -159,6 +163,15 @@ public class SnailAssalt extends ApplicationAdapter {
         // ***
         else if (gameState == stateInGame) { //in-game
             waterGun.Update(water);
+            if (Gdx.input.justTouched() && hydraOn.bound.contains(getTapPosition().x, getTapPosition().y)) {
+                hydraOn.isPressed();
+                if (hydraOn.isPressed()) {
+                    hydra.on();
+                }
+            }
+            if (hydra.on()) {
+                hydra.Update(water);
+            }
             for (int i = 0; i < water.size(); i++) { //projectiles
                 Projectile proj = water.get(i);
                 proj.Update();
@@ -248,6 +261,9 @@ public class SnailAssalt extends ApplicationAdapter {
             batch.draw(loseButton.image, loseButton.position.x, loseButton.position.y);
             batch.draw(jimmy.sprite, 0, 0);
             waterGun.sprite.draw(batch);
+            hydra.sprite.draw(batch);
+            batch.draw(hydraOn.image, hydraOn.position.x, hydraOn.position.y);
+
             for (Projectile proj : water) {
                 proj.shot.draw(batch);
             }

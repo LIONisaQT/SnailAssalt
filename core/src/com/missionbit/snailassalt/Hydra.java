@@ -45,6 +45,7 @@ public class Hydra extends Weapon {
                 proj3.speed.setAngleRad(MathUtils.degreesToRadians * (rot+15));
             }
     }
+
 }
 
 
