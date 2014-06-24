@@ -15,6 +15,7 @@ public class Projectile {
     public Sprite shot;
     public Rectangle bound;
     public Vector2 speed;
+
     public Projectile() {
         agua = new Texture("water.png");
         shot = new Sprite(agua,0,0,agua.getWidth(),agua.getHeight());
@@ -23,6 +24,7 @@ public class Projectile {
         shot.setPosition(bound.x, bound.y);
         speed = new Vector2();
         speed.set(6, 6);
+
     }
     public void move(float x,float y) {
         bound.x=x;
