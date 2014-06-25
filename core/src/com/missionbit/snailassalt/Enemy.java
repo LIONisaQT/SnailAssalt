@@ -2,6 +2,7 @@ package com.missionbit.snailassalt;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * Created by douglas on 6/17/14.
@@ -9,6 +10,7 @@ import com.badlogic.gdx.math.Rectangle;
 public class Enemy {
     public Texture standardSnail;
     public Rectangle standardSnailBound;
+    public Vector2 velocity;
     public int hp;
     public Texture acidSnail;
     public Rectangle acidSnailBound;
@@ -37,5 +39,8 @@ public class Enemy {
         peopleBound = new Rectangle(50,300, people.getWidth(),people.getHeight());
         boss = new Texture("snail.png");
         bossBound = new Rectangle(50,350,boss.getWidth(),boss.getHeight());
+        velocity = new Vector2();
+        velocity.set(0,0);
+
     }
 }
