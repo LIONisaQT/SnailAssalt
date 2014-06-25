@@ -1,46 +1,63 @@
 package com.missionbit.snailassalt;
-
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-
 /**
  * Created by douglas on 6/17/14.
  */
 public class Enemy {
-    public Texture standardSnail;
-    public Rectangle standardSnailBound;
-    public Vector2 velocity;
+    public Rectangle bound;
+    public Vector2 speed;
+    float width, height;
     public int hp;
-    public Texture acidSnail;
-    public Rectangle acidSnailBound;
-    public Texture flyingSnail;
-    public Rectangle flyingSnailBound;
-    public Texture healerSnail;
-    public Rectangle healerSnailBound;
-    public Texture motherSnail;
-    public Rectangle motherSnailBound;
-    public Texture people;
-    public Rectangle peopleBound;
-    public Texture boss;
-    public Rectangle bossBound;
-    public Enemy() {
-        standardSnail = new Texture("snail.png");
-        standardSnailBound = new Rectangle(50,50,standardSnail.getWidth(),standardSnail.getHeight());
-        acidSnail= new Texture("snail.png");
-        acidSnailBound = new Rectangle(50,100,acidSnail.getWidth(),acidSnail.getHeight());
-        flyingSnail = new Texture("snail.png");
-        flyingSnailBound= new Rectangle(50,150,flyingSnail.getWidth(),flyingSnail.getHeight());
-        healerSnail = new Texture("snail.png");
-        healerSnailBound = new Rectangle(50,200,healerSnail.getWidth(),healerSnail.getHeight());
-        motherSnail =new Texture("snail.png");
-        motherSnailBound = new Rectangle(50,250,motherSnail.getWidth(),motherSnail.getHeight());
-        people = new Texture("snail.png");
-        peopleBound = new Rectangle(50,300, people.getWidth(),people.getHeight());
-        boss = new Texture("snail.png");
-        bossBound = new Rectangle(50,350,boss.getWidth(),boss.getHeight());
-        velocity = new Vector2();
-        velocity.set(0,0);
+    protected Texture frame1;
+    protected Texture frame2;
+    protected Animation animation;
+    public Enemy(float x, float y, float xSpeed, float ySpeed) {
+        this(x,y,xSpeed,ySpeed,"snail.png","standardsnail2.png");
+    }
+    public Enemy(float x, float y, float xSpeed, float ySpeed,String name, String name2) {
+        width = Gdx.graphics.getWidth();
+        height = Gdx.graphics.getHeight();
+        frame1 = new Texture(name);
+        frame2 = new Texture(name2);
+        animation = new Animation(0.4f, new TextureRegion(frame1), new TextureRegion(frame2));
+        animation.setPlayMode(Animation.PlayMode.LOOP);
+        speed = new Vector2();
+        bound = new Rectangle(x, y, frame1.getWidth(), frame1.getHeight());
+        speed.set(xSpeed, ySpeed);
+    }
+    public void Update() {
+        this.bound.x = this.bound.x + this.speed.x;
+        this.bound.y = this.bound.y + this.speed.y;
+        if (this.bound.x >= SnailAssalt.camera.position.x + width / 2) {
+            this.speed.x = -this.speed.x;
+        }
+        if (this.bound.x <= SnailAssalt.camera.position.x - width / 2) {
+            this.speed.x = -this.speed.x;
+        }
+        if (this.bound.y >= SnailAssalt.camera.position.y + height / 2) {
+            this.speed.y = -this.speed.y;
+        }
+        if (this.bound.y <= SnailAssalt.camera.position.y - height / 2) {
+            this.speed.y = -this.speed.y;
+            //yas
+        }
+    }
+    public void move() {
+
+    }
+    public void draw(SpriteBatch batch,float time){
+
+        batch.draw(animation.getKeyFrame(time),bound.x,bound.y);
+    }
+    public void dispose(){
+        frame1.dispose();
+        frame2.dispose();
 
     }
 }

@@ -10,13 +10,13 @@ public class StartButton extends Button {
     public StartButton(float x, float y) {
         xPos = x;
         yPos = y;
-        buttonPosition = new Vector2();
-        buttonBound = new Rectangle();
-        buttonImage = new Texture("start.png");
-        buttonBound.set(getXPos(), getYPos(), buttonGetWidth(), buttonGetHeight());
+        position = new Vector2();
+        bound = new Rectangle();
+        image = new Texture("start.png");
+        bound.set(getXPos(), getYPos(), buttonGetWidth(), buttonGetHeight());
     }
     public float getXPos() {return xPos;}
     public float getYPos() {return yPos;}
-    public float buttonGetWidth() {return buttonImage.getWidth();}
-    public float buttonGetHeight() {return buttonImage.getHeight();}
+    public float buttonGetWidth() {return image.getWidth();}
+    public float buttonGetHeight() {return image.getHeight();}
 }

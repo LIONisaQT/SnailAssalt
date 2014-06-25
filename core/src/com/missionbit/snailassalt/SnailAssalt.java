@@ -115,7 +115,6 @@ public class SnailAssalt extends ApplicationAdapter {
     public void updateGame(){
         float deltaTime = Gdx.graphics.getDeltaTime();
         time += deltaTime;
-
         if (gameState == stateMainMenu) {
             if (Gdx.input.justTouched() && startButtonMenu.buttonBound.contains(getTapPosition().x, getTapPosition().y))
                 gameState = stateLevelSelect;
@@ -133,11 +132,8 @@ public class SnailAssalt extends ApplicationAdapter {
                 gameState = stateMainMenu;
         }
         else if (gameState == stateInGame) {
-            if (Gdx.input.justTouched() && loseButton.buttonBound.contains(getTapPosition().x, getTapPosition().y)) {
-                standardSnail.velocity.x = 200;
+            if (Gdx.input.justTouched() && loseButton.buttonBound.contains(getTapPosition().x, getTapPosition().y))
                 gameState = stateGameOver;
-
-            }
             if (standardSnail.standardSnailBound.contains(Gdx.input.getX(), Gdx.input.getY()))
                 standardSnail.standardSnailBound.x = 400;
             //some code here to determine loss condition
