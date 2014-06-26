@@ -17,6 +17,7 @@ public class SnailAssalt extends ApplicationAdapter {
     private int width, height;
     private static Vector3 tap;
     private Texture background;
+    private Texture lawn;
     private BitmapFont font;
     private Player jimmy;
     //buttons start
@@ -72,6 +73,7 @@ public class SnailAssalt extends ApplicationAdapter {
         camera = new OrthographicCamera(width, height);
         font = new BitmapFont(Gdx.files.internal("font.fnt"), Gdx.files.internal("font.png"), false);
         background = new Texture("sidewaysmenu.png");
+        lawn = new Texture("lawn.jpeg");
         losingscreen = new Texture("gameover.png");
 
 
@@ -252,8 +254,9 @@ public class SnailAssalt extends ApplicationAdapter {
         }
 
         else if (gameState == stateInGame && level1button.isPressed()) { //in level 1
+            batch.draw(lawn,0,0);
             batch.draw(loseButton.image, loseButton.position.x, loseButton.position.y);
-            batch.draw(jimmy.sprite, 0, 0);
+           // batch.draw(jimmy.sprite, 0, 0);
             waterGun.sprite.draw(batch);
             for (Projectile proj : water) {
                 proj.shot.draw(batch);
