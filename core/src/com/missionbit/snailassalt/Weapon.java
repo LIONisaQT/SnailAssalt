@@ -18,6 +18,7 @@ public class Weapon {
     public Rectangle bound;
     public Vector2 speed;
     public float touch, touchY, deltaX, deltaY, rot;
+    public int str,waterLimit;
     public Weapon(){
         this("waterGun.png");
     }
@@ -31,6 +32,8 @@ public class Weapon {
         touch = 0;
         touchY = 0;
         rot = 0;
+        str = 2;
+        waterLimit=15;
     }
 
     public void GunPosition(float a, float b){
@@ -40,7 +43,7 @@ public class Weapon {
         sprite.setY(b);
     }
     public void Update(ArrayList<Projectile> water) {
-        if (Gdx.input.justTouched()) {
+        if (Gdx.input.justTouched() && waterLimit>=0 ) {
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
             deltaX = touch - sprite.getX();
@@ -51,6 +54,11 @@ public class Weapon {
             water.add(proj);
             proj.bound.setPosition(this.bound.x, this.bound.y);
             proj.speed.setAngleRad(MathUtils.degreesToRadians * rot);
+            waterLimit--;
+        }
+
+
+
         }
     }
-}
+

@@ -30,6 +30,7 @@ public class Enemy {
         speed = new Vector2();
         bound = new Rectangle(x, y, frame1.getWidth(), frame1.getHeight());
         speed.set(xSpeed, ySpeed);
+        hp= 10;
     }
     public void Update() {
         this.bound.x = this.bound.x + this.speed.x;

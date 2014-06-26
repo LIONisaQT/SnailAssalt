@@ -26,6 +26,7 @@ public class SnailAssalt extends ApplicationAdapter {
     private Player jimmy;
     private Weapon waterGun;
     private Hydra hydra;
+    private Snailshell shell;
     float time = 0;
 
     //buttons start
@@ -83,12 +84,13 @@ public class SnailAssalt extends ApplicationAdapter {
         backButtonShop = new BackButton(width - 210, 10);
         backButtonLevelSelect = new BackButton(width - 210, 10);
         loseButton = new LoseButton(width - 210, height - 210);
-        hydraOn = new HydraOn(10, 510);
+        hydraOn = new HydraOn(width-210, height-500);
         //level buttons start
         level1button = new Level1Button(10, height - 410); //values given to level 1 button, eventually overridden
         //level buttons end
         //buttons end
         jimmy = new Player();
+        shell = new Snailshell();
         //enemies start
         //enemies end
         //levels start
@@ -113,8 +115,12 @@ public class SnailAssalt extends ApplicationAdapter {
         backButtonShop.position.set(backButtonShop.getXPos(), backButtonShop.getYPos());
         level1button.position.set(level1button.getXPos(), level1button.getYPos());
         loseButton.position.set(loseButton.getXPos(), loseButton.getYPos());
+        hydraOn.position.set(hydraOn.getXPos(),hydraOn.getYPos());
+
         //buttons end
         camera.position.set((float)width/2, (float)height/2, 0);
+        waterGun.waterLimit=15;
+
     }
     public static Vector3 getTapPosition() { //gets and translates coordinates of tap to game world coordinates
         tap.set(Gdx.input.getX(), Gdx.input.getY(),0);
@@ -163,15 +169,21 @@ public class SnailAssalt extends ApplicationAdapter {
         // ***
         else if (gameState == stateInGame) { //in-game
             waterGun.Update(water);
+            Gdx.app.log("state is", "" +hydraOn.state);
             if (Gdx.input.justTouched() && hydraOn.bound.contains(getTapPosition().x, getTapPosition().y)) {
+                hydraOn.state = true;
                 hydraOn.isPressed();
                 if (hydraOn.isPressed()) {
-                    hydra.on();
+                   hydra.state = true;
+
+
                 }
             }
-            if (hydra.on()) {
+            if (hydra.state==true) {
                 hydra.Update(water);
             }
+            Gdx.app.log("state is now", "" +hydraOn.state);
+
             for (int i = 0; i < water.size(); i++) { //projectiles
                 Projectile proj = water.get(i);
                 proj.Update();
@@ -187,7 +199,15 @@ public class SnailAssalt extends ApplicationAdapter {
                 for (int a = 0; a < temp.size(); a++) {
                     if (proj.bound.overlaps(temp.get(a).bound)) {
                         projectileHit = true;
-                        temp.remove(a);
+                        temp.get(a).hp=temp.get(a).hp - waterGun.str;
+                        if (temp.get(a).hp<=0){
+                            shell.sprite.setPosition(temp.get(a).bound.x,temp.get(a).bound.y);
+                            temp.remove(a);
+
+
+
+                        }
+
                     }
                 }
                 if (projectileHit) {
@@ -208,6 +228,7 @@ public class SnailAssalt extends ApplicationAdapter {
         // game over --> main menu
         // ***
         else if (gameState == stateGameOver) { //in game over
+            waterGun.waterLimit=15;
             if (Gdx.input.justTouched() && backButtonGameOver.bound.contains(getTapPosition().x, getTapPosition().y)) {
                 for (int a = 0; a < temp.size(); a++) {
                     temp.get(a).dispose(); //need to dispose everything in the arraylist to save memory
@@ -261,9 +282,13 @@ public class SnailAssalt extends ApplicationAdapter {
             batch.draw(loseButton.image, loseButton.position.x, loseButton.position.y);
             batch.draw(jimmy.sprite, 0, 0);
             waterGun.sprite.draw(batch);
-            hydra.sprite.draw(batch);
-            batch.draw(hydraOn.image, hydraOn.position.x, hydraOn.position.y);
 
+            if (hydra.on()){
+                hydra.sprite.draw(batch);
+            }
+
+            batch.draw(hydraOn.image, hydraOn.position.x,hydraOn.position.y);
+            shell.sprite.draw(batch);
             for (Projectile proj : water) {
                 proj.shot.draw(batch);
             }
@@ -277,12 +302,19 @@ public class SnailAssalt extends ApplicationAdapter {
             }
             for (int a = 0; a < temp.size(); a++) { //draws and animates enemies
                 temp.get(a).draw(batch, time);
+                if(temp.get(a).hp<=0){
+                    //shell.sprite.draw(batch);
+
+
+
+                }
             }
             if (level1button.isPressed()) { //in level 1
                 font.draw(batch, "Current level: " + level1.getLevelName(), 10, 90);
             }
             font.draw(batch, "Number of snails: " + temp.size(), 10, 50);
             font.draw(batch, "Current state: in-game", 10, height - 50);
+            font.draw(batch,"water Limit"+waterGun.waterLimit,10,height-75);
         }
         // *** game over screen currently contains ***
         // back button
@@ -291,6 +323,7 @@ public class SnailAssalt extends ApplicationAdapter {
             batch.draw(backButtonGameOver.image, backButtonGameOver.position.x, backButtonGameOver.position.y);
             font.draw(batch, "Game Over", 10, 50);
             font.draw(batch, "Current state: game over", 10, height - 50);
+
         }
         font.draw(batch, "Resolution: " + width + ", " + height, 10, height); //we keep forgetting the screen resolution T___T
         batch.end();

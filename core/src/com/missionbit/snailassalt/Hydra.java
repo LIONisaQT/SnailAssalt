@@ -13,13 +13,12 @@ import java.util.ArrayList;
  * Created by douglas on 6/23/14.
  */
 public class Hydra extends Weapon {
+    public boolean state =false;
     public Hydra()
     {
         super("hydra.png");
     }
-    public boolean on(){
-        return true;
-    }
+    public boolean on(){return state;}
 
 
 
