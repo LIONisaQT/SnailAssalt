@@ -8,7 +8,7 @@ public class Level1Button extends Button {
         super(x, y);
         image = new Texture("level1.png");
     }
-    public boolean isPressed() {return true;}
+
     public int numberOfEnemies() {
         return 5;
     }

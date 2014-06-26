@@ -14,6 +14,7 @@ public class Button {
     protected Rectangle bound;
     protected Vector2 position;
     protected float width, height;
+    public boolean on;
     public Button(float x, float y) {
         image = new Texture("badlogic.jpg");
         xPos = x;
@@ -23,6 +24,7 @@ public class Button {
         bound.set(getXPos(), getYPos(), buttonGetWidth(), buttonGetHeight());
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
+        on=false;
     }
     public void draw(SpriteBatch batch) {
         batch.draw(this.image, this.position.x, this.position.y);
@@ -31,4 +33,9 @@ public class Button {
     public float getYPos() {return yPos;}
     public float buttonGetWidth() {return image.getWidth();}
     public float buttonGetHeight() {return image.getHeight();}
+    public boolean isPressed() {
+        return  (Gdx.input.justTouched() && this.bound.contains(SnailAssalt.getTapPosition().x,SnailAssalt.getTapPosition().y));
+    }
+
+
 }
