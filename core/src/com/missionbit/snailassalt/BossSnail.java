@@ -1,7 +1,7 @@
 package com.missionbit.snailassalt;
 
 /**
- * Created by linchen on 6/26/14.
+ Created by linchen on 6/26/14.
  */
 
 public class BossSnail extends Enemy {
