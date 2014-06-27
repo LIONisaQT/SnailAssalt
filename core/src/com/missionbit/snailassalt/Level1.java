@@ -19,8 +19,11 @@ public class Level1 {
         for (int a = 0; a < enemyCount; a++) {
             enemies.add(new Enemy(0, a * (height/4), 5, 0));
         }
+
         enemies.add(new AcidSnail(0, 100, 8, 0));
         enemies.add(new FlyingSnail(0,100,10,0));
+        enemies.add(new MotherSnail(0,100,5,0));
+        enemies.add(new Person(0,100,7,0));
         return enemies;
     }
     public String getLevelName() {
