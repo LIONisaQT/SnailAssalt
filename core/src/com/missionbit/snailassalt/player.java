@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 
 /**
- * Created by douglas on 6/17/14.
+  Created by douglas on 6/17/14.
  */
 public class Player {
     public Texture texture;
