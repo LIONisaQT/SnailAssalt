@@ -2,6 +2,7 @@ package com.missionbit.snailassalt;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -31,20 +32,11 @@ public class SnailAssalt extends ApplicationAdapter {
     private LoseButton loseButton;
     //level buttons start
     private Level1Button level1button;
+    private House house1;
     //level buttons end
     //buttons end
-
     //enemies start
-
     float time = 0;
-    private Enemy motherSnail;
-    private Enemy people;
-    private Enemy boss;
-
-    private Texture house;
-    private Texture houseBroken;
-    private Texture houseGameOver;
-    private int houseHp;
     // game states -- 1 int to hold current game state, 5 ints to hold MAIN game states
 
     //levels -- 1 String to hold current level, [int] Strings to hold levels
@@ -100,21 +92,10 @@ public class SnailAssalt extends ApplicationAdapter {
         level1button = new Level1Button();
         //level buttons end
         //buttons end
-
-        jimmy = new Player();
-        //enemies start
-//        motherSnail = new Enemy();
-//        people = new Enemy();
-//        boss = new Enemy();
-       house = new Texture("house.png");
-        houseBroken=new Texture("housebroken.png");
-        houseGameOver=new Texture("housegameover.png");
-        //enemies end
-
         //levels start
         level1 = new Level1(level1button);
         //levels end
-
+        house1= new House();
         resetGame();
     }
     public void resetGame(){
@@ -129,12 +110,6 @@ public class SnailAssalt extends ApplicationAdapter {
         level1button.position.set(level1button.getXPos(), level1button.getYPos());
         loseButton.position.set(loseButton.getXPos(), loseButton.getYPos());
         //buttons end
-
-        //enemies start
-
-        houseHp = 50;
-
-        //enemies end
 
         camera.position.set((float)width/2, (float)height/2, 0);
 
@@ -169,8 +144,6 @@ public class SnailAssalt extends ApplicationAdapter {
                 gameState = stateMainMenu; //go to main menu
         }
 
-
-
             //some code here to determine loss condition
 
         else if (gameState == stateInGame) { //in-game
@@ -204,7 +177,7 @@ public class SnailAssalt extends ApplicationAdapter {
             }
             if (loseButton.bound.contains(getTapPosition().x, getTapPosition().y))
                 gameState = stateGameOver; //go to game over
-            if(houseHp==0) {
+            if(house1.hp==0) {
                 gameState = stateGameOver;
             }
         }
@@ -260,17 +233,11 @@ public class SnailAssalt extends ApplicationAdapter {
                 proj.shot.draw(batch);
             }
 
-            if(houseHp>35){
-                batch.draw(house,-300,0);
-            }else if(houseHp<35& houseHp>10){
-                batch.draw(houseBroken,-300,0);
-            }else if(houseHp<10){
-                batch.draw(houseGameOver,-300,0);
-            }
             for(int a=0; a<temp.size();a++){
                 temp.get(a).draw(batch,time);
             }
 
+            house1.draw(batch);
             font.draw(batch, "Number of snails: " + temp.size(), 10, 50);
 
             font.draw(batch, "Current state: in-game", 10, height - 50);
