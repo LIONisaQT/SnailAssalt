@@ -27,6 +27,7 @@ public class SnailAssalt extends ApplicationAdapter {
     private Weapon waterGun;
     private Hydra hydra;
     private Snailshell shell;
+    public boolean snaildead;
     float time = 0;
 
     //buttons start
@@ -119,7 +120,7 @@ public class SnailAssalt extends ApplicationAdapter {
         level1button.position.set(level1button.getXPos(), level1button.getYPos());
         loseButton.position.set(loseButton.getXPos(), loseButton.getYPos());
         hydraOn.position.set(hydraOn.getXPos(),hydraOn.getYPos());
-
+        jimmy.curency=0;
         hydra.on(0);
         weaponState=regWep;
 
@@ -213,6 +214,10 @@ public class SnailAssalt extends ApplicationAdapter {
                             shell.sprite.setPosition(temp.get(a).bound.x, temp.get(a).bound.y);
                             temp.remove(a);
 
+                            snaildead = true;
+                            jimmy.curency += 10;
+
+
 
                         }
 
@@ -245,6 +250,7 @@ public class SnailAssalt extends ApplicationAdapter {
                 gameState = stateMainMenu; //go to main menu
             }
         }
+
     }
 
 
@@ -326,6 +332,7 @@ public class SnailAssalt extends ApplicationAdapter {
             font.draw(batch, "Number of snails: " + temp.size(), 10, 50);
             font.draw(batch, "Current state: in-game", 10, height - 50);
             font.draw(batch,"water Limit"+waterGun.waterLimit,10,height-75);
+            font.draw(batch, "Snailshells:" + jimmy.curency, 10, height - 250);
         }
         // *** game over screen currently contains ***
         // back button

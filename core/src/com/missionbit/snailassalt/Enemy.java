@@ -13,7 +13,7 @@ public class Enemy {
     public Rectangle bound;
     public Vector2 speed;
     float width, height;
-    public int hp;
+    public static int  hp;
     protected Texture frame1;
     protected Texture frame2;
     protected Animation animation;
