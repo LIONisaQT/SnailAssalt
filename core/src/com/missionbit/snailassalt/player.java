@@ -7,11 +7,12 @@ import com.badlogic.gdx.math.Rectangle;
 /**
  * Created by douglas on 6/17/14.
  */
-public class Player {
+class Player {
     public Texture texture;
     public Sprite sprite;
     public Rectangle bound;
     public int currentWaterGun, squirtGun, superSoaker;
+    public int currency;
     public Player () {
         texture = new Texture("jimmy.png");
         sprite = new Sprite(texture,60,60, texture.getWidth(), texture.getHeight());
@@ -19,6 +20,7 @@ public class Player {
         squirtGun = 0;
         superSoaker = 1;
         currentWaterGun = squirtGun;
+        currency = 0;
     }
     public void playerPosition(float c,float d){
         bound.setX(c);
