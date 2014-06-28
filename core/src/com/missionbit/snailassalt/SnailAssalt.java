@@ -44,13 +44,19 @@ public class SnailAssalt extends ApplicationAdapter {
     //levels start
     private Level1 level1;
     //levels end
-    private int gameState, stateMainMenu, stateInGame, stateGameOver, stateShop, stateLevelSelect,weaponState,regWep,hydraTurnOn;
+    private int gameState, stateMainMenu, stateInGame, stateGameOver, stateShop, stateLevelSelect;
+    public enum WeaponState{
+        REGWEAPON,HRYDRA
+    }
+    private WeaponState weaponState;
     private ArrayList<Enemy> temp; //holds level's enemy arraylist
     private ArrayList<Projectile> water; //holds watergun shots
+    //house
+    private House house;
 
     //TEMP SHIT
     private int houseHp;
-    private Texture house;
+    private Texture housepic;
     private Texture houseBroken;
     private Texture houseGameOver;
     public void render () {
@@ -77,9 +83,6 @@ public class SnailAssalt extends ApplicationAdapter {
         stateGameOver = 2;
         stateShop = 3;
         stateLevelSelect = 4;
-        hydraTurnOn=7;
-        weaponState=5;
-        regWep = 6;
         gameState = stateMainMenu;
         //buttons start
         startButtonMenu = new StartButton(10, 10);
@@ -102,10 +105,13 @@ public class SnailAssalt extends ApplicationAdapter {
         //levels end
 
         //TEMP SHIT
-        house = new Texture("house.png");
+        house =new House();
+        housepic = new Texture("house.png");
         houseBroken=new Texture("housebroken.png");
         houseGameOver=new Texture("housegameover.png");
         houseHp = 50;
+        weaponState = WeaponState.REGWEAPON;
+
         resetGame();
     }
     public void resetGame(){
@@ -122,7 +128,10 @@ public class SnailAssalt extends ApplicationAdapter {
         hydraOn.position.set(hydraOn.getXPos(),hydraOn.getYPos());
         jimmy.curency=0;
         hydra.on(0);
-        weaponState=regWep;
+        weaponState = WeaponState.REGWEAPON;
+        house.Housebounds.setPosition(900,0);
+
+        house.hp=1000;
 
 
         //buttons end
@@ -135,7 +144,8 @@ public class SnailAssalt extends ApplicationAdapter {
         return camera.unproject(tap);
     }
     public void updateGame() {
-        time += Gdx.graphics.getDeltaTime();
+        float deltaTime = Gdx.graphics.getDeltaTime();
+        time += deltaTime;
         // *** main menu currently contains ***
         // main menu --> level select
         // main menu --> shop
@@ -179,21 +189,19 @@ public class SnailAssalt extends ApplicationAdapter {
         else if (gameState == stateInGame) { //in-game
             waterGun.Update(water);
 
+
             if (hydraOn.isPressed()) {
-                if(weaponState==regWep){
-                    weaponState = hydraTurnOn;
+                if (weaponState == weaponState.REGWEAPON) {
+                    weaponState = weaponState.HRYDRA;
+                } else if (weaponState == WeaponState.HRYDRA) {
+                    weaponState = WeaponState.REGWEAPON;
                 }
-                else if(weaponState==hydraTurnOn){
-                    weaponState=regWep;
-                }
-              Gdx.app.log("weaponstate is", ""+weaponState);
+                Gdx.app.log("weaponstate is", "" + weaponState);
             }
-            if (weaponState == hydraTurnOn) {
+            if (weaponState == weaponState.HRYDRA) {
                 hydra.Update(water);
 
             }
-
-
             for (int i = 0; i < water.size(); i++) { //projectiles
                 Projectile proj = water.get(i);
                 proj.Update();
@@ -213,15 +221,12 @@ public class SnailAssalt extends ApplicationAdapter {
                         if (temp.get(a).hp <= 0) {
                             shell.sprite.setPosition(temp.get(a).bound.x, temp.get(a).bound.y);
                             temp.remove(a);
-
                             snaildead = true;
                             jimmy.curency += 10;
-
-
-
                         }
-
                     }
+
+
                 }
                 if (projectileHit) {
                     water.remove(i);
@@ -229,12 +234,16 @@ public class SnailAssalt extends ApplicationAdapter {
                 }
             }
             for (int a = 0; a < temp.size(); a++) {
-                temp.get(a).Update();
+
+                temp.get(a).Update(deltaTime);
+                if (temp.get(a).bound.overlaps(House.Housebounds)) {
+                    House.hp -= temp.get(a).Attack * Gdx.graphics.getDeltaTime();
+                }
+                if (loseButton.bound.contains(getTapPosition().x, getTapPosition().y))
+                    gameState = stateGameOver; //go to game over
+                if (houseHp == 0) //loss condition
+                    gameState = stateGameOver; //go to game over
             }
-            if (loseButton.bound.contains(getTapPosition().x, getTapPosition().y))
-                gameState = stateGameOver; //go to game over
-            if (houseHp == 0) //loss condition
-                gameState = stateGameOver; //go to game over
         }
         // *** game over currently contains ***
         // disposes temp arraylist
@@ -296,11 +305,14 @@ public class SnailAssalt extends ApplicationAdapter {
         // [TEMP] house code
         // ***
         else if (gameState == stateInGame) { //in-game
+            house.draw(batch,house.Housebounds.x,house.Housebounds.y);
+            Gdx.app.log("Housebounds x", "" + house.Housebounds.x);
+            Gdx.app.log("size of house pic",""+house.house1.getWidth());
             batch.draw(loseButton.image, loseButton.position.x, loseButton.position.y);
             batch.draw(jimmy.sprite, 0, 0);
             waterGun.sprite.draw(batch);
 
-            if (hydra.on(1)){
+            if (weaponState==WeaponState.HRYDRA){
                 hydra.sprite.draw(batch);
             }
 
@@ -310,13 +322,7 @@ public class SnailAssalt extends ApplicationAdapter {
                 proj.shot.draw(batch);
             }
             //move house code to House.java
-            if (houseHp > 35) {
-                batch.draw(house, -300, 0);
-            } else if (houseHp < 35 & houseHp > 10) {
-                batch.draw(houseBroken, -300, 0);
-            } else if (houseHp < 10) {
-                batch.draw(houseGameOver, -300, 0);
-            }
+
             for (int a = 0; a < temp.size(); a++) { //draws and animates enemies
                 temp.get(a).draw(batch, time);
                 if(temp.get(a).hp<=0){
@@ -333,6 +339,7 @@ public class SnailAssalt extends ApplicationAdapter {
             font.draw(batch, "Current state: in-game", 10, height - 50);
             font.draw(batch,"water Limit"+waterGun.waterLimit,10,height-75);
             font.draw(batch, "Snailshells:" + jimmy.curency, 10, height - 250);
+            font.draw(batch,"househp"+(int)house.hp,10,height-400);
         }
         // *** game over screen currently contains ***
         // back button
