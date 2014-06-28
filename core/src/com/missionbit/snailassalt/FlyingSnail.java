@@ -8,3 +8,4 @@ public class FlyingSnail extends Enemy{
         super(x, y, xSpeed, ySpeed, "flying snail.png", "flying snail2.png");
     }
 }
+

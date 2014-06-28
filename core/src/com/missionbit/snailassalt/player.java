@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 /**
  * Created by douglas on 6/17/14.
  */
-class Player {
+public class Player {
     public Texture texture;
     public Sprite sprite;
     public Rectangle bound;

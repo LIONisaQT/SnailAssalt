@@ -31,7 +31,7 @@ public class Enemy {
         bound = new Rectangle(x, y, frame1.getWidth(), frame1.getHeight());
         speed.set(xSpeed, ySpeed);
     }
-    public void Update() {
+    public void Update(SnailAssalt game) {
         this.bound.x = this.bound.x + this.speed.x;
         this.bound.y = this.bound.y + this.speed.y;
         if (this.bound.x >= SnailAssalt.camera.position.x + width / 2) {

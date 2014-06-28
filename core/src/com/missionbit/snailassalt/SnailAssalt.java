@@ -38,10 +38,8 @@ public class SnailAssalt extends ApplicationAdapter {
     //enemies start
     float time = 0;
     // game states -- 1 int to hold current game state, 5 ints to hold MAIN game states
-
     //levels -- 1 String to hold current level, [int] Strings to hold levels
     //private ArrayList<Levels> levels;
-
     //private String currentLevel, level1, level2;
 
     //levels start
@@ -50,6 +48,7 @@ public class SnailAssalt extends ApplicationAdapter {
     //game states
     private int gameState, stateMainMenu, stateInGame, stateGameOver, stateShop, stateLevelSelect;
     private ArrayList<Enemy> temp;
+    private ArrayList<Droppings> droppings;
     private ArrayList<Projectile> water;
     private Weapon waterGun;
 
@@ -67,8 +66,6 @@ public class SnailAssalt extends ApplicationAdapter {
         camera = new OrthographicCamera(width, height);
         font = new BitmapFont(Gdx.files.internal("font.fnt"), Gdx.files.internal("font.png"), false);
         background = new Texture("sidewaysmenu.png");
-
-
         jimmy = new Player();
         waterGun = new Weapon();
         water = new ArrayList<Projectile>();
@@ -137,6 +134,7 @@ public class SnailAssalt extends ApplicationAdapter {
                 if (level1button.bound.contains(getTapPosition().x, getTapPosition().y)) {
                     level1button.isPressed(); //level 1 returns true
                     temp = level1.getEnemies();
+                    droppings= new ArrayList<Droppings>();
                     gameState = stateInGame; //go in-game
                 }
             }
@@ -161,19 +159,31 @@ public class SnailAssalt extends ApplicationAdapter {
                 }
                 boolean projectileHit = false;
                 for (int a = 0; a < temp.size(); a++) {
-
                     if (proj.bound.overlaps(temp.get(a).bound)) {
                         projectileHit = true;
                         temp.remove(a);
                     }
                 }
+
                 if (projectileHit) {
                     water.remove(i);
                     i--;
                 }
             }
+            for(int a = 0; a< temp.size(); a++){
+                boolean slimeTouch=false;
+                for(int b=0;b<droppings.size();b++){
+                    if(temp.get(a).bound.overlaps(droppings.get(b).bound)&& !(temp.get(a) instanceof AcidSnail)){
+                        slimeTouch=true;
+                        droppings.remove(b);
+                    }
+                }
+                if(slimeTouch){
+                    temp.get(a).speed.x=temp.get(a).speed.x+1;
+                }
+            }
             for (int a = 0; a < temp.size(); a++) {
-                temp.get(a).Update();
+                temp.get(a).Update(this);
             }
             if (loseButton.bound.contains(getTapPosition().x, getTapPosition().y))
                 gameState = stateGameOver; //go to game over
@@ -186,7 +196,9 @@ public class SnailAssalt extends ApplicationAdapter {
             if (Gdx.input.justTouched() && backButtonGameOver.bound.contains(getTapPosition().x, getTapPosition().y)) {
                 for (int a = 0; a < temp.size(); a++) {
                     temp.get(a).dispose();
-
+                }
+                for(int b=0;b<droppings.size();b++){
+                    droppings.get(b).dispose();
                 }
                 gameState = stateMainMenu; //go to main menu
             }
@@ -232,7 +244,9 @@ public class SnailAssalt extends ApplicationAdapter {
             for (Projectile proj : water) {
                 proj.shot.draw(batch);
             }
-
+            for(int b=0;b<droppings.size(); b++){
+                droppings.get(b).draw(batch);
+            }
             for(int a=0; a<temp.size();a++){
                 temp.get(a).draw(batch,time);
             }
@@ -252,5 +266,9 @@ public class SnailAssalt extends ApplicationAdapter {
         }
         font.draw(batch, "Resolution: " + width + ", " + height, 10, height); //we keep forgetting the screen resolution T___T
         batch.end();
+    }
+
+    public void addSlime(Droppings dropping) {
+       droppings.add(dropping);
     }
 }
