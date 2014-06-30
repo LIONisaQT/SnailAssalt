@@ -21,6 +21,7 @@ public class Level1 {
         }
         enemies.add(new AcidSnail(0, 100, 8, 0));
         enemies.add(new FlyingSnail(0,100,10,0));
+        enemies.add(new BossSnail(0,300,6,0));
         return enemies;
     }
     public String getLevelName() {

@@ -5,13 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.MathUtils;
-
 import com.badlogic.gdx.math.Vector3;
 
 import java.util.ArrayList;
@@ -22,11 +17,11 @@ public class SnailAssalt extends ApplicationAdapter {
     private int width, height;
     private static Vector3 tap;
     private Texture background;
+    private Texture lawn;
     private BitmapFont font;
     private Player jimmy;
     private Weapon waterGun;
     private Hydra hydra;
-    private Supersoaker supersoaker;
     float time = 0;
 
     //buttons start
@@ -43,6 +38,8 @@ public class SnailAssalt extends ApplicationAdapter {
     //levels start
     private Level1 level1;
     //levels end
+    private Texture losingscreen;
+    //game states
     private int gameState, stateMainMenu, stateInGame, stateGameOver, stateShop, stateLevelSelect;
     private ArrayList<Enemy> temp; //holds level's enemy arraylist
     private ArrayList<Projectile> water; //holds watergun shots
@@ -52,6 +49,8 @@ public class SnailAssalt extends ApplicationAdapter {
     private Texture house;
     private Texture houseBroken;
     private Texture houseGameOver;
+
+    @Override
     public void render () {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -65,10 +64,13 @@ public class SnailAssalt extends ApplicationAdapter {
         camera = new OrthographicCamera(width, height);
         font = new BitmapFont(Gdx.files.internal("font.fnt"), Gdx.files.internal("font.png"), false);
         background = new Texture("sidewaysmenu.png");
+        lawn = new Texture("lawn.jpeg");
+        losingscreen = new Texture("gameover.png");
+
+
         jimmy = new Player();
         waterGun = new Weapon();
         hydra = new Hydra();
-        supersoaker = new Supersoaker();
         water = new ArrayList<Projectile>();
         tap = new Vector3(); //location of tap
         //game states start
@@ -79,8 +81,8 @@ public class SnailAssalt extends ApplicationAdapter {
         stateLevelSelect = 4;
         gameState = stateMainMenu;
         //buttons start
-        startButtonMenu = new StartButton(10, 10);
-        shopButtonMenu = new ShopButton(10, startButtonMenu.buttonGetHeight() + 20);
+        startButtonMenu = new StartButton(width/2 - 215, height / 2 - 200);
+        shopButtonMenu = new ShopButton(width -150, height - 100);
         backButtonGameOver = new BackButton(width - 210, 10);
         backButtonShop = new BackButton(width - 210, 10);
         backButtonLevelSelect = new BackButton(width - 210, 10);
@@ -92,6 +94,13 @@ public class SnailAssalt extends ApplicationAdapter {
         //buttons end
         jimmy = new Player();
         //enemies start
+//        motherSnail = new Enemy();
+//        people = new Enemy();
+//        boss = new Enemy();
+        house = new Texture("house.png");
+        houseBroken=new Texture("housebroken.png");
+        houseGameOver=new Texture("housegameover.png");
+
         //enemies end
         //levels start
         level1 = new Level1(level1button);
@@ -163,6 +172,10 @@ public class SnailAssalt extends ApplicationAdapter {
         // loss condition
         // in-game --> game over
         // ***
+
+
+
+        //some code here to determine loss condition
         else if (gameState == stateInGame) { //in-game
             waterGun.Update(water);
             if (Gdx.input.justTouched() && hydraOn.bound.contains(getTapPosition().x, getTapPosition().y)) {
@@ -196,6 +209,7 @@ public class SnailAssalt extends ApplicationAdapter {
                     water.remove(i);
                     i--;
                 }
+               // if (proj.bound.overlaps(house))
             }
             for (int a = 0; a < temp.size(); a++) {
                 temp.get(a).Update();
@@ -260,11 +274,11 @@ public class SnailAssalt extends ApplicationAdapter {
         // [TEMP] house code
         // ***
         else if (gameState == stateInGame) { //in-game
+            batch.draw(lawn,0,0);
             batch.draw(loseButton.image, loseButton.position.x, loseButton.position.y);
-            batch.draw(jimmy.sprite, 0, 0);
+           // batch.draw(jimmy.sprite, 0, 0);
             waterGun.sprite.draw(batch);
             hydra.sprite.draw(batch);
-            //supersoaker.sprite.draw(batch);
             batch.draw(hydraOn.image, hydraOn.position.x, hydraOn.position.y);
 
             for (Projectile proj : water) {
@@ -291,8 +305,8 @@ public class SnailAssalt extends ApplicationAdapter {
         // back button
         // ***
         else if (gameState == stateGameOver) { //in game over
+            batch.draw(losingscreen, 0,0);
             batch.draw(backButtonGameOver.image, backButtonGameOver.position.x, backButtonGameOver.position.y);
-            font.draw(batch, "Game Over", 10, 50);
             font.draw(batch, "Current state: game over", 10, height - 50);
         }
         font.draw(batch, "Resolution: " + width + ", " + height, 10, height); //we keep forgetting the screen resolution T___T
