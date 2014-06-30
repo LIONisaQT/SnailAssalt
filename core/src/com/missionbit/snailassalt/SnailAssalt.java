@@ -188,8 +188,6 @@ public class SnailAssalt extends ApplicationAdapter {
         // ***
         else if (gameState == stateInGame) { //in-game
             waterGun.Update(water);
-
-
             if (hydraOn.isPressed()) {
                 if (weaponState == weaponState.REGWEAPON) {
                     weaponState = weaponState.HRYDRA;
@@ -232,17 +230,20 @@ public class SnailAssalt extends ApplicationAdapter {
                     water.remove(i);
                     i--;
                 }
+
             }
             for (int a = 0; a < temp.size(); a++) {
 
                 temp.get(a).Update(deltaTime);
                 if (temp.get(a).bound.overlaps(House.Housebounds)) {
-                    House.hp -= temp.get(a).Attack * Gdx.graphics.getDeltaTime();
+                    house.hp -= temp.get(a).Attack * Gdx.graphics.getDeltaTime();
                 }
                 if (loseButton.bound.contains(getTapPosition().x, getTapPosition().y))
                     gameState = stateGameOver; //go to game over
-                if (houseHp == 0) //loss condition
-                    gameState = stateGameOver; //go to game over
+
+            }
+            if (house.hp <= 0) { //loss condition
+                gameState = stateGameOver; //go to game over
             }
         }
         // *** game over currently contains ***

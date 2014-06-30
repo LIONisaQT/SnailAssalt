@@ -12,7 +12,7 @@ public class House {
     public Texture house2;
     public Texture house3;
     static public Rectangle Housebounds;
-    static public float hp;
+    static public  float hp;
 
     public House() {
     house1 = new Texture("house.png");
