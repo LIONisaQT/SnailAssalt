@@ -13,13 +13,16 @@ public class House {
     public Texture house3;
     static public Rectangle Housebounds;
     static public  float hp;
+    static  public float MaxHP;
 
     public House() {
     house1 = new Texture("house.png");
     house2 = new Texture("housebroken.png");
     house3 = new Texture("housegameover.png");
-    Housebounds= new Rectangle(0,0,house1.getWidth(),house1.getHeight());
-    hp=1000.0f;
+    Housebounds= new Rectangle(900,0,house1.getWidth(),house1.getHeight());
+    MaxHP =10.0f;
+    hp=MaxHP;
+
 }
 
 

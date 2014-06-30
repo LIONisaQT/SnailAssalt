@@ -13,15 +13,15 @@ public class Enemy {
     public Rectangle bound;
     public Vector2 speed;
     float width, height;
-    public static int  hp;
+    public static float  hp;
     protected Texture frame1;
     protected Texture frame2;
     protected Animation animation;
     protected float Attack;
-    public Enemy(float x, float y, float xSpeed, float ySpeed,float attack) {
-        this(x,y,xSpeed,ySpeed,attack,"snail.png","standardsnail2.png");
+    public Enemy(float x, float y, float xSpeed, float ySpeed,float attack,float hp) {
+        this(x,y,xSpeed,ySpeed,attack,hp,"snail.png","standardsnail2.png");
     }
-    public Enemy(float x, float y, float xSpeed, float ySpeed,float attack,String name, String name2) {
+    public Enemy(float x, float y, float xSpeed, float ySpeed,float attack,float hp,String name, String name2) {
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
         frame1 = new Texture(name);
@@ -31,7 +31,7 @@ public class Enemy {
         speed = new Vector2();
         bound = new Rectangle(x, y, frame1.getWidth(), frame1.getHeight());
         speed.set(xSpeed, ySpeed);
-        hp= 10;
+        hp= 10.0f;
         Attack=attack;
     }
     public void Update(float dt) {
