@@ -1,8 +1,8 @@
 package com.missionbit.snailassalt;
 
 public class AcidSnail extends Enemy {
-    public AcidSnail(float x, float y, float xSpeed, float ySpeed) {
-        super(x, y, xSpeed, ySpeed, "acid snail.png", "acid snail2.png");
+    public AcidSnail(float x, float y, float xSpeed, float ySpeed,float attack,float hp) {
+        super(x, y, xSpeed, ySpeed,attack,hp, "acid snail.png", "acid snail2.png");
     }
     @Override
     public void Update(SnailAssalt game) {
