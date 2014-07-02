@@ -49,6 +49,7 @@ public class SnailAssalt extends ApplicationAdapter {
     private int gameState, stateMainMenu, stateInGame, stateGameOver, stateShop, stateLevelSelect;
     private ArrayList<Enemy> temp;
     private ArrayList<Droppings> droppings;
+    private ArrayList<BombDrop> bombs;
     private ArrayList<Projectile> water;
     private Weapon waterGun;
 
@@ -135,6 +136,7 @@ public class SnailAssalt extends ApplicationAdapter {
                     level1button.isPressed(); //level 1 returns true
                     temp = level1.getEnemies();
                     droppings= new ArrayList<Droppings>();
+                    bombs=new ArrayList<BombDrop>();
                     gameState = stateInGame; //go in-game
                 }
             }
@@ -182,6 +184,19 @@ public class SnailAssalt extends ApplicationAdapter {
                     temp.get(a).speed.x=temp.get(a).speed.x+1;
                 }
             }
+            for(int a=0; a<temp.size();a++){
+                boolean bombTouch=false;
+                for(int c=0;c<bombs.size();c++){
+                    if(temp.get(a).bound.overlaps(bombs.get(c).bound)&& !(temp.get(a)instanceof FlyingSnail)){
+                        bombTouch=true;
+                        bombs.remove(c);
+                    }
+                }
+                if(bombTouch){
+                    temp.get(a).speed.x=temp.get(a).speed.x+2;
+                }
+            }
+
             for (int a = 0; a < temp.size(); a++) {
                 temp.get(a).Update(this);
             }
@@ -200,6 +215,10 @@ public class SnailAssalt extends ApplicationAdapter {
                 for(int b=0;b<droppings.size();b++){
                     droppings.get(b).dispose();
                 }
+                for(int c=0;c<bombs.size();c++){
+                    bombs.get(c).dispose();
+                }
+
                 gameState = stateMainMenu; //go to main menu
             }
         }
@@ -247,6 +266,11 @@ public class SnailAssalt extends ApplicationAdapter {
             for(int b=0;b<droppings.size(); b++){
                 droppings.get(b).draw(batch);
             }
+
+            for(int c=0;c<bombs.size();c++){
+                bombs.get(c).draw(batch);
+            }
+
             for(int a=0; a<temp.size();a++){
                 temp.get(a).draw(batch,time);
             }
@@ -269,6 +293,9 @@ public class SnailAssalt extends ApplicationAdapter {
     }
 
     public void addSlime(Droppings dropping) {
-       droppings.add(dropping);
+        droppings.add(dropping);
+    }
+    public void addBomb(BombDrop bomb){
+        bombs.add(bomb);
     }
 }

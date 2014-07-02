@@ -7,7 +7,7 @@ public class AcidSnail extends Enemy {
     @Override
     public void Update(SnailAssalt game) {
     super.Update(game);
-        if(Math.random()>0.99){
+        if(Math.random()>0.985){
           game.addSlime(new Droppings(this.bound.x, this.bound.y));
         }
     }

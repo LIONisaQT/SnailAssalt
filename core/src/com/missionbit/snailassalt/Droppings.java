@@ -9,21 +9,20 @@ import com.badlogic.gdx.math.Rectangle;
  */
 public class Droppings {
     public Texture slime;
-    public Texture bomb;
     public Rectangle bound;
 
 
-
-    public Droppings(float x, float y){
-        slime= new Texture("slime.png");
-        bound= new Rectangle();
-        bound.set(x,y,slime.getWidth(),slime.getHeight());
-
+    public Droppings(float x, float y) {
+        this.slime = new Texture("slime.png");
+        bound = new Rectangle();
+        bound.set(x, y, this.slime.getWidth(), this.slime.getHeight());
     }
     public void draw(SpriteBatch batch){
         batch.draw(slime, bound.x, bound.y);
+
     }
     public void dispose(){
         slime.dispose();
+
     }
 }
