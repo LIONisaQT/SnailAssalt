@@ -2,17 +2,20 @@ package com.missionbit.snailassalt;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 
 import java.util.ArrayList;
 
 public class SnailAssalt extends ApplicationAdapter {
     private SpriteBatch batch;
+    private ShapeRenderer shapeRenderer;
     public static OrthographicCamera camera;
     private int width, height;
     private static Vector3 tap;
@@ -66,6 +69,7 @@ public class SnailAssalt extends ApplicationAdapter {
     }
     public void create () {
         batch = new SpriteBatch();
+        shapeRenderer= new ShapeRenderer();
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
         camera = new OrthographicCamera(width, height);
@@ -127,17 +131,19 @@ public class SnailAssalt extends ApplicationAdapter {
         jimmy.curency=0;
         hydra.on(0);
         weaponState = WeaponState.REGWEAPON;
-        house.hp= house.MaxHP;
+        house.hp=house.MaxHP;
+        waterGun.waterLimit=waterGun.waterSupply;
+
 
 
 
         //buttons end
         camera.position.set((float)width/2, (float)height/2, 0);
-        waterGun.waterLimit=15;
+
 
     }
     public static Vector3 getTapPosition() { //gets and translates coordinates of tap to game world coordinates
-        tap.set(Gdx.input.getX(), Gdx.input.getY(),0);
+        tap.set(Gdx.input.getX(), Gdx.input.getY(), 0);
         return camera.unproject(tap);
     }
     public void updateGame() {
@@ -188,6 +194,7 @@ public class SnailAssalt extends ApplicationAdapter {
 
         //some code here to determine loss condition
         else if (gameState == GameState.INGAME) { //in-game
+            if(weaponState==WeaponState.REGWEAPON)
             waterGun.Update(water);
             if (hydraOn.isPressed()) {
                 if (weaponState == weaponState.REGWEAPON) {
@@ -238,10 +245,11 @@ public class SnailAssalt extends ApplicationAdapter {
                 if (temp.get(a).bound.overlaps(House.Housebounds)) {
                     house.hp -= temp.get(a).Attack * Gdx.graphics.getDeltaTime();
                 }
-                if (loseButton.bound.contains(getTapPosition().x, getTapPosition().y))
-                    gameState = GameState.GAMEOVER; //go to game over
+
 
             }
+            if (loseButton.bound.contains(getTapPosition().x, getTapPosition().y))
+                gameState = GameState.GAMEOVER; //  go to game over
             if (house.hp <= 0) { //loss condition
                 gameState = GameState.GAMEOVER; //go to game over
             }
@@ -251,7 +259,7 @@ public class SnailAssalt extends ApplicationAdapter {
         // game over --> main menu
         // ***
         else if (gameState == GameState.GAMEOVER) { //in game over
-            waterGun.waterLimit = 15;
+            waterGun.waterLimit =waterGun.waterSupply;
             if (Gdx.input.justTouched() && backButtonGameOver.bound.contains(getTapPosition().x, getTapPosition().y)) {
                 for (int a = 0; a < temp.size(); a++) {
                     temp.get(a).dispose(); //need to dispose everything in the arraylist to save memory
@@ -267,7 +275,8 @@ public class SnailAssalt extends ApplicationAdapter {
     public void drawGame(){
         camera.update();
         batch.setProjectionMatrix(camera.combined);
-        batch.begin();
+        shapeRenderer.setProjectionMatrix(camera.combined);
+
         font.setScale(2);
         font.setColor(0, 0, 0, 1);
         // *** main menu currently contains ***
@@ -275,26 +284,35 @@ public class SnailAssalt extends ApplicationAdapter {
         // level select button (play)
         // ***
         if (gameState == GameState.MAINMENU) { //in main menu
+            batch.begin();
             batch.draw(background, 0, 0);
             startButtonMenu.draw(batch);
             batch.draw(shopButtonMenu.image, shopButtonMenu.position.x, shopButtonMenu.position.y);
             font.draw(batch, "Current state: main menu", 10, height - 50);
+            batch.end();
         }
         // *** level select currently contains
         // back button
         // level 1 button (goes in-game)
         // ***
         else if (gameState ==GameState.LEVELSELECT) { //in level select
+            batch.begin();
             batch.draw(level1button.image, level1button.position.x, level1button.position.y);
             batch.draw(backButtonLevelSelect.image, backButtonLevelSelect.position.x, backButtonLevelSelect.position.y);
             font.draw(batch, "Current state: level select", 10, height - 50);
+            batch.end();
         }
         // *** shop currently contains ***
         // back button
         // ***
         else if (gameState == GameState.SHOP) { //in shop
+            batch.begin();
             batch.draw(backButtonShop.image, backButtonShop.position.x, backButtonShop.position.y);
             font.draw(batch, "Current state: shop", 10, height - 50);
+            batch.end();
+
+
+
         }
         // *** in-game currently contains ***
         // lose button
@@ -306,6 +324,7 @@ public class SnailAssalt extends ApplicationAdapter {
         // [TEMP] house code
         // ***
         else if (gameState == GameState.INGAME) { //in-game
+            batch.begin();
             batch.draw(lawn,0,0);
             house.draw(batch,house.Housebounds.x,house.Housebounds.y);
             batch.draw(loseButton.image, loseButton.position.x, loseButton.position.y);
@@ -317,6 +336,7 @@ public class SnailAssalt extends ApplicationAdapter {
             if (weaponState==WeaponState.HRYDRA){
                 hydra.sprite.draw(batch);
             }
+
 
             batch.draw(hydraOn.image, hydraOn.position.x,hydraOn.position.y);
             shell.sprite.draw(batch);
@@ -334,6 +354,7 @@ public class SnailAssalt extends ApplicationAdapter {
 
                 }
             }
+
             if (level1button.isPressed()) { //in level 1
                 font.draw(batch, "Current level: " + level1.getLevelName(), 10, 90);
             }
@@ -342,17 +363,27 @@ public class SnailAssalt extends ApplicationAdapter {
             font.draw(batch,"water Limit"+waterGun.waterLimit,10,height-75);
             font.draw(batch, "Snailshells:" + jimmy.curency, 10, height - 250);
             font.draw(batch,"househp"+(int)house.hp,10,height-400);
+            font.draw(batch, "Resolution: " + width + ", " + height, 10, height); //we keep forgetting the screen resolution T___T
+            batch.end();
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setColor(Color.RED);
+            shapeRenderer.rect(3, 50,house.hp*house.healthScale, 30);
+            shapeRenderer.setColor(Color.BLUE);
+            shapeRenderer.rect(3,70,waterGun.waterLimit*waterGun.waterScale,40);
+            shapeRenderer.end();
         }
         // *** game over screen currently contains ***
         // back button
         // ***
         else if (gameState == GameState.GAMEOVER) { //in game over
+            batch.begin();
             batch.draw(losingscreen, 0,0);
             batch.draw(backButtonGameOver.image, backButtonGameOver.position.x, backButtonGameOver.position.y);
             font.draw(batch, "Current state: game over", 10, height - 50);
-
+            batch.end();
         }
-        font.draw(batch, "Resolution: " + width + ", " + height, 10, height); //we keep forgetting the screen resolution T___T
-        batch.end();
+
+
+
     }
 }

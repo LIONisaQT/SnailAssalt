@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class Level1Button extends Button {
     public Level1Button(float x, float y) {
-        super(x, y);
-        image = new Texture("level1.png");
+        super(x, y,"level1.png");
+
     }
 
     public int numberOfEnemies() {

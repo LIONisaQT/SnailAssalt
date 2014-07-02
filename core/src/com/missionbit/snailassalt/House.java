@@ -14,14 +14,16 @@ public class House {
     static public Rectangle Housebounds;
     static public  float hp;
     static  public float MaxHP;
+    static  public  float healthScale;
 
     public House() {
     house1 = new Texture("house.png");
     house2 = new Texture("housebroken.png");
     house3 = new Texture("housegameover.png");
     Housebounds= new Rectangle(900,0,house1.getWidth(),house1.getHeight());
-    MaxHP =10.0f;
-    hp=MaxHP;
+    MaxHP =1000.0f;
+    hp=200;
+    healthScale= (hp/MaxHP)*2;
 
 }
 

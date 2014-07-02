@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class ShopButton extends Button {
     public ShopButton(float x, float y) {
-        super(x, y);
-        image = new Texture("shopButton.png");
+        super(x, y,"shopButton.png");
     }
 }

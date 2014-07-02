@@ -17,8 +17,8 @@ public class Weapon {
     public Sprite sprite;
     public Rectangle bound;
     public Vector2 speed;
-    public float touch, touchY, deltaX, deltaY, rot;
-    public int str,waterLimit;
+    static  public float touch, touchY, deltaX, deltaY, rot,waterScale;
+    static public int str,waterLimit,waterSupply;
     public Weapon(){
         this("waterGun.png");
     }
@@ -33,7 +33,9 @@ public class Weapon {
         touchY = 0;
         rot = 0;
         str = 2;
-        waterLimit=15;
+        waterSupply=100;
+        waterLimit = waterSupply;
+        waterScale=(waterSupply/waterLimit)*3;
     }
 
     public void GunPosition(float a, float b){

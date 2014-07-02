@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class StartButton extends Button {
     public StartButton(float x, float y) {
-        super(x, y);
-        image = new Texture("start.png");
+        super(x, y,"start.png");
+
 
     }
 }
