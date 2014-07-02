@@ -1,6 +1,5 @@
 package com.missionbit.snailassalt;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
@@ -8,6 +7,14 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class HydraOn extends Button {
     public HydraOn(float x, float y){
-        super(x, y,"hydraIcon.jpg");
+        super(x, y);
+        image = new Texture("hydra icon.png");
+
+
+
     }
+
+
+
+
 }

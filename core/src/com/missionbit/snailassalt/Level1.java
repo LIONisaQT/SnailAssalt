@@ -23,6 +23,7 @@ public class Level1 {
         return enemies;
     }
     public String getLevelName() {
+
         return "1";
     }
 }

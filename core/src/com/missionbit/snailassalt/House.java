@@ -29,11 +29,11 @@ public class House {
 
 
     public void draw(SpriteBatch batch,float x,float y){
-        if (hp>=35) {
+        if (hp>=8) {
             batch.draw(house1, x, y);
-        } else if (hp<35 && hp>=10) {
+        } else if (hp<8 && hp>=4) {
             batch.draw(house2, x, y);
-        }else if (hp<10) {
+        }else if (hp<4) {
             batch.draw(house3, x, y);
         }
     }
