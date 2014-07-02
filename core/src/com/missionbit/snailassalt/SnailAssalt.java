@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
-
 import java.util.ArrayList;
 
 public class SnailAssalt extends ApplicationAdapter {
@@ -25,7 +24,6 @@ public class SnailAssalt extends ApplicationAdapter {
     private Snailshell shell;
     public boolean snaildead;
     float time = 0;
-
     //buttons start
     private StartButton startButtonMenu;
     private ShopButton shopButtonMenu;
@@ -34,14 +32,11 @@ public class SnailAssalt extends ApplicationAdapter {
     private HydraOn hydraOn;
     //level buttons start
     private Level1Button level1button;
-    //level buttons end
-    //buttons end
-    //enemies start
-    //levels start
     private Level1 level1;
     //levels end
     private Texture losingscreen;
-    //game states
+    private ArrayList<Droppings> droppings;
+    private ArrayList<BombDrop> bombs;
     private enum GameState{
         MAINMENU, INGAME, GAMEOVER, SHOP, LEVELSELECT;
     }
@@ -54,8 +49,6 @@ public class SnailAssalt extends ApplicationAdapter {
     private ArrayList<Projectile> water; //holds watergun shots
     //house
     private House house;
-
-
 
     @Override
     public void render () {
@@ -73,8 +66,6 @@ public class SnailAssalt extends ApplicationAdapter {
         background = new Texture("sidewaysmenu.png");
         lawn = new Texture("lawn.jpeg");
         losingscreen = new Texture("gameover.png");
-
-
         jimmy = new Player();
         waterGun = new Weapon();
         hydra = new Hydra();
@@ -93,18 +84,15 @@ public class SnailAssalt extends ApplicationAdapter {
         level1button = new Level1Button(10, height - 410); //values given to level 1 button, eventually overridden
         //level buttons end
         //buttons end
-        jimmy = new Player();
         shell = new Snailshell();
         //enemies start
 //        motherSnail = new Enemy();
 //        people = new Enemy();
 //        boss = new Enemy();
-
         //enemies end
         //levels start
         level1 = new Level1(level1button);
         //levels end
-
         //TEMP SHIT
         house =new House();
         //Weapons
@@ -128,8 +116,6 @@ public class SnailAssalt extends ApplicationAdapter {
         hydra.on(0);
         weaponState = WeaponState.REGWEAPON;
         house.hp= house.MaxHP;
-
-
 
         //buttons end
         camera.position.set((float)width/2, (float)height/2, 0);
@@ -159,109 +145,143 @@ public class SnailAssalt extends ApplicationAdapter {
         else if (gameState == GameState.SHOP) { //in shop
             if (backButtonShop.isPressed())
                 gameState = GameState.MAINMENU; //go to main menu
-        }
-        // *** level select currently contains ***
-        // level select --> in-game
-        // level select --> main menu
-        // ***
-        else if (gameState == GameState.LEVELSELECT) { //in level select
-
-            if (level1button.isPressed()) { //play level 1
-
-                temp = level1.getEnemies(); //temp arraylist now holds level 1's enemies
-                gameState = GameState.INGAME; //go in-game
-            }
-            if (backButtonLevelSelect.isPressed()) {
-                gameState = GameState.MAINMENU;
-            }
-        } //go to main menu
-
-        // *** in-game currently contains ***
-        // watergun logic
-        // projectile logic
-        // updates enemy arraylist
-        // loss condition
-        // in-game --> game over
-        // ***
-
-
-
-        //some code here to determine loss condition
-        else if (gameState == GameState.INGAME) { //in-game
-            waterGun.Update(water);
-            if (hydraOn.isPressed()) {
-                if (weaponState == weaponState.REGWEAPON) {
-                    weaponState = weaponState.HRYDRA;
-                } else if (weaponState == WeaponState.HRYDRA) {
-                    weaponState = WeaponState.REGWEAPON;
                 }
-                Gdx.app.log("weaponstate is", "" + weaponState);
-            }
-            if (weaponState == weaponState.HRYDRA) {
-                hydra.Update(water);
+                // *** level select currently contains ***
+                // level select --> in-game
+                // level select --> main menu
+                // ***
+                else if (gameState == GameState.LEVELSELECT) { //in level select
 
-            }
-            for (int i = 0; i < water.size(); i++) { //projectiles
-                Projectile proj = water.get(i);
-                proj.Update();
-                if (proj.bound.y >= height) {
-                    water.remove(i);
-                    i--;
-                }
-                if (proj.bound.y < 0) {
-                    water.remove(i);
-                    i--;
-                }
-                boolean projectileHit = false;
-                for (int a = 0; a < temp.size(); a++) {
-                    if (proj.bound.overlaps(temp.get(a).bound)) {
-                        projectileHit = true;
-                        temp.get(a).hp = temp.get(a).hp - waterGun.str;
-                        if (temp.get(a).hp <= 0) {
-                            shell.sprite.setPosition(temp.get(a).bound.x, temp.get(a).bound.y);
-                            temp.remove(a);
-                            snaildead = true;
-                            jimmy.curency += 10;
+                    if (level1button.isPressed()) { //play level 1
+
+                        temp = level1.getEnemies(); //temp arraylist now holds level 1's enemies
+                        droppings = new ArrayList<Droppings>();
+                        bombs = new ArrayList<BombDrop>();
+                        gameState = GameState.INGAME; //go in-game
+                    }
+                    if (backButtonLevelSelect.isPressed()) {
+                        gameState = GameState.MAINMENU;
+                    }
+                } //go to main menu
+
+                // *** in-game currently contains ***
+                // watergun logic
+                // projectile logic
+                // updates enemy arraylist
+                // loss condition
+                // in-game --> game over
+                // ***
+
+
+                //some code here to determine loss condition
+                else if (gameState == GameState.INGAME) { //in-game
+                    waterGun.Update(water);
+                    if (hydraOn.isPressed()) {
+                        if (weaponState == weaponState.REGWEAPON) {
+                            weaponState = weaponState.HRYDRA;
+                        } else if (weaponState == WeaponState.HRYDRA) {
+                            weaponState = WeaponState.REGWEAPON;
+                        }
+                        Gdx.app.log("weaponstate is", "" + weaponState);
+                    }
+                    if (weaponState == weaponState.HRYDRA) {
+                        hydra.Update(water);
+
+                    }
+                    for (int i = 0; i < water.size(); i++) { //projectiles
+                        Projectile proj = water.get(i);
+                        proj.Update();
+                        if (proj.bound.y >= height) {
+                            water.remove(i);
+                            i--;
+                        }
+                        if (proj.bound.y < 0) {
+                            water.remove(i);
+                            i--;
+                        }
+                        boolean projectileHit = false;
+                        for (int a = 0; a < temp.size(); a++) {
+                            if (proj.bound.overlaps(temp.get(a).bound)) {
+                                projectileHit = true;
+                                temp.get(a).hp = temp.get(a).hp - waterGun.str;
+                                if (temp.get(a).hp <= 0) {
+                                    shell.sprite.setPosition(temp.get(a).bound.x, temp.get(a).bound.y);
+                                    temp.remove(a);
+                                    snaildead = true;
+                                    jimmy.curency += 10;
+                                }
+                            }
+
+
+                        }
+
+                        if (projectileHit) {
+                            water.remove(i);
+                            i--;
+                        }
+                    }
+                    for (int a = 0; a < temp.size(); a++) {
+                        boolean slimeTouch = false;
+                        for (int b = 0; b < droppings.size(); b++) {
+                            if (temp.get(a).bound.overlaps(droppings.get(b).bound) && !(temp.get(a) instanceof AcidSnail)) {
+                                slimeTouch = true;
+                                droppings.remove(b);
+                            }
+                        }
+                        if (slimeTouch) {
+                            temp.get(a).speed.x = temp.get(a).speed.x + 1;
+                        }
+                    }
+                    for (int a = 0; a < temp.size(); a++) {
+                        boolean bombTouch = false;
+                        for (int c = 0; c < bombs.size(); c++) {
+                            if (temp.get(a).bound.overlaps(bombs.get(c).bound) && !(temp.get(a) instanceof FlyingSnail)) {
+                                bombTouch = true;
+                                bombs.remove(c);
+                            }
+                        }
+                        if (bombTouch) {
+                            temp.get(a).speed.x = temp.get(a).speed.x + 2;
                         }
                     }
 
+                    for (int a = 0; a < temp.size(); a++) {
+                        temp.get(a).Update(this);
+                        temp.get(a).Update(deltaTime);
+                        if (temp.get(a).bound.overlaps(House.Housebounds)) {
+                            house.hp -= temp.get(a).Attack * Gdx.graphics.getDeltaTime();
+                        }
+                        if (loseButton.bound.contains(getTapPosition().x, getTapPosition().y))
+                            gameState = GameState.GAMEOVER; //go to game over
 
+                    }
+                    if (house.hp <= 0) { //loss condition
+                        gameState = GameState.GAMEOVER; //go to game over
+                    }
                 }
-                if (projectileHit) {
-                    water.remove(i);
-                    i--;
+                // *** game over currently contains ***
+                // disposes temp arraylist
+                // game over --> main menu
+                // ***
+                else if (gameState == GameState.GAMEOVER) { //in game over
+                    waterGun.waterLimit = 15;
+                    if (Gdx.input.justTouched() && backButtonGameOver.bound.contains(getTapPosition().x, getTapPosition().y)) {
+                        for (int a = 0; a < temp.size(); a++) {
+                            temp.get(a).dispose();
+                        }
+                        for (int b = 0; b < droppings.size(); b++) {
+                            droppings.get(b).dispose();
+                        }
+                        for (int c = 0; c < bombs.size(); c++) {
+                            bombs.get(c).dispose();
+                        }
+                    house.hp = house.MaxHP;
+                    gameState = GameState.MAINMENU; //go to main menu
                 }
             }
-            for (int a = 0; a < temp.size(); a++) {
 
-                temp.get(a).Update(deltaTime);
-                if (temp.get(a).bound.overlaps(House.Housebounds)) {
-                    house.hp -= temp.get(a).Attack * Gdx.graphics.getDeltaTime();
-                }
-                if (loseButton.bound.contains(getTapPosition().x, getTapPosition().y))
-                    gameState = GameState.GAMEOVER; //go to game over
-
-            }
-            if (house.hp <= 0) { //loss condition
-                gameState = GameState.GAMEOVER; //go to game over
-            }
         }
-        // *** game over currently contains ***
-        // disposes temp arraylist
-        // game over --> main menu
-        // ***
-        else if (gameState == GameState.GAMEOVER) { //in game over
-            waterGun.waterLimit = 15;
-            if (Gdx.input.justTouched() && backButtonGameOver.bound.contains(getTapPosition().x, getTapPosition().y)) {
-                for (int a = 0; a < temp.size(); a++) {
-                    temp.get(a).dispose(); //need to dispose everything in the arraylist to save memory
-                }
-               house.hp=house.MaxHP;
-                gameState = GameState.MAINMENU; //go to main menu
-            }
-        }
 
-    }
 
 
     public void drawGame(){
@@ -323,7 +343,14 @@ public class SnailAssalt extends ApplicationAdapter {
             for (Projectile proj : water) {
                 proj.shot.draw(batch);
             }
-            //move house code to House.java
+
+            for(int b=0;b<droppings.size(); b++){
+                droppings.get(b).draw(batch);
+            }
+
+            for(int c=0;c<bombs.size();c++){
+                bombs.get(c).draw(batch);
+            }
 
             for (int a = 0; a < temp.size(); a++) { //draws and animates enemies
                 temp.get(a).draw(batch, time);
@@ -354,5 +381,14 @@ public class SnailAssalt extends ApplicationAdapter {
         }
         font.draw(batch, "Resolution: " + width + ", " + height, 10, height); //we keep forgetting the screen resolution T___T
         batch.end();
+    }
+
+    public void addSlime(Droppings dropping) {
+
+        droppings.add(dropping);
+    }
+    public void addBomb(BombDrop bomb){
+
+        bombs.add(bomb);
     }
 }
