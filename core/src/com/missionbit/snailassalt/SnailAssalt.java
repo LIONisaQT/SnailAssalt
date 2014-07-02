@@ -35,6 +35,7 @@ public class SnailAssalt extends ApplicationAdapter {
     private Level1 level1;
     //levels end
     private Texture losingscreen;
+    private Texture levelscreen;
     private ArrayList<Droppings> droppings;
     private ArrayList<BombDrop> bombs;
     private enum GameState{
@@ -66,6 +67,7 @@ public class SnailAssalt extends ApplicationAdapter {
         background = new Texture("sidewaysmenu.png");
         lawn = new Texture("lawn.jpeg");
         losingscreen = new Texture("gameover.png");
+        levelscreen = new Texture("levelscreen.png");
         jimmy = new Player();
         waterGun = new Weapon();
         hydra = new Hydra();
@@ -305,6 +307,7 @@ public class SnailAssalt extends ApplicationAdapter {
         // level 1 button (goes in-game)
         // ***
         else if (gameState ==GameState.LEVELSELECT) { //in level select
+            batch.draw(levelscreen, 0,0);
             batch.draw(level1button.image, level1button.position.x, level1button.position.y);
             batch.draw(backButtonLevelSelect.image, backButtonLevelSelect.position.x, backButtonLevelSelect.position.y);
             font.draw(batch, "Current state: level select", 10, height - 50);
