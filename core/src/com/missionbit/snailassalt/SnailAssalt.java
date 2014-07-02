@@ -302,6 +302,7 @@ public class SnailAssalt extends ApplicationAdapter {
         // jimmy
         // watergun
         // projectile
+        // projectile
         // draws and animates enemies
         // [TEMP] house code
         // ***
