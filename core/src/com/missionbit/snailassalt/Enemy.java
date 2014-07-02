@@ -19,7 +19,7 @@ public class Enemy {
     protected Animation animation;
     protected float Attack;
     public Enemy(float x, float y, float xSpeed, float ySpeed,float attack,float hp) {
-        this(x,y,xSpeed,ySpeed,attack,hp,"snail.png","standardsnail2.png");
+        this(x, y, xSpeed, ySpeed, attack, hp, "snail.png", "standardsnail2.png");
     }
     public Enemy(float x, float y, float xSpeed, float ySpeed,float attack,float hp,String name, String name2) {
         width = Gdx.graphics.getWidth();
@@ -34,26 +34,30 @@ public class Enemy {
         hp= 10.0f;
         Attack=attack;
     }
-    public void Update(float dt) {
-        this.bound.x = this.bound.x + this.speed.x;
-        this.bound.y = this.bound.y + this.speed.y;
-        if (this.bound.x >= SnailAssalt.camera.position.x + width / 2) {
-            this.speed.x = -this.speed.x;
-        }
-        if (this.bound.x <= SnailAssalt.camera.position.x - width / 2) {
-            this.speed.x = -this.speed.x;
-        }
-        if (this.bound.y >= SnailAssalt.camera.position.y + height / 2) {
-            this.speed.y = -this.speed.y;
-        }
-        if (this.bound.y <= SnailAssalt.camera.position.y - height / 2) {
-            this.speed.y = -this.speed.y;
-        }
-        if(this.bound.overlaps(House.Housebounds)){
-            this.bound.setX(House.Housebounds.x-(this.bound.getWidth()));
-            House.hp -= this.Attack * dt;
-        }
+    public void Update(SnailAssalt game) {
     }
+        public void Update(float dt){
+
+            this.bound.x = this.bound.x + this.speed.x;
+            this.bound.y = this.bound.y + this.speed.y;
+            if (this.bound.x >= SnailAssalt.camera.position.x + width / 2) {
+                this.speed.x = -this.speed.x;
+            }
+            if (this.bound.x <= SnailAssalt.camera.position.x - width / 2) {
+                this.speed.x = -this.speed.x;
+            }
+            if (this.bound.y >= SnailAssalt.camera.position.y + height / 2) {
+                this.speed.y = -this.speed.y;
+            }
+            if (this.bound.y <= SnailAssalt.camera.position.y - height / 2) {
+                this.speed.y = -this.speed.y;
+            }
+            if (this.bound.overlaps(House.Housebounds)) {
+                this.bound.setX(House.Housebounds.x - (this.bound.getWidth()));
+                House.hp -= this.Attack * dt;
+            }
+        }
+
     public void move() {
 
     }

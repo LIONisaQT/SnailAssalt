@@ -10,6 +10,7 @@ public class Level1Button extends Button {
     }
 
     public int numberOfEnemies() {
+
         return 5;
     }
 }
