@@ -245,32 +245,26 @@ public class SnailAssalt extends ApplicationAdapter {
                 }
             }
             for (int a = 0; a < temp.size(); a++) {
-                boolean slimeTouch = false;
+
                 for (int b = 0; b < droppings.size(); b++) {
                     if (temp.get(a).bound.overlaps(droppings.get(b).bound) && !(temp.get(a) instanceof AcidSnail)) {
-                        slimeTouch = true;
+                        temp.get(a).speed.x++;
+
                         droppings.remove(b);
                     }
                 }
-                if (slimeTouch) {
-                    temp.get(a).speed.x = temp.get(a).speed.x + 1;
-                }
             }
             for (int a = 0; a < temp.size(); a++) {
-                boolean bombTouch = false;
                 for (int c = 0; c < bombs.size(); c++) {
                     if (temp.get(a).bound.overlaps(bombs.get(c).bound) && !(temp.get(a) instanceof FlyingSnail)) {
-                        bombTouch = true;
+                        temp.get(a).speed.x = temp.get(a).speed.x + 2;
                         bombs.remove(c);
                     }
-                }
-                if (bombTouch) {
-                    temp.get(a).speed.x = temp.get(a).speed.x + 2;
                 }
             }
             for (int a = 0; a < temp.size(); a++) {
 
-                temp.get(a).Update(deltaTime);
+                temp.get(a).Update(deltaTime,this);
                 if (temp.get(a).bound.overlaps(House.Housebounds)) {
                     house.hp -= temp.get(a).Attack * Gdx.graphics.getDeltaTime();
                 }

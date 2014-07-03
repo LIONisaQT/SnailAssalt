@@ -34,9 +34,8 @@ public class Enemy {
         hp= 10.0f;
         Attack=attack;
     }
-    public void Update(SnailAssalt game) {
-    }
-        public void Update(float dt){
+
+        public void Update (float dt,SnailAssalt game) {
 
             this.bound.x = this.bound.x + this.speed.x;
             this.bound.y = this.bound.y + this.speed.y;
@@ -57,6 +56,8 @@ public class Enemy {
                 House.hp -= this.Attack * dt;
             }
         }
+
+
 
     public void move() {
 

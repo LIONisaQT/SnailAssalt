@@ -18,8 +18,9 @@ public class Level1 {
         ArrayList<Enemy> enemies = new ArrayList<Enemy>();
         for (int a = 0; a < enemyCount; a++) {
             enemies.add(new Enemy(0, a * (height/4), 5, 0,1,10));
-        }
 
+        }
+        enemies.add(new AcidSnail(0, (height/4), 5, 0,1,10));
         return enemies;
     }
     public String getLevelName() {
