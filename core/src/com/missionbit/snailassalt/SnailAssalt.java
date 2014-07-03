@@ -31,7 +31,7 @@ public class SnailAssalt extends ApplicationAdapter {
     //weapwns start
     private Weapon waterGun;
     private Hydra hydra;
-    private ArrayList<Projectile> water; //holds watergun shots
+    private ArrayList<ThrowyThingy> water; //holds watergun shots
     //weapwns end
     //buttons start
     private StartButton startButtonMenu;
@@ -78,7 +78,7 @@ public class SnailAssalt extends ApplicationAdapter {
         //weapwns start
         waterGun = new Weapon();
         hydra = new Hydra();
-        water = new ArrayList<Projectile>();
+        water = new ArrayList<ThrowyThingy>();
         droppings = new ArrayList<Droppings>();
         bombs = new ArrayList<BombDrop>();
         //weapwns end
@@ -180,7 +180,7 @@ public class SnailAssalt extends ApplicationAdapter {
             if (weaponState == WeaponState.REGWEAPON) {waterGun.Update(water);}
             else if (weaponState == WeaponState.HYDRA) {hydra.Update(water);}
             for (int i = 0; i < water.size(); i++) { //projectiles
-                Projectile proj = water.get(i);
+                ThrowyThingy proj = water.get(i);
                 proj.Update();
                 if (proj.bound.y >= height) {water.remove(i);}
                 if (proj.bound.y < 0) {water.remove(i);}
@@ -296,7 +296,7 @@ public class SnailAssalt extends ApplicationAdapter {
             if (weaponState == WeaponState.HYDRA) {hydra.sprite.draw(batch);}
             batch.draw(hydraButton.image, hydraButton.position.x, hydraButton.position.y);
             shell.sprite.draw(batch);
-            for (Projectile proj : water) {proj.shot.draw(batch);}
+            for (ThrowyThingy proj : water) {proj.shot.draw(batch);}
             for (Droppings droppies : droppings) {droppies.draw(batch);}
             for (BombDrop bomb : bombs) {bomb.draw(batch);}
             for (Enemy enemy : enemies) { //draws and animates enemies

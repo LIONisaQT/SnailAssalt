@@ -34,7 +34,7 @@ public class Weapon {
         waterLimit = waterSupply;
         waterScale=(waterSupply/waterLimit)*3;
     }
-    public void Update(ArrayList<Projectile> water) {
+    public void Update(ArrayList<ThrowyThingy> water) {
         if (Gdx.input.justTouched()) {
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
@@ -42,7 +42,7 @@ public class Weapon {
             deltaY = touchY - sprite.getY();
             rot = MathUtils.atan2(deltaY, deltaX) * 180 / MathUtils.PI;
             sprite.setRotation(rot);
-            Projectile proj = new Projectile();
+            ThrowyThingy proj = new ThrowyThingy();
             water.add(proj);
             proj.bound.setPosition(this.bound.x, this.bound.y);
             proj.speed.setAngleRad(MathUtils.degreesToRadians * rot);
