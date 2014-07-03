@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class LoseButton extends Button {
     public LoseButton(float x, float y) {
-        super(x, y);
-        image = new Texture("loseButton.png");
+        super(x, y, "loseButton.png");
     }
 }

@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class BackButton extends Button {
     public BackButton(float x, float y) {
-        super(x,y);
-        image = new Texture("backButton.png");
+        super(x,y, "backButton.png");
     }
+    public void pressedAction() {SnailAssalt.gameState = SnailAssalt.GameState.MAINMENU;}
 }
