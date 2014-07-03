@@ -34,7 +34,6 @@ public class Weapon {
         waterLimit = waterSupply;
         waterScale=(waterSupply/waterLimit)*3;
     }
-
     public void Update(ArrayList<Projectile> water) {
         if (Gdx.input.justTouched()) {
             touch = SnailAssalt.getTapPosition().x;

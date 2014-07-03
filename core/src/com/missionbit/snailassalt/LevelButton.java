@@ -11,7 +11,7 @@ public class LevelButton extends Button {
         levelButtonImages = new ArrayList<TextureRegion>();
         for (int a = 0; a < SnailAssalt.numberOfLevels; a++) {
             if (a < 5) {levelButtonImages.add(new TextureRegion(image, a * 200, 0, 200, 200));}
-            else if (a >= 5) {levelButtonImages.add(new TextureRegion(image, a * 200, 200, 200, 200));}
+            else if (a >= 5) {levelButtonImages.add(new TextureRegion(image, (a-5) * 200, 200, 200, 200));}
         }
     }
     public float buttonGetWidth() {return 200;}
