@@ -55,8 +55,11 @@ public class SnailAssalt extends ApplicationAdapter {
     private WeaponState weaponState;
     private ArrayList<Enemy> temp; //holds level's enemy arraylist
     private ArrayList<Projectile> water; //holds watergun shots
+    private ArrayList<Droppings> droppings;
+    private ArrayList<BombDrop> bombs;
     //house
     private House house;
+
 
 
 
@@ -175,6 +178,8 @@ public class SnailAssalt extends ApplicationAdapter {
             if (level1button.isPressed()) { //play level 1
 
                 temp = level1.getEnemies(); //temp arraylist now holds level 1's enemies
+                droppings=new ArrayList<Droppings>();
+                bombs= new ArrayList<BombDrop>();
                 gameState = GameState.INGAME; //go in-game
             }
             if (backButtonLevelSelect.isPressed()) {
@@ -240,6 +245,30 @@ public class SnailAssalt extends ApplicationAdapter {
                 }
             }
             for (int a = 0; a < temp.size(); a++) {
+                boolean slimeTouch = false;
+                for (int b = 0; b < droppings.size(); b++) {
+                    if (temp.get(a).bound.overlaps(droppings.get(b).bound) && !(temp.get(a) instanceof AcidSnail)) {
+                        slimeTouch = true;
+                        droppings.remove(b);
+                    }
+                }
+                if (slimeTouch) {
+                    temp.get(a).speed.x = temp.get(a).speed.x + 1;
+                }
+            }
+            for (int a = 0; a < temp.size(); a++) {
+                boolean bombTouch = false;
+                for (int c = 0; c < bombs.size(); c++) {
+                    if (temp.get(a).bound.overlaps(bombs.get(c).bound) && !(temp.get(a) instanceof FlyingSnail)) {
+                        bombTouch = true;
+                        bombs.remove(c);
+                    }
+                }
+                if (bombTouch) {
+                    temp.get(a).speed.x = temp.get(a).speed.x + 2;
+                }
+            }
+            for (int a = 0; a < temp.size(); a++) {
 
                 temp.get(a).Update(deltaTime);
                 if (temp.get(a).bound.overlaps(House.Housebounds)) {
@@ -263,6 +292,13 @@ public class SnailAssalt extends ApplicationAdapter {
             if (Gdx.input.justTouched() && backButtonGameOver.bound.contains(getTapPosition().x, getTapPosition().y)) {
                 for (int a = 0; a < temp.size(); a++) {
                     temp.get(a).dispose(); //need to dispose everything in the arraylist to save memory
+
+                }
+                for (int b = 0; b < droppings.size(); b++) {
+                    droppings.get(b).dispose();
+                }
+                for (int c = 0; c < bombs.size(); c++) {
+                    bombs.get(c).dispose();
                 }
                house.hp=house.MaxHP;
                 gameState = GameState.MAINMENU; //go to main menu
@@ -344,14 +380,17 @@ public class SnailAssalt extends ApplicationAdapter {
                 proj.shot.draw(batch);
             }
             //move house code to House.java
+            for(int b=0;b<droppings.size(); b++){
+                droppings.get(b).draw(batch);
+            }
 
+            for(int c=0;c<bombs.size();c++){
+                bombs.get(c).draw(batch);
+            }
             for (int a = 0; a < temp.size(); a++) { //draws and animates enemies
                 temp.get(a).draw(batch, time);
                 if(temp.get(a).hp<=0){
                     //shell.sprite.draw(batch);
-
-
-
                 }
             }
 
@@ -382,8 +421,12 @@ public class SnailAssalt extends ApplicationAdapter {
             font.draw(batch, "Current state: game over", 10, height - 50);
             batch.end();
         }
-
-
-
     }
+    public void addSlime(Droppings dropping){
+        droppings.add(dropping);
+    }
+    public void addBomb(BombDrop bomb){
+        bombs.add(bomb);
+    }
+
 }

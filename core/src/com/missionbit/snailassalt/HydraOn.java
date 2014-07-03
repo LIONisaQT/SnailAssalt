@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class HydraOn extends Button {
     public HydraOn(float x, float y){
-        super(x, y);
-        image = new Texture("hydra icon.png");
+        super(x, y,"hydra icon.png");
+
 
 
 
