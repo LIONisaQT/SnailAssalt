@@ -1,9 +1,7 @@
 package com.missionbit.snailassalt;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-
 /**
  * Created by vivianlam on 6/25/14.
  */
@@ -15,7 +13,6 @@ public class House {
     static public  float hp;
     static  public float MaxHP;
     static  public  float healthScale;
-
     public House() {
     house1 = new Texture("house.png");
     house2 = new Texture("housebroken.png");
@@ -24,10 +21,7 @@ public class House {
     MaxHP =100.0f;
     hp=200;
     healthScale= (hp/MaxHP)*2;
-
 }
-
-
     public void draw(SpriteBatch batch,float x,float y){
         if (hp>=8) {
             batch.draw(house1, x, y);

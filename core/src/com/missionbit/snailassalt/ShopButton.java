@@ -7,4 +7,5 @@ public class ShopButton extends Button {
     public ShopButton(float x, float y) {
         super(x, y,"shopButton.png");
     }
+    public void pressedAction() {SnailAssalt.gameState = SnailAssalt.GameState.SHOP;}
 }
