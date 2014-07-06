@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class LevelButton extends Button {
     ArrayList<TextureRegion> levelButtonImages;
     public LevelButton(float x, float y) {
-        super(x, y, "levels1-10.png");
+        super(x, y, "levels1-10.png", "levels1-10.png");
         levelButtonImages = new ArrayList<TextureRegion>();
         for (int a = 0; a < SnailAssalt.numberOfLevels; a++) {
             if (a < 5) {levelButtonImages.add(new TextureRegion(image, a * 200, 0, 200, 200));}

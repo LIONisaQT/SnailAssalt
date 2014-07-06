@@ -24,9 +24,7 @@ public class SnailAssalt extends ApplicationAdapter {
     public boolean snaildead; //is this supposed to be here?
     private float time = 0;
     //backgrounds start
-    private Texture mainMenuBackground;
-    private Texture gameOverBackground;
-    private Texture lawn;
+    private Texture mainMenuBackground, gameOverBackground, lawn;
     //backgrounds end
     //weapwns start
     private Weapon waterGun;
@@ -108,7 +106,7 @@ public class SnailAssalt extends ApplicationAdapter {
         camera.position.set(width / 2, height / 2, 0);
         gameState = GameState.MAINMENU;
         weaponState = WeaponState.REGWEAPON;
-        House.hp = House.MaxHP;
+        House.hp = House.maxHP;
         Weapon.waterLimit = 15;
         jimmy.curency = 0;
         //buttons start
@@ -123,7 +121,7 @@ public class SnailAssalt extends ApplicationAdapter {
         hydraButton.position.set(hydraButton.getXPos(), hydraButton.getYPos());
         jimmy.curency = 0;
         weaponState = WeaponState.REGWEAPON;
-        House.hp = House.MaxHP;
+        House.hp = House.maxHP;
         Weapon.waterLimit = Weapon.waterSupply;
     }
     public static Vector3 getTapPosition() { //gets and translates coordinates of tap to game world coordinates
@@ -139,15 +137,15 @@ public class SnailAssalt extends ApplicationAdapter {
          - main menu --> shop
         */
         if (gameState == GameState.MAINMENU) { //in main menu
-            if (startButtonMenu.isPressed()) {startButtonMenu.pressedAction();} //go to level select
-            if (shopButtonMenu.isPressed()) {shopButtonMenu.pressedAction();} //go to shop
+            if (startButtonMenu.pressable() && startButtonMenu.isPressed()) {startButtonMenu.pressedAction();} //go to level select
+            if (shopButtonMenu.pressable() && shopButtonMenu.isPressed()) {shopButtonMenu.pressedAction();} //go to shop
         }
         /*
         *** shop currently contains ***
          - shop --> main menu
         */
         else if (gameState == GameState.SHOP) { //in shop
-            if (backButtonShop.isPressed()) {backButtonShop.pressedAction();} //go to main menu
+            if (backButtonShop.pressable() && backButtonShop.isPressed()) {backButtonShop.pressedAction();} //go to main menu
         }
         /*
         *** level select currently contains ***
@@ -156,13 +154,13 @@ public class SnailAssalt extends ApplicationAdapter {
         */
         else if (gameState == GameState.LEVELSELECT) { //in level select
             for (int a = 0; a < numberOfLevels; a++) {
-                if (levelButtons.get(a).isPressed()) {
+                if (levelButtons.get(a).pressable() && levelButtons.get(a).isPressed()) {
                     currentLevel = levels.get(a); //current level is now whatever level that was pressed
                     enemies = currentLevel.getEnemies(); //enemies arraylist now holds level's enemies
                     levelButtons.get(a).pressedAction(); //go in-game
                 }
             }
-            if (backButtonLevelSelect.isPressed()) {gameState = GameState.MAINMENU;}
+            if (backButtonLevelSelect.pressable() && backButtonLevelSelect.isPressed()) {gameState = GameState.MAINMENU;}
         }
         /*
         *** in-game currently contains ***
@@ -173,7 +171,7 @@ public class SnailAssalt extends ApplicationAdapter {
          - in-game --> game over
         */
         else if (gameState == GameState.INGAME) { //in-game
-            if (hydraButton.isPressed()) {
+            if (hydraButton.pressable() && hydraButton.isPressed()) {
                 if (weaponState == WeaponState.REGWEAPON) {weaponState = WeaponState.HYDRA;} //switch to hydra
                 else if (weaponState == WeaponState.HYDRA) {weaponState = WeaponState.REGWEAPON;} //switch to regular gun
             }
@@ -183,7 +181,7 @@ public class SnailAssalt extends ApplicationAdapter {
                 ThrowyThingy proj = water.get(i);
                 proj.Update();
                 if (proj.bound.y >= height) {water.remove(i);}
-                if (proj.bound.y < 0) {water.remove(i);}
+                if (proj.bound.y < -proj.bound.getHeight()) {water.remove(i);}
                 boolean projectileHit = false;
                 for (int a = 0; a < enemies.size(); a++) {
                     if (proj.bound.overlaps(enemies.get(a).bound)) {
@@ -224,14 +222,15 @@ public class SnailAssalt extends ApplicationAdapter {
          - game over --> main menu
         */
         else if (gameState == GameState.GAMEOVER) { //in game over
-            if (backButtonGameOver.isPressed()) {
+            if (backButtonGameOver.pressable() && backButtonGameOver.isPressed()) {
                 backButtonGameOver.pressedAction(); //go to main menu
-                for (Enemy enemy : enemies) {enemy.dispose();}
+                enemies.clear();
                 water.clear();
                 bombs.clear();
                 droppings.clear();
-                House.hp = House.MaxHP;
+                House.hp = House.maxHP;
                 Weapon.waterLimit = Weapon.waterSupply;
+                weaponState = WeaponState.REGWEAPON;
             }
         }
     }
@@ -323,7 +322,7 @@ public class SnailAssalt extends ApplicationAdapter {
         else if (gameState == GameState.GAMEOVER) { //in game over
             batch.begin();
             batch.draw(gameOverBackground, 0, 0);
-            batch.draw(backButtonGameOver.image, backButtonGameOver.position.x, backButtonGameOver.position.y);
+            backButtonGameOver.draw(batch);
             font.draw(batch, "Current state: game over", 10, height - 50);
             batch.end();
         }
