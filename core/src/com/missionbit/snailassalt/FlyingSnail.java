@@ -8,8 +8,8 @@ public class FlyingSnail extends Enemy{
         super(x, y, xSpeed, ySpeed,attack ,hp, "flying snail.png", "flying snail2.png");
     }
     @Override
-    public void Update(SnailAssalt game){
-    super.Update(game);
+    public void Update(float dt,SnailAssalt game){
+    super.Update(dt,game);
     if(Math.random()>0.995){
         game.addBomb(new BombDrop(this.bound.x, this.bound.y));
     }

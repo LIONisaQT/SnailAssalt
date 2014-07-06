@@ -10,13 +10,13 @@ import java.util.ArrayList;
 /**
  * Created by douglas on 6/18/14.
  */
-public class Projectile {
+public class ThrowyThingy {
     public Texture agua;
     public Sprite shot;
     public Rectangle bound;
     public Vector2 speed;
 
-    public Projectile() {
+    public ThrowyThingy() {
         agua = new Texture("water.png");
         shot = new Sprite(agua,0,0,agua.getWidth(),agua.getHeight());
         bound = new Rectangle();

@@ -5,9 +5,9 @@ public class AcidSnail extends Enemy {
         super(x, y, xSpeed, ySpeed,attack,hp, "acid snail.png", "acid snail2.png");
     }
     @Override
-    public void Update(SnailAssalt game) {
-    super.Update(game);
-        if(Math.random()>0.985){
+    public void Update(float dt,SnailAssalt game) {
+    super.Update(dt,game);
+        if(Math.random()>0.95){
           game.addSlime(new Droppings(this.bound.x, this.bound.y));
         }
     }

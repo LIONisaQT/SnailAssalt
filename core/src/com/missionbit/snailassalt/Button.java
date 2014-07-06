@@ -14,16 +14,16 @@ public class Button {
     protected Vector2 position;
     protected float width, height;
     public boolean on;
-    public Button(float x, float y) {
-        image = new Texture("badlogic.jpg");
+    public Button(float x, float y, String picture) {
+        image = new Texture(picture);
         xPos = x;
         yPos = y;
         position = new Vector2();
         bound = new Rectangle();
-        bound.set(getXPos(), getYPos(), buttonGetWidth(), buttonGetHeight());
+        bound.set(getXPos(), getYPos(), this.buttonGetWidth(), this.buttonGetHeight());
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
-        on=false;
+        on = false;
     }
     public void draw(SpriteBatch batch) {
         batch.draw(this.image, this.position.x, this.position.y);
@@ -33,8 +33,7 @@ public class Button {
     public float buttonGetWidth() {return image.getWidth();}
     public float buttonGetHeight() {return image.getHeight();}
     public boolean isPressed() {
-        return  (Gdx.input.justTouched() && this.bound.contains(SnailAssalt.getTapPosition().x,SnailAssalt.getTapPosition().y));
+        return (Gdx.input.justTouched() && this.bound.contains(SnailAssalt.getTapPosition().x,SnailAssalt.getTapPosition().y));
     }
-
-
+    public void pressedAction() {}
 }
