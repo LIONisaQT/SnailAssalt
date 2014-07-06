@@ -8,14 +8,13 @@ import com.badlogic.gdx.math.Vector2;
  * Created by ryansheeisaqt on 6/18/14.
  */
 public class Button {
-    protected float xPos, yPos;
-    protected Texture image;
+    protected float width, height, xPos, yPos;
+    protected Texture image, imageNope;
     protected Rectangle bound;
     protected Vector2 position;
-    protected float width, height;
-    public boolean on;
-    public Button(float x, float y, String picture) {
+    public Button(float x, float y, String picture, String nope) {
         image = new Texture(picture);
+        imageNope = new Texture(nope);
         xPos = x;
         yPos = y;
         position = new Vector2();
@@ -23,10 +22,6 @@ public class Button {
         bound.set(getXPos(), getYPos(), this.buttonGetWidth(), this.buttonGetHeight());
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
-        on = false;
-    }
-    public void draw(SpriteBatch batch) {
-        batch.draw(this.image, this.position.x, this.position.y);
     }
     public float getXPos() {return xPos;}
     public float getYPos() {return yPos;}
@@ -35,5 +30,10 @@ public class Button {
     public boolean isPressed() {
         return (Gdx.input.justTouched() && this.bound.contains(SnailAssalt.getTapPosition().x,SnailAssalt.getTapPosition().y));
     }
+    public boolean pressable() {return true;} //bro can you even press
     public void pressedAction() {}
+    public void draw(SpriteBatch batch) {
+        if (pressable()) {batch.draw(this.image, this.position.x, this.position.y);}
+        else {batch.draw(this.imageNope, this.position.x, this.position.y);}
+    }
 }

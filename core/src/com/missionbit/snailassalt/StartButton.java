@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class StartButton extends Button {
     public StartButton(float x, float y) {
-        super(x, y, "start.png");
+        super(x, y, "start.png", "start.png");
     }
     public void pressedAction() {SnailAssalt.gameState = SnailAssalt.GameState.LEVELSELECT;}
 }
