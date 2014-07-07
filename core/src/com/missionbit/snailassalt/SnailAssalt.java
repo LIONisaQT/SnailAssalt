@@ -1,6 +1,7 @@
 package com.missionbit.snailassalt;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.math.Vector3;
 import java.util.ArrayList;
 public class SnailAssalt extends ApplicationAdapter {
     private SpriteBatch batch;
+    private Preferences pref;
     private ShapeRenderer shapeRenderer;
     public static OrthographicCamera camera;
     protected static int numberOfLevels = 10;
@@ -20,11 +22,9 @@ public class SnailAssalt extends ApplicationAdapter {
     private BitmapFont font;
     private Player jimmy;
     private House house;
-    private Snailshell shell; //should be an arraylist of shells
-    public boolean snaildead; //is this supposed to be here?
     private float time = 0;
     //backgrounds start
-    private Texture mainMenuBackground, gameOverBackground, lawn;
+    private Texture mainMenuBackground, gameOverBackground, levelSelectBackground, shopBackground, lawn;
     //backgrounds end
     //weapwns start
     private Weapon waterGun;
@@ -48,7 +48,7 @@ public class SnailAssalt extends ApplicationAdapter {
     private ArrayList<BombDrop> bombs;
     //enemies start
     //game states start
-    protected static enum GameState {MAINMENU, INGAME, GAMEOVER, SHOP, LEVELSELECT}
+    protected static enum GameState {MAINMENU, INGAME, GAMEOVER, SHOP, LEVELSELECT, WIN}
     protected static GameState gameState;
     protected static enum WeaponState {REGWEAPON, HYDRA}
     protected static WeaponState weaponState;
@@ -64,12 +64,14 @@ public class SnailAssalt extends ApplicationAdapter {
         shapeRenderer = new ShapeRenderer();
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
+        pref = Gdx.app.getPreferences("My Preferences");
         camera = new OrthographicCamera(width, height);
         font = new BitmapFont(Gdx.files.internal("font.fnt"), Gdx.files.internal("font.png"), false);
         mainMenuBackground = new Texture("sidewaysmenu.png");
-        lawn = new Texture("lawn.jpeg");
+        levelSelectBackground = new Texture("levelscreen.png");
+        shopBackground = new Texture("levelscreen.png");
         gameOverBackground = new Texture("gameover.png");
-        shell = new Snailshell();
+        lawn = new Texture("lawn.jpeg");
         jimmy = new Player();
         tap = new Vector3(); //location of tap
         house = new House();
@@ -87,7 +89,7 @@ public class SnailAssalt extends ApplicationAdapter {
         backButtonShop = new BackButton(width - 210, 10);
         backButtonLevelSelect = new BackButton(width - 210, 10);
         loseButton = new LoseButton(width - 210, height - 210);
-        hydraButton = new HydraButton(width - 210, height - 500);
+        hydraButton = new HydraButton(width - 210, 10);
         //buttons end
         //levels start
         levelButtons = new ArrayList<LevelButton>();
@@ -107,7 +109,7 @@ public class SnailAssalt extends ApplicationAdapter {
         gameState = GameState.MAINMENU;
         weaponState = WeaponState.REGWEAPON;
         House.hp = House.maxHP;
-        Weapon.waterLimit = 15;
+        Weapon.waterLimit = Weapon.waterSupply;
         jimmy.curency = 0;
         //buttons start
         startButtonMenu.position.set(startButtonMenu.getXPos(), startButtonMenu.getYPos());
@@ -119,10 +121,6 @@ public class SnailAssalt extends ApplicationAdapter {
             levelButtons.get(a).position.set(levelButtons.get(a).getXPos(), levelButtons.get(a).getYPos());
         loseButton.position.set(loseButton.getXPos(), loseButton.getYPos());
         hydraButton.position.set(hydraButton.getXPos(), hydraButton.getYPos());
-        jimmy.curency = 0;
-        weaponState = WeaponState.REGWEAPON;
-        House.hp = House.maxHP;
-        Weapon.waterLimit = Weapon.waterSupply;
     }
     public static Vector3 getTapPosition() { //gets and translates coordinates of tap to game world coordinates
         tap.set(Gdx.input.getX(), Gdx.input.getY(), 0);
@@ -188,9 +186,7 @@ public class SnailAssalt extends ApplicationAdapter {
                         projectileHit = true;
                         enemies.get(a).hp = enemies.get(a).hp - Weapon.str;
                         if (enemies.get(a).hp <= 0) {
-                            shell.sprite.setPosition(enemies.get(a).bound.x, enemies.get(a).bound.y);
                             enemies.remove(a);
-                            snaildead = true;
                             jimmy.curency += 10;
                         }
                     }
@@ -210,9 +206,7 @@ public class SnailAssalt extends ApplicationAdapter {
                         enemy.speed.x++;
                         droppings.remove(droppies);
                     }
-                    if (enemy.bound.overlaps(House.Housebounds))
-                        House.hp -= enemy.Attack * Gdx.graphics.getDeltaTime();
-                }
+                    if (enemy.bound.overlaps(House.Housebounds)) {House.hp -= enemy.Attack * Gdx.graphics.getDeltaTime();}}
             }
             if (House.hp <= 0 || loseButton.isPressed()) {gameState = GameState.GAMEOVER;}
         }
@@ -220,6 +214,8 @@ public class SnailAssalt extends ApplicationAdapter {
         *** game over currently contains ***
          - disposes enemies arraylist
          - game over --> main menu
+         - game over --> redo level
+         - game over --> shop
         */
         else if (gameState == GameState.GAMEOVER) { //in game over
             if (backButtonGameOver.pressable() && backButtonGameOver.isPressed()) {
@@ -233,6 +229,14 @@ public class SnailAssalt extends ApplicationAdapter {
                 weaponState = WeaponState.REGWEAPON;
             }
         }
+        /*
+        *** game win currently contains ***
+         - disposes enemies arraylist
+         - win --> next level
+         - win --> main menu
+         - win --> shop
+         - win --> redo level
+        */
     }
     public void drawGame() {
         camera.update();
@@ -259,6 +263,7 @@ public class SnailAssalt extends ApplicationAdapter {
         */
         else if (gameState == GameState.LEVELSELECT) { //in level select
             batch.begin();
+            batch.draw(levelSelectBackground, 0, 0);
             for (int a = 0; a < numberOfLevels; a++) {
                 LevelButton lb = levelButtons.get(a);
                 batch.draw(lb.getButtonImage(a + 1), lb.bound.x, lb.bound.y);
@@ -273,6 +278,7 @@ public class SnailAssalt extends ApplicationAdapter {
         */
         else if (gameState == GameState.SHOP) { //in shop
             batch.begin();
+            batch.draw(shopBackground, 0, 0);
             batch.draw(backButtonShop.image, backButtonShop.position.x, backButtonShop.position.y);
             font.draw(batch, "Current state: shop", 10, height - 50);
             batch.end();
@@ -290,18 +296,14 @@ public class SnailAssalt extends ApplicationAdapter {
             batch.draw(lawn, 0, 0);
             house.draw(batch, House.Housebounds.x, House.Housebounds.y);
             batch.draw(loseButton.image, loseButton.position.x, loseButton.position.y);
-            batch.draw(jimmy.sprite, 0, 0);
+            batch.draw(jimmy.sprite, width - 300, height / 4);
             if (weaponState == WeaponState.REGWEAPON) {waterGun.sprite.draw(batch);}
             if (weaponState == WeaponState.HYDRA) {hydra.sprite.draw(batch);}
             batch.draw(hydraButton.image, hydraButton.position.x, hydraButton.position.y);
-            shell.sprite.draw(batch);
             for (ThrowyThingy proj : water) {proj.shot.draw(batch);}
             for (Droppings droppies : droppings) {droppies.draw(batch);}
             for (BombDrop bomb : bombs) {bomb.draw(batch);}
-            for (Enemy enemy : enemies) { //draws and animates enemies
-                enemy.draw(batch, time);
-                if (enemy.hp <= 0) {shell.sprite.draw(batch);}
-            }
+            for (Enemy enemy : enemies) {enemy.draw(batch, time);}
             font.draw(batch, "Current level: " + currentLevel.getLevelNumber(), 10, 90);
             font.draw(batch, "Number of snails: " + enemies.size(), 10, 50);
             font.draw(batch, "Current state: in-game", 10, height - 50);
@@ -327,10 +329,6 @@ public class SnailAssalt extends ApplicationAdapter {
             batch.end();
         }
     }
-    public void addSlime(Droppings dropping) {
-        droppings.add(dropping);
-    }
-    public void addBomb(BombDrop bomb) {
-        bombs.add(bomb);
-    }
+    public void addSlime(Droppings dropping) {droppings.add(dropping);}
+    public void addBomb(BombDrop bomb) {bombs.add(bomb);}
 }

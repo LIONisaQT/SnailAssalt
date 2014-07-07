@@ -16,7 +16,7 @@ public class House {
     Housebounds = new Rectangle(900, 0, house1.getWidth(), house1.getHeight());
     maxHP = 200.0f;
     hp = maxHP;
-    healthScale= (hp / maxHP) * 2;
+    healthScale = (hp / maxHP) * 2;
 }
     public void draw(SpriteBatch batch, float x, float y){
         if (hp >= 8) {batch.draw(house1, x, y);

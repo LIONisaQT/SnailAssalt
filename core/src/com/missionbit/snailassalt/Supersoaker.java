@@ -1,20 +1,16 @@
 package com.missionbit.snailassalt;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-
 import java.util.ArrayList;
-
 /**
  * Created by mkahney on 6/24/14.
  */
 public class Supersoaker extends Weapon {
     public Supersoaker() {
-
         super("supersoaker.png");
         sprite = new Sprite(new Texture("supersoaker.png"));
         sprite.setPosition(300, 30);
@@ -26,12 +22,9 @@ public class Supersoaker extends Weapon {
         touchY = 0;
         rot = 0;
     }
-
     public boolean on() {
         return true;
     }
-
-
     public void Update(ArrayList<ThrowyThingy> water) {
         if (Gdx.input.justTouched()) {
             touch = SnailAssalt.getTapPosition().x;
