@@ -14,25 +14,28 @@ public class Weapon {
     public Sprite sprite;
     public Rectangle bound;
     public Vector2 speed;
-    static  public float touch, touchY, deltaX, deltaY, rot,waterScale;
-    static public int str,waterLimit,waterSupply;
+    protected float width, height;
+    static public float touch, touchY, deltaX, deltaY, rot, waterScale, waterLimit, waterSupply;;
+    static public int str;
     public Weapon(){
-        this("waterGun.png");
+        this("watergun arm.png");
     }
     public Weapon(String image) {
+        width = Gdx.graphics.getWidth();
+        height = Gdx.graphics.getHeight();
         sprite = new Sprite(new Texture(image));
-        sprite.setPosition(300, 30);
+        sprite.setPosition(width - 150, height / 2 - 70);
         bound = new Rectangle();
+        bound.set(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
         speed = new Vector2();
-        bound.set(300, 30, sprite.getWidth(), sprite.getHeight());
         speed.set(0, 5);
         touch = 0;
         touchY = 0;
         rot = 0;
         str = 2;
-        waterSupply = 100;
+        waterSupply = 200.0f;
         waterLimit = waterSupply;
-        waterScale=(waterSupply/waterLimit)*3;
+        waterScale = (waterSupply / waterLimit) * 3;
     }
     public void Update(ArrayList<ThrowyThingy> water) {
         if (Gdx.input.justTouched()) {
@@ -42,6 +45,7 @@ public class Weapon {
             deltaY = touchY - sprite.getY();
             rot = MathUtils.atan2(deltaY, deltaX) * 180 / MathUtils.PI;
             sprite.setRotation(rot);
+            Gdx.app.log("rot",""+rot);
             ThrowyThingy proj = new ThrowyThingy();
             water.add(proj);
             proj.bound.setPosition(this.bound.x, this.bound.y);
