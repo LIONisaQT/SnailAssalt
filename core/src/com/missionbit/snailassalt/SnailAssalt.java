@@ -292,7 +292,7 @@ public class SnailAssalt extends ApplicationAdapter {
         else if (gameState == GameState.CREDITShurshal){
             batch.begin();
             batch.draw(levelscreen,0,0);
-            batch.draw(hurshal,width/2 - 390, height/2 - 100);
+            batch.draw(hurshal,width/2 - 428, height/2 - 100);
             backButtonCredits.draw(batch);
             batch.end();
         }
