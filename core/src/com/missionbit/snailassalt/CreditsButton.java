@@ -7,7 +7,7 @@ package com.missionbit.snailassalt;
 
 public class CreditsButton extends Button {
     public CreditsButton(float x, float y) {
-        super(x, y, "creditsButton", "creditsButton");
+        super(x, y, "creditsButton.png", "creditsButton.png");
     }
     public void pressedAction() {SnailAssalt.gameState = SnailAssalt.GameState.CREDITS;}
 }

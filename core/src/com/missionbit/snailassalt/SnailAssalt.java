@@ -25,6 +25,7 @@ public class SnailAssalt extends ApplicationAdapter {
     public boolean snaildead; //is this supposed to be here?
     private float time = 0;
     private Texture text;
+    private Texture hurshal;
     //backgrounds start
     private Texture mainMenuBackground, gameOverBackground, lawn, levelscreen;
     //backgrounds end
@@ -51,7 +52,7 @@ public class SnailAssalt extends ApplicationAdapter {
     private ArrayList<BombDrop> bombs;
     //enemies start
     //game states start
-    protected static enum GameState {MAINMENU, INGAME, GAMEOVER, SHOP, LEVELSELECT,CREDITS}
+    protected static enum GameState {MAINMENU, INGAME, GAMEOVER, SHOP, LEVELSELECT,CREDITS,CREDITShurshal}
     protected static GameState gameState;
     protected static enum WeaponState {REGWEAPON, HYDRA}
     protected static WeaponState weaponState;
@@ -73,6 +74,7 @@ public class SnailAssalt extends ApplicationAdapter {
         levelscreen = new Texture("levelscreen.png");
         lawn = new Texture("lawn.jpeg");
         text = new Texture("credits.png");
+        hurshal = new Texture("hurshal.png");
         gameOverBackground = new Texture("gameover.png");
         shell = new Snailshell();
         jimmy = new Player();
@@ -94,7 +96,7 @@ public class SnailAssalt extends ApplicationAdapter {
         backButtonLevelSelect = new BackButton(width - 210, 10);
         loseButton = new LoseButton(width - 210, height - 210);
         hydraButton = new HydraButton(width - 210, height - 500);
-        creditsButton = new CreditsButton(width/ 2 - 190 , height / 2 - 300);
+        creditsButton = new CreditsButton(width/ 2 - 100 , 40);
         //buttons end
         //levels start
         levelButtons = new ArrayList<LevelButton>();
@@ -121,6 +123,7 @@ public class SnailAssalt extends ApplicationAdapter {
         shopButtonMenu.position.set(shopButtonMenu.getXPos(), shopButtonMenu.getYPos());
         backButtonGameOver.position.set(backButtonGameOver.getXPos(), backButtonGameOver.getYPos());
         backButtonLevelSelect.position.set(backButtonLevelSelect.getXPos(), backButtonLevelSelect.getYPos());
+        backButtonCredits.position.set(backButtonCredits.getXPos(),backButtonCredits.getYPos());
         backButtonShop.position.set(backButtonShop.getXPos(), backButtonShop.getYPos());
         creditsButton.position.set(creditsButton.getXPos(),creditsButton.getYPos());
         for (int a = 0; a < numberOfLevels; a++)
@@ -173,8 +176,17 @@ public class SnailAssalt extends ApplicationAdapter {
         }
 
         else if (gameState == GameState.CREDITS){
+            if (Gdx.input.justTouched()){
+                gameState = GameState.CREDITShurshal;
+            }
+        }
 
-            if (backButtonShop.pressable() && backButtonShop.isPressed()) {backButtonShop.pressedAction(); }
+        else if (gameState == GameState.CREDITShurshal){
+
+            if (backButtonCredits.pressable() && backButtonCredits.isPressed()) {
+                backButtonCredits.pressedAction();
+                gameState = GameState.MAINMENU;
+            }
         }
         /*
         *** in-game currently contains ***
@@ -263,6 +275,7 @@ public class SnailAssalt extends ApplicationAdapter {
             batch.begin();
             batch.draw(mainMenuBackground, 0, 0);
             startButtonMenu.draw(batch);
+            creditsButton.draw(batch);
             batch.draw(shopButtonMenu.image, shopButtonMenu.position.x, shopButtonMenu.position.y);
             font.draw(batch, "Current state: main menu", 10, height - 50);
             batch.end();
@@ -271,10 +284,17 @@ public class SnailAssalt extends ApplicationAdapter {
         else if (gameState == GameState.CREDITS){
             batch.begin();
             batch.draw(levelscreen, 0, 0);
-            batch.draw(text, width /2 - 305, height/ 2 - 51);
-            backButtonCredits.draw(batch);
+            batch.draw(text, width /2 - 305, 100);
             batch.end();
 
+        }
+
+        else if (gameState == GameState.CREDITShurshal){
+            batch.begin();
+            batch.draw(levelscreen,0,0);
+            batch.draw(hurshal,width/2 - 390, height/2 - 100);
+            backButtonCredits.draw(batch);
+            batch.end();
         }
         /* level select currently contains
          - back button
