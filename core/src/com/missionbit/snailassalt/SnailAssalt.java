@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
+
 import java.util.ArrayList;
 public class SnailAssalt extends ApplicationAdapter {
     private SpriteBatch batch;
@@ -23,8 +24,9 @@ public class SnailAssalt extends ApplicationAdapter {
     private Snailshell shell; //should be an arraylist of shells
     public boolean snaildead; //is this supposed to be here?
     private float time = 0;
+    private Texture text;
     //backgrounds start
-    private Texture mainMenuBackground, gameOverBackground, lawn;
+    private Texture mainMenuBackground, gameOverBackground, lawn, levelscreen;
     //backgrounds end
     //weapwns start
     private Weapon waterGun;
@@ -34,7 +36,7 @@ public class SnailAssalt extends ApplicationAdapter {
     //buttons start
     private StartButton startButtonMenu;
     private ShopButton shopButtonMenu;
-    private BackButton backButtonShop, backButtonGameOver, backButtonLevelSelect; //different back buttons because their position will most likely be different
+    private BackButton backButtonShop, backButtonGameOver, backButtonLevelSelect, backButtonCredits ;//different back buttons because their position will most likely be different
     private LoseButton loseButton;
     private HydraButton hydraButton;
     private CreditsButton creditsButton;
@@ -68,7 +70,9 @@ public class SnailAssalt extends ApplicationAdapter {
         camera = new OrthographicCamera(width, height);
         font = new BitmapFont(Gdx.files.internal("font.fnt"), Gdx.files.internal("font.png"), false);
         mainMenuBackground = new Texture("sidewaysmenu.png");
+        levelscreen = new Texture("levelscreen.png");
         lawn = new Texture("lawn.jpeg");
+        text = new Texture("credits.png");
         gameOverBackground = new Texture("gameover.png");
         shell = new Snailshell();
         jimmy = new Player();
@@ -86,6 +90,7 @@ public class SnailAssalt extends ApplicationAdapter {
         shopButtonMenu = new ShopButton(width - 150, height - 100);
         backButtonGameOver = new BackButton(width - 210, 10);
         backButtonShop = new BackButton(width - 210, 10);
+        backButtonCredits = new BackButton(width - 210,10);
         backButtonLevelSelect = new BackButton(width - 210, 10);
         loseButton = new LoseButton(width - 210, height - 210);
         hydraButton = new HydraButton(width - 210, height - 500);
@@ -117,6 +122,7 @@ public class SnailAssalt extends ApplicationAdapter {
         backButtonGameOver.position.set(backButtonGameOver.getXPos(), backButtonGameOver.getYPos());
         backButtonLevelSelect.position.set(backButtonLevelSelect.getXPos(), backButtonLevelSelect.getYPos());
         backButtonShop.position.set(backButtonShop.getXPos(), backButtonShop.getYPos());
+        creditsButton.position.set(creditsButton.getXPos(),creditsButton.getYPos());
         for (int a = 0; a < numberOfLevels; a++)
             levelButtons.get(a).position.set(levelButtons.get(a).getXPos(), levelButtons.get(a).getYPos());
         loseButton.position.set(loseButton.getXPos(), loseButton.getYPos());
@@ -141,6 +147,7 @@ public class SnailAssalt extends ApplicationAdapter {
         if (gameState == GameState.MAINMENU) { //in main menu
             if (startButtonMenu.pressable() && startButtonMenu.isPressed()) {startButtonMenu.pressedAction();} //go to level select
             if (shopButtonMenu.pressable() && shopButtonMenu.isPressed()) {shopButtonMenu.pressedAction();} //go to shop
+            if (startButtonMenu.pressable() && creditsButton.isPressed()){creditsButton.pressedAction() ;}
         }
         /*
         *** shop currently contains ***
@@ -163,6 +170,11 @@ public class SnailAssalt extends ApplicationAdapter {
                 }
             }
             if (backButtonLevelSelect.pressable() && backButtonLevelSelect.isPressed()) {gameState = GameState.MAINMENU;}
+        }
+
+        else if (gameState == GameState.CREDITS){
+
+            if (backButtonShop.pressable() && backButtonShop.isPressed()) {backButtonShop.pressedAction(); }
         }
         /*
         *** in-game currently contains ***
@@ -254,6 +266,15 @@ public class SnailAssalt extends ApplicationAdapter {
             batch.draw(shopButtonMenu.image, shopButtonMenu.position.x, shopButtonMenu.position.y);
             font.draw(batch, "Current state: main menu", 10, height - 50);
             batch.end();
+        }
+
+        else if (gameState == GameState.CREDITS){
+            batch.begin();
+            batch.draw(levelscreen, 0, 0);
+            batch.draw(text, width /2 - 305, height/ 2 - 51);
+            backButtonCredits.draw(batch);
+            batch.end();
+
         }
         /* level select currently contains
          - back button
