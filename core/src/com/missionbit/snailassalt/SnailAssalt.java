@@ -37,6 +37,7 @@ public class SnailAssalt extends ApplicationAdapter {
     private BackButton backButtonShop, backButtonGameOver, backButtonLevelSelect; //different back buttons because their position will most likely be different
     private LoseButton loseButton;
     private HydraButton hydraButton;
+    private CreditsButton creditsButton;
     //buttons end
     //levels start
     private ArrayList<Enemy> enemies; //temporarily holds level's enemy arraylist
@@ -48,7 +49,7 @@ public class SnailAssalt extends ApplicationAdapter {
     private ArrayList<BombDrop> bombs;
     //enemies start
     //game states start
-    protected static enum GameState {MAINMENU, INGAME, GAMEOVER, SHOP, LEVELSELECT}
+    protected static enum GameState {MAINMENU, INGAME, GAMEOVER, SHOP, LEVELSELECT,CREDITS}
     protected static GameState gameState;
     protected static enum WeaponState {REGWEAPON, HYDRA}
     protected static WeaponState weaponState;
@@ -88,6 +89,7 @@ public class SnailAssalt extends ApplicationAdapter {
         backButtonLevelSelect = new BackButton(width - 210, 10);
         loseButton = new LoseButton(width - 210, height - 210);
         hydraButton = new HydraButton(width - 210, height - 500);
+        creditsButton = new CreditsButton(width/ 2 - 190 , height / 2 - 300);
         //buttons end
         //levels start
         levelButtons = new ArrayList<LevelButton>();
