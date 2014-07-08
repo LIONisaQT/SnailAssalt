@@ -26,6 +26,7 @@ public class SnailAssalt extends ApplicationAdapter {
     private float time = 0;
     private Texture text;
     private Texture hurshal;
+    private Texture hurshalface;
     //backgrounds start
     private Texture mainMenuBackground, gameOverBackground, lawn, levelscreen;
     //backgrounds end
@@ -75,6 +76,7 @@ public class SnailAssalt extends ApplicationAdapter {
         lawn = new Texture("lawn.jpeg");
         text = new Texture("credits.png");
         hurshal = new Texture("hurshal.png");
+        hurshalface = new Texture("hurshal's face.png");
         gameOverBackground = new Texture("gameover.png");
         shell = new Snailshell();
         jimmy = new Player();
@@ -293,6 +295,7 @@ public class SnailAssalt extends ApplicationAdapter {
             batch.begin();
             batch.draw(levelscreen,0,0);
             batch.draw(hurshal,width/2 - 428, height/2 - 100);
+            batch.draw(hurshalface, width/2 - 160,0);
             backButtonCredits.draw(batch);
             batch.end();
         }
