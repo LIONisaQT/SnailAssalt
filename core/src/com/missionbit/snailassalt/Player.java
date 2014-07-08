@@ -14,12 +14,6 @@ public class Player {
         bound = new Rectangle(0, 0, sprite.getWidth(), sprite.getHeight());
         curency = 0;
     }
-    public void playerPosition(float c,float d){
-        bound.setX(c);
-        bound.setY(d);
-        sprite.setX(c);
-        sprite.setY(d);
-    }
 }
 
 

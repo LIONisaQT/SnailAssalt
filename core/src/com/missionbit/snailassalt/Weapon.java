@@ -24,7 +24,7 @@ public class Weapon {
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
         sprite = new Sprite(new Texture(image));
-        sprite.setPosition(width - 150, height / 2 - 70);
+        sprite.setPosition(width - 160, height / 2 - 110);
         bound = new Rectangle();
         bound.set(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
         speed = new Vector2();
