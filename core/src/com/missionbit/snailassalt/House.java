@@ -18,7 +18,7 @@ public class House {
     house2 = new Texture("housebroken.png");
     house3 = new Texture("housegameover.png");
     Housebounds= new Rectangle(900,0,house1.getWidth(),house1.getHeight());
-    MaxHP =100.0f;
+    MaxHP =100000.0f;
     hp=200;
     healthScale= (hp/MaxHP)*2;
 }

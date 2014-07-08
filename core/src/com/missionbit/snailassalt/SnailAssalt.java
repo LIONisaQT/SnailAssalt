@@ -20,7 +20,6 @@ public class SnailAssalt extends ApplicationAdapter {
     private BitmapFont font;
     private Player jimmy;
     private House house;
-    private Snailshell shell; //should be an arraylist of shells
     public boolean snaildead; //is this supposed to be here?
     private float time = 0;
     //backgrounds start
@@ -32,6 +31,7 @@ public class SnailAssalt extends ApplicationAdapter {
     private Weapon waterGun;
     private Hydra hydra;
     private ArrayList<ThrowyThingy> water; //holds watergun shots
+    private ArrayList<Snailshell> shell;
     //weapwns end
     //buttons start
     private StartButton startButtonMenu;
@@ -71,7 +71,7 @@ public class SnailAssalt extends ApplicationAdapter {
         mainMenuBackground = new Texture("sidewaysmenu.png");
         lawn = new Texture("lawn.jpeg");
         gameOverBackground = new Texture("gameover.png");
-        shell = new Snailshell();
+        shell = new ArrayList<Snailshell>();
         jimmy = new Player();
         tap = new Vector3(); //location of tap
         house = new House();
@@ -109,7 +109,7 @@ public class SnailAssalt extends ApplicationAdapter {
         gameState = GameState.MAINMENU;
         weaponState = WeaponState.REGWEAPON;
         House.hp = House.MaxHP;
-        Weapon.waterLimit = 15;
+        Weapon.currentWater = Weapon.waterSupply;
         jimmy.curency = 0;
         //buttons start
         startButtonMenu.position.set(startButtonMenu.getXPos(), startButtonMenu.getYPos());
@@ -123,8 +123,6 @@ public class SnailAssalt extends ApplicationAdapter {
         hydraButton.position.set(hydraButton.getXPos(), hydraButton.getYPos());
         jimmy.curency = 0;
         weaponState = WeaponState.REGWEAPON;
-        House.hp = House.MaxHP;
-        Weapon.waterLimit = Weapon.waterSupply;
     }
     public static Vector3 getTapPosition() { //gets and translates coordinates of tap to game world coordinates
         tap.set(Gdx.input.getX(), Gdx.input.getY(), 0);
@@ -190,27 +188,43 @@ public class SnailAssalt extends ApplicationAdapter {
                         projectileHit = true;
                         enemies.get(a).hp = enemies.get(a).hp - Weapon.str;
                         if (enemies.get(a).hp <= 0) {
-                            shell.sprite.setPosition(enemies.get(a).bound.x, enemies.get(a).bound.y);
+                            shell.add(new Snailshell(enemies.get(a).bound.x,enemies.get(a).bound.y));
                             enemies.remove(a);
-                            snaildead = true;
+                            a--;
                             jimmy.curency += 10;
+                            Weapon.currentWater +=10;
+                            if(Weapon.currentWater >=Weapon.waterSupply){
+                                Weapon.currentWater =100;
+                            }
                         }
                     }
                 }
                 if (projectileHit) {water.remove(i);}
             }
+            for(int b=0;b<shell.size();b++){
+                shell.get(b).Update();
+                if(shell.get(b).bounds.y>height){
+                    shell.remove(b);
+                    b--;
+
+                }
+            }
             for (Enemy enemy : enemies) {
                 enemy.Update(deltaTime, this);
-                for (BombDrop bomb : bombs) {
+                for (int i = 0; i < bombs.size(); i++) {
+                    BombDrop bomb = bombs.get(i);
                     if (enemy.bound.overlaps(bomb.bound) && !(enemy instanceof FlyingSnail)) {
                         enemy.speed.x = enemy.speed.x + 2;
-                        bombs.remove(bomb);
+                        bombs.remove(i);
+                        i--;
                     }
                 }
-                for (Droppings droppies : droppings) {
+                for (int i = 0; i < droppings.size(); i++) {
+                    Droppings droppies = droppings.get(i);
                     if (enemy.bound.overlaps(droppies.bound) && !(enemy instanceof AcidSnail)) {
                         enemy.speed.x++;
-                        droppings.remove(droppies);
+                        droppings.remove(i);
+                        i--;
                     }
                     if (enemy.bound.overlaps(House.Housebounds))
                         House.hp -= enemy.Attack * Gdx.graphics.getDeltaTime();
@@ -223,15 +237,20 @@ public class SnailAssalt extends ApplicationAdapter {
          - disposes enemies arraylist
          - game over --> main menu
         */
+
+
+
+
         else if (gameState == GameState.GAMEOVER) { //in game over
             if (backButtonGameOver.isPressed()) {
                 backButtonGameOver.pressedAction(); //go to main menu
                 for (Enemy enemy : enemies) {enemy.dispose();}
+                shell.clear();
                 water.clear();
                 bombs.clear();
                 droppings.clear();
                 House.hp = House.MaxHP;
-                Weapon.waterLimit = Weapon.waterSupply;
+                Weapon.currentWater = Weapon.waterSupply;
             }
         }
     }
@@ -291,30 +310,38 @@ public class SnailAssalt extends ApplicationAdapter {
             batch.draw(lawn, 0, 0);
             house.draw(batch, House.Housebounds.x, House.Housebounds.y);
             batch.draw(loseButton.image, loseButton.position.x, loseButton.position.y);
-            batch.draw(jimmy.sprite, 0, 0);
+
+            batch.draw(jimmy.sprite,jimmy.bound.x,jimmy.bound.y);
             if (weaponState == WeaponState.REGWEAPON) {waterGun.sprite.draw(batch);}
             if (weaponState == WeaponState.HYDRA) {hydra.sprite.draw(batch);}
             batch.draw(hydraButton.image, hydraButton.position.x, hydraButton.position.y);
-            shell.sprite.draw(batch);
             for (ThrowyThingy proj : water) {proj.shot.draw(batch);}
             for (Droppings droppies : droppings) {droppies.draw(batch);}
             for (BombDrop bomb : bombs) {bomb.draw(batch);}
             for (Enemy enemy : enemies) { //draws and animates enemies
                 enemy.draw(batch, time);
-                if (enemy.hp <= 0) {shell.sprite.draw(batch);}
             }
+
+            for(Snailshell snailshell: shell) {
+               // snailshell.sprite.setPosition(snailshell.bounds.x,snailshell.bounds.y);
+                batch.draw(snailshell.image,snailshell.bounds.x,snailshell.bounds.y);
+
+            }
+
+
             font.draw(batch, "Current level: " + currentLevel.getLevelNumber(), 10, 90);
             font.draw(batch, "Number of snails: " + enemies.size(), 10, 50);
             font.draw(batch, "Current state: in-game", 10, height - 50);
-            font.draw(batch, "Water Amount: " + Weapon.waterLimit, 10, height - 100);
+            font.draw(batch, "Water Amount: " + Weapon.currentWater, 10, height - 100);
             font.draw(batch, "Snailshells: " + jimmy.curency, 10, height - 200);
             font.draw(batch, "HP: " + (int) House.hp, 10, height - 400);
+            font.draw(batch, "num of shells: " + shell.size(), 500, height - 400);
             batch.end();
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             shapeRenderer.setColor(Color.RED);
             shapeRenderer.rect(3, 50, House.hp * House.healthScale, 30);
             shapeRenderer.setColor(Color.BLUE);
-            shapeRenderer.rect(3, 70, Weapon.waterLimit * Weapon.waterScale, 40);
+            shapeRenderer.rect(3, 70, Weapon.currentWater * Weapon.waterScale, 40);
             shapeRenderer.end();
         }
         /* game over screen currently contains ***

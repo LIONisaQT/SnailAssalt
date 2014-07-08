@@ -36,7 +36,7 @@ public class Hydra extends Weapon {
             water.add(proj3);
             proj3.bound.setPosition(this.bound.x, this.bound.y);
             proj3.speed.setAngleRad(MathUtils.degreesToRadians * (rot+15));
-            waterLimit-=3;
+            currentWater -=3;
         }
     }
 }

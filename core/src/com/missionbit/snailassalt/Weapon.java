@@ -14,25 +14,25 @@ public class Weapon {
     public Sprite sprite;
     public Rectangle bound;
     public Vector2 speed;
-    static  public float touch, touchY, deltaX, deltaY, rot,waterScale;
-    static public int str,waterLimit,waterSupply;
+    static  public float touch, touchY, deltaX, deltaY, rot,waterScale,currentWater,waterSupply;
+    static public int str ;
     public Weapon(){
         this("waterGun.png");
     }
     public Weapon(String image) {
         sprite = new Sprite(new Texture(image));
-        sprite.setPosition(300, 30);
+        sprite.setPosition(500, 30);
         bound = new Rectangle();
         speed = new Vector2();
-        bound.set(300, 30, sprite.getWidth(), sprite.getHeight());
+        bound.set(500, 30, sprite.getWidth(), sprite.getHeight());
         speed.set(0, 5);
         touch = 0;
         touchY = 0;
         rot = 0;
         str = 2;
         waterSupply=100;
-        waterLimit = waterSupply;
-        waterScale=(waterSupply/waterLimit)*3;
+        currentWater =200;
+        waterScale=(currentWater/ waterSupply)*2;
     }
     public void Update(ArrayList<ThrowyThingy> water) {
         if (Gdx.input.justTouched()) {
@@ -46,7 +46,7 @@ public class Weapon {
             water.add(proj);
             proj.bound.setPosition(this.bound.x, this.bound.y);
             proj.speed.setAngleRad(MathUtils.degreesToRadians * rot);
-            waterLimit--;
+            currentWater--;
         }
     }
 }
