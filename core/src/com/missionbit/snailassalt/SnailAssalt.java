@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
-
 import java.util.ArrayList;
 public class SnailAssalt extends ApplicationAdapter {
     private SpriteBatch batch;
@@ -38,9 +37,9 @@ public class SnailAssalt extends ApplicationAdapter {
     //buttons start
     private StartButton startButtonMenu;
     private ShopButton shopButtonMenu;
-    private BackButton backButtonShop, backButtonGameOver, backButtonLevelSelect, backButtonCredits ;//different back buttons because their position will most likely be different
+    private BackButton backButtonShop, backButtonGameOver, backButtonLevelSelect, backButtonCredits; //different back buttons because their position will most likely be different
     private LoseButton loseButton;
-    private HydraButton hydraButton;
+    static public HydraButton hydraButton;
     private CreditsButton creditsButton;
     //buttons end
     //levels start
@@ -53,7 +52,7 @@ public class SnailAssalt extends ApplicationAdapter {
     private ArrayList<BombDrop> bombs;
     //enemies start
     //game states start
-    protected static enum GameState {MAINMENU, INGAME, GAMEOVER, SHOP, LEVELSELECT,CREDITS,CREDITShurshal}
+    protected static enum GameState {MAINMENU, INGAME, GAMEOVER, SHOP, LEVELSELECT,CREDITS, CREDITShurshal}
     protected static GameState gameState;
     protected static enum WeaponState {REGWEAPON, HYDRA}
     protected static WeaponState weaponState;
@@ -72,11 +71,11 @@ public class SnailAssalt extends ApplicationAdapter {
         camera = new OrthographicCamera(width, height);
         font = new BitmapFont(Gdx.files.internal("font.fnt"), Gdx.files.internal("font.png"), false);
         mainMenuBackground = new Texture("sidewaysmenu.png");
-        levelscreen = new Texture("levelscreen.png");
+        levelscreen = new Texture ("levelscreen.png");
         lawn = new Texture("lawn.jpeg");
-        text = new Texture("credits.png");
-        hurshal = new Texture("hurshal.png");
-        hurshalface = new Texture("hurshal's face.png");
+        text=new Texture("credits.png");
+        hurshal=new Texture("hurshal.png");
+        hurshalface= new Texture("hurshal's face.png");
         gameOverBackground = new Texture("gameover.png");
         shell = new Snailshell();
         jimmy = new Player();
@@ -94,11 +93,11 @@ public class SnailAssalt extends ApplicationAdapter {
         shopButtonMenu = new ShopButton(width - 150, height - 100);
         backButtonGameOver = new BackButton(width - 210, 10);
         backButtonShop = new BackButton(width - 210, 10);
-        backButtonCredits = new BackButton(width - 210,10);
         backButtonLevelSelect = new BackButton(width - 210, 10);
+        backButtonCredits = new BackButton(width-210,10);
         loseButton = new LoseButton(width - 210, height - 210);
-        hydraButton = new HydraButton(width - 210, height - 500);
-        creditsButton = new CreditsButton(width/ 2 - 100 , 40);
+        hydraButton = new HydraButton(width - 1150, 500);
+        creditsButton = new CreditsButton(width/ 2 - 100 ,40);
         //buttons end
         //levels start
         levelButtons = new ArrayList<LevelButton>();
@@ -152,7 +151,7 @@ public class SnailAssalt extends ApplicationAdapter {
         if (gameState == GameState.MAINMENU) { //in main menu
             if (startButtonMenu.pressable() && startButtonMenu.isPressed()) {startButtonMenu.pressedAction();} //go to level select
             if (shopButtonMenu.pressable() && shopButtonMenu.isPressed()) {shopButtonMenu.pressedAction();} //go to shop
-            if (startButtonMenu.pressable() && creditsButton.isPressed()){creditsButton.pressedAction() ;}
+            if (startButtonMenu.pressable() && creditsButton.isPressed()){creditsButton.pressedAction();}
         }
         /*
         *** shop currently contains ***
@@ -176,18 +175,15 @@ public class SnailAssalt extends ApplicationAdapter {
             }
             if (backButtonLevelSelect.pressable() && backButtonLevelSelect.isPressed()) {gameState = GameState.MAINMENU;}
         }
-
         else if (gameState == GameState.CREDITS){
-            if (Gdx.input.justTouched()){
-                gameState = GameState.CREDITShurshal;
+            if(Gdx.input.justTouched()){
+                gameState=GameState.CREDITShurshal;
             }
         }
-
-        else if (gameState == GameState.CREDITShurshal){
-
-            if (backButtonCredits.pressable() && backButtonCredits.isPressed()) {
+        else if(gameState == GameState.CREDITShurshal){
+            if(backButtonCredits.pressable() && backButtonCredits.isPressed()){
                 backButtonCredits.pressedAction();
-                gameState = GameState.MAINMENU;
+                gameState=GameState.MAINMENU;
             }
         }
         /*
@@ -282,20 +278,17 @@ public class SnailAssalt extends ApplicationAdapter {
             font.draw(batch, "Current state: main menu", 10, height - 50);
             batch.end();
         }
-
-        else if (gameState == GameState.CREDITS){
-            batch.begin();
-            batch.draw(levelscreen, 0, 0);
-            batch.draw(text, width /2 - 305, 100);
-            batch.end();
-
-        }
-
-        else if (gameState == GameState.CREDITShurshal){
+        else if(gameState == GameState.CREDITS){
             batch.begin();
             batch.draw(levelscreen,0,0);
-            batch.draw(hurshal,width/2 - 428, height/2 - 100);
-            batch.draw(hurshalface, width/2 - 160,0);
+            batch.draw(text,width/2-305,100);
+            batch.end();
+        }
+        else if(gameState == GameState.CREDITShurshal){
+            batch.begin();
+            batch.draw(levelscreen,0,0);
+            batch.draw(hurshal, width/2-428,height/2-100);
+            batch.draw(hurshalface,width/2-160,0);
             backButtonCredits.draw(batch);
             batch.end();
         }
@@ -336,7 +329,7 @@ public class SnailAssalt extends ApplicationAdapter {
             batch.draw(lawn, 0, 0);
             house.draw(batch, House.Housebounds.x, House.Housebounds.y);
             batch.draw(loseButton.image, loseButton.position.x, loseButton.position.y);
-            batch.draw(jimmy.sprite, 0, 0);
+            batch.draw(jimmy.sprite, width-250, height/4);
             if (weaponState == WeaponState.REGWEAPON) {waterGun.sprite.draw(batch);}
             if (weaponState == WeaponState.HYDRA) {hydra.sprite.draw(batch);}
             batch.draw(hydraButton.image, hydraButton.position.x, hydraButton.position.y);
