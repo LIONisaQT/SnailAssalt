@@ -1,14 +1,16 @@
 package com.missionbit.snailassalt;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+
 /**
- * Created by ryansheeisaqt on 6/18/14.
+ * Created by douglas on 7/8/14.
  */
-public class Button {
+public class ShopButtons {
     protected float xPos, yPos;
     protected Texture image;
     protected Rectangle bound;
@@ -17,7 +19,8 @@ public class Button {
     protected Sprite sprite;
     protected int price;
     public boolean on;
-    public Button(float x, float y, String picture) {
+    public ShopButtons(float x, float y, String picture,int cost) {
+        price=cost;
         xPos = x;
         yPos = y;
         sprite=new Sprite(new Texture(picture));

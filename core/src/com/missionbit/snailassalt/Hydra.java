@@ -17,7 +17,7 @@ public class Hydra extends Weapon {
     }
     public void Update(ArrayList<ThrowyThingy> water) {
 
-        if (Gdx.input.justTouched()) {
+        if (Gdx.input.justTouched() && currentWater!=0) {
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
             deltaX = touch - sprite.getX();

@@ -18,8 +18,9 @@ public class Snailshell {
     public Vector2 speed;
     public Vector2 position;
     protected float height,width;
-    public Snailshell(float a,float b){
+    public Snailshell(int a,int b){
        image = new Texture("standardshell.png");
+       sprite=new Sprite(image,a,b,image.getWidth(),image.getHeight());
        bounds=new Rectangle();
        bounds.set(a,b,image.getWidth(),image.getHeight());
        height= Gdx.graphics.getHeight();

@@ -1,4 +1,7 @@
 package com.missionbit.snailassalt;
+
+import com.badlogic.gdx.graphics.g2d.Sprite;
+
 /**
   Created by ryansheeisaqt on 6/18/14.
  */
