@@ -45,9 +45,9 @@ public class SnailAssalt extends ApplicationAdapter {
     private ShopButton shopButtonMenu, shopButtonGameEnd;
     private BackButton backButtonShop, backButtonGameEnd, backButtonLevelSelect, backButtonCredits; //different back buttons because their position will most likely be different
     private LoseButton loseButton;
-    private HydraButton hydraButton;
+    public static HydraButton hydraButton;
     private RedoButton redoLevelButton;
-    private SaltButton saltButton;
+    public static SaltButton saltButton;
     private SpHydraBut spHydraBut;
     private SpSaltBut spSaltBut;
 
@@ -149,14 +149,13 @@ public class SnailAssalt extends ApplicationAdapter {
 
         creditsButton = new CreditsButton(width / 2 - 100, 40);
 
-        hydraButton = new HydraButton(width - 210, height - 500);
+        hydraButton = new HydraButton(width - width + 20, height - 200);
         spHydraBut = new SpHydraBut(width - 210, height - 500);
-        saltButton = new SaltButton(width - 210, height - 600);
+        saltButton = new SaltButton(width - width +20, height - 600);
         spSaltBut = new SpSaltBut(width - 610, height - 900);
 
 
         //buttons end
-        hydraButton = new HydraButton(width - 210, 10);
         redoLevelButton = new RedoButton(width / 2 - 200, height / 2 - 200);
         //buttons end #iSuckAtCoding
         //levels start
