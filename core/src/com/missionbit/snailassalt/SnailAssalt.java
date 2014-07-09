@@ -456,6 +456,9 @@ public class SnailAssalt extends ApplicationAdapter {
             if (House.hp <= 0 || loseButton.isPressed()) {
                 gameState = GameState.GAMEOVER;
             }
+            if(enemies.size()==0){
+                gameState= GameState.WIN;
+            }
         }
 
         
