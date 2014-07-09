@@ -13,7 +13,6 @@ public class Snailshell {
     public Snailshell(){
        image = new Texture("standardshell.png");
        sprite = new Sprite(image, 0,0,image.getWidth(),image.getHeight());
-
        bounds = new Rectangle(0,0,sprite.getWidth(),sprite.getHeight());
        sprite.setPosition(7,70);
     }
