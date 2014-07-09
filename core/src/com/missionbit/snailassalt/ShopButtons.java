@@ -1,22 +1,26 @@
 package com.missionbit.snailassalt;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+
 /**
- * Created by ryansheeisaqt on 6/18/14.
+ * Created by douglas on 7/8/14.
  */
-public class Button {
-    protected float width, height, xPos, yPos;
-    protected Texture image, imageNope;
+public class ShopButtons {
+    protected float xPos, yPos;
+    protected Texture image;
     protected Rectangle bound;
     protected Vector2 position;
+    protected float width, height;
     protected Sprite sprite;
-    public Button(float x, float y, String picture, String nope) {
-        image = new Texture(picture);
-        imageNope = new Texture(nope);
+    protected int price;
+    public boolean on;
+    public ShopButtons(float x, float y, String picture,int cost) {
+        price=cost;
         xPos = x;
         yPos = y;
         sprite=new Sprite(new Texture(picture));
@@ -26,6 +30,10 @@ public class Button {
         bound.set(getXPos(), getYPos(), this.buttonGetWidth(), this.buttonGetHeight());
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
+        on = false;
+    }
+    public void draw(SpriteBatch batch) {
+        batch.draw(this.sprite, this.position.x, this.position.y);
     }
     public float getXPos() {return xPos;}
     public float getYPos() {return yPos;}
@@ -34,12 +42,8 @@ public class Button {
     public boolean isPressed() {
         return (Gdx.input.justTouched() && this.bound.contains(SnailAssalt.getTapPosition().x,SnailAssalt.getTapPosition().y));
     }
-
-    public boolean pressable() {return true;} //bro can you even press
-
-    public void pressedAction() {}
-    public void draw(SpriteBatch batch) {
-        if (pressable()) {batch.draw(this.image, this.position.x, this.position.y);}
-        else {batch.draw(this.imageNope, this.position.x, this.position.y);}
+    public boolean IsPressable(){
+        return true;
     }
+    public void pressedAction() {}
 }

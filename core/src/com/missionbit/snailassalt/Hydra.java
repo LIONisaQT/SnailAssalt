@@ -16,7 +16,9 @@ public class Hydra extends Weapon {
         else {return false;}
     }
     public void Update(ArrayList<ThrowyThingy> water) {
-        if (Gdx.input.justTouched()) {
+
+
+        if (Gdx.input.justTouched() && currentWater!=0) {
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
             deltaX = touch - sprite.getX();
@@ -35,7 +37,7 @@ public class Hydra extends Weapon {
             water.add(proj3);
             proj3.bound.setPosition(this.bound.x, this.bound.y);
             proj3.speed.setAngleRad(MathUtils.degreesToRadians * (rot+15));
-            waterLimit-=3;
+            currentWater -=3;
         }
     }
 }

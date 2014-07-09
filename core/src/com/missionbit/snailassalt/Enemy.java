@@ -18,6 +18,7 @@ public class Enemy {
     private Texture frame2;
     private Animation animation;
     protected float Attack;
+    protected  float SpawnOffset;
     public Enemy(float x, float y, float xSpeed, float ySpeed,float attack,float hp) {
         this(x, y, xSpeed, ySpeed, attack, hp, "snail.png", "standardsnail2.png");
     }
@@ -35,6 +36,7 @@ public class Enemy {
         maxHP = hit;
         hp = maxHP;
         Attack = attack;
+        SpawnOffset=15;
     }
 
     public void Update (float dt,SnailAssalt game) {
@@ -53,4 +55,5 @@ public class Enemy {
         frame1.dispose();
         frame2.dispose();
     }
+    public boolean enemyDead(){return hp < 0 ; }
 }
