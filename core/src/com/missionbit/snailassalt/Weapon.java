@@ -12,11 +12,14 @@ import java.util.ArrayList;
  */
 public class Weapon {
     public Sprite sprite;
+    public boolean enable;
+    public boolean enableSalt;
     public Rectangle bound;
     public Vector2 speed;
     protected float width, height;
-    static public float touch, touchY, deltaX, deltaY, rot, waterScale, waterLimit, waterSupply;;
+    static public float touch, touchY, deltaX, deltaY, rot, waterScale, currentWater, waterSupply;;
     static public int str;
+
     public Weapon(){
         this("watergun arm.png");
     }
@@ -25,20 +28,28 @@ public class Weapon {
         height = Gdx.graphics.getHeight();
         sprite = new Sprite(new Texture(image));
         sprite.setPosition(width - 150, height / 2 - 70);
+
         bound = new Rectangle();
         bound.set(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
         speed = new Vector2();
+
         speed.set(0, 5);
         touch = 0;
         touchY = 0;
         rot = 0;
         str = 2;
-        waterSupply = 200.0f;
-        waterLimit = waterSupply;
-        waterScale = (waterSupply / waterLimit) * 3;
+
+        waterSupply=100;
+        currentWater =200;
+        waterScale=(currentWater/ waterSupply)*2;
+
+
     }
     public void Update(ArrayList<ThrowyThingy> water) {
-        if (Gdx.input.justTouched()) {
+        if(!enable){
+            return;
+        }
+        if (Gdx.input.justTouched()&& currentWater!=0 && SnailAssalt.weaponState== SnailAssalt.WeaponState.REGWEAPON && SnailAssalt.bulletType== SnailAssalt.BulletType.WATER) {
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
             deltaX = touch - sprite.getX();
@@ -50,7 +61,27 @@ public class Weapon {
             water.add(proj);
             proj.bound.setPosition(this.bound.x, this.bound.y);
             proj.speed.setAngleRad(MathUtils.degreesToRadians * rot);
-            waterLimit--;
+            currentWater--;
+        }
+
+    }
+    public void Update2(ArrayList<Salt> shakers){
+        if(!enableSalt){
+            return;
+        }
+        if (Gdx.input.justTouched() && currentWater!=0 && SnailAssalt.weaponState== SnailAssalt.WeaponState.REGWEAPON && SnailAssalt.bulletType==SnailAssalt.bulletType.SALT) {
+            touch = SnailAssalt.getTapPosition().x;
+            touchY = SnailAssalt.getTapPosition().y;
+            deltaX = touch - sprite.getX();
+            deltaY = touchY - sprite.getY();
+            rot = MathUtils.atan2(deltaY, deltaX) * 180 / MathUtils.PI;
+            sprite.setRotation(rot);
+
+            Salt bullet= new Salt();
+            shakers.add(bullet);
+            bullet.bound.setPosition(this.bound.x, this.bound.y);
+            bullet.speed.setAngleRad(MathUtils.degreesToRadians * rot);
+            currentWater--;
         }
     }
 }

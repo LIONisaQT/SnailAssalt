@@ -5,23 +5,22 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-import java.util.ArrayList;
-
 /**
  * Created by douglas on 6/18/14.
  */
 public class ThrowyThingy {
-    public Texture agua;
-    public Sprite shot;
+    public Texture image;
+    public Sprite sprite;
     public Rectangle bound;
     public Vector2 speed;
+    public boolean enable;
 
     public ThrowyThingy() {
-        agua = new Texture("water.png");
-        shot = new Sprite(agua,0,0,agua.getWidth(),agua.getHeight());
+        image = new Texture("water.png");
+        sprite = new Sprite(image,0,0, image.getWidth(), image.getHeight());
         bound = new Rectangle();
-        bound.set(30, 300, agua.getWidth(), agua.getHeight());
-        shot.setPosition(bound.x, bound.y);
+        bound.set(30, 300, image.getWidth(), image.getHeight());
+        sprite.setPosition(bound.x, bound.y);
         speed = new Vector2();
         speed.set(6, 6);
 
@@ -29,8 +28,8 @@ public class ThrowyThingy {
     public void move(float x,float y) {
         bound.x=x;
         bound.y=y;
-        shot.setX(x);
-        shot.setY(y);
+        sprite.setX(x);
+        sprite.setY(y);
     }
     public void Update() {
         this.move(this.bound.x + this.speed.x, this.bound.y + this.speed.y);
