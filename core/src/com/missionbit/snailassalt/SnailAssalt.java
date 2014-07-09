@@ -75,7 +75,7 @@ public class SnailAssalt extends ApplicationAdapter {
         lawn = new Texture("lawn.jpeg");
         text=new Texture("credits.png");
         hurshal=new Texture("hurshal.png");
-        hurshalface= new Texture("hurshal's face.png");
+        hurshalface= new Texture("hurshal's face copy.png");
         gameOverBackground = new Texture("gameover.png");
         shell = new Snailshell();
         jimmy = new Player();
