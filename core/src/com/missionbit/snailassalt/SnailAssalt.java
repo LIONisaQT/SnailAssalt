@@ -14,7 +14,6 @@ import com.badlogic.gdx.math.Vector3;
 import java.util.ArrayList;
 public class SnailAssalt extends ApplicationAdapter {
     private SpriteBatch batch;
-    private Preferences pref;
     private ShapeRenderer shapeRenderer;
     public static OrthographicCamera camera;
     protected static int numberOfLevels = 10;
@@ -25,7 +24,7 @@ public class SnailAssalt extends ApplicationAdapter {
     private House house;
     private float time = 0;
     //backgrounds start
-    private Texture mainMenuBackground, gameOverBackground, gameWinBackground, levelSelectBackground, shopBackground, lawn;
+    Texture mainMenuBackground, gameOverBackground, gameWinBackground, levelSelectBackground, shopBackground, lawn;
     private Sprite menu, gameover, win, levelSelect, shop, laun;
     //backgrounds end
     //weapwns start
@@ -67,7 +66,6 @@ public class SnailAssalt extends ApplicationAdapter {
         shapeRenderer = new ShapeRenderer();
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
-        pref = Gdx.app.getPreferences("My Preferences");
         camera = new OrthographicCamera(width, height);
         font = new BitmapFont(Gdx.files.internal("font.fnt"), Gdx.files.internal("font.png"), false);
         mainMenuBackground = new Texture("sidewaysmenu.png");
@@ -274,7 +272,6 @@ public class SnailAssalt extends ApplicationAdapter {
             batch.begin();
             menu.draw(batch);
             startButtonMenu.draw(batch);
-
             batch.draw(shopButtonMenu.image, shopButtonMenu.position.x, shopButtonMenu.position.y);
             font.draw(batch, "Current state: main menu", 10, height);
             batch.end();
