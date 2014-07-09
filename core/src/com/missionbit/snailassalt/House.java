@@ -18,13 +18,13 @@ public class House {
         height = Gdx.graphics.getHeight();
         house1 = new Texture("balconyy.png");
         houseFull = new Sprite(house1, house1.getWidth(), (int)height);
-        houseFull.setPosition(width - 300, 0);
+        houseFull.setPosition(width - house1.getWidth(), 0);
         house2 = new Texture("balconyz.png");
         houseHalf = new Sprite(house2, house1.getWidth(), (int)height);
-        houseHalf.setPosition(width - 300, 0);
+        houseHalf.setPosition(width - house2.getWidth(), 0);
         house3 = new Texture("balconya.png");
         houseZero = new Sprite(house3, house1.getWidth(), (int)height);
-        houseZero.setPosition(width - 300, 0);
+        houseZero.setPosition(width - house3.getWidth(), 0);
         Housebounds = new Rectangle(width - houseFull.getWidth(), 0, houseFull.getWidth(), houseFull.getHeight());
         maxHP = 200.0f;
         hp = maxHP;
