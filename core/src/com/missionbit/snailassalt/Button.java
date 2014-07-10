@@ -24,7 +24,7 @@ public class Button {
         position = new Vector2();
         sprite=new Sprite(new Texture(picture));
         sprite.setPosition(getXPos(),getYPos());
-        sprite.setSize(width/7,height/8);
+        sprite.setSize(image.getWidth(), image.getHeight());
         //sprite.setBounds(getXPos(),getYPos(),this.buttonGetWidth(),this.buttonGetHeight());
         bound = new Rectangle();
         bound.set(getXPos(), getYPos(), this.buttonGetWidth(), this.buttonGetHeight());

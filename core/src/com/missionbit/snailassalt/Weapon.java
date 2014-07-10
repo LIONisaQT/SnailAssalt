@@ -27,7 +27,7 @@ public class Weapon {
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
         sprite = new Sprite(new Texture(image));
-        sprite.setPosition(width - 150, height / 2 - 70);
+        sprite.setPosition(width - 2 * sprite.getWidth() / 3, height / 2 - sprite.getHeight() / 3);
 
         bound = new Rectangle();
         bound.set(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
@@ -49,7 +49,7 @@ public class Weapon {
         if(!enable){
             return;
         }
-        if (Gdx.input.justTouched()&& currentWater!=0 && SnailAssalt.weaponState== SnailAssalt.WeaponState.REGWEAPON && SnailAssalt.bulletType== SnailAssalt.BulletType.WATER) {
+        if (Gdx.input.justTouched() && currentWater != 0 && SnailAssalt.weaponState == SnailAssalt.WeaponState.REGWEAPON && SnailAssalt.bulletType == SnailAssalt.BulletType.WATER && !SnailAssalt.hydraButton.isPressed() && !SnailAssalt.saltButton.isPressed()) {
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
             deltaX = touch - sprite.getX();
@@ -69,7 +69,7 @@ public class Weapon {
         if(!enableSalt){
             return;
         }
-        if (Gdx.input.justTouched() && currentWater!=0 && SnailAssalt.weaponState== SnailAssalt.WeaponState.REGWEAPON && SnailAssalt.bulletType==SnailAssalt.bulletType.SALT) {
+        if (Gdx.input.justTouched() && currentWater!=0 && SnailAssalt.weaponState== SnailAssalt.WeaponState.REGWEAPON && SnailAssalt.bulletType==SnailAssalt.bulletType.SALT && !SnailAssalt.saltButton.isPressed() && !SnailAssalt.hydraButton.isPressed()) {
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
             deltaX = touch - sprite.getX();
