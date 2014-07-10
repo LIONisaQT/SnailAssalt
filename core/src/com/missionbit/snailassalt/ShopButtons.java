@@ -16,10 +16,10 @@ public class ShopButtons {
     protected Rectangle bound;
     protected Vector2 position;
     protected float width, height;
-    protected Sprite sprite;
+    protected Sprite sprite, spriteNope;
     protected int price;
     public boolean on;
-    public ShopButtons(float x, float y, String picture,int cost) {
+    public ShopButtons(float x, float y, String picture, int cost) {
         price=cost;
         xPos = x;
         yPos = y;
