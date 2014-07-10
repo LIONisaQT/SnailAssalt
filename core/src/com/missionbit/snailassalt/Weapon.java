@@ -1,5 +1,6 @@
 package com.missionbit.snailassalt;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
@@ -19,11 +20,14 @@ public class Weapon {
     protected float width, height;
     static public float touch, touchY, deltaX, deltaY, rot, waterScale, currentWater, waterSupply;;
     static public int str;
+    private Sound hydrasound;
+    protected Sound watergunsound;
 
     public Weapon(){
         this("watergun arm.png");
     }
     public Weapon(String image) {
+        watergunsound = Gdx.audio.newSound(Gdx.files.internal("water.mp3"));
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
         sprite = new Sprite(new Texture(image));
@@ -50,6 +54,7 @@ public class Weapon {
             return;
         }
         if (Gdx.input.justTouched() && currentWater != 0 && SnailAssalt.weaponState == SnailAssalt.WeaponState.REGWEAPON && SnailAssalt.bulletType == SnailAssalt.BulletType.WATER && !SnailAssalt.hydraButton.isPressed() && !SnailAssalt.saltButton.isPressed()) {
+            watergunsound.play(1.0f);
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
             deltaX = touch - sprite.getX();

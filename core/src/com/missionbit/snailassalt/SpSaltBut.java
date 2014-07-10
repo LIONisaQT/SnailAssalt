@@ -5,6 +5,8 @@ package com.missionbit.snailassalt;
  */
 public class SpSaltBut extends ShopButtons {
     public SpSaltBut(float x,float y){
+
         super(x,y,"Salt.png",500);
+
     }
 }
