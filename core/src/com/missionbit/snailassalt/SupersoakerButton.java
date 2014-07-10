@@ -4,6 +4,6 @@ package com.missionbit.snailassalt;
  */
 public class SupersoakerButton extends Button {
     public SupersoakerButton (float x, float y) {
-        super(x, y, "supersoakersoakershopbutton.png", "supersoakershopbutton.png");
+        super(x, y, "supersoakershopbutton.png", "supersoakershopbutton.png");
     }
 }
