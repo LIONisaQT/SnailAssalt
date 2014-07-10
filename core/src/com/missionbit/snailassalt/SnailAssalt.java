@@ -440,7 +440,7 @@ public class SnailAssalt extends ApplicationAdapter {
                             shell.add(new Snailshell((int) enemies.get(a).bound.x, (int) enemies.get(a).bound.y));
                             enemies.remove(a);
                             a--;
-                            currency += 1;
+                            currency += 5;
                             Weapon.currentWater += 10;
                             if (Weapon.currentWater >= Weapon.waterSupply) {
                                 Weapon.currentWater = 100;
