@@ -15,6 +15,7 @@ public class Weapon {
     public Rectangle bound;
     public Vector2 speed;
     protected float width, height;
+    public boolean enable;
     static public float touch, touchY, deltaX, deltaY, rot, waterScale, waterLimit, waterSupply;;
     static public int str;
     public Weapon(){
@@ -38,6 +39,9 @@ public class Weapon {
         waterScale = (waterSupply / waterLimit) * 3;
     }
     public void Update(ArrayList<ThrowyThingy> water) {
+        if(!enable){
+            return;
+        }
         if (Gdx.input.justTouched()) {
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
