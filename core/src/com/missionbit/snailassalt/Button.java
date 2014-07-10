@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
  * Created by ryansheeisaqt on 6/18/14.
  */
 public class Button {
-    protected float width, height, xPos, yPos;
+    protected float width, height, xPos, yPos;//
     protected Texture image, imageNope;
     protected Rectangle bound;
     protected Vector2 position;
