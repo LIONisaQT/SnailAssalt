@@ -297,7 +297,7 @@ public class SnailAssalt extends ApplicationAdapter {
             if (getTapPosition().x < width/2 && Gdx.input.justTouched() && currency > spHydraBut.price) {
                 currency -= spHydraBut.price;
                 preferences.putInteger("hydra", 1);
-                //preferences.flush();
+                preferences.flush();
 
             }
             if (preferences.getInteger("hydra", 0) == 1) {
@@ -418,7 +418,7 @@ public class SnailAssalt extends ApplicationAdapter {
 
             }
             else if (weaponState == WeaponState.HYDRA) {
-                if (hydra.enableSalt == true)
+                if (hydra.enable == true)
                    hydra.Update(water);
             }
 
