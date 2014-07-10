@@ -25,7 +25,7 @@ public class House {
         houseHalf.setSize(house2.getWidth(), (int)height);
         houseHalf.setPosition(width - house2.getWidth(), 0);
         house3 = new Texture("balconya.png");
-        houseZero = new Sprite(house3, house3.getWidth(), (int)height);
+        houseZero = new Sprite(house3);
         houseZero.setSize(house3.getWidth(), (int)height);
         houseZero.setPosition(width - house3.getWidth(), 0);
         Housebounds = new Rectangle(width - houseFull.getWidth(), 0, houseFull.getWidth(), houseFull.getHeight());
