@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
+import com.sun.xml.internal.bind.v2.TODO;
+
 import java.util.ArrayList;
 public class SnailAssalt extends ApplicationAdapter {
     private SpriteBatch batch;
@@ -138,8 +140,9 @@ public class SnailAssalt extends ApplicationAdapter {
         //weapwns end
         //buttons start #iSuckAtCoding
         startButtonMenu = new StartButton(width / 2 - 325, height / 2 - 200);
+
         shopButtonMenu = new ShopButton(startButtonMenu.getXPos() + startButtonMenu.image.getWidth() + 10, startButtonMenu.getYPos());
-        shopButtonGameEnd = new ShopButton(width - 210, height - 210);
+        shopButtonGameEnd = new ShopButton(width - 390, height - 210);
         backButtonGameEnd = new BackButton(width - 210, 10);
         backButtonShop = new BackButton(width - 210, 10);
         backButtonLevelSelect = new BackButton(width - 210, 10);
@@ -149,15 +152,16 @@ public class SnailAssalt extends ApplicationAdapter {
 
         creditsButton = new CreditsButton(width / 2 - 100, 40);
 
-        hydraButton = new HydraButton(width - 210, height - 500);
+        hydraButton = new HydraButton(width - 810, height - 500);
         spHydraBut = new SpHydraBut(width - 210, height - 500);
-        saltButton = new SaltButton(width - 210, height - 600);
+        saltButton = new SaltButton(width - 810, height - 600);
         spSaltBut = new SpSaltBut(width - 610, height - 900);
 
 
         //buttons end
         hydraButton = new HydraButton(width - 210, 10);
         redoLevelButton = new RedoButton(width / 2 - 200, height / 2 - 200);
+        redoLevelButton.sprite.setSize(width/4,height/5);
         //buttons end #iSuckAtCoding
         //levels start
         levelButtons = new ArrayList<LevelButton>();
@@ -196,6 +200,7 @@ public class SnailAssalt extends ApplicationAdapter {
         spHydraBut.position.set(spHydraBut.getXPos(), spHydraBut.getYPos());
         spSaltBut.position.set(spSaltBut.getXPos(), spSaltBut.getYPos());
         startButtonMenu.position.set(startButtonMenu.getXPos(), startButtonMenu.getYPos());
+        //startButtonMenu.sprite.setSize(height,width);
         shopButtonMenu.position.set(shopButtonMenu.getXPos(), shopButtonMenu.getYPos());
         shopButtonGameEnd.position.set(shopButtonGameEnd.getXPos(), shopButtonGameEnd.getYPos());
         backButtonGameEnd.position.set(backButtonGameEnd.getXPos(), backButtonGameEnd.getYPos());
@@ -514,19 +519,21 @@ public class SnailAssalt extends ApplicationAdapter {
          - shop button
          - level select button (play)
         */
-        if (gameState == GameState.MAINMENU) { //in main menu
+        if (gameState == GameState.MAINMENU) {
+
             batch.begin();
             menu.draw(batch);
-            startButtonMenu.draw(batch);
+            startButtonMenu.sprite.draw(batch);
 
-            creditsButton.draw(batch);
-            batch.draw(shopButtonMenu.image, shopButtonMenu.position.x, shopButtonMenu.position.y);
+           creditsButton.sprite.draw(batch);
+           shopButtonMenu.sprite.draw(batch);
             font.draw(batch, "Current state: main menu", 10, height);
 
             batch.end();
         }
         else if(gameState == GameState.CREDITS){
             batch.begin();
+
             levelSelect.draw(batch);
             text1.draw(batch);
             batch.end();
@@ -631,18 +638,18 @@ public class SnailAssalt extends ApplicationAdapter {
             batch.begin();
 
             gameover.draw(batch);
-            backButtonGameEnd.draw(batch);
-            redoLevelButton.draw(batch);
-            shopButtonGameEnd.draw(batch);
+            backButtonGameEnd.sprite.draw(batch);
+            redoLevelButton.sprite.draw(batch);
+            shopButtonGameEnd.sprite.draw(batch);
             font.draw(batch, "Current state: game over", 10, height);
             batch.end();
         }
         else if (gameState == GameState.WIN) { //in win
             batch.begin();
             win.draw(batch);
-            backButtonGameEnd.draw(batch);
-            redoLevelButton.draw(batch);
-            shopButtonGameEnd.draw(batch);
+            backButtonGameEnd.sprite.draw(batch);
+            redoLevelButton.sprite.draw(batch);
+            shopButtonGameEnd.sprite.draw(batch);
             font.draw(batch, "Current state: game win", 10, height);
             batch.end();
         }

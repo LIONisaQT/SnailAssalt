@@ -15,17 +15,21 @@ public class Button {
     protected Vector2 position;
     protected Sprite sprite;
     public Button(float x, float y, String picture, String nope) {
+        width = Gdx.graphics.getWidth();
+        height = Gdx.graphics.getHeight();
         image = new Texture(picture);
         imageNope = new Texture(nope);
         xPos = x;
         yPos = y;
+        position = new Vector2();
         sprite=new Sprite(new Texture(picture));
         sprite.setPosition(getXPos(),getYPos());
-        position = new Vector2();
+        sprite.setSize(width/7,height/8);
+        //sprite.setBounds(getXPos(),getYPos(),this.buttonGetWidth(),this.buttonGetHeight());
         bound = new Rectangle();
         bound.set(getXPos(), getYPos(), this.buttonGetWidth(), this.buttonGetHeight());
-        width = Gdx.graphics.getWidth();
-        height = Gdx.graphics.getHeight();
+
+
     }
     public float getXPos() {return xPos;}
     public float getYPos() {return yPos;}
