@@ -38,9 +38,7 @@ public class Enemy {
         Attack = attack;
         SpawnOffset=15;
     }
-
-    public void Update (float dt,SnailAssalt game) {
-
+    public void Update (float dt, SnailAssalt game) {
         this.bound.x = this.bound.x + this.speed.x;
         this.bound.y = this.bound.y + this.speed.y;
         if (this.bound.overlaps(House.Housebounds)) {

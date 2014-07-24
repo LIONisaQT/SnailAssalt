@@ -1,5 +1,4 @@
 package com.missionbit.snailassalt;
-
 /**
  * Created by vivianlam on 6/23/14.
  */

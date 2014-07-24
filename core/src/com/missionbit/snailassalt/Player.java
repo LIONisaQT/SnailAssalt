@@ -7,8 +7,6 @@ public class Player {
     public Texture texture;
     public Sprite sprite;
     public Rectangle bound;
-    public int currentWaterGun, squirtGun, superSoaker;
-
     public Player () {
         float width, height;
         width = Gdx.graphics.getWidth();
@@ -24,5 +22,4 @@ public class Player {
         sprite.setX(c);
         sprite.setY(d);
     }
-
 }

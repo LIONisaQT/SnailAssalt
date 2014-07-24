@@ -1,5 +1,4 @@
 package com.missionbit.snailassalt;
-import com.badlogic.gdx.graphics.Texture;
 /**
  * Created by ryansheeisaqt on 6/18/14.
  */

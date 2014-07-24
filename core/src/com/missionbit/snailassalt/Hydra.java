@@ -1,7 +1,6 @@
 package com.missionbit.snailassalt;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
-
 import java.util.ArrayList;
 /**
  * Created by douglas on 6/23/14.
@@ -16,8 +15,6 @@ public class Hydra extends Weapon {
         else {return false;}
     }
     public void Update(ArrayList<ThrowyThingy> water) {
-
-
         if (Gdx.input.justTouched() && currentWater != 0 &&  !SnailAssalt.hydraButton.isPressed() && !SnailAssalt.saltButton.isPressed()) {
             watergunsound.play(1.0f);
             touch = SnailAssalt.getTapPosition().x;
@@ -42,9 +39,7 @@ public class Hydra extends Weapon {
         }
     }
     public void Update2(ArrayList<Salt> shakers){
-        if(!enableSalt){
-            return;
-        }
+        if(!enableSalt) {return;}
         if (Gdx.input.justTouched() && currentWater!=0 && SnailAssalt.weaponState== SnailAssalt.WeaponState.REGWEAPON && SnailAssalt.bulletType==SnailAssalt.bulletType.SALT && !SnailAssalt.saltButton.isPressed() && !SnailAssalt.hydraButton.isPressed()) {
             watergunsound.play(1.0f);
             touch = SnailAssalt.getTapPosition().x;
@@ -53,8 +48,7 @@ public class Hydra extends Weapon {
             deltaY = touchY - sprite.getY();
             rot = MathUtils.atan2(deltaY, deltaX) * 180 / MathUtils.PI;
             sprite.setRotation(rot);
-
-            Salt bullet= new Salt();
+            Salt bullet = new Salt();
             shakers.add(bullet);
             bullet.bound.setPosition(this.bound.x, this.bound.y);
             bullet.speed.setAngleRad(MathUtils.degreesToRadians * rot);
