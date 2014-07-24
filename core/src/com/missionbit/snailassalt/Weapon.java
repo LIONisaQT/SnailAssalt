@@ -1,5 +1,6 @@
 package com.missionbit.snailassalt;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
@@ -19,14 +20,25 @@ public class Weapon {
     protected float width, height;
     static public float touch, touchY, deltaX, deltaY, rot, waterScale, currentWater, waterSupply;;
     static public int str;
+<<<<<<< HEAD
+=======
+    private Sound hydrasound;
+    protected Sound watergunsound;
+
+>>>>>>> SOUNDSandSHOP
     public Weapon(){
         this("watergun arm.png");
     }
     public Weapon(String image) {
+        watergunsound = Gdx.audio.newSound(Gdx.files.internal("water.mp3"));
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
         sprite = new Sprite(new Texture(image));
         sprite.setPosition(width - 2 * sprite.getWidth() / 3, height / 2 - sprite.getHeight() / 3);
+<<<<<<< HEAD
+=======
+
+>>>>>>> SOUNDSandSHOP
         bound = new Rectangle();
         bound.set(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
         speed = new Vector2();
@@ -40,8 +52,16 @@ public class Weapon {
         waterScale = (currentWater / waterSupply) * 2;
     }
     public void Update(ArrayList<ThrowyThingy> water) {
+<<<<<<< HEAD
         if(!enable){return;}
         if (Gdx.input.justTouched() && currentWater != 0 && SnailAssalt.weaponState == SnailAssalt.WeaponState.REGWEAPON && SnailAssalt.bulletType == SnailAssalt.BulletType.WATER && !SnailAssalt.hydraButton.isPressed() && !SnailAssalt.saltButton.isPressed()) {
+=======
+        if(!enable){
+            return;
+        }
+        if (Gdx.input.justTouched() && currentWater != 0 && SnailAssalt.weaponState == SnailAssalt.WeaponState.REGWEAPON && SnailAssalt.bulletType == SnailAssalt.BulletType.WATER && !SnailAssalt.hydraButton.isPressed() && !SnailAssalt.saltButton.isPressed()) {
+            watergunsound.play(1.0f);
+>>>>>>> SOUNDSandSHOP
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
             deltaX = touch - sprite.getX();
@@ -57,7 +77,13 @@ public class Weapon {
         }
     }
     public void Update2(ArrayList<Salt> shakers){
+<<<<<<< HEAD
         if(!enableSalt){return;}
+=======
+        if(!enableSalt){
+            return;
+        }
+>>>>>>> SOUNDSandSHOP
         if (Gdx.input.justTouched() && currentWater!=0 && SnailAssalt.weaponState== SnailAssalt.WeaponState.REGWEAPON && SnailAssalt.bulletType==SnailAssalt.bulletType.SALT && !SnailAssalt.saltButton.isPressed() && !SnailAssalt.hydraButton.isPressed()) {
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
