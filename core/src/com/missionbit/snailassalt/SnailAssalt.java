@@ -23,9 +23,6 @@ public class SnailAssalt extends ApplicationAdapter {
     private BitmapFont font;
     private Player jimmy;
     private House house;
-<<<<<<< HEAD
-    private Sprite text1, hurshal1, hurshalsface1;
-=======
     private Texture tut1, tut2,tut3,tut4;
     private Sprite text1, hurshal1, hurshalsface1, tutor1, tutor2, tutor3, tutor4;
 >>>>>>> SOUNDSandSHOP
