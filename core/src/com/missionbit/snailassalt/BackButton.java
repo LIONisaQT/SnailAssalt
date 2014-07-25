@@ -9,7 +9,10 @@ public class BackButton extends Button {
     public void pressedAction() {
         if (SnailAssalt.prevGameState == SnailAssalt.GameState.GAMEOVER) {SnailAssalt.gameState = SnailAssalt.prevGameState;}
         else if (SnailAssalt.prevGameState == SnailAssalt.GameState.WIN) {SnailAssalt.gameState = SnailAssalt.prevGameState;}
-        else {SnailAssalt.gameState = SnailAssalt.GameState.MAINMENU;}
+        else {
+            SnailAssalt.gameState = SnailAssalt.GameState.MAINMENU;
+            SnailAssalt.tutState = SnailAssalt.TutorialState.PAGE1;
+        }
         SnailAssalt.prevGameState = null; //clear prevGameState
     }
 }
