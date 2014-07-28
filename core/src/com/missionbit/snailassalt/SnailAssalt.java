@@ -25,7 +25,7 @@ public class SnailAssalt extends ApplicationAdapter {
     private Player jimmy;
     private House house;
     private float time = 0;
-    private Preferences preferences;
+    protected static Preferences preferences;
     //tutorial and credits start
     private Sprite text1, hurshal1, hurshalsface1, tutor1, tutor2, tutor3, tutor4;
     //tutorial and credits end
