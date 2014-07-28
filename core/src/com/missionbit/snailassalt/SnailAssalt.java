@@ -417,8 +417,8 @@ public class SnailAssalt extends ApplicationAdapter {
                         House.hp -= enemy.Attack * Gdx.graphics.getDeltaTime();
                 }
             }
-            if (House.hp <= 0) {gameState = GameState.GAMEOVER;}
-            if(enemies.size()==0){gameState= GameState.WIN;}
+            if (House.hp <= 0 || loseButton.isPressed()) {gameState = GameState.GAMEOVER;}
+            if(enemies.size() == 0){gameState= GameState.WIN;}
         }
         /*
         *** game over currently contains ***
@@ -554,9 +554,9 @@ public class SnailAssalt extends ApplicationAdapter {
             batch.begin();
             laun.draw(batch);
             house.draw(batch);
-            //batch.draw(loseButton.sprite, loseButton.position.x, loseButton.position.y);
+            batch.draw(loseButton.sprite, loseButton.position.x, loseButton.position.y);
             saltButton.sprite.draw(batch);
-            batch.draw(jimmy.sprite,jimmy.bound.x,jimmy.bound.y);
+            batch.draw(jimmy.sprite, jimmy.bound.x, jimmy.bound.y);
             if (weaponState == WeaponState.REGWEAPON) {waterGun.sprite.draw(batch);}
             if (weaponState == WeaponState.HYDRA) {hydra.sprite.draw(batch);}
             batch.draw(hydraButton.sprite, hydraButton.position.x, hydraButton.position.y);
@@ -568,10 +568,9 @@ public class SnailAssalt extends ApplicationAdapter {
                 enemy.draw(batch, time);
             }
             for(Snailshell snailshell: shell) {
-                batch.draw(snailshell.image,snailshell.bounds.x,snailshell.bounds.y);
+                batch.draw(snailshell.image, snailshell.bounds.x, snailshell.bounds.y);
             }
             //font.draw(batch, "Current level: " + currentLevel.getLevelNumber(), 10, 90);
-
             font.draw(batch, "Current state: in-game", 10, height - 50);
             font.draw(batch, "Water Amount: " + Weapon.currentWater, 10, height - 100);
             font.draw(batch, "Snailshells: " +currency, 10, height - 200);
@@ -590,18 +589,11 @@ public class SnailAssalt extends ApplicationAdapter {
          - redo level button
          - shop button
         */
-        else if (gameState == GameState.GAMEOVER) { //in game over
+        else if (gameState == GameState.GAMEOVER || gameState == GameState.WIN) { //in game over
             batch.begin();
-            gameover.draw(batch);
-            backButtonGameEnd.sprite.draw(batch);
-            redoLevelButton.sprite.draw(batch);
-            shopButtonGameEnd.sprite.draw(batch);
-            batch.end();
-        }
-        else if (gameState == GameState.WIN) { //in win
-            batch.begin();
-            win.draw(batch);
-            backButtonGameEnd.sprite.draw(batch);
+            if (gameState == GameState.GAMEOVER) {gameover.draw(batch);}
+            else {win.draw(batch);}
+            backButtonGameEnd.spriteNope.draw(batch);
             redoLevelButton.sprite.draw(batch);
             shopButtonGameEnd.sprite.draw(batch);
             batch.end();
