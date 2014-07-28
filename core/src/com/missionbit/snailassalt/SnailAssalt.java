@@ -1,6 +1,8 @@
 package com.missionbit.snailassalt;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -8,12 +10,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.stbtt.TrueTypeFontFactory;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
+
 import java.util.ArrayList;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.audio.Music;
 public class SnailAssalt extends ApplicationAdapter {
     private SpriteBatch batch;
     private ShapeRenderer shapeRenderer;
@@ -123,13 +123,13 @@ public class SnailAssalt extends ApplicationAdapter {
         hurshal1.setPosition(width / 2 - 428, height / 2 - 100);
         //credits end
         //tutorial start
-        tutor1 = new Sprite(new Texture("tutorial1.jpeg"));
+        tutor1 = new Sprite(new Texture("tutorial 1.jpeg"));
         tutor1.setSize(width, height);
         tutor1.setPosition(0,0);
-        tutor2 = new Sprite(new Texture("tutorial2.jpeg"));
+        tutor2 = new Sprite(new Texture("tutorial 2.jpeg"));
         tutor2.setSize(width, height);
         tutor2.setPosition(0,0);
-        tutor3 = new Sprite(new Texture("tutorial3.png"));
+        tutor3 = new Sprite(new Texture("tutorial 3.jpeg"));
         tutor3.setSize(width, height);
         tutor3.setPosition(0,0);
         tutor4 = new Sprite(new Texture("tutorial4.jpeg"));
@@ -277,11 +277,11 @@ public class SnailAssalt extends ApplicationAdapter {
          - 4 pages
          */
         else if (gameState == GameState.TUTORIAL) {
-            if (tutState == TutorialState.PAGE1 || tutState == TutorialState.PAGE2 || tutState == TutorialState.PAGE3) {
-                if (nextTutorial.isPressed()) {nextTutorial.pressedAction();} //go to next page of tutorial
+            if (tutState == TutorialState.PAGE4) {
+                if (backButtonTutorial.isPressed()) {backButtonTutorial.pressedAction();} //go to next page of tutorial
             }
             else { //tutState == TutorialState.PAGE4
-                if (backButtonTutorial.isPressed()) {backButtonTutorial.pressedAction();} //go to next page of tutorial
+                if (nextTutorial.isPressed()) {nextTutorial.pressedAction();} //go to next page of tutorial
             }
         }
         /*
