@@ -27,7 +27,7 @@ public class SnailAssalt extends ApplicationAdapter {
     private float time = 0;
     private Preferences preferences;
     //tutorial and credits start
-    private Sprite text1, hurshal1, hurshalsface1, tutor1, tutor2, tutor3, tutor4;
+    private Sprite credits, special, hurshalsface1, tutor1, tutor2, tutor3, tutor4,tutor5, tutor6, tutor7;
     //tutorial and credits end
     //backgrounds start
     private Sprite menu, gameover, win, levelSelect, shop, laun;
@@ -66,7 +66,7 @@ public class SnailAssalt extends ApplicationAdapter {
     //game states start
     protected static enum GameState {MAINMENU, TUTORIAL, INGAME, GAMEOVER, WIN, SHOP, LEVELSELECT, CREDITS, CREDITShurshal}
     protected static GameState gameState, prevGameState;
-    protected static enum TutorialState {PAGE1, PAGE2, PAGE3, PAGE4}
+    protected static enum TutorialState {PAGE1, PAGE2, PAGE3, PAGE4,PAGE5, PAGE6, PAGE7,}
     protected static TutorialState tutState;
     protected static enum WeaponState {REGWEAPON, HYDRA}
     protected static enum BulletType {SALT, WATER}
@@ -114,27 +114,37 @@ public class SnailAssalt extends ApplicationAdapter {
         laun.setSize(width, height);
         //background end
         //credits start
-        text1 = new Sprite(new Texture("credits.png"));
-        text1.setPosition(width / 2 - 305, 100);
+        credits = new Sprite(new Texture("credits.png"));
+        credits.setPosition(width / 2 - 305, 100);
         hurshalsface1 = new Sprite(new Texture("hurshal's face copy.png"));
         hurshalsface1.setPosition(width / 2 - 160, 0);
         hurshalsface1.setSize(2 * width / 3, 2 * height / 3);
-        hurshal1 = new Sprite(new Texture("hurshal.png"));
-        hurshal1.setPosition(width / 2 - 428, height / 2 - 100);
+        special = new Sprite(new Texture("hurshal.png"));
+        special.setPosition(width / 2 - 428, height / 2 - 100);
         //credits end
         //tutorial start
         tutor1 = new Sprite(new Texture("tutorial 1.jpeg"));
         tutor1.setSize(width, height);
-        tutor1.setPosition(0,0);
+        tutor1.setPosition(0, 0);
         tutor2 = new Sprite(new Texture("tutorial 2.jpeg"));
         tutor2.setSize(width, height);
-        tutor2.setPosition(0,0);
+        tutor2.setPosition(0, 0);
         tutor3 = new Sprite(new Texture("tutorial 3.jpeg"));
         tutor3.setSize(width, height);
-        tutor3.setPosition(0,0);
+        tutor3.setPosition(0, 0);
         tutor4 = new Sprite(new Texture("tutorial4.jpeg"));
         tutor4.setSize(width, height);
-        tutor4.setPosition(0,0);
+        tutor4.setPosition(0, 0);
+        tutor5 = new Sprite(new Texture("tutorial5.jpeg"));
+        tutor5.setSize(width,height);
+        tutor5.setPosition(0,0);
+        tutor6 = new Sprite(new Texture("tutorial6.jpeg"));
+        tutor6.setSize(width,height);
+        tutor6.setPosition(0,0);
+        tutor7 = new Sprite(new Texture("tutorial7.jpeg"));
+        tutor7.setSize(width,height);
+        tutor7.setPosition(0,0);
+
         //tutorial end
         //weapwns start
         currency = preferences.getInteger("currency", 0);
@@ -277,7 +287,7 @@ public class SnailAssalt extends ApplicationAdapter {
          - 4 pages
          */
         else if (gameState == GameState.TUTORIAL) {
-            if (tutState == TutorialState.PAGE4) {
+            if (tutState == TutorialState.PAGE7) {
                 if (backButtonTutorial.isPressed()) {backButtonTutorial.pressedAction();} //go to next page of tutorial
             }
             else { //tutState == TutorialState.PAGE4
@@ -472,14 +482,14 @@ public class SnailAssalt extends ApplicationAdapter {
         else if(gameState == GameState.CREDITS){
             batch.begin();
             levelSelect.draw(batch);
-            text1.draw(batch);
+            credits.draw(batch);
             batch.end();
         }
         else if(gameState == GameState.CREDITShurshal){
             batch.begin();
             levelSelect.draw(batch);
             hurshalsface1.draw(batch);
-            hurshal1.draw(batch);
+            special.draw(batch);
             backButtonCredits.draw(batch);
             batch.end();
         }
@@ -606,7 +616,6 @@ public class SnailAssalt extends ApplicationAdapter {
             batch.end();
         }
         batch.begin();
-        font.draw(batch, "lin sucks", 10, height - 50);
         batch.end();
     }
     public void addSlime(Droppings dropping) {
