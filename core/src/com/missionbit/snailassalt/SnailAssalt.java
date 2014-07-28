@@ -25,7 +25,7 @@ public class SnailAssalt extends ApplicationAdapter {
     private Player jimmy;
     private House house;
     private float time = 0;
-    protected static Preferences preferences;
+    private Preferences preferences;
     //tutorial and credits start
     private Sprite text1, hurshal1, hurshalsface1, tutor1, tutor2, tutor3, tutor4;
     //tutorial and credits end
@@ -150,7 +150,6 @@ public class SnailAssalt extends ApplicationAdapter {
             waterGun.enableSalt = true;
             hydra.enableSalt=true;
         }
-
         droppings = new ArrayList<Droppings>();
         bombs = new ArrayList<BombDrop>();
         //weapwns end
@@ -278,12 +277,11 @@ public class SnailAssalt extends ApplicationAdapter {
          - 4 pages
          */
         else if (gameState == GameState.TUTORIAL) {
-            if (tutState == TutorialState.PAGE4) {
-                if (backButtonTutorial.isPressed()) {
-                    backButtonTutorial.pressedAction();
-                } //back to main menu
-            } else {
+            if (tutState == TutorialState.PAGE1 || tutState == TutorialState.PAGE2 || tutState == TutorialState.PAGE3) {
                 if (nextTutorial.isPressed()) {nextTutorial.pressedAction();} //go to next page of tutorial
+            }
+            else { //tutState == TutorialState.PAGE4
+                if (backButtonTutorial.isPressed()) {backButtonTutorial.pressedAction();} //go to next page of tutorial
             }
         }
         /*
@@ -465,9 +463,7 @@ public class SnailAssalt extends ApplicationAdapter {
             batch.begin();
             menu.draw(batch);
             startButtonMenu.sprite.draw(batch);
-            if (preferences.getInteger("tutorial", 0) == 1) {
-                tutorialButton.sprite.draw(batch);
-            }
+            tutorialButton.sprite.draw(batch);
             creditsButton.sprite.draw(batch);
             shopButtonMenu.sprite.draw(batch);
             //font.draw(batch, "Current state: main menu", 10, height);
@@ -561,7 +557,6 @@ public class SnailAssalt extends ApplicationAdapter {
             saltButton.sprite.draw(batch);
             batch.draw(jimmy.sprite,jimmy.bound.x,jimmy.bound.y);
             if (weaponState == WeaponState.REGWEAPON) {waterGun.sprite.draw(batch);}
-
             if (weaponState == WeaponState.HYDRA) {hydra.sprite.draw(batch);}
             batch.draw(hydraButton.sprite, hydraButton.position.x, hydraButton.position.y);
             for (ThrowyThingy proj : water) {proj.sprite.draw(batch);}
