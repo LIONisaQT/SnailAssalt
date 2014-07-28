@@ -28,19 +28,13 @@ public class Button {
         //sprite.setBounds(getXPos(),getYPos(),this.buttonGetWidth(),this.buttonGetHeight());
         bound = new Rectangle();
         bound.set(getXPos(), getYPos(), this.buttonGetWidth(), this.buttonGetHeight());
-
-
     }
     public float getXPos() {return xPos;}
     public float getYPos() {return yPos;}
     public float buttonGetWidth() {return sprite.getWidth();}
     public float buttonGetHeight() {return sprite.getHeight();}
-    public boolean isPressed() {
-        return (Gdx.input.justTouched() && this.bound.contains(SnailAssalt.getTapPosition().x,SnailAssalt.getTapPosition().y));
-    }
-
+    public boolean isPressed() {return (Gdx.input.justTouched() && this.bound.contains(SnailAssalt.getTapPosition().x,SnailAssalt.getTapPosition().y));}
     public boolean pressable() {return true;} //bro can you even press
-
     public void pressedAction() {}
     public void draw(SpriteBatch batch) {
         if (pressable()) {batch.draw(this.image, this.position.x, this.position.y);}

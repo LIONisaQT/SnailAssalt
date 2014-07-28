@@ -1,6 +1,4 @@
 package com.missionbit.snailassalt;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 /**
  * Created by vivianlam on 6/24/14.
  */

@@ -1,12 +1,10 @@
 package com.missionbit.snailassalt;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-
 /**
  * Created by douglas on 7/8/14.
  */
@@ -31,8 +29,6 @@ public class ShopButtons {
         position = new Vector2();
         bound = new Rectangle();
         bound.set(getXPos(), getYPos(), this.buttonGetWidth(), this.buttonGetHeight());
-
-
         on = false;
     }
     public void draw(SpriteBatch batch) {

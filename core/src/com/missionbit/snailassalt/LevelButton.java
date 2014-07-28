@@ -31,7 +31,7 @@ public class LevelButton {
         levelButtonImages = new ArrayList<TextureRegion>();
         for (int a = 0; a < SnailAssalt.numberOfLevels; a++) {
             if (a < 5) {levelButtonImages.add(new TextureRegion(sprite, a * 200, 0, tempPic.getWidth(), tempPic.getHeight()));}
-            else if (a >= 5) {levelButtonImages.add(new TextureRegion(sprite, (a-5) * 200, 200, tempPic.getWidth(), tempPic.getHeight()));}
+            else if (a >= 5) {levelButtonImages.add(new TextureRegion(sprite, (a - 5) * 200, 200, tempPic.getWidth(), tempPic.getHeight()));}
         }
     }
     public TextureRegion getButtonImage(int level) {return levelButtonImages.get(level - 1);}

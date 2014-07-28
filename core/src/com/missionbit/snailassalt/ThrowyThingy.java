@@ -14,7 +14,6 @@ public class ThrowyThingy {
     public Rectangle bound;
     public Vector2 speed;
     public boolean enable;
-
     public ThrowyThingy() {
         image = new Texture("water.png");
         sprite = new Sprite(image,0,0, image.getWidth(), image.getHeight());
@@ -23,11 +22,10 @@ public class ThrowyThingy {
         sprite.setPosition(bound.x, bound.y);
         speed = new Vector2();
         speed.set(6, 6);
-
     }
     public void move(float x,float y) {
-        bound.x=x;
-        bound.y=y;
+        bound.x = x;
+        bound.y = y;
         sprite.setX(x);
         sprite.setY(y);
     }
