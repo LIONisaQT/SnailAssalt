@@ -275,13 +275,14 @@ public class SnailAssalt extends ApplicationAdapter {
         /*
         *** tutorial currently contains ***
          - 4 pages
+         - tutorial --> main menu
          */
         else if (gameState == GameState.TUTORIAL) {
-            if (tutState == TutorialState.PAGE1 || tutState == TutorialState.PAGE2 || tutState == TutorialState.PAGE3) {
-                if (nextTutorial.isPressed()) {nextTutorial.pressedAction();} //go to next page of tutorial
+            if (tutState == TutorialState.PAGE4) {
+                if (backButtonTutorial.isPressed()) {backButtonTutorial.pressedAction();} //back to main menu
             }
-            else { //tutState == TutorialState.PAGE4
-                if (backButtonTutorial.isPressed()) {backButtonTutorial.pressedAction();} //go to next page of tutorial
+            else {
+                if (nextTutorial.isPressed()) {nextTutorial.pressedAction();} //go to next page of tutorial
             }
         }
         /*
@@ -297,7 +298,7 @@ public class SnailAssalt extends ApplicationAdapter {
                     levelButtons.get(a).pressedAction(); //go in-game
                 }
             }
-            if (backButtonLevelSelect.pressable() && backButtonLevelSelect.isPressed()) {gameState = GameState.MAINMENU;}
+            if (backButtonLevelSelect.pressable() && backButtonLevelSelect.isPressed()) {backButtonLevelSelect.pressedAction();}
         }
         else if (gameState == GameState.CREDITS) {
             if (Gdx.input.justTouched()) {gameState = GameState.CREDITShurshal;}
@@ -306,7 +307,7 @@ public class SnailAssalt extends ApplicationAdapter {
             if (backButtonCredits.pressable() && backButtonCredits.isPressed()) {
                 backButtonCredits.pressedAction();
                 gameState = GameState.MAINMENU;
-                if (backButtonLevelSelect.pressable() && backButtonLevelSelect.isPressed()) {gameState = GameState.MAINMENU;}
+                if (backButtonCredits.pressable() && backButtonCredits.isPressed()) {backButtonCredits.pressedAction();}
             }
         }
         /*
