@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.stbtt.TrueTypeFontFactory;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import java.util.ArrayList;
@@ -94,6 +95,11 @@ public class SnailAssalt extends ApplicationAdapter {
         height = Gdx.graphics.getHeight();
         camera = new OrthographicCamera(width, height);
         font = new BitmapFont(Gdx.files.internal("font.fnt"), Gdx.files.internal("font.png"), false);
+        shell = new ArrayList<Snailshell>();
+        jimmy = new Player();
+        tap = new Vector3(); //location of tap
+        house = new House();
+        //background start
         menu = new Sprite(new Texture("sidewaysmenu.png"));
         menu.setSize(width, height);
         levelSelect = new Sprite(new Texture("levelscreen.png"));
@@ -106,6 +112,7 @@ public class SnailAssalt extends ApplicationAdapter {
         win.setSize(width, height);
         laun = new Sprite(new Texture("lawn.jpeg"));
         laun.setSize(width, height);
+        //background end
         //credits start
         text1 = new Sprite(new Texture("credits.png"));
         text1.setPosition(width / 2 - 305, 100);
@@ -129,10 +136,6 @@ public class SnailAssalt extends ApplicationAdapter {
         tutor4.setSize(width, height);
         tutor4.setPosition(0,0);
         //tutorial end
-        shell = new ArrayList<Snailshell>();
-        jimmy = new Player();
-        tap = new Vector3(); //location of tap
-        house = new House();
         //weapwns start
         currency = preferences.getInteger("currency", 0);
         waterGun = new Weapon();
@@ -220,7 +223,7 @@ public class SnailAssalt extends ApplicationAdapter {
         creditsButton.position.set(creditsButton.getXPos(), creditsButton.getYPos());
         loseButton.position.set(loseButton.getXPos(), loseButton.getYPos());
         hydraButton.position.set(hydraButton.getXPos(), hydraButton.getYPos());
-        redoLevelButton.position.set(redoLevelButton.getXPos(), redoLevelButton.getYPos());
+        redoLevelButton.position.set(redoLevelButton.getXPos()   , redoLevelButton.getYPos());
         for (int a = 0; a < numberOfLevels; a++)
             levelButtons.get(a).position.set(levelButtons.get(a).getXPos(), levelButtons.get(a).getYPos());
     }
@@ -243,7 +246,7 @@ public class SnailAssalt extends ApplicationAdapter {
             if (startButtonMenu.pressable() && startButtonMenu.isPressed()) {startButtonMenu.pressedAction();} //go to level select
             if (shopButtonMenu.pressable() && shopButtonMenu.isPressed()) {shopButtonMenu.pressedAction();} //go to shop
             if (creditsButton.isPressed()) {creditsButton.pressedAction();} //go to credits
-            if (tutorialButton.isPressed()) {tutorialButton.pressedAction();}
+            if (tutorialButton.isPressed()) {tutorialButton.pressedAction();} //go to tutorial
         }
         /*
         *** shop currently contains ***
@@ -275,10 +278,10 @@ public class SnailAssalt extends ApplicationAdapter {
          */
         else if (gameState == GameState.TUTORIAL) {
             if (tutState == TutorialState.PAGE1 || tutState == TutorialState.PAGE2 || tutState == TutorialState.PAGE3) {
-                if (nextTutorial.isPressed()) {nextTutorial.pressedAction();}
+                if (nextTutorial.isPressed()) {nextTutorial.pressedAction();} //go to next page of tutorial
             }
             else { //tutState == TutorialState.PAGE4
-                if (backButtonTutorial.isPressed()) {backButtonTutorial.pressedAction();}
+                if (backButtonTutorial.isPressed()) {backButtonTutorial.pressedAction();} //go to next page of tutorial
             }
         }
         /*
@@ -538,27 +541,6 @@ public class SnailAssalt extends ApplicationAdapter {
             }
             batch.end();
         }
-/*        else if (gameState == GameState.TUTORIAL1) {
-            batch.begin();
-            tutor1.draw(batch);
-            batch.end();
-        }
-        else if (gameState == GameState.TUTORIAL2){
-            batch.begin();
-            tutor2.draw(batch);
-            batch.end();
-        }
-        else if (gameState == GameState.TUTORIAL3){
-            batch.begin();
-            tutor3.draw(batch);
-            batch.end();
-        }
-        else if (gameState == GameState.TUTORIAL4){
-            batch.begin();
-            tutor4.draw(batch);
-            backButtonTutorial.draw(batch);
-            batch.end();
-        }*/
         /* in-game currently contains ***
          - lose button
          - back button
@@ -623,6 +605,9 @@ public class SnailAssalt extends ApplicationAdapter {
             shopButtonGameEnd.sprite.draw(batch);
             batch.end();
         }
+        batch.begin();
+        font.draw(batch, "lin sucks", 10, height - 50);
+        batch.end();
     }
     public void addSlime(Droppings dropping) {
         droppings.add(dropping);
