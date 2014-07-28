@@ -110,18 +110,18 @@ public class SnailAssalt extends ApplicationAdapter {
         hurshalsface1.setSize(2 * width / 3, 2 * height / 3);
         hurshal1 = new Sprite(new Texture("hurshal.png"));
         hurshal1.setPosition(width / 2 - 428, height / 2 - 100);
-        tut1 = new Texture("tutorial1.jpeg");
+        tut1 = new Texture("tutorial 1.jpeg");
         tutor1 = new Sprite(tut1);
         tutor1.setSize(width, height);
         tutor1.setPosition(0,0);
-        tut2 = new Texture("tutorial2.jpeg");
+        tut2 = new Texture("tutorial 2.jpeg");
         tutor2 = new Sprite(tut2);
         tutor2.setSize(width, height);
         tutor2.setPosition(0,0);
-        tut3 = new Texture("tutorial3.jpg");
+     /*   tut3 = new Texture("tutorial3.jpg");
         tutor3 = new Sprite(tut3);
         tutor3.setSize(width, height);
-        tutor3.setPosition(0,0);
+        tutor3.setPosition(0,0); */
         tut4 = new Texture("tutorial4.jpeg");
         tutor4 = new Sprite(tut4);
         tutor4.setSize(width, height);
