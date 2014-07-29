@@ -4,12 +4,12 @@ package com.missionbit.snailassalt;
  */
 public class BackButton extends Button {
     public BackButton(float x, float y) {
-        super(x, y, "back button.png", "backButtonNope.png");
+        super(x, y, "back button.png", "levelselect.png");
     }
     public void pressedAction() {
-        if (SnailAssalt.prevGameState == SnailAssalt.GameState.GAMEOVER) {SnailAssalt.gameState = SnailAssalt.prevGameState;} else if (SnailAssalt.prevGameState == SnailAssalt.GameState.WIN) {
-            SnailAssalt.gameState = SnailAssalt.prevGameState;
-        } else if (SnailAssalt.gameState == SnailAssalt.gameState.TUTORIAL) {
+        if (SnailAssalt.prevGameState == SnailAssalt.GameState.GAMEOVER || SnailAssalt.prevGameState == SnailAssalt.GameState.WIN) {SnailAssalt.gameState = SnailAssalt.prevGameState;}
+        else if (SnailAssalt.gameState == SnailAssalt.GameState.WIN || SnailAssalt.gameState == SnailAssalt.GameState.GAMEOVER) {SnailAssalt.gameState = SnailAssalt.GameState.LEVELSELECT;}
+        else if (SnailAssalt.gameState == SnailAssalt.GameState.TUTORIAL) {
             if (SnailAssalt.tutState == SnailAssalt.TutorialState.PAGE4) {
                 if (SnailAssalt.preferences.getInteger("tutorial", 0) == 0) {
                     SnailAssalt.preferences.putInteger("tutorial", 1);
@@ -20,23 +20,15 @@ public class BackButton extends Button {
                 SnailAssalt.tutState = SnailAssalt.TutorialState.PAGE1;
                 if (SnailAssalt.preferences.getInteger("tutorial", 0) == 1) {
                     SnailAssalt.gameState = SnailAssalt.GameState.LEVELSELECT;
-                    if (SnailAssalt.gameState == SnailAssalt.gameState.LEVELSELECT) {
+                    if (SnailAssalt.gameState == SnailAssalt.GameState.LEVELSELECT) {
                         SnailAssalt.preferences.putInteger("tutorial", 2);
                     }
-
                 }
-
             }
-
-
         }
-
         else {
             SnailAssalt.gameState = SnailAssalt.GameState.MAINMENU;
-
         }
-
         SnailAssalt.prevGameState = null; //clear prevGameState
-
     }
 }

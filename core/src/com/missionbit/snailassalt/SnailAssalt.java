@@ -579,7 +579,6 @@ public class SnailAssalt extends ApplicationAdapter {
                 batch.draw(snailshell.image,snailshell.bounds.x,snailshell.bounds.y);
             }
             //font.draw(batch, "Current level: " + currentLevel.getLevelNumber(), 10, 90);
-
             font.draw(batch, "Current state: in-game", 10, height - 50);
             font.draw(batch, "Water Amount: " + Weapon.currentWater, 10, height - 100);
             font.draw(batch, "Snailshells: " +currency, 10, height - 200);
@@ -591,7 +590,6 @@ public class SnailAssalt extends ApplicationAdapter {
             shapeRenderer.rect(3, 50, House.hp * House.healthScale, 30);
             shapeRenderer.setColor(Color.BLUE);
             shapeRenderer.rect(3, 70, Weapon.currentWater * Weapon.waterScale, 40);
-
             shapeRenderer.end();
         }
         /* game over screen currently contains ***
