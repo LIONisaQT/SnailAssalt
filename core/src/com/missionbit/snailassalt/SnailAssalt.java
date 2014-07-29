@@ -416,7 +416,7 @@ public class SnailAssalt extends ApplicationAdapter {
                         House.hp -= enemy.Attack * Gdx.graphics.getDeltaTime();
                 }
             }
-            if (House.hp <= 0) {gameState = GameState.GAMEOVER;}
+            if (House.hp <= 0 || loseButton.isPressed()) {gameState = GameState.GAMEOVER;}
             if(enemies.size()==0){gameState= GameState.WIN;}
         }
         /*
@@ -463,7 +463,9 @@ public class SnailAssalt extends ApplicationAdapter {
             batch.begin();
             menu.draw(batch);
             startButtonMenu.sprite.draw(batch);
-            tutorialButton.sprite.draw(batch);
+            if (preferences.getInteger("tutorial", 0) == 1) {
+                tutorialButton.sprite.draw(batch);
+            }
             creditsButton.sprite.draw(batch);
             shopButtonMenu.sprite.draw(batch);
             //font.draw(batch, "Current state: main menu", 10, height);
@@ -553,7 +555,7 @@ public class SnailAssalt extends ApplicationAdapter {
             batch.begin();
             laun.draw(batch);
             house.draw(batch);
-            //batch.draw(loseButton.sprite, loseButton.position.x, loseButton.position.y);
+            batch.draw(loseButton.sprite, loseButton.position.x, loseButton.position.y);
             saltButton.sprite.draw(batch);
             batch.draw(jimmy.sprite,jimmy.bound.x,jimmy.bound.y);
             if (weaponState == WeaponState.REGWEAPON) {waterGun.sprite.draw(batch);}
@@ -589,18 +591,11 @@ public class SnailAssalt extends ApplicationAdapter {
          - redo level button
          - shop button
         */
-        else if (gameState == GameState.GAMEOVER) { //in game over
+        else if (gameState == GameState.GAMEOVER || gameState == GameState.WIN) { //in game over/win
             batch.begin();
-            gameover.draw(batch);
-            backButtonGameEnd.sprite.draw(batch);
-            redoLevelButton.sprite.draw(batch);
-            shopButtonGameEnd.sprite.draw(batch);
-            batch.end();
-        }
-        else if (gameState == GameState.WIN) { //in win
-            batch.begin();
-            win.draw(batch);
-            backButtonGameEnd.sprite.draw(batch);
+            if (gameState == GameState.GAMEOVER) {gameover.draw(batch);}
+            else {win.draw(batch);}
+            backButtonGameEnd.spriteNope.draw(batch);
             redoLevelButton.sprite.draw(batch);
             shopButtonGameEnd.sprite.draw(batch);
             batch.end();
