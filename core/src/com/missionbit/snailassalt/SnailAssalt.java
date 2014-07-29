@@ -271,7 +271,7 @@ public class SnailAssalt extends ApplicationAdapter {
             }
             if (preferences.getInteger("salt", 0) == 1) {
                 waterGun.enableSalt = true;
-                hydra.enable = true;
+         
             }
         }
         /*
