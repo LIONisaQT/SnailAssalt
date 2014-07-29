@@ -150,7 +150,6 @@ public class SnailAssalt extends ApplicationAdapter {
             waterGun.enableSalt = true;
             hydra.enableSalt=true;
         }
-
         droppings = new ArrayList<Droppings>();
         bombs = new ArrayList<BombDrop>();
         //weapwns end
@@ -279,12 +278,11 @@ public class SnailAssalt extends ApplicationAdapter {
          - 4 pages
          */
         else if (gameState == GameState.TUTORIAL) {
-            if (tutState == TutorialState.PAGE4) {
-                if (backButtonTutorial.isPressed()) {
-                    backButtonTutorial.pressedAction();
-                } //back to main menu
-            } else {
+            if (tutState == TutorialState.PAGE1 || tutState == TutorialState.PAGE2 || tutState == TutorialState.PAGE3) {
                 if (nextTutorial.isPressed()) {nextTutorial.pressedAction();} //go to next page of tutorial
+            }
+            else { //tutState == TutorialState.PAGE4
+                if (backButtonTutorial.isPressed()) {backButtonTutorial.pressedAction();} //go to next page of tutorial
             }
         }
         /*
@@ -419,7 +417,7 @@ public class SnailAssalt extends ApplicationAdapter {
                         House.hp -= enemy.Attack * Gdx.graphics.getDeltaTime();
                 }
             }
-            if (House.hp <= 0) {gameState = GameState.GAMEOVER;}
+            if (House.hp <= 0 || loseButton.isPressed()) {gameState = GameState.GAMEOVER;}
             if(enemies.size()==0){gameState= GameState.WIN;}
         }
         /*
@@ -564,11 +562,10 @@ public class SnailAssalt extends ApplicationAdapter {
             batch.begin();
             laun.draw(batch);
             house.draw(batch);
-            //batch.draw(loseButton.sprite, loseButton.position.x, loseButton.position.y);
+            batch.draw(loseButton.sprite, loseButton.position.x, loseButton.position.y);
             saltButton.sprite.draw(batch);
             batch.draw(jimmy.sprite,jimmy.bound.x,jimmy.bound.y);
             if (weaponState == WeaponState.REGWEAPON) {waterGun.sprite.draw(batch);}
-
             if (weaponState == WeaponState.HYDRA) {hydra.sprite.draw(batch);}
             batch.draw(hydraButton.sprite, hydraButton.position.x, hydraButton.position.y);
             for (ThrowyThingy proj : water) {proj.sprite.draw(batch);}
@@ -602,18 +599,11 @@ public class SnailAssalt extends ApplicationAdapter {
          - redo level button
          - shop button
         */
-        else if (gameState == GameState.GAMEOVER) { //in game over
+        else if (gameState == GameState.GAMEOVER || gameState == GameState.WIN) { //in game over/win
             batch.begin();
-            gameover.draw(batch);
-            backButtonGameEnd.sprite.draw(batch);
-            redoLevelButton.sprite.draw(batch);
-            shopButtonGameEnd.sprite.draw(batch);
-            batch.end();
-        }
-        else if (gameState == GameState.WIN) { //in win
-            batch.begin();
-            win.draw(batch);
-            backButtonGameEnd.sprite.draw(batch);
+            if (gameState == GameState.GAMEOVER) {gameover.draw(batch);}
+            else {win.draw(batch);}
+            backButtonGameEnd.spriteNope.draw(batch);
             redoLevelButton.sprite.draw(batch);
             shopButtonGameEnd.sprite.draw(batch);
             batch.end();
