@@ -173,6 +173,7 @@ public class SnailAssalt extends ApplicationAdapter {
         spSaltBut = new SpSaltBut(width / 2, 0);
         saltButton = new SaltButton(20, height - 600);
         hydraButton = new HydraButton(20, height - 200);
+        currency = 1000;
         //buttons end #iSuckAtCoding
         //levels start
         levelButtons = new ArrayList<LevelButton>();
@@ -257,13 +258,13 @@ public class SnailAssalt extends ApplicationAdapter {
         */
         else if (gameState == GameState.SHOP) { //in shop
             if (backButtonShop.pressable() && backButtonShop.isPressed()) {backButtonShop.pressedAction();}
-            if (getTapPosition().x < width/2 && Gdx.input.justTouched() && currency > spHydraBut.price) {
+            if (currency > spHydraBut.price && spHydraBut.isPressed()) {
                 currency -= spHydraBut.price;
                 preferences.putInteger("hydra", 1);
                 preferences.flush();
             }
             if (preferences.getInteger("hydra", 0) == 1) {hydra.enable = true;}
-            if (getTapPosition().x > width/2 && Gdx.input.justTouched() && currency > spSaltBut.price) {
+            if (currency > spSaltBut.price && spSaltBut.isPressed()) {
                 currency -= spSaltBut.price;
                 preferences.putInteger("salt", 1);
                 preferences.flush();
@@ -520,6 +521,12 @@ public class SnailAssalt extends ApplicationAdapter {
             font.draw(batch,"hydra owned? " + hydra.enable, 0, height);
             font.draw(batch, "Number of shells: " + currency, 10, 50);
             batch.end();
+            //shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            //shapeRenderer.setColor(Color.RED);
+            //shapeRenderer.rect(spHydraBut.bound.x,spHydraBut.bound.y,spHydraBut.buttonGetWidth(),spHydraBut.buttonGetHeight());
+            //shapeRenderer.setColor(Color.BLUE);
+            //shapeRenderer.rect(spSaltBut.bound.x,spSaltBut.bound.y,spSaltBut.buttonGetWidth(),spSaltBut.buttonGetHeight());
+            //shapeRenderer.end();
         }
         /*
         *** tutorial currently contains ***
@@ -587,6 +594,7 @@ public class SnailAssalt extends ApplicationAdapter {
             shapeRenderer.rect(3, 50, House.hp * House.healthScale, 30);
             shapeRenderer.setColor(Color.BLUE);
             shapeRenderer.rect(3, 70, Weapon.currentWater * Weapon.waterScale, 40);
+
             shapeRenderer.end();
         }
         /* game over screen currently contains ***

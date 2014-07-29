@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 /**
  * Created by douglas on 7/8/14.
  */
-public class ShopButtons {
+public class ThingsInStore {
     protected float xPos, yPos;
     protected Texture image;
     protected Rectangle bound;
@@ -17,7 +17,8 @@ public class ShopButtons {
     protected Sprite sprite, spriteNope;
     protected int price;
     public boolean on;
-    public ShopButtons(float x, float y, String picture, int cost) {
+
+    public ThingsInStore(float x, float y, String picture, int cost) {
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
         price=cost;
@@ -25,10 +26,10 @@ public class ShopButtons {
         yPos = y;
         sprite=new Sprite(new Texture(picture));
         sprite.setPosition(getXPos(),getYPos());
-        sprite.setSize(width / 2, height);
+        sprite.setSize(width / 4, height / 4);
         position = new Vector2();
         bound = new Rectangle();
-        bound.set(getXPos(), getYPos(), this.buttonGetWidth(), this.buttonGetHeight());
+        bound.set(getXPos(), getYPos(), sprite.getWidth(), sprite.getHeight());
         on = false;
     }
     public void draw(SpriteBatch batch) {
@@ -39,11 +40,7 @@ public class ShopButtons {
     public float buttonGetWidth() {return sprite.getWidth();}
     public float buttonGetHeight() {return sprite.getHeight();}
     public boolean isPressed() {
-        float x = SnailAssalt.getTapPosition().x;
-        float y = SnailAssalt.getTapPosition().y;
-        boolean touched = Gdx.input.justTouched();
-        boolean fuckyou = (touched && this.bound.contains(x, y));
-        return fuckyou;
+        return (Gdx.input.justTouched() && this.bound.contains(SnailAssalt.getTapPosition().x, SnailAssalt.getTapPosition().y));
     }
     public boolean IsPressable(){
         return true;
