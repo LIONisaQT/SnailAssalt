@@ -261,17 +261,17 @@ public class SnailAssalt extends ApplicationAdapter {
             if (currency > spHydraBut.price && spHydraBut.isPressed()) {
                 currency -= spHydraBut.price;
                 preferences.putInteger("hydra", 1);
-                preferences.flush();
+                //preferences.flush();
             }
             if (preferences.getInteger("hydra", 0) == 1) {hydra.enable = true;}
             if (currency > spSaltBut.price && spSaltBut.isPressed()) {
                 currency -= spSaltBut.price;
                 preferences.putInteger("salt", 1);
-                preferences.flush();
+                //preferences.flush();
             }
             if (preferences.getInteger("salt", 0) == 1) {
                 waterGun.enableSalt = true;
-         
+
             }
         }
         /*
@@ -430,7 +430,7 @@ public class SnailAssalt extends ApplicationAdapter {
         else if (gameState == GameState.GAMEOVER || gameState == GameState.WIN) {
             //in game over OR win
             preferences.putInteger("currency", currency);//TODO: place when level ends
-            preferences.flush();
+            //preferences.flush();
             shell.clear();
             water.clear();
             shakers.clear();
@@ -466,7 +466,7 @@ public class SnailAssalt extends ApplicationAdapter {
             batch.begin();
             menu.draw(batch);
             startButtonMenu.sprite.draw(batch);
-            if (preferences.getInteger("tutorial", 0) == 1) {
+            if (preferences.getInteger("tutorial", 0) == 2) {
                 tutorialButton.sprite.draw(batch);
             }
             creditsButton.sprite.draw(batch);
