@@ -6,5 +6,14 @@ public class StartButton extends Button {
     public StartButton(float x, float y) {
         super(x, y, "start.png", "start.png");
     }
-    public void pressedAction() {SnailAssalt.gameState = SnailAssalt.GameState.LEVELSELECT;}
+
+    public void pressedAction() {
+        if (SnailAssalt.preferences.getInteger("tutorial", 0) == 0) {
+            SnailAssalt.gameState = SnailAssalt.GameState.TUTORIAL;
+        }
+        if (SnailAssalt.preferences.getInteger("tutorial", 0) == 2) {
+            SnailAssalt.gameState = SnailAssalt.GameState.LEVELSELECT;
+        }
+    }
 }
+

@@ -13,7 +13,7 @@ public class Button {
     protected Texture image, imageNope;
     protected Rectangle bound;
     protected Vector2 position;
-    protected Sprite sprite;
+    protected Sprite sprite, spriteNope;
     public Button(float x, float y, String picture, String nope) {
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
@@ -22,9 +22,12 @@ public class Button {
         xPos = x;
         yPos = y;
         position = new Vector2();
-        sprite=new Sprite(new Texture(picture));
+        sprite = new Sprite(new Texture(picture));
         sprite.setPosition(getXPos(),getYPos());
         sprite.setSize(image.getWidth(), image.getHeight());
+        spriteNope = new Sprite(new Texture(nope));
+        spriteNope.setPosition(getXPos(), getYPos());
+        spriteNope.setSize(imageNope.getWidth(), imageNope.getHeight());
         //sprite.setBounds(getXPos(),getYPos(),this.buttonGetWidth(),this.buttonGetHeight());
         bound = new Rectangle();
         bound.set(getXPos(), getYPos(), this.buttonGetWidth(), this.buttonGetHeight());

@@ -7,5 +7,5 @@ eclipse.project {
 }
 dependencies {
     compile files('/Users/ryansheeisaqt/SnailAssalt/libs/gdx-stb-truetype.jar')
-    compile files('/Users/linchen/projects/SnailAssalt/libs/gdx-stb-truetype.jar')
+    compile files('/Users/douglas/projects/snailassalt/libs/gdx-stb-truetype.jar')
 }
