@@ -24,6 +24,7 @@ public class SnailAssalt extends ApplicationAdapter {
     private BitmapFont font;
     private Player jimmy;
     private House house;
+    private int wavebar;
     private float time = 0;
     protected static Preferences preferences;
     //tutorial and credits start
@@ -99,6 +100,7 @@ public class SnailAssalt extends ApplicationAdapter {
         jimmy = new Player();
         tap = new Vector3(); //location of tap
         house = new House();
+        //wavebar = new Level
         //background start
         menu = new Sprite(new Texture("sidewaysmenu.png"));
         menu.setSize(width, height);
@@ -196,7 +198,7 @@ public class SnailAssalt extends ApplicationAdapter {
             else {levelButtons.add(new LevelButton((a - 5) * 210, 0));}
             levels.add(new Level(a + 1));
         }
-        currentLevel = new Level(0);
+        currentLevel = new Level(1);
         //levels end
        /* victorysound = Gdx.audio.newSound(Gdx.files.internal("victorysound.mp3"));
         defeatsound = Gdx.audio.newSound(Gdx.files.internal("defeatsound.mp3"));
@@ -211,7 +213,7 @@ public class SnailAssalt extends ApplicationAdapter {
     }
     public void resetGame() {
         camera.position.set(width / 2, height / 2, 0);
-        gameState = GameState.MAINMENU;
+        gameState = GameState.LEVELSELECT;
         tutState = TutorialState.PAGE1;
         prevGameState = null;
         weaponState = WeaponState.REGWEAPON;
@@ -309,6 +311,7 @@ public class SnailAssalt extends ApplicationAdapter {
                 if (levelButtons.get(a).isPressed()) {
                     currentLevel = levels.get(a); //current level is now whatever level that was pressed
                     enemies = currentLevel.getEnemies(); //enemies arraylist now holds level's enemies
+                    currentLevel.enemyCount = 0;
                     levelButtons.get(a).pressedAction(); //go in-game
                 }
             }
@@ -371,6 +374,7 @@ public class SnailAssalt extends ApplicationAdapter {
                             shell.add(new Snailshell((int) enemies.get(a).bound.x, (int) enemies.get(a).bound.y));
                             enemies.remove(a);
                             a--;
+                            currentLevel.enemyCount++;
                             currency += 5;
                             Weapon.currentWater += 10;
                             if (Weapon.currentWater >= Weapon.waterSupply) {Weapon.currentWater = 100;}
@@ -616,10 +620,14 @@ public class SnailAssalt extends ApplicationAdapter {
             font.draw(batch, "num of shells: " + shell.size(), 500, height - 400);
             batch.end();
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setColor(Color.BLACK);
+            shapeRenderer.rect(0, 0, width, 40);
             shapeRenderer.setColor(Color.RED);
             shapeRenderer.rect(3, 50, House.hp * House.healthScale, 30);
             shapeRenderer.setColor(Color.BLUE);
             shapeRenderer.rect(3, 70, Weapon.currentWater * Weapon.waterScale, 40);
+            shapeRenderer.setColor(Color.GREEN);
+            shapeRenderer.rect(0,0, ((float)currentLevel.enemyCount / currentLevel.totalEnemies)* width, 40);
             shapeRenderer.end();
         }
         /* game over screen currently contains ***
