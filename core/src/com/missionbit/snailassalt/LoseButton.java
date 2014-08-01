@@ -4,6 +4,6 @@ package com.missionbit.snailassalt;
  */
 public class LoseButton extends Button {
     public LoseButton(float x, float y) {
-        super(x, y,"loseButton.png", "loseButton.png");
+        super(x, y,"quit button.png", "quit button.png");
     }
 }

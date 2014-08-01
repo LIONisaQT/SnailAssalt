@@ -157,6 +157,8 @@ public class SnailAssalt extends ApplicationAdapter {
         startButtonMenu = new StartButton(width / 2 - 325, height / 2 - 200);
         redoLevelButton = new RedoButton(width / 2 - 200, height / 2 - 200);
         redoLevelButton.sprite.setSize(redoLevelButton.image.getWidth() + (redoLevelButton.image.getWidth()/3), startButtonMenu.buttonGetHeight());
+        redoLevelButton.spriteNope.setSize(redoLevelButton.image.getWidth() + (redoLevelButton.image.getWidth()/3), startButtonMenu.buttonGetHeight());
+
         shopButtonMenu = new ShopButton(startButtonMenu.getXPos() + startButtonMenu.image.getWidth() + 10, startButtonMenu.getYPos());
         shopButtonGameEnd = new ShopButton(redoLevelButton.getXPos() + redoLevelButton.sprite.getWidth() + 10, redoLevelButton.getYPos());
         backButtonGameEnd = new BackButton(width - 210, 10);
@@ -611,10 +613,16 @@ public class SnailAssalt extends ApplicationAdapter {
         */
         else if (gameState == GameState.GAMEOVER || gameState == GameState.WIN) { //in game over/win
             batch.begin();
-            if (gameState == GameState.GAMEOVER) {gameover.draw(batch);}
-            else {win.draw(batch);}
+            if (gameState == GameState.GAMEOVER) {
+                gameover.draw(batch);
+                redoLevelButton.spriteNope.draw(batch);
+            }
+            else {
+                win.draw(batch);
+                redoLevelButton.sprite.draw(batch);
+
+            }
             backButtonGameEnd.spriteNope.draw(batch);
-            redoLevelButton.sprite.draw(batch);
             shopButtonGameEnd.sprite.draw(batch);
             batch.end();
         }
