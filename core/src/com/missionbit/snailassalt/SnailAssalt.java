@@ -68,7 +68,7 @@ public class SnailAssalt extends ApplicationAdapter {
     protected static GameState gameState, prevGameState;
     protected static enum TutorialState {PAGE1, PAGE2, PAGE3, PAGE4}
     protected static TutorialState tutState;
-    protected static enum WeaponState {REGWEAPON, HYDRA, HOSE};
+    protected static enum WeaponState {REGWEAPON, HYDRA};
     protected static enum BulletType {SALT, WATER}
     protected static BulletType bulletType;
     protected static WeaponState weaponState;
@@ -321,7 +321,13 @@ public class SnailAssalt extends ApplicationAdapter {
          - in-game --> game over
          - in-game --> win
         */
-        else if (gameState == GameState.INGAME) { //in-game
+        else if (gameState == GameState.INGAME) {
+         if(hydraButton.isPressed()) {
+             bulletType = bulletType.WATER;//in-game
+         }
+            else if(saltButton.isPressed()){
+             bulletType= bulletType.SALT;
+         }
             if (hydra.enable) {
                 if (hydraButton.isPressed()) {
                     if (weaponState == WeaponState.REGWEAPON) {weaponState = WeaponState.HYDRA;} //switch to hydra
@@ -332,8 +338,7 @@ public class SnailAssalt extends ApplicationAdapter {
                 if (waterGun.enable) {waterGun.Update(water);}
                 if (waterGun.enableSalt) {
                     if (saltButton.isPressed()) {
-                        if (bulletType == BulletType.WATER) {bulletType = BulletType.SALT;}
-                        else if (bulletType == BulletType.SALT) {bulletType = BulletType.WATER;}
+                       bulletType=bulletType.SALT;
                     }
                     if (bulletType == BulletType.WATER) {waterGun.Update(water);}
                     if (bulletType == BulletType.SALT) {waterGun.Update2(shakers);
@@ -341,7 +346,16 @@ public class SnailAssalt extends ApplicationAdapter {
                 }
             }
             else if (weaponState == WeaponState.HYDRA) {
-                if (hydra.enable) {hydra.Update(water);}
+                if(bulletType==bulletType.WATER){
+                    if (hydra.enable) {hydra.Update(water);}
+                }
+                if (hydra.enableSalt) {
+                    if (saltButton.isPressed()) {
+                       bulletType=bulletType.SALT;
+                    }
+                    if (bulletType == BulletType.SALT) {hydra.Update2(shakers);
+                    }
+                }
             }
             for (int i = 0; i < water.size(); i++) { //projectiles
                 ThrowyThingy proj = water.get(i);
@@ -359,7 +373,7 @@ public class SnailAssalt extends ApplicationAdapter {
                             a--;
                             currency += 5;
                             Weapon.currentWater += 10;
-                            if (Weapon.currentWater >= Weapon.waterSupply) {Weapon.currentWater = 100;}
+                            if (Weapon.currentWater >= Weapon.waterSupply) {Weapon.currentWater = 50;}
                         }
                     }
                 }
@@ -379,11 +393,7 @@ public class SnailAssalt extends ApplicationAdapter {
                             shell.add(new Snailshell((int) enemies.get(a).bound.x, (int) enemies.get(a).bound.y));
                             enemies.remove(a);
                             a--;
-                            currency += 10;
-                            Weapon.currentWater += 10;
-                            if (Weapon.currentWater >= Weapon.waterSupply) {
-                                Weapon.currentWater = 100;
-                            }
+                            currency += 5;//TODO:
                         }
                     }
                 }
@@ -590,6 +600,8 @@ public class SnailAssalt extends ApplicationAdapter {
             shapeRenderer.rect(3, 50, House.hp * House.healthScale, 30);
             shapeRenderer.setColor(Color.BLUE);
             shapeRenderer.rect(3, 70, Weapon.currentWater * Weapon.waterScale, 40);
+            shapeRenderer.setColor(Color.YELLOW);
+            shapeRenderer.rect(3,100, Weapon.currentSalt *Weapon.saltScale, 40);
             shapeRenderer.end();
         }
         /* game over screen currently contains ***
