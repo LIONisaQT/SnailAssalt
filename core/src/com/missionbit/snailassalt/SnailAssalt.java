@@ -27,7 +27,7 @@ public class SnailAssalt extends ApplicationAdapter {
     private float time = 0;
     protected static Preferences preferences;
     //tutorial and credits start
-    private Sprite credits, special, hurshalsface1, tutor1, tutor2, tutor3, tutor4,tutor5, tutor6, tutor7;
+    private Sprite credits, special, hurshalsface1, tutor1, tutor2, tutor3, tutor4,tutor5, tutor6, tutor7,tutor8;
     //tutorial and credits end
     //backgrounds start
     private Sprite menu, gameover, win, levelSelect, shop, laun;
@@ -66,7 +66,7 @@ public class SnailAssalt extends ApplicationAdapter {
     //game states start
     protected static enum GameState {MAINMENU, TUTORIAL, INGAME, GAMEOVER, WIN, SHOP, LEVELSELECT, CREDITS, CREDITShurshal}
     protected static GameState gameState, prevGameState;
-    protected static enum TutorialState {PAGE1, PAGE2, PAGE3, PAGE4,PAGE5, PAGE6, PAGE7,}
+    protected static enum TutorialState {PAGE1, PAGE2, PAGE3, PAGE4,PAGE5, PAGE6, PAGE7,PAGE8}
     protected static TutorialState tutState;
     protected static enum WeaponState {REGWEAPON, HYDRA}
     protected static enum BulletType {SALT, WATER}
@@ -144,6 +144,9 @@ public class SnailAssalt extends ApplicationAdapter {
         tutor7 = new Sprite(new Texture("tutorial7.jpeg"));
         tutor7.setSize(width,height);
         tutor7.setPosition(0,0);
+        tutor8 = new Sprite(new Texture("tutorial8.jpeg"));
+        tutor8.setSize(width,height);
+        tutor8.setPosition(0,0);
 
         //tutorial end
         //weapwns start
@@ -288,7 +291,8 @@ public class SnailAssalt extends ApplicationAdapter {
          - 4 pages
          */
         else if (gameState == GameState.TUTORIAL) {
-            if (tutState == TutorialState.PAGE7) {
+            if (tutState == TutorialState.PAGE8
+                    ) {
                 if (backButtonTutorial.isPressed()) {backButtonTutorial.pressedAction();} //go to next page of tutorial
             }
             else { //tutState == TutorialState.PAGE4
@@ -554,9 +558,25 @@ public class SnailAssalt extends ApplicationAdapter {
                 tutor3.draw(batch);
                 nextTutorial.draw(batch);
             }
-            else {
+            else if(tutState == TutorialState.PAGE4) {
                 tutor4.draw(batch);
-                backButtonTutorial.draw(batch);
+                nextTutorial.draw(batch);
+            }
+            else if(tutState == TutorialState.PAGE5) {
+                tutor5.draw(batch);
+                nextTutorial.draw(batch);
+            }
+            else if (tutState == TutorialState.PAGE6) {
+                tutor6.draw(batch);
+                nextTutorial.draw(batch);
+            }
+            else if (tutState == TutorialState.PAGE7) {
+                tutor7.draw(batch);
+                nextTutorial.draw(batch);
+            }
+            else if (tutState == TutorialState.PAGE8) {
+                tutor8.draw(batch);
+                nextTutorial.draw(batch);
             }
             batch.end();
         }
