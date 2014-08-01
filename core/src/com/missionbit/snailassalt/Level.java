@@ -12,7 +12,6 @@ public class Level {
         height = Gdx.graphics.getHeight();
         level = lvl;
         enemyCount = numberOfEnemies();
-
     }
     public int getLevelNumber() {return level;}
     public int numberOfEnemies() {return 4 * level;}
