@@ -16,7 +16,6 @@ public class Level {
         enemyCount = numberOfEnemies();
         totalEnemies = numberOfEnemies();
         enemyScale = (enemyCount/totalEnemies)*20;
-
     }
     public int getLevelNumber() {return level;}
     public int numberOfEnemies() {return 4 * level+1;}
