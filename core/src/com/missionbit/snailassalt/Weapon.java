@@ -36,6 +36,7 @@ public class Weapon {
         touchY = 0;
         rot = 0;
         str = 2;
+        //TODO FIX THIS
         waterSupply=50;
         currentWater =100;
         waterScale=(currentWater/ waterSupply)*2;

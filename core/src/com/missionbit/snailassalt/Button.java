@@ -15,6 +15,9 @@ public class Button {
     protected Vector2 position;
     protected Sprite sprite, spriteNope;
     public Button(float x, float y, String picture, String nope) {
+        this(x, y, picture, nope, "missionbit.png");
+    }
+    public Button(float x, float y, String picture, String nope, String shape) {
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
         image = new Texture(picture);

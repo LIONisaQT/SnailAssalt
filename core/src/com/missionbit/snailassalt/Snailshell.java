@@ -12,22 +12,23 @@ import java.security.spec.PSSParameterSpec;
  */
 public class Snailshell {
     public Texture image;
-    public Sprite  sprite;
+    public Sprite sprite;
     public Rectangle bounds;
     public Vector2 speed;
-    public Vector2 position;
-    protected float height,width;
-    public Snailshell(int a,int b){
-       image = new Texture("standardshell.png");
-       sprite=new Sprite(image,a,b,image.getWidth(),image.getHeight());
-       bounds=new Rectangle();
-       bounds.set(a,b,image.getWidth(),image.getHeight());
-       height= Gdx.graphics.getHeight();
-       width=Gdx.graphics.getWidth();
-       speed=new Vector2();
-       speed.set(0,5);
+    protected float height, width;
+    public Snailshell(int a,int b) {
+        height = Gdx.graphics.getHeight();
+        width = Gdx.graphics.getWidth();
+        image = new Texture("ghostsnail.png");
+        sprite = new Sprite(image);
+        sprite.setSize(image.getWidth(), image.getHeight());
+        sprite.setPosition(a, b);
+        bounds = new Rectangle();
+        bounds.set(a, b, sprite.getWidth(), sprite.getHeight());
+        speed = new Vector2();
+        speed.set(0, 5);
     }
-    public void Update(){
-       this.bounds.y+=speed.y;
+    public void Update() {
+        this.bounds.y += speed.y;
     }
 }
