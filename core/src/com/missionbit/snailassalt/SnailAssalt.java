@@ -70,6 +70,7 @@ public class SnailAssalt extends ApplicationAdapter  {
     //levels end
     private ArrayList<Droppings> droppings;
     private ArrayList<BombDrop> bombs;
+    private SaltArm saltarm;
 
     //enemies start
     //game states start
@@ -196,6 +197,7 @@ public class SnailAssalt extends ApplicationAdapter  {
         }
         droppings = new ArrayList<Droppings>();
         bombs = new ArrayList<BombDrop>();
+        saltarm=new SaltArm();
         //weapwns end
         //buttons start #iSuckAtCoding
         startButtonMenu = new StartButton(width / 2 - 325, height / 2 - 200);
@@ -253,6 +255,7 @@ public class SnailAssalt extends ApplicationAdapter  {
         gameState = GameState.MAINMENU;
         tutState = TutorialState.PAGE1;
         prevGameState = null;
+
         weaponState = WeaponState.REGWEAPON;
         bulletType = BulletType.WATER;
         House.hp = House.maxHP;
@@ -412,7 +415,9 @@ public class SnailAssalt extends ApplicationAdapter  {
                         waterGun.Update(water);
                     }
                     if (bulletType == BulletType.SALT) {
+                        saltarm.sprite.setRotation(waterGun.rot);
                         waterGun.Update2(shakers);
+                        //saltarm.Update2(shakers);
                     }
                 }
             }
@@ -429,7 +434,9 @@ public class SnailAssalt extends ApplicationAdapter  {
                     }
 
                     if (bulletType == BulletType.SALT) {
+                        saltarm.sprite.setRotation(waterGun.rot);
                         hydra.Update2(shakers);
+                        //saltarm.Update2(shakers);
                     }
                 }
             }
@@ -438,7 +445,11 @@ public class SnailAssalt extends ApplicationAdapter  {
                         if(hose.enable){hose.Update(water);}
                     }
                     if(bulletType== bulletType.SALT){
-                        if(hose.enableSalt){hose.Update2(shakers);}
+                        if(hose.enableSalt){
+                            saltarm.sprite.setRotation(waterGun.rot);
+                            //hose.Update2(shakers);
+                            saltarm.Update2(shakers);
+                        }
                     }
                 }
                 for (int i = 0; i < water.size(); i++) { //projectiles
@@ -667,15 +678,29 @@ public class SnailAssalt extends ApplicationAdapter  {
             if (weaponState == WeaponState.REGWEAPON) {
                 font.draw(batch, "current weap reg ", 350, 350);
                 batch.draw(hydraButton.sprite, hydraButton.position.x, hydraButton.position.y);
-                waterGun.sprite.draw(batch);
+                if(bulletType==bulletType.WATER){
+                    waterGun.sprite.draw(batch);
+                }else if(bulletType==bulletType.SALT){
+                    saltarm.sprite.draw(batch);
+                }
+
             } else if (weaponState == WeaponState.HYDRA) {
                 font.draw(batch, "current weap hydra", 350, 350);
-                hydra.sprite.draw(batch);
                 batch.draw(hosebut.sprite, hydraButton.position.x, hydraButton.position.y);
+                if(bulletType==bulletType.WATER) {
+                    hydra.sprite.draw(batch);
+                }else if(bulletType==bulletType.SALT){
+                    saltarm.sprite.draw(batch);
+                }
+
             } else if (weaponState == WeaponState.HOSE) {
                 font.draw(batch, "current weap hose", 350, 350);
-                hose.sprite.draw(batch);
                 batch.draw(hydraButton.watergun, hydraButton.getXPos(), hydraButton.getYPos());
+                if(bulletType==bulletType.WATER){
+                    hose.sprite.draw(batch);
+                }else if(bulletType==bulletType.SALT){
+                    saltarm.sprite.draw(batch);
+                }
 
             }
             for (ThrowyThingy proj : water) {
