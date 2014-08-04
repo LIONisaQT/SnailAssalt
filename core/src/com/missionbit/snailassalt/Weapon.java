@@ -17,7 +17,7 @@ public class Weapon {
     public Rectangle bound;
     public Vector2 speed;
     protected float width, height;
-    static public float touch, touchY, deltaX, deltaY, rot, waterScale, currentWater, waterSupply;;
+    static public float touch, touchY, deltaX, deltaY, rot, waterScale, currentWater, waterSupply, saltScale, currentSalt, saltSupply;;
     static public int str;
     private Sound hydrasound;
     protected Sound watergunsound;
@@ -36,9 +36,13 @@ public class Weapon {
         touchY = 0;
         rot = 0;
         str = 2;
-        waterSupply=100;
-        currentWater =200;
+        //TODO FIX THIS
+        waterSupply=50;
+        currentWater =100;
         waterScale=(currentWater/ waterSupply)*2;
+        saltSupply=25;
+        currentSalt=50;
+        saltScale=(currentSalt/saltSupply)*2;
     }
     public void Update(ArrayList<ThrowyThingy> water) {
         if(!enable){return;}
@@ -60,7 +64,7 @@ public class Weapon {
     }
     public void Update2(ArrayList<Salt> shakers){
         if(!enableSalt){return;}
-        if (Gdx.input.justTouched() && currentWater!=0 && SnailAssalt.weaponState== SnailAssalt.WeaponState.REGWEAPON && SnailAssalt.bulletType==SnailAssalt.bulletType.SALT && !SnailAssalt.saltButton.isPressed() && !SnailAssalt.hydraButton.isPressed()) {
+        if (Gdx.input.justTouched() && currentSalt!=0 && SnailAssalt.bulletType==SnailAssalt.bulletType.SALT && !SnailAssalt.saltButton.isPressed() && !SnailAssalt.hydraButton.isPressed()) {
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
             deltaX = touch - sprite.getX();
@@ -71,7 +75,7 @@ public class Weapon {
             shakers.add(bullet);
             bullet.bound.setPosition(this.bound.x, this.bound.y);
             bullet.speed.setAngleRad(MathUtils.degreesToRadians * rot);
-            currentWater--;
+            currentSalt--;
         }
     }
 }

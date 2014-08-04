@@ -182,6 +182,8 @@ public class SnailAssalt extends ApplicationAdapter {
         startButtonMenu = new StartButton(width / 2 - 325, height / 2 - 200);
         redoLevelButton = new RedoButton(width / 2 - 200, height / 2 - 200);
         redoLevelButton.sprite.setSize(redoLevelButton.image.getWidth() + (redoLevelButton.image.getWidth()/3), startButtonMenu.buttonGetHeight());
+        redoLevelButton.spriteNope.setSize(redoLevelButton.image.getWidth() + (redoLevelButton.image.getWidth()/3), startButtonMenu.buttonGetHeight());
+
         shopButtonMenu = new ShopButton(startButtonMenu.getXPos() + startButtonMenu.image.getWidth() + 10, startButtonMenu.getYPos());
         shopButtonGameEnd = new ShopButton(redoLevelButton.getXPos() + redoLevelButton.sprite.getWidth() + 10, redoLevelButton.getYPos());
         backButtonGameEnd = new BackButton(width - 210, 10);
@@ -313,7 +315,24 @@ public class SnailAssalt extends ApplicationAdapter {
                 if (backButtonLevelSelect.pressable() && backButtonLevelSelect.isPressed()) {gameState = GameState.MAINMENU;}
             }
         }
-        else if (gameState == GameState.INGAME) { //in-game
+        /*
+        *** in-game currently contains ***
+         - watergun and salt shaker logic
+         - projectile logic
+         - droppings logic
+         - updates enemy arraylist
+         - loss condition
+         - win condition
+         - in-game --> game over
+         - in-game --> win
+        */
+        else if (gameState == GameState.INGAME) {
+         if(hydraButton.isPressed()) {
+             bulletType = bulletType.WATER;//in-game
+         }
+            else if(saltButton.isPressed()){
+             bulletType= bulletType.SALT;
+         }
             if (hydra.enable) {
                 if (hydraButton.isPressed()) {
                     if (weaponState == WeaponState.REGWEAPON) {weaponState = WeaponState.HYDRA;} //switch to hydra
@@ -324,8 +343,7 @@ public class SnailAssalt extends ApplicationAdapter {
                 if (waterGun.enable) {waterGun.Update(water);}
                 if (waterGun.enableSalt) {
                     if (saltButton.isPressed()) {
-                        if (bulletType == BulletType.WATER) {bulletType = BulletType.SALT;}
-                        else if (bulletType == BulletType.SALT) {bulletType = BulletType.WATER;}
+                       bulletType=bulletType.SALT;
                     }
                     if (bulletType == BulletType.WATER) {waterGun.Update(water);}
                     if (bulletType == BulletType.SALT) {waterGun.Update2(shakers);
@@ -333,7 +351,16 @@ public class SnailAssalt extends ApplicationAdapter {
                 }
             }
             else if (weaponState == WeaponState.HYDRA) {
-                if (hydra.enable) {hydra.Update(water);}
+                if(bulletType==bulletType.WATER){
+                    if (hydra.enable) {hydra.Update(water);}
+                }
+                if (hydra.enableSalt) {
+                    if (saltButton.isPressed()) {
+                       bulletType=bulletType.SALT;
+                    }
+                    if (bulletType == BulletType.SALT) {hydra.Update2(shakers);
+                    }
+                }
             }
             for (int i = 0; i < water.size(); i++) { //projectiles
                 ThrowyThingy proj = water.get(i);
@@ -352,7 +379,7 @@ public class SnailAssalt extends ApplicationAdapter {
                             currentLevel.enemyCount++;
                             currency += 5;
                             Weapon.currentWater += 10;
-                            if (Weapon.currentWater >= Weapon.waterSupply) {Weapon.currentWater = 100;}
+                            if (Weapon.currentWater >= Weapon.waterSupply) {Weapon.currentWater = 50;}
                         }
                     }
                 }
@@ -372,11 +399,7 @@ public class SnailAssalt extends ApplicationAdapter {
                             shell.add(new Snailshell((int) enemies.get(a).bound.x, (int) enemies.get(a).bound.y));
                             enemies.remove(a);
                             a--;
-                            currency += 10;
-                            Weapon.currentWater += 10;
-                            if (Weapon.currentWater >= Weapon.waterSupply) {
-                                Weapon.currentWater = 100;
-                            }
+                            currency += 5;//TODO:
                         }
                     }
                 }
@@ -564,12 +587,18 @@ public class SnailAssalt extends ApplicationAdapter {
             shapeRenderer.rect(0, 0, width, 40);
             shapeRenderer.rect(3, height - 60, House.maxHP * House.healthScale, 50);
             shapeRenderer.rect(3, height - 110, Weapon.waterSupply * Weapon.waterScale, 50);
+            shapeRenderer.rect(3,height - 160, Weapon.saltSupply *Weapon.saltScale, 40);
             shapeRenderer.setColor(Color.RED);
             shapeRenderer.rect(3, height - 60, House.hp * House.healthScale, 50);
             shapeRenderer.setColor(Color.BLUE);
+            shapeRenderer.rect(3, height - 110, Weapon.currentWater * Weapon.waterScale, 50);
             shapeRenderer.rect(3, height - 110, Weapon.currentWater * Weapon.waterScale, 40);
             shapeRenderer.setColor(Color.GREEN);
             shapeRenderer.rect(0,0, ((float)currentLevel.enemyCount / currentLevel.totalEnemies)* width, 40);
+            shapeRenderer.rect(3, 70, Weapon.currentWater * Weapon.waterScale, 40);
+            //TODO fix invisible barz
+            shapeRenderer.setColor(Color.YELLOW);
+            shapeRenderer.rect(3,height - 160, Weapon.currentSalt *Weapon.saltScale, 40);
             shapeRenderer.end();
             batch.begin();
             font.setColor(1, 1, 1, 1);
@@ -580,10 +609,16 @@ public class SnailAssalt extends ApplicationAdapter {
         }
         else if (gameState == GameState.GAMEOVER || gameState == GameState.WIN) { //in game over/win
             batch.begin();
-            if (gameState == GameState.GAMEOVER) {gameover.draw(batch);}
-            else {win.draw(batch);}
+            if (gameState == GameState.GAMEOVER) {
+                gameover.draw(batch);
+                redoLevelButton.spriteNope.draw(batch);
+            }
+            else {
+                win.draw(batch);
+                redoLevelButton.sprite.draw(batch);
+
+            }
             backButtonGameEnd.spriteNope.draw(batch);
-            redoLevelButton.sprite.draw(batch);
             shopButtonGameEnd.sprite.draw(batch);
             batch.end();
         }

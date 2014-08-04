@@ -40,8 +40,7 @@ public class Hydra extends Weapon {
     }
     public void Update2(ArrayList<Salt> shakers){
         if(!enableSalt) {return;}
-        if (Gdx.input.justTouched() && currentWater!=0 && SnailAssalt.weaponState== SnailAssalt.WeaponState.REGWEAPON && SnailAssalt.bulletType==SnailAssalt.BulletType.SALT && !SnailAssalt.saltButton.isPressed() && !SnailAssalt.hydraButton.isPressed()) {
-            watergunsound.play(1.0f);
+        if (Gdx.input.justTouched() && currentSalt!=0 && SnailAssalt.bulletType==SnailAssalt.bulletType.SALT && !SnailAssalt.saltButton.isPressed() && !SnailAssalt.hydraButton.isPressed()) {
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
             deltaX = touch - sprite.getX();
@@ -60,7 +59,7 @@ public class Hydra extends Weapon {
             shakers.add(bullet3);
             bullet3.bound.setPosition(this.bound.x, this.bound.y);
             bullet3.speed.setAngleRad(MathUtils.degreesToRadians * (rot+15));
-            currentWater -=3;
+            currentSalt -=3;
         }
     }
 }

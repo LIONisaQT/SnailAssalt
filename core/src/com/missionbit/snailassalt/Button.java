@@ -30,7 +30,7 @@ public class Button {
         sprite.setSize(image.getWidth(), image.getHeight());
         spriteNope = new Sprite(new Texture(nope));
         spriteNope.setPosition(getXPos(), getYPos());
-        spriteNope.setSize(imageNope.getWidth(), imageNope.getHeight());
+        spriteNope.setSize(image.getWidth(), image.getHeight());
         //sprite.setBounds(getXPos(),getYPos(),this.buttonGetWidth(),this.buttonGetHeight());
         bound = new Rectangle();
         bound.set(getXPos(), getYPos(), this.buttonGetWidth(), this.buttonGetHeight());
