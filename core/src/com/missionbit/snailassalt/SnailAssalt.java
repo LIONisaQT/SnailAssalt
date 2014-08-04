@@ -225,7 +225,7 @@ public class SnailAssalt extends ApplicationAdapter {
     }
     public void resetGame() {
         camera.position.set(width / 2, height / 2, 0);
-        gameState = GameState.LEVELSELECT;
+        gameState = GameState.MAINMENU;
         tutState = TutorialState.PAGE1;
         prevGameState = null;
         weaponState = WeaponState.REGWEAPON;
