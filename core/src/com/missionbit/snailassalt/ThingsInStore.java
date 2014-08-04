@@ -1,10 +1,12 @@
 package com.missionbit.snailassalt;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+
 /**
  * Created by douglas on 7/8/14.
  */
@@ -21,29 +23,46 @@ public class ThingsInStore {
     public ThingsInStore(float x, float y, String picture, int cost) {
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
-        price=cost;
+        price = cost;
         xPos = x;
         yPos = y;
-        sprite=new Sprite(new Texture(picture));
-        sprite.setPosition(getXPos(),getYPos());
-        sprite.setSize(width / 4, height / 4);
+        sprite = new Sprite(new Texture(picture));
+        sprite.setPosition(getXPos(), getYPos());
+        sprite.setSize(width / 8, height / 6);
         position = new Vector2();
         bound = new Rectangle();
         bound.set(getXPos(), getYPos(), sprite.getWidth(), sprite.getHeight());
         on = false;
     }
+
     public void draw(SpriteBatch batch) {
         batch.draw(this.sprite, this.position.x, this.position.y);
     }
-    public float getXPos() {return xPos;}
-    public float getYPos() {return yPos;}
-    public float buttonGetWidth() {return sprite.getWidth();}
-    public float buttonGetHeight() {return sprite.getHeight();}
+
+    public float getXPos() {
+        return xPos;
+    }
+
+    public float getYPos() {
+        return yPos;
+    }
+
+    public float buttonGetWidth() {
+        return sprite.getWidth();
+    }
+
+    public float buttonGetHeight() {
+        return sprite.getHeight();
+    }
+
     public boolean isPressed() {
         return (Gdx.input.justTouched() && this.bound.contains(SnailAssalt.getTapPosition().x, SnailAssalt.getTapPosition().y));
     }
-    public boolean IsPressable(){
+
+    public boolean IsPressable() {
         return true;
     }
-    public void pressedAction() {}
+
+    public void pressedAction() {
+    }
 }

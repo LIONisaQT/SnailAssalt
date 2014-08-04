@@ -10,20 +10,26 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class Button {
     protected float width, height, xPos, yPos;
-    protected Texture image, imageNope;
+    protected Texture image, imageNope, watergun, Shade;
     protected Rectangle bound;
     protected Vector2 position;
     protected Sprite sprite, spriteNope;
+
+
     public Button(float x, float y, String picture, String nope) {
-        this(x, y, picture, nope, "missionbit.png");
+
+        this(x, y, picture, nope, "bw backbutton.png");
     }
-    public Button(float x, float y, String picture, String nope, String shape) {
+
+    public Button(float x, float y, String picture, String nope, String shade) {
+        Shade = new Texture(shade);
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
         image = new Texture(picture);
         imageNope = new Texture(nope);
         xPos = x;
         yPos = y;
+        watergun = new Texture("watergunicon.png");
         position = new Vector2();
         sprite = new Sprite(new Texture(picture));
         sprite.setPosition(getXPos(),getYPos());
@@ -39,7 +45,10 @@ public class Button {
     public float getYPos() {return yPos;}
     public float buttonGetWidth() {return sprite.getWidth();}
     public float buttonGetHeight() {return sprite.getHeight();}
-    public boolean isPressed() {return (Gdx.input.justTouched() && this.bound.contains(SnailAssalt.getTapPosition().x,SnailAssalt.getTapPosition().y));}
+
+    public boolean isPressed() {
+        return (Gdx.input.justTouched() && this.bound.contains(SnailAssalt.getTapPosition().x, SnailAssalt.getTapPosition().y));
+    }
     public boolean pressable() {return true;} //bro can you even press
     public void pressedAction() {}
     public void draw(SpriteBatch batch) {
