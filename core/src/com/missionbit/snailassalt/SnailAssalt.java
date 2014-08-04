@@ -592,10 +592,8 @@ public class SnailAssalt extends ApplicationAdapter {
             shapeRenderer.rect(3, height - 60, House.hp * House.healthScale, 50);
             shapeRenderer.setColor(Color.BLUE);
             shapeRenderer.rect(3, height - 110, Weapon.currentWater * Weapon.waterScale, 50);
-            shapeRenderer.rect(3, height - 110, Weapon.currentWater * Weapon.waterScale, 40);
             shapeRenderer.setColor(Color.GREEN);
             shapeRenderer.rect(0,0, ((float)currentLevel.enemyCount / currentLevel.totalEnemies)* width, 40);
-            shapeRenderer.rect(3, 70, Weapon.currentWater * Weapon.waterScale, 40);
             //TODO fix invisible barz
             shapeRenderer.setColor(Color.YELLOW);
             shapeRenderer.rect(3,height - 160, Weapon.currentSalt *Weapon.saltScale, 40);
