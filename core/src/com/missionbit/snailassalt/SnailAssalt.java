@@ -742,7 +742,7 @@ public class SnailAssalt extends ApplicationAdapter  {
             shapeRenderer.setColor(Color.GREEN);
             shapeRenderer.rect(0, 0, ((float) currentLevel.enemyCount / currentLevel.totalEnemies) * width, 40);
             //TODO fix invisible barz
-            shapeRenderer.setColor(Color.YELLOW);
+            shapeRenderer.setColor(Color.GRAY);
             shapeRenderer.rect(3, height - 160, (Weapon.currentSalt/Weapon.saltSupply) *( width /5 ), 50);
             shapeRenderer.end();
             batch.begin();
