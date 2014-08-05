@@ -260,6 +260,7 @@ public class SnailAssalt extends ApplicationAdapter  {
         bulletType = BulletType.WATER;
         House.hp = House.maxHP;
         Weapon.currentWater = Weapon.waterSupply;
+        Weapon.currentSalt = Weapon.saltSupply;
         //buttons start
         loseButton.position.set(loseButton.getXPos(), loseButton.getYPos());
         hydraButton.position.set(hydraButton.getXPos(), hydraButton.getYPos());
@@ -556,6 +557,8 @@ public class SnailAssalt extends ApplicationAdapter  {
             droppings.clear();
             House.hp = House.maxHP;
             Weapon.currentWater = Weapon.waterSupply;
+            Weapon.currentSalt=Weapon.saltSupply;
+            currentLevel.enemyCount = 0;
             bulletType = BulletType.WATER;
             if (backButtonGameEnd.pressable() && backButtonGameEnd.isPressed()) {
                 backButtonGameEnd.pressedAction();
@@ -730,22 +733,23 @@ public class SnailAssalt extends ApplicationAdapter  {
             shapeRenderer.setColor(Color.BLACK);
             shapeRenderer.rect(0, 0, width, 40);
             shapeRenderer.rect(3, height - 60, House.maxHP * House.healthScale, 50);
-            shapeRenderer.rect(3, height - 110, Weapon.waterSupply * Weapon.waterScale, 50);
-            shapeRenderer.rect(3, height - 160, Weapon.saltSupply * Weapon.saltScale, 40);
+            shapeRenderer.rect(3, height - 110, width/5, 50);
+            shapeRenderer.rect(3, height - 160, width / 5, 50);
             shapeRenderer.setColor(Color.RED);
             shapeRenderer.rect(3, height - 60, House.hp * House.healthScale, 50);
             shapeRenderer.setColor(Color.BLUE);
-            shapeRenderer.rect(3, height - 110, Weapon.currentWater * Weapon.waterScale, 50);
+            shapeRenderer.rect(3, height - 110, (Weapon.currentWater/ Weapon.waterSupply)*(width/5), 50);
             shapeRenderer.setColor(Color.GREEN);
             shapeRenderer.rect(0, 0, ((float) currentLevel.enemyCount / currentLevel.totalEnemies) * width, 40);
             //TODO fix invisible barz
             shapeRenderer.setColor(Color.YELLOW);
-            shapeRenderer.rect(3, height - 160, Weapon.currentSalt * Weapon.saltScale, 40);
+            shapeRenderer.rect(3, height - 160, (Weapon.currentSalt/Weapon.saltSupply) *( width /5 ), 50);
             shapeRenderer.end();
             batch.begin();
             font.setColor(1, 1, 1, 1);
             font.draw(batch, (int) House.hp + "/" + (int) House.maxHP, 50, height - 10);
             font.draw(batch, (int) Weapon.currentWater + "/" + (int) Weapon.waterSupply, 50, height - 60);
+            font.draw(batch, (int) Weapon.currentSalt + "/" +(int) Weapon.saltSupply,50,height-110);
             hpBar.draw(batch);
             batch.end();
         }

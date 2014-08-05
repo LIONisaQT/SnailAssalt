@@ -4,8 +4,8 @@ package com.missionbit.snailassalt;
  */
 public class SaltButton extends Button {
     public SaltButton(float x ,float y) {
-        super(x, y, "Salt.png", "Salt.png");
-        sprite.setSize(width / 11, height / 5);
+        super(x, y, "Salt icon.png", "Salt icon.png");
+        //sprite.setSize(width / 9, height / 5);
     }
 }
 

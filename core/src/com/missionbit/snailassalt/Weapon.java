@@ -11,6 +11,7 @@ import java.util.ArrayList;
  * Created by douglas on 6/18/14.
  */
 public class Weapon {
+    private Texture texture;
     public Sprite sprite;
     public boolean enable;
     public boolean enableSalt;
@@ -26,8 +27,10 @@ public class Weapon {
         watergunsound = Gdx.audio.newSound(Gdx.files.internal("water.mp3"));
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
+        texture = new Texture(image);
         sprite = new Sprite(new Texture(image));
         sprite.setPosition(width - 2 * sprite.getWidth() / 3, height / 2 - sprite.getHeight() / 3);
+        sprite.setSize(texture.getWidth(), texture.getHeight());
         bound = new Rectangle();
         bound.set(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
         speed = new Vector2();
@@ -38,11 +41,11 @@ public class Weapon {
         str = 2;
         //TODO FIX THIS
         waterSupply=50;
-        currentWater =100;
-        waterScale=(currentWater/ waterSupply)*2;
-        saltSupply=25;
-        currentSalt=50;
-        saltScale=(currentSalt/saltSupply)*2;
+        currentWater=waterSupply;
+        //waterScale=(currentWater/ waterSupply)*2;
+        saltSupply=12;
+        currentSalt=saltSupply;
+        //saltScale=(currentSalt/saltSupply)*5;
     }
     public void Update(ArrayList<ThrowyThingy> water) {
         if(!enable){return;}
