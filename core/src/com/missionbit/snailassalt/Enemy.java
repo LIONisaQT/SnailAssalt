@@ -15,6 +15,8 @@ public class Enemy {
     protected Vector2 speed;
     protected float width, height, hp;
     private Texture frame1, frame2;
+
+    protected static Texture flash;
     private Animation animation;
     protected float Attack, SpawnOffset;
     public Enemy(float x, float y, float xSpeed, float ySpeed,float attack,float hp) {
@@ -23,11 +25,13 @@ public class Enemy {
     public Enemy(float x, float y, float xSpeed, float ySpeed, float attack, float hit, String name, String name2) {
         Sprite spriteFrame1;
         Sprite spriteFrame2;
+
         float maxHP;
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
         frame1 = new Texture(name);
         frame2 = new Texture(name2);
+        flash = new Texture("snail flash.png");
         spriteFrame1 = new Sprite(frame1);
         spriteFrame1.setSize(frame1.getWidth(), frame1.getHeight());
         spriteFrame2 = new Sprite(frame2);
@@ -53,6 +57,11 @@ public class Enemy {
     public void draw(SpriteBatch batch,float time){
         batch.draw(animation.getKeyFrame(time),bound.x,bound.y);
     }
+
+    public void attacked(SpriteBatch batch) {
+        batch.draw(flash, bound.x, bound.y);
+    }
+
     public void dispose() {
         frame1.dispose();
         frame2.dispose();

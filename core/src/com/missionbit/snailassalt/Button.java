@@ -14,6 +14,7 @@ public class Button {
     protected Rectangle bound;
     protected Vector2 position;
     protected Sprite sprite, spriteNope;
+    boolean status = false;
 
 
     public Button(float x, float y, String picture, String nope) {
@@ -47,7 +48,15 @@ public class Button {
     public float buttonGetHeight() {return sprite.getHeight();}
 
     public boolean isPressed() {
-        return (Gdx.input.justTouched() && this.bound.contains(SnailAssalt.getTapPosition().x, SnailAssalt.getTapPosition().y));
+        return (Gdx.input.isTouched() && this.bound.contains(SnailAssalt.getTapPosition().x, SnailAssalt.getTapPosition().y));
+    }
+
+    public boolean touchStatus(int status) {
+        if (status == 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
     public boolean pressable() {return true;} //bro can you even press
     public void pressedAction() {}
