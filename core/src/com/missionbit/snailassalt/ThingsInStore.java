@@ -28,7 +28,7 @@ public class ThingsInStore {
         yPos = y;
         sprite = new Sprite(new Texture(picture));
         sprite.setPosition(getXPos(), getYPos());
-        sprite.setSize(width / 8, height / 6);
+        sprite.setSize(width / 9, height / 5);
         position = new Vector2();
         bound = new Rectangle();
         bound.set(getXPos(), getYPos(), sprite.getWidth(), sprite.getHeight());
