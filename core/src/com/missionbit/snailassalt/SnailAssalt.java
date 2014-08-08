@@ -63,6 +63,7 @@ public class SnailAssalt extends ApplicationAdapter  {
     private SpSaltBut spSaltBut;
     private SpHosebutton spHoseBut;
     private TutorialButton tutorialButton;
+    private PreviousButton previousButtontutorial;
     //buttons end
     //levels start
     private ArrayList<Enemy> enemies; //temporarily holds level's enemy arraylist
@@ -217,6 +218,7 @@ public class SnailAssalt extends ApplicationAdapter  {
         backButtonShop = new BackButton(width - 210, 10);
         backButtonLevelSelect = new BackButton(width - 210, 10);
         backButtonTutorial = new BackButton(width - 210, height - backButtonShop.buttonGetHeight());
+        previousButtontutorial = new PreviousButton( 20, height - backButtonShop.buttonGetHeight());
         backButtonCredits = new BackButton(width - 210, 10);
         creditsButton = new CreditsButton(width / 2 - 100, startButtonMenu.getYPos() - startButtonMenu.buttonGetHeight() - 10);
         tutorialButton = new TutorialButton(width / 2 - 90 + creditsButton.sprite.getWidth(), creditsButton.getYPos());
@@ -284,6 +286,7 @@ public class SnailAssalt extends ApplicationAdapter  {
         backButtonCredits.position.set(backButtonCredits.getXPos(), backButtonCredits.getYPos());
         backButtonShop.position.set(backButtonShop.getXPos(), backButtonShop.getYPos());
         backButtonTutorial.position.set(backButtonTutorial.getXPos(), backButtonTutorial.getYPos());
+        previousButtontutorial.position.set(previousButtontutorial.getXPos(),previousButtontutorial.getYPos());
         nextTutorial.position.set(nextTutorial.getXPos(), nextTutorial.getYPos());
         creditsButton.position.set(creditsButton.getXPos(), creditsButton.getYPos());
         loseButton.position.set(loseButton.getXPos(), loseButton.getYPos());
@@ -352,11 +355,15 @@ public class SnailAssalt extends ApplicationAdapter  {
                 if (backButtonTutorial.isPressed()) {
                     backButtonTutorial.pressedAction();
                 } //go to next page of tutorial
-            } else { //tutState == TutorialState.PAGE4
-                if (nextTutorial.isPressed()) {
+            } //tutState == TutorialState.PAGE4
+            if (previousButtontutorial.isPressed()){
+                previousButtontutorial.pressedAction();
+            }
+
+            if (nextTutorial.isPressed()) {
                     nextTutorial.pressedAction();
                 } //go to next page of tutorial
-            }
+
         } else if (gameState == GameState.LEVELSELECT) { //in level select
             for (int a = 0; a < numberOfLevels; a++) {
                 if (levelButtons.get(a).isPressed()) {
@@ -665,27 +672,35 @@ public class SnailAssalt extends ApplicationAdapter  {
             } else if (tutState == TutorialState.PAGE2) {
                 tutor2.draw(batch);
                 nextTutorial.draw(batch);
+                previousButtontutorial.draw(batch);
             } else if (tutState == TutorialState.PAGE3) {
                 tutor3.draw(batch);
                 nextTutorial.draw(batch);
+                previousButtontutorial.draw(batch);
             } else if (tutState == TutorialState.PAGE4) {
                 tutor4.draw(batch);
                 nextTutorial.draw(batch);
+                previousButtontutorial.draw(batch);
             } else if (tutState == TutorialState.PAGE5) {
                 tutor5.draw(batch);
                 nextTutorial.draw(batch);
+                previousButtontutorial.draw(batch);
             } else if (tutState == TutorialState.PAGE6) {
                 tutor6.draw(batch);
                 nextTutorial.draw(batch);
+                previousButtontutorial.draw(batch);
             } else if (tutState == TutorialState.PAGE7) {
                 tutor7.draw(batch);
                 nextTutorial.draw(batch);
+                previousButtontutorial.draw(batch);
             } else if (tutState == TutorialState.PAGE8) {
                 tutor8.draw(batch);
                 nextTutorial.draw(batch);
+                previousButtontutorial.draw(batch);
             } else if (tutState == TutorialState.PAGE9) {
                 tutor9.draw(batch);
                 backButtonTutorial.draw(batch);
+                previousButtontutorial.draw(batch);
             }
             batch.end();
         } else if (gameState == GameState.INGAME) { //in-game
