@@ -5,6 +5,7 @@ package com.missionbit.snailassalt;
  */
 public class SpHosebutton extends ThingsInStore {
     public SpHosebutton(float x, float y) {
-        super(x, y, "hoseArm.png", 1000);
+        super(x, y, "buyButton.png","boughtbutton.png", 1000);
     }
+    public boolean ownd;
 }

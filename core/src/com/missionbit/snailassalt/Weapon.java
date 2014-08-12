@@ -18,7 +18,7 @@ public class Weapon {
     public Rectangle bound;
     public Vector2 speed;
     protected float width, height;
-    static public float touch, touchY, deltaX, deltaY, rot, waterScale, currentWater, waterSupply, saltScale, currentSalt, saltSupply;;
+    static public float touch, touchY, deltaX, deltaY, rot, currentWater, waterSupply, currentSalt, saltSupply;;
     static public int str;
     private Sound hydrasound;
     protected Sound watergunsound;
@@ -42,10 +42,6 @@ public class Weapon {
         //TODO FIX THIS
         waterSupply=50;
         currentWater=waterSupply;
-        //waterScale=(currentWater/ waterSupply)*2;
-        saltSupply=12;
-        currentSalt=saltSupply;
-        //saltScale=(currentSalt/saltSupply)*5;
     }
     public void Update(ArrayList<ThrowyThingy> water) {
         if(!enable){return;}
