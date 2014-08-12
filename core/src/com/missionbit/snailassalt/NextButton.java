@@ -16,7 +16,6 @@ public class NextButton extends Button {
             else if (SnailAssalt.tutState == SnailAssalt.TutorialState.PAGE5) {SnailAssalt.tutState = SnailAssalt.TutorialState.PAGE6;}
             else if (SnailAssalt.tutState == SnailAssalt.TutorialState.PAGE6) {SnailAssalt.tutState = SnailAssalt.TutorialState.PAGE7;}
             else if (SnailAssalt.tutState == SnailAssalt.TutorialState.PAGE7) {SnailAssalt.tutState = SnailAssalt.TutorialState.PAGE8;}
-
             else {
                 SnailAssalt.gameState = SnailAssalt.GameState.MAINMENU;
             }

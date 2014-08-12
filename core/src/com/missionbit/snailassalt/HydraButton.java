@@ -5,6 +5,7 @@ package com.missionbit.snailassalt;
 public class HydraButton extends Button {
     public HydraButton(float x, float y) {
         super(x, y, "weapon icon.png", "weapon icon.png");
-        //sprite.setSize( width/ 9, height /5);
+        sprite.setSize(buttonGetWidth() / 2, buttonGetHeight() / 2);
+        bound.setSize(buttonGetWidth() / 2, buttonGetHeight() / 2);
     }
 }

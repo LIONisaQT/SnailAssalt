@@ -13,11 +13,10 @@ public class Button {
     protected Texture image, imageNope, watergun, Shade;
     protected Rectangle bound;
     protected Vector2 position;
-    protected Sprite sprite, spriteNope;
+    protected Sprite sprite, spriteNope, watergunSprite;
 
 
     public Button(float x, float y, String picture, String nope) {
-
         this(x, y, picture, nope, "bw backbutton.png");
     }
 
@@ -30,6 +29,8 @@ public class Button {
         xPos = x;
         yPos = y;
         watergun = new Texture("watergunicon.png");
+        watergunSprite = new Sprite(watergun);
+        watergunSprite.setSize(watergunSprite.getWidth() / 2, watergunSprite.getHeight() / 2);
         position = new Vector2();
         sprite = new Sprite(new Texture(picture));
         sprite.setPosition(getXPos(),getYPos());
@@ -42,17 +43,26 @@ public class Button {
         bound.set(getXPos(), getYPos(), this.buttonGetWidth(), this.buttonGetHeight());
     }
     public float getXPos() {return xPos;}
+
     public float getYPos() {return yPos;}
+
     public float buttonGetWidth() {return sprite.getWidth();}
+
     public float buttonGetHeight() {return sprite.getHeight();}
 
     public boolean isPressed() {
         return (Gdx.input.justTouched() && this.bound.contains(SnailAssalt.getTapPosition().x, SnailAssalt.getTapPosition().y));
     }
+
     public boolean pressable() {return true;} //bro can you even press
+
     public void pressedAction() {}
+
     public void draw(SpriteBatch batch) {
-        if (pressable()) {batch.draw(this.image, this.position.x, this.position.y);}
-        else {batch.draw(this.imageNope, this.position.x, this.position.y);}
+        if (pressable()) {
+            batch.draw(this.image, this.position.x, this.position.y);
+        } else {
+            batch.draw(this.imageNope, this.position.x, this.position.y);
+        }
     }
 }
