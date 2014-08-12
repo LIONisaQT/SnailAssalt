@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import com.badlogic.gdx.math.Vector3;
@@ -22,6 +23,7 @@ public class SnailAssalt extends ApplicationAdapter  {
     protected static int numberOfLevels = 10;
     private int width, height;
     private static Vector3 tap;
+    private FreeTypeFontGenerator fontGenerator;
     private BitmapFont font;
     private Player jimmy;
     private House house;
@@ -114,7 +116,13 @@ public class SnailAssalt extends ApplicationAdapter  {
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
         camera = new OrthographicCamera(width, height);
-        font = new BitmapFont(Gdx.files.internal("font.fnt"), Gdx.files.internal("font.png"), false);
+
+        //FONT STUFF
+        fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("helvetica.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 12;
+        font = fontGenerator.generateFont(parameter);
+
         shell = new ArrayList<Snailshell>();
         jimmy = new Player();
         tap = new Vector3(); //location of tap
