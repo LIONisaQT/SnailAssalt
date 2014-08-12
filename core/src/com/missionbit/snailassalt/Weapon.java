@@ -30,7 +30,6 @@ public class Weapon {
         texture = new Texture(image);
         sprite = new Sprite(new Texture(image));
         sprite.setPosition(width - 2 * sprite.getWidth() / 3, height / 2 - sprite.getHeight() / 3);
-        sprite.setSize(texture.getWidth(), texture.getHeight());
         bound = new Rectangle();
         bound.set(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
         speed = new Vector2();
@@ -63,7 +62,7 @@ public class Weapon {
     }
     public void Update2(ArrayList<Salt> shakers){
         if(!enableSalt){return;}
-        if (Gdx.input.justTouched() && currentSalt!=0 && SnailAssalt.bulletType==SnailAssalt.bulletType.SALT && !SnailAssalt.saltButton.isPressed() && !SnailAssalt.hydraButton.isPressed()) {
+        if (Gdx.input.justTouched() && currentSalt!=0 && SnailAssalt.bulletType==SnailAssalt.BulletType.SALT && !SnailAssalt.saltButton.isPressed() && !SnailAssalt.hydraButton.isPressed()) {
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
             deltaX = touch - sprite.getX();

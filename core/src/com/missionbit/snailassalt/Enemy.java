@@ -40,7 +40,7 @@ public class Enemy {
         maxHP = hit;
         hp = maxHP;
         Attack = attack;
-        SpawnOffset=15;
+        SpawnOffset = 15;
     }
     public void Update (float dt, SnailAssalt game) {
         this.bound.x = this.bound.x + this.speed.x;

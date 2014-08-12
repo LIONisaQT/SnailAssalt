@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class HoseBut extends Button {
     public HoseBut(float x, float y) {
         super(x, y, "hose icon.png", "hose icon.png");
+        sprite.setSize(buttonGetWidth() / 2, buttonGetHeight() / 2);
     }
-
 }
 
