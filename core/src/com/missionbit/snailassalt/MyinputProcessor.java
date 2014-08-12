@@ -1,5 +1,6 @@
 package com.missionbit.snailassalt;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 
 /**
@@ -23,14 +24,13 @@ public class MyinputProcessor implements InputProcessor {
 
     @Override
     public boolean touchDown(int x, int y, int pointer, int button) {
-        x = (int) SnailAssalt.getTapPosition().x;
-        y = (int) SnailAssalt.getTapPosition().y;
+        System.out.println("yes");
         return true;
     }
 
     @Override
     public boolean touchUp(int x, int y, int pointer, int button) {
-
+        System.out.println("no");
         return false;
     }
 

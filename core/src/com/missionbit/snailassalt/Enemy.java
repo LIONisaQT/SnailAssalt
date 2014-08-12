@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 /**
@@ -16,7 +17,8 @@ public class Enemy {
     protected float width, height, hp;
     private Texture frame1, frame2;
 
-    protected static Texture flash;
+    protected boolean flash;
+    float seconds = 0;
     private Animation animation;
     protected float Attack, SpawnOffset;
     public Enemy(float x, float y, float xSpeed, float ySpeed,float attack,float hp) {
@@ -31,7 +33,7 @@ public class Enemy {
         height = Gdx.graphics.getHeight();
         frame1 = new Texture(name);
         frame2 = new Texture(name2);
-        flash = new Texture("snail flash.png");
+
         spriteFrame1 = new Sprite(frame1);
         spriteFrame1.setSize(frame1.getWidth(), frame1.getHeight());
         spriteFrame2 = new Sprite(frame2);
@@ -47,6 +49,8 @@ public class Enemy {
         SpawnOffset=15;
     }
     public void Update (float dt, SnailAssalt game) {
+        seconds = Math.max(seconds - dt, 0);
+        flash = seconds > 0;
         this.bound.x = this.bound.x + this.speed.x;
         this.bound.y = this.bound.y + this.speed.y;
         if (this.bound.overlaps(House.Housebounds)) {
@@ -55,16 +59,22 @@ public class Enemy {
         }
     }
     public void draw(SpriteBatch batch,float time){
-        batch.draw(animation.getKeyFrame(time),bound.x,bound.y);
+        if (flash) {
+            //batch.draw(animation.getKeyFrame(time),bound.x,bound.y);
+        } else {
+            batch.draw(animation.getKeyFrame(time), bound.x, bound.y);
+        }
     }
 
-    public void attacked(SpriteBatch batch) {
-        batch.draw(flash, bound.x, bound.y);
-    }
 
     public void dispose() {
         frame1.dispose();
         frame2.dispose();
     }
     public boolean enemyDead(){return hp < 0 ;}
+
+    public void startFlash(float i) {
+        flash = true;
+        seconds = i;
+    }
 }
