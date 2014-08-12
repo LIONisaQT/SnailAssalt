@@ -5,6 +5,7 @@ package com.missionbit.snailassalt;
  */
 public class SpHydraBut extends ThingsInStore {
     public SpHydraBut(float x, float y) {
-        super(x, y, "hydra icon.png", 500);
+        super(x, y, "buyButton.png","boughtbutton.png", 500);
     }
+    public boolean ownd;
 }

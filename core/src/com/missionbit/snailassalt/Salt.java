@@ -16,5 +16,6 @@ public class Salt extends ThrowyThingy {
         speed = new Vector2();
         speed.set(6, 6);
         sprite.rotate(Weapon.rot*-1);
+
     }
 }
