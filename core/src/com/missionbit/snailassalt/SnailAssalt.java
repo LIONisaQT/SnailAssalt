@@ -65,7 +65,7 @@ public class SnailAssalt extends ApplicationAdapter {
     private TutorialButton tutorialButton;
     //buttons end
     //levels start
-    private ArrayList<Enemy> enemies; //temporarily holds level's enemy arraylist
+    public  static  ArrayList<Enemy> enemies; //temporarily holds level's enemy arraylist
     private ArrayList<LevelButton> levelButtons;
     private ArrayList<Level> levels;
     private Level currentLevel;
@@ -466,24 +466,36 @@ public class SnailAssalt extends ApplicationAdapter {
                 nextInfoMother.pressedAction();
             }
             for (int b = 0; b < numberOfTypes; b++) {
-                if (snailInfo.get(b).isPressed()) {
+                if (snailInfo.get(b).isPressed() && infoState==InfoState.SELECTION) {
                     snailInfo.get(b).pressedAction();
                     if (b == 0) {
                         infoState = InfoState.STANDARD;
+                        enemies.clear();
+                        enemies.add(new Enemy(width/5, height/2,0,0,0,0));
                     } else if (b == 1) {
                         infoState = InfoState.ACID;
+                        enemies.clear();
+                        enemies.add(new AcidSnail(width/5, height/2,0,0,0,0));
                     } else if (b == 2) {
                         infoState = InfoState.FLYING;
+                        enemies.clear();
+                        for (int a = 0; a < 1; a++)enemies.add(new FlyingSnail(width/5, height/2,0,0,0,0));
                     } else if (b == 3) {
                         infoState = InfoState.HEALING;
+                        enemies.clear();
+                        for (int a = 0; a < 1; a++)enemies.add(new HealerSnail(width/5, height/2,0,0,0,0));
                     } else if (b == 4) {
                         infoState = InfoState.BOSS;
+                        enemies.clear();
+                        for (int a = 0; a < 1; a++)enemies.add(new BossSnail(width/5, height/2,0,0,0,0));
                     } else if (b == 5) {
                         infoState = InfoState.MOTHER;
+                        enemies.clear();
+                        for (int a = 0; a < 1; a++)enemies.add(new MotherSnail(width/5, height/2,0,0,0,0));
                     } else if (b == 6) {
                         infoState = InfoState.PERSON;
-                    } else {
-                        infoState = InfoState.SELECTION;
+                        enemies.clear();
+                        for (int a = 0; a < 1; a++)enemies.add(new Person(width/5, height/2,0,0,0,0));
                     }
                 }
             }
@@ -791,9 +803,9 @@ public class SnailAssalt extends ApplicationAdapter {
                 nextTutorial.draw(batch);
             }
             batch.end();
-        } else if (gameState == GameState.INFO) { //in level select
+        } else if (gameState == GameState.INFO) { //in info
             batch.begin();
-            font.setScale((float)1.4);
+            font.setScale((float)((width/1196) *(1.4)));
             if (infoState == InfoState.SELECTION) {
                 info.draw(batch);
                 for (int b = 0; b < numberOfTypes; b++) {
@@ -803,7 +815,10 @@ public class SnailAssalt extends ApplicationAdapter {
                 batch.draw(backButtonInfoSelection.image, backButtonInfoSelection.position.x, backButtonInfoSelection.position.y);
             } else if (infoState == InfoState.STANDARD) {
                 info.draw(batch);
-                sign.draw (batch);
+                for (Enemy enemy : enemies) { //draws and animates enemies
+                    enemy.draw(batch,time);
+                }
+                sign.draw(batch);
                 font.draw(batch, "-Speed:slow", sign.getX() + 50,  (3 *height) / 4);
                 font.draw(batch, "-Attack:very weak", sign.getX() +50, (3 *height)/4 - (2* font.getLineHeight()));
                 font.draw(batch, "-no special powers", sign .getX() +50, ( 3 * height)/4 - (4*font.getLineHeight()));
@@ -812,6 +827,9 @@ public class SnailAssalt extends ApplicationAdapter {
                 batch.draw(nextInfoStandard.image, nextInfoStandard.position.x, nextInfoStandard.position.y);
             } else if (infoState == InfoState.ACID) {
                 info.draw(batch);
+                for (Enemy enemy : enemies) { //draws and animates enemies
+                    enemy.draw(batch, time);
+                }
                 sign.draw(batch);
                 font.draw(batch, "-Speed:slow", sign.getX() + 50,  (3 *height) / 4);
                 font.draw(batch, "-Attack:weak", sign.getX() +50, (3 *height)/4 - (2* font.getLineHeight()));
@@ -822,6 +840,9 @@ public class SnailAssalt extends ApplicationAdapter {
 
             } else if (infoState == InfoState.FLYING) {
                 info.draw(batch);
+                for (Enemy enemy : enemies) { //draws and animates enemies
+                    enemy.draw(batch, time);
+                }
                 sign.draw(batch);
                 font.draw(batch, "-Speed:normal", sign.getX() + 50,  (3 *height) / 4);
                 font.draw(batch, "-Attack:normal", sign.getX() +50, (3 *height)/4 - (2* font.getLineHeight()));
@@ -832,6 +853,9 @@ public class SnailAssalt extends ApplicationAdapter {
 
             } else if (infoState == InfoState.HEALING) {
                 info.draw(batch);
+                for (Enemy enemy : enemies) { //draws and animates enemies
+                    enemy.draw(batch, time);
+                }
                 sign.draw(batch);
                 font.draw(batch, "-Speed:normal", sign.getX() + 50,  (3 *height) / 4);
                 font.draw(batch, "-Attack:normal", sign.getX() +50, (3 *height)/4 - (2* font.getLineHeight()));
@@ -842,6 +866,9 @@ public class SnailAssalt extends ApplicationAdapter {
 
             } else if (infoState == InfoState.BOSS) {
                 info.draw(batch);
+                for (Enemy enemy : enemies) { //draws and animates enemies
+                    enemy.draw(batch, time);
+                }
                 sign.draw(batch);
                 font.draw(batch, "-Speed:normal", sign.getX() + 50,  (3 *height) / 4);
                 font.draw(batch, "-Attack:very strong", sign.getX() +50, (3 *height)/4 - (2* font.getLineHeight()));
@@ -852,6 +879,9 @@ public class SnailAssalt extends ApplicationAdapter {
 
             } else if (infoState == InfoState.MOTHER) {
                 info.draw(batch);
+                for (Enemy enemy : enemies) { //draws and animates enemies
+                    enemy.draw(batch, time);
+                }
                 sign.draw(batch);
                 font.draw(batch, "-Speed:very fast", sign.getX() + 50,  (3 *height) / 4);
                 font.draw(batch, "-Attack:weak", sign.getX() +50, (3 *height)/4 - (2* font.getLineHeight()));
@@ -862,6 +892,9 @@ public class SnailAssalt extends ApplicationAdapter {
 
             } else if (infoState == InfoState.PERSON) {
                 info.draw(batch);
+                for (Enemy enemy : enemies) { //draws and animates enemies
+                    enemy.draw(batch, time);
+                }
                 sign.draw(batch);
                 font.draw(batch, "-Speed:very fast", sign.getX() + 50,  (3 *height) / 4);
                 font.draw(batch, "-Attack:normal", sign.getX() +50, (3 *height)/4 - (2* font.getLineHeight()));
