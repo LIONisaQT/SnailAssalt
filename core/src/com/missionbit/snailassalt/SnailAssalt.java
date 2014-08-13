@@ -23,7 +23,6 @@ import java.util.ArrayList;
 
 public class SnailAssalt extends ApplicationAdapter {
     private int buttonstate = 0;
-
     ///trial stuff this is all extra shit
     private SpriteBatch batch;
     private ShapeRenderer shapeRenderer;
@@ -250,6 +249,7 @@ public class SnailAssalt extends ApplicationAdapter {
             levels.add(new Level(a + 1));
         }
         currentLevel = new Level(1);
+
         //levels end
        /* victorysound = Gdx.audio.newSound(Gdx.files.internal("victorysound.mp3"));
         defeatsound = Gdx.audio.newSound(Gdx.files.internal("defeatsound.mp3"));
@@ -295,6 +295,8 @@ public class SnailAssalt extends ApplicationAdapter {
         redoLevelButton.position.set(redoLevelButton.getXPos(), redoLevelButton.getYPos());
         for (int a = 0; a < numberOfLevels; a++)
             levelButtons.get(a).position.set(levelButtons.get(a).getXPos(), levelButtons.get(a).getYPos());
+
+
     }
 
     public static Vector3 getTapPosition() { //gets and translates coordinates of tap to game world coordinates
@@ -340,10 +342,12 @@ public class SnailAssalt extends ApplicationAdapter {
                 currency -= spHydraBut.price;
                 preferences.putInteger("hydra", 1);
                 //preferences.flush();
+
             }
             if (preferences.getInteger("hydra", 0) == 1) {
                 hydra.enable = true;
             }
+
             if (currency > spSaltBut.price && spSaltBut.isPressed()) {
                 currency -= spSaltBut.price;
                 preferences.putInteger("salt", 1);
@@ -370,9 +374,11 @@ public class SnailAssalt extends ApplicationAdapter {
                     backButtonTutorial.pressedAction();
                 } //go to next page of tutorial
             } else { //tutState == TutorialState.PAGE4
+
                 if (nextTutorial.touchup()) {
                     nextTutorial.pressedAction();
                 } //go to next page of tutorial
+
             }
         } else if (gameState == GameState.LEVELSELECT) { //in level select
             for (int a = 0; a < numberOfLevels; a++) {
@@ -435,10 +441,12 @@ public class SnailAssalt extends ApplicationAdapter {
                 if (waterGun.enableSalt) {
                     if (saltButton.isPressed()) {
                         bulletType = bulletType.SALT;
+
                     }
                     if (bulletType == BulletType.WATER) {
                         waterGun.Update(water);
                     }
+
                     if (bulletType == BulletType.SALT) {
                         waterGun.Update2(shakers);
                     }
@@ -742,7 +750,6 @@ public class SnailAssalt extends ApplicationAdapter {
                 font.draw(batch, "current weap hose", 350, 350);
                 hose.sprite.draw(batch);
                 batch.draw(hydraButton.watergun, hydraButton.getXPos(), hydraButton.getYPos());
-
             }
             for (ThrowyThingy proj : water) {
                 proj.sprite.draw(batch);
