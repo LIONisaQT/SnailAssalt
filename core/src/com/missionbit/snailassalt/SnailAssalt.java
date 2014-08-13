@@ -11,6 +11,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 
 import java.util.ArrayList;
+
+import javax.swing.text.Position;
+
 public class SnailAssalt extends ApplicationAdapter {
     private SpriteBatch batch;
     private ShapeRenderer shapeRenderer;
@@ -45,7 +48,6 @@ public class SnailAssalt extends ApplicationAdapter {
     private StartButton startButtonMenu;
     private ShopButton shopButtonMenu;
     private BackButton backButtonShop, backButtonGameOver, backButtonLevelSelect, backButtonCredits ;//different back buttons because their position will most likely be different
-    private LoseButton loseButton;
     private HydraButton hydraButton;
     private SupersoakerButton supersoakerbutton;
     private HoseButton hosebutton;
@@ -74,6 +76,11 @@ public class SnailAssalt extends ApplicationAdapter {
     public boolean upgradewall6unlock;
     public boolean upgradewall7unlock;
 
+    public boolean raygunUnlocked;
+    public boolean hydraRaygunUnlocked;
+    public boolean hoseUnlocked;
+    public boolean superSoakerUnlocked;
+    public boolean hydraUnocked;
 
     private int upgradewall2;
     private int upgradewall3;
@@ -204,7 +211,6 @@ public class SnailAssalt extends ApplicationAdapter {
         backButtonShop = new BackButton(width - 210, 10);
         backButtonCredits = new BackButton(width - 210,10);
         backButtonLevelSelect = new BackButton(width - 210, 10);
-        loseButton = new LoseButton(width - 210, height - 210);
         hydraButton = new HydraButton(width - 550, height - 250);
         supersoakerbutton = new SupersoakerButton(width - 550, height - 350);
         hosebutton = new HoseButton(width - 550, height - 100);
@@ -214,12 +220,12 @@ public class SnailAssalt extends ApplicationAdapter {
         //buttons end
 
         //shop buttons
-        upgradewall2button = new UpgradeWall2Button(width / 2, height / 7);
-        upgradewall3button = new UpgradeWall3Button(width / 3, height / 8);
-        upgradewall4button = new UpgradeWall4Button(width / 4, height / 9);
-        upgradewall5button = new UpgradeWall5Button(width / 5, height / 6);
-        upgradewall6button = new UpgradeWall6Button(width / 2, height / 8);
-        upgradewall7button = new UpgradeWall7Button(width / 11, height /9);
+        upgradewall2button = new UpgradeWall2Button(width / 4, height / 8);
+        upgradewall3button = new UpgradeWall3Button(width / 4, height / 8);
+        upgradewall4button = new UpgradeWall4Button(width / 4, height / 8);
+        upgradewall5button = new UpgradeWall5Button(width / 4, height / 8);
+        upgradewall6button = new UpgradeWall6Button(width / 4, height / 8);
+        upgradewall7button = new UpgradeWall7Button(width / 4, height / 8);
         spHydryBut = new SpHydryBut(width / 10, height  / 14);
         raygunshopbutton = new RaygunShopButton(width / 12, height / 6);
         hydraraygunshopbutton = new HydraRaygunShopButton(width / 12, height / 5);
@@ -285,7 +291,6 @@ public class SnailAssalt extends ApplicationAdapter {
         creditsButton.position.set(creditsButton.getXPos(),creditsButton.getYPos());
         for (int a = 0; a < numberOfLevels; a++)
             levelButtons.get(a).position.set(levelButtons.get(a).getXPos(), levelButtons.get(a).getYPos());
-        loseButton.position.set(loseButton.getXPos(), loseButton.getYPos());
         hydraButton.position.set(hydraButton.getXPos(), hydraButton.getYPos());
         supersoakerbutton.position.set(supersoakerbutton.getXPos(), supersoakerbutton.getYPos());
         hosebutton.position.set(hosebutton.getXPos(), hosebutton.getYPos());
@@ -295,9 +300,14 @@ public class SnailAssalt extends ApplicationAdapter {
         weaponState = WeaponState.REGWEAPON;
         House.hp = House.maxHP;
         Weapon.waterLimit = Weapon.waterSupply;
+
+        hydraRaygunUnlocked = false;
+        raygunUnlocked = false;
+        hoseUnlocked = false;
+        superSoakerUnlocked = false;
+        hydraUnocked = false;
+
         //shop
-
-
         UpgradeWall2Button.remove = false;
         UpgradeWall3Button.remove = false;
         UpgradeWall4Button.remove = false;
@@ -354,6 +364,7 @@ public class SnailAssalt extends ApplicationAdapter {
                 currency = currency - spHydryBut.price;
                 preferences.putInteger("hydra", 1);
                 preferences.flush();
+                hydraUnocked = false;
 
             }
             if ((supersoakershopbutton.isPressed() && currency >= supersoakershopbutton.price)) {
@@ -361,6 +372,7 @@ public class SnailAssalt extends ApplicationAdapter {
                 currency = currency - supersoakershopbutton.price;
                 preferences.putInteger("supersoaker", 1);
                 preferences.flush();
+                superSoakerUnlocked = false;
 
             }
             if ((hoseshopbutton.isPressed() && currency >= hoseshopbutton.price)) {
@@ -368,6 +380,7 @@ public class SnailAssalt extends ApplicationAdapter {
                 currency = currency - hoseshopbutton.price;
                 preferences.putInteger("hose", 1);
                 preferences.flush();
+                hoseUnlocked = true;
 
             }
             if ((raygunshopbutton.isPressed() && currency >= raygunshopbutton.price)) {
@@ -375,11 +388,13 @@ public class SnailAssalt extends ApplicationAdapter {
                 currency = currency - rayguncost;
                 preferences.putInteger("raygun", 1);
                 preferences.flush();
+                raygunUnlocked  = true;
             }
             if ((hydraraygunshopbutton.isPressed() && currency >= hydraraygunshopbutton.price)) {
                 currency = currency - hydraraygunshopbutton.price;
                 preferences.putInteger("hydraygunshopbutton", 1);
                 preferences.flush();
+                hydraRaygunUnlocked = true;
 
             }
             if ((upgradewall2button.isPressed()) && currency >= upgradewall2button.price) {
@@ -544,7 +559,7 @@ public class SnailAssalt extends ApplicationAdapter {
                     else if (weaponState == WeaponState.HYDRA) {
                         weaponState = WeaponState.RAYGUN;
                     } //switch to regular gun
-                    else if (weaponState == WeaponState.SUPERSOAKER) {
+                     else if (weaponState == WeaponState.SUPERSOAKER) {
                         weaponState = WeaponState.RAYGUN;
                     } else if (weaponState == WeaponState.HOSE) {
                         weaponState = WeaponState.RAYGUN;
@@ -636,10 +651,12 @@ public class SnailAssalt extends ApplicationAdapter {
                             if (enemy.bound.overlaps(House.Housebounds))
                                 House.hp -= enemy.Attack * Gdx.graphics.getDeltaTime();
                         }
+                        if (enemy.bound.overlaps(House.Housebounds)) {
+                            House.hp = House.hp - 10;
+                        }
                     }
-                    if (House.hp <= 0 || loseButton.isPressed()) {
-                        gameState = GameState.GAMEOVER;
-                    }
+
+
                 }
         /*
         *** game over currently contains ***
@@ -755,7 +772,6 @@ public class SnailAssalt extends ApplicationAdapter {
                 batch.begin();
                 batch.draw(lawn, 0, 0);
                 house.draw(batch, House.Housebounds.x, House.Housebounds.y);
-                batch.draw(loseButton.image, loseButton.position.x, loseButton.position.y);
                 batch.draw(jimmy.sprite, 0, 0);
                 if (weaponState == WeaponState.REGWEAPON) {
                     waterGun.sprite.draw(batch);

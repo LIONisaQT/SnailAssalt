@@ -24,6 +24,7 @@ public class ShopButtons {
         yPos = y;
         sprite=new Sprite(new Texture(picture));
         sprite.setPosition(getXPos(),getYPos());
+        sprite.setSize(100, 100);
         position = new Vector2();
         bound = new Rectangle();
         bound.set(getXPos(), getYPos(), this.buttonGetWidth(), this.buttonGetHeight());

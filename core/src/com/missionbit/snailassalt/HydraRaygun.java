@@ -14,7 +14,7 @@ public class HydraRaygun extends Weapon {
     public boolean on() {
         return true;
     }
-    public void           Update(ArrayList<ThrowyThingy> raygunprojectile) {
+    public void           Update(ArrayList<ThrowyThingy> water) {
         if (Gdx.input.justTouched()) {
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
@@ -23,15 +23,15 @@ public class HydraRaygun extends Weapon {
             rot = MathUtils.atan2(deltaY, deltaX) * 180 / MathUtils.PI;
             sprite.setRotation(rot);
             ThrowyThingy proj = new ThrowyThingy();
-            raygunprojectile.add(proj);
+            water.add(proj);
             proj.bound.setPosition(this.bound.x, this.bound.y);
             proj.speed.setAngleRad(MathUtils.degreesToRadians * rot);
             ThrowyThingy proj2 = new ThrowyThingy();
-            raygunprojectile.add(proj2);
+            water.add(proj2);
             proj2.bound.setPosition(this.bound.x, this.bound.y);
             proj2.speed.setAngleRad(MathUtils.degreesToRadians * (rot - 15));
             ThrowyThingy proj3 = new ThrowyThingy();
-            raygunprojectile.add(proj3);
+            water.add(proj3);
             proj3.bound.setPosition(this.bound.x, this.bound.y);
             proj3.speed.setAngleRad(MathUtils.degreesToRadians * (rot + 15));
         }

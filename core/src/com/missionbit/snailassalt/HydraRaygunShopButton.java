@@ -5,7 +5,7 @@ package com.missionbit.snailassalt;
  */
 public class HydraRaygunShopButton extends ShopButtons{
     public HydraRaygunShopButton(float x, float y) {
-        super(x, y, "hydraraygunshopbutton.png",100);
+        super(x, y, "hydraraygunshopbutton.png",1000000);
 
     }
 }
