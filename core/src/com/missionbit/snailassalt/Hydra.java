@@ -51,15 +51,7 @@ public class Hydra extends Weapon {
             shakers.add(bullet);
             bullet.bound.setPosition(this.bound.x, this.bound.y);
             bullet.speed.setAngleRad(MathUtils.degreesToRadians * rot);
-            Salt bullet2= new Salt();
-            shakers.add(bullet2);
-            bullet2.bound.setPosition(this.bound.x, this.bound.y);
-            bullet2.speed.setAngleRad(MathUtils.degreesToRadians * (rot-15));
-            Salt bullet3=new Salt();
-            shakers.add(bullet3);
-            bullet3.bound.setPosition(this.bound.x, this.bound.y);
-            bullet3.speed.setAngleRad(MathUtils.degreesToRadians * (rot+15));
-            currentSalt -=3;
+            currentSalt --;
         }
     }
 }

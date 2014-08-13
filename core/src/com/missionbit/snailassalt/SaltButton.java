@@ -6,7 +6,7 @@ public class SaltButton extends Button {
     public SaltButton(float x ,float y) {
         super(x, y, "Salt icon.png", "Salt icon.png");
         sprite.setSize(buttonGetWidth() / 2, buttonGetHeight() / 2);
-        bound.setSize(buttonGetWidth() / 2, buttonGetHeight() / 2);
+        bound.setSize(buttonGetWidth() , buttonGetHeight() );
     }
 }
 
