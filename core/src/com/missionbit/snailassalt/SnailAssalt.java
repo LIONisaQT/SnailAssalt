@@ -882,6 +882,7 @@ public class SnailAssalt extends ApplicationAdapter {
                 for (Enemy enemy : enemies) { //draws and animates enemies
                     enemy.draw(batch, time);
                 }
+
                 sign.draw(batch);
                 font.draw(batch, "-Speed:very fast", sign.getX() + 50,  (3 *height) / 4);
                 font.draw(batch, "-Attack:weak", sign.getX() +50, (3 *height)/4 - (2* font.getLineHeight()));
@@ -892,7 +893,7 @@ public class SnailAssalt extends ApplicationAdapter {
 
             } else if (infoState == InfoState.PERSON) {
                 info.draw(batch);
-                for (Enemy enemy : enemies) { //draws and animates enemies
+                for (Enemy enemy : enemies) {//draws and animates enemies
                     enemy.draw(batch, time);
                 }
                 sign.draw(batch);
@@ -914,6 +915,7 @@ public class SnailAssalt extends ApplicationAdapter {
             saltButton.sprite.draw(batch);
             font.draw(batch,"hydra salt "+hydra.enableSalt,300,400);
             batch.draw(jimmy.sprite, jimmy.bound.x, jimmy.bound.y);
+
             if (weaponState == WeaponState.REGWEAPON) {
                 font.draw(batch, "current weap reg ", 350, 350);
                 batch.draw(hydraButton.sprite, hydraButton.position.x, hydraButton.position.y);
