@@ -374,9 +374,12 @@ public class SnailAssalt extends ApplicationAdapter {
                     backButtonTutorial.pressedAction();
                 } //go to next page of tutorial
             } else { //tutState == TutorialState.PAGE4
-
-                if (nextTutorial.touchup()) {
+                if (nextTutorial.isPressed()) {
+                    buttonstate = 1;
+                }
+                if (nextTutorial.touchup() && buttonstate == 1) {
                     nextTutorial.pressedAction();
+                    buttonstate = 0;
                 } //go to next page of tutorial
 
             }
@@ -389,8 +392,13 @@ public class SnailAssalt extends ApplicationAdapter {
                     levelButtons.get(a).pressedAction(); //go in-game
                 }
             }
-            if (backButtonLevelSelect.touchup()) {
+            if (backButtonLevelSelect.isPressed()) {
+                buttonstate = 1;
+            }
+            if (backButtonLevelSelect.touchup() && buttonstate == 1) {
+
                 gameState = GameState.MAINMENU;
+                buttonstate = 0;
             }
         } else if (gameState == GameState.CREDITS) {
             if (Gdx.input.justTouched()) {
@@ -586,8 +594,15 @@ public class SnailAssalt extends ApplicationAdapter {
             House.hp = House.maxHP;
             Weapon.currentWater = Weapon.waterSupply;
             bulletType = BulletType.WATER;
-            if (backButtonGameEnd.touchup()) {
+            if (backButtonGameEnd.isPressed()) {
+                buttonstate = 1;
+                System.out.println(buttonstate);
+            }
+
+            if (backButtonGameEnd.touchup() && buttonstate == 1) {
                 backButtonGameEnd.pressedAction();
+                buttonstate = 0;
+                System.out.println(buttonstate);
             } //go to main menu
             if (shopButtonGameEnd.touchup()) { //go to shop
                 if (gameState == GameState.GAMEOVER) {
@@ -705,27 +720,52 @@ public class SnailAssalt extends ApplicationAdapter {
             if (tutState == TutorialState.PAGE1) {
                 tutor1.draw(batch);
                 nextTutorial.draw(batch);
+                if (nextTutorial.isPressed()) {
+                    nextTutorial.spriteShade.draw(batch);
+                }
+
             } else if (tutState == TutorialState.PAGE2) {
                 tutor2.draw(batch);
                 nextTutorial.draw(batch);
+                if (nextTutorial.isPressed()) {
+                    nextTutorial.spriteShade.draw(batch);
+                }
             } else if (tutState == TutorialState.PAGE3) {
                 tutor3.draw(batch);
                 nextTutorial.draw(batch);
+                if (nextTutorial.isPressed()) {
+                    nextTutorial.spriteShade.draw(batch);
+                }
             } else if (tutState == TutorialState.PAGE4) {
                 tutor4.draw(batch);
                 nextTutorial.draw(batch);
+                if (nextTutorial.isPressed()) {
+                    nextTutorial.spriteShade.draw(batch);
+                }
             } else if (tutState == TutorialState.PAGE5) {
                 tutor5.draw(batch);
                 nextTutorial.draw(batch);
+                if (nextTutorial.isPressed()) {
+                    nextTutorial.spriteShade.draw(batch);
+                }
             } else if (tutState == TutorialState.PAGE6) {
                 tutor6.draw(batch);
                 nextTutorial.draw(batch);
+                if (nextTutorial.isPressed()) {
+                    nextTutorial.spriteShade.draw(batch);
+                }
             } else if (tutState == TutorialState.PAGE7) {
                 tutor7.draw(batch);
                 nextTutorial.draw(batch);
+                if (nextTutorial.isPressed()) {
+                    nextTutorial.spriteShade.draw(batch);
+                }
             } else if (tutState == TutorialState.PAGE8) {
                 tutor8.draw(batch);
                 nextTutorial.draw(batch);
+                if (nextTutorial.isPressed()) {
+                    nextTutorial.spriteShade.draw(batch);
+                }
             }
             batch.end();
         }

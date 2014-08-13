@@ -7,7 +7,7 @@ import com.badlogic.gdx.Gdx;
  */
 public class NextButton extends Button {
     public NextButton(float x, float y) {
-        super(x, y, "next button.png", "next button.png");
+        super(x, y, "next button.png", "next button.png", "bw next button.png");
     }
 
 
