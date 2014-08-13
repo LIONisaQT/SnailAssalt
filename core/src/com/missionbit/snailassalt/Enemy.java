@@ -29,9 +29,9 @@ public class Enemy {
         frame1 = new Texture(name);
         frame2 = new Texture(name2);
         spriteFrame1 = new Sprite(frame1);
-        spriteFrame1.setSize(frame1.getWidth(), frame1.getHeight());
+        spriteFrame1.setSize(frame1.getWidth() , frame1.getHeight());
         spriteFrame2 = new Sprite(frame2);
-        spriteFrame1.setSize(frame1.getWidth(), frame1.getHeight());
+        spriteFrame2.setSize(frame1.getWidth(), frame1.getHeight() );
         animation = new Animation(0.5f, new TextureRegion(spriteFrame1), new TextureRegion(spriteFrame2));
         animation.setPlayMode(Animation.PlayMode.LOOP);
         speed = new Vector2();

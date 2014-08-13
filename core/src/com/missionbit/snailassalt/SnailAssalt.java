@@ -110,11 +110,10 @@ public class SnailAssalt extends ApplicationAdapter  {
         //FONT STUFF
         fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("helvetica.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 12;
+        parameter.size = 20;
         font = fontGenerator.generateFont(parameter);
 
         shell = new ArrayList<Snailshell>();
-        font = new BitmapFont(Gdx.files.internal("font.fnt"), Gdx.files.internal("font.png"), false);
         jimmy = new Player();
         rachel = new Player();
         tap = new Vector3(); //location of tap
