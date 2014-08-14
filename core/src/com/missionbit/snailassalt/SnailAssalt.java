@@ -477,7 +477,7 @@ public class SnailAssalt extends ApplicationAdapter {
                 if (backButtonTutorial.touchup()) {
                     backButtonTutorial.pressedAction();
                 } //go to next page of tutorial
-            } else { //tutState == TutorialState.PAGE4
+            }
                 if (nextTutorial.isPressed()) {
                     buttonstate = 1;
                 }
@@ -485,8 +485,14 @@ public class SnailAssalt extends ApplicationAdapter {
                     nextTutorial.pressedAction();
                     buttonstate = 0;
                 } //go to next page of tutorial
-            }
-        } else if (gameState == GameState.LEVELSELECT) { //in level select
+                if (previousButtontutorial.isPressed()) {
+                    buttonstate = 1;
+                }
+                if (previousButtontutorial.touchup() && buttonstate == 1) {
+                    previousButtontutorial.pressedAction();
+                    buttonstate = 0;
+                }
+            } else if (gameState == GameState.LEVELSELECT) { //in level select
                 for (int a = 0; a < numberOfLevels; a++) {
                     if (levelButtons.get(a).isPressed()) {
                         currentLevelNumber = a;
@@ -620,8 +626,6 @@ public class SnailAssalt extends ApplicationAdapter {
                 if (waterGun.enableSalt) {
                     if (saltButton.isPressed())
                         bulletType = BulletType.SALT;
-                    if (bulletType == BulletType.WATER)
-                        waterGun.Update(water);
                     if (bulletType == BulletType.SALT) {
                         saltarm.sprite.setRotation(Weapon.rot);
                         waterGun.Update2(shakers);
@@ -920,11 +924,19 @@ public class SnailAssalt extends ApplicationAdapter {
                 if (nextTutorial.isPressed()) {
                     nextTutorial.spriteShade.draw(batch);
                 }
+                previousButtontutorial.draw(batch);
+                if(previousButtontutorial.isPressed()){
+                    previousButtontutorial.spriteShade.draw(batch);
+                }
             } else if (tutState == TutorialState.PAGE3) {
                 tutor3.draw(batch);
                 nextTutorial.draw(batch);
                 if (nextTutorial.isPressed()) {
                     nextTutorial.spriteShade.draw(batch);
+                }
+                previousButtontutorial.draw(batch);
+                if(previousButtontutorial.isPressed()){
+                    previousButtontutorial.spriteShade.draw(batch);
                 }
             } else if (tutState == TutorialState.PAGE4) {
                 tutor4.draw(batch);
@@ -932,11 +944,19 @@ public class SnailAssalt extends ApplicationAdapter {
                 if (nextTutorial.isPressed()) {
                     nextTutorial.spriteShade.draw(batch);
                 }
+                previousButtontutorial.draw(batch);
+                if(previousButtontutorial.isPressed()){
+                    previousButtontutorial.spriteShade.draw(batch);
+                }
             } else if (tutState == TutorialState.PAGE5) {
                 tutor5.draw(batch);
                 nextTutorial.draw(batch);
                 if (nextTutorial.isPressed()) {
                     nextTutorial.spriteShade.draw(batch);
+                }
+                previousButtontutorial.draw(batch);
+                if(previousButtontutorial.isPressed()){
+                    previousButtontutorial.spriteShade.draw(batch);
                 }
             } else if (tutState == TutorialState.PAGE6) {
                 tutor6.draw(batch);
@@ -944,17 +964,29 @@ public class SnailAssalt extends ApplicationAdapter {
                 if (nextTutorial.isPressed()) {
                     nextTutorial.spriteShade.draw(batch);
                 }
+                previousButtontutorial.draw(batch);
+                if(previousButtontutorial.isPressed()){
+                    previousButtontutorial.spriteShade.draw(batch);
+                }
             } else if (tutState == TutorialState.PAGE7) {
                 tutor7.draw(batch);
                 nextTutorial.draw(batch);
                 if (nextTutorial.isPressed()) {
                     nextTutorial.spriteShade.draw(batch);
                 }
+                previousButtontutorial.draw(batch);
+                if(previousButtontutorial.isPressed()){
+                    previousButtontutorial.spriteShade.draw(batch);
+                }
             } else if (tutState == TutorialState.PAGE8) {
                 tutor8.draw(batch);
                 nextTutorial.draw(batch);
                 if (nextTutorial.isPressed()) {
                     nextTutorial.spriteShade.draw(batch);
+                }
+                previousButtontutorial.draw(batch);
+                if(previousButtontutorial.isPressed()){
+                    previousButtontutorial.spriteShade.draw(batch);
                 }
             }
             batch.end();

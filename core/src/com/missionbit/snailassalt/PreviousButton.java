@@ -5,7 +5,7 @@ package com.missionbit.snailassalt;
  */
 public class PreviousButton extends Button {
     public PreviousButton(float x, float y) {
-        super(x, y, "previous button.png", "previous button.png");}
+        super(x, y, "previous button.png", "previous button.png","bw previous button.png");}
     public void pressedAction(){
         if (SnailAssalt.gameState == SnailAssalt.GameState.TUTORIAL) {
             if (SnailAssalt.tutState == SnailAssalt.TutorialState.PAGE2) {SnailAssalt.tutState = SnailAssalt.TutorialState.PAGE1;}
