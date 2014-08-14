@@ -1,9 +1,7 @@
 package com.missionbit.snailassalt;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
@@ -15,11 +13,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-
-import com.badlogic.gdx.InputProcessor;
-
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+
 import java.util.ArrayList;
 
 
@@ -258,7 +253,10 @@ public class SnailAssalt extends ApplicationAdapter {
         LoseButton tempLoseButton = new LoseButton(0, 0); //temporary quit button to get the sprite's dimensions
         loseButton = new LoseButton(0, height - tempLoseButton.sprite.getHeight());
         RachelBut = new RachelBut(width /2+ 100 , 50 );
+        RachelBut.bound.set(RachelBut.getXPos(),RachelBut.getYPos(), width/2 - width/ 8, height - height/ 8);
         JimmyBut = new JimmyBut(100,50);
+        JimmyBut.bound.set(JimmyBut.getXPos(),JimmyBut.getYPos(), width/2 - width/ 8, height - height/ 8);
+
 
         backButtonInfoSelection = new BackButton(0, height-nextTutorial.sprite.getHeight());
         backButtonInfoStandard = new BackButton (0, height-nextTutorial.sprite.getHeight());
@@ -395,11 +393,19 @@ public class SnailAssalt extends ApplicationAdapter {
         time += deltaTime;
         music.play();
         if (gameState == GameState.CHARACTERSELECT){
-            if (RachelBut.isPressed() ){
+            if (RachelBut.isPressed()){
+                buttonstate = 1;
+            }
+            if (RachelBut.touchup() &&buttonstate == 1){
+                buttonstate = 0;
                 rachel.enable = true;
                 gameState = GameState.MAINMENU;
             }
-            else if (JimmyBut.isPressed()){
+            if (JimmyBut.isPressed()){
+                buttonstate = 1;
+            }
+            if (JimmyBut.touchup() && buttonstate == 1){
+                buttonstate = 0;
                 rachel.enable = false;
                 gameState = GameState.MAINMENU;
             }
@@ -806,8 +812,8 @@ public class SnailAssalt extends ApplicationAdapter {
         if (gameState == GameState.CHARACTERSELECT) {
             batch.begin();
             levelSelect.draw(batch);
-            JimmyBut.draw(batch);
-            RachelBut.draw(batch);
+            batch.draw(JimmyBut.sprite, JimmyBut.bound.x,JimmyBut.bound.y,width/2 - width/8 ,height- height/8);
+            batch.draw(RachelBut.sprite, RachelBut.bound.x,RachelBut.bound.y,width/2 - width/8 ,height- height/8);
             font.draw(batch, "Would you like to play as:", width / 6, height - 10);
             font.draw(batch, "Jimmy", JimmyBut.getXPos() + 20, JimmyBut.getYPos());
             font.draw(batch, "Rachel", RachelBut.getXPos() + 20, RachelBut.getYPos());
@@ -1073,8 +1079,6 @@ public class SnailAssalt extends ApplicationAdapter {
                 batch.draw(rachel.rachel, rachel.bound.x, rachel.bound.y);
             }
             font.draw(batch, "hydra salt " + hydra.enableSalt, 300, 400);
-            batch.draw(jimmy.sprite, jimmy.bound.x, jimmy.bound.y);
-
             for (ThrowyThingy proj : water)
                 proj.sprite.draw(batch);
             for (Salt bullet : shakers)
@@ -1122,6 +1126,8 @@ public class SnailAssalt extends ApplicationAdapter {
             font.draw(batch, (int) House.hp + "/" + (int) House.maxHP, width - hpBar.getWidth(), height - 2 * barHeight);
             font.draw(batch, (int) Weapon.currentWater + "/" + (int) Weapon.waterSupply, width - 2 * hpBar.getWidth(), height - 2 * barHeight);
             font.draw(batch, (int) Weapon.currentSalt + "/" + (int) Weapon.saltSupply, width - 3 * hpBar.getWidth(), height - 2 * barHeight);
+            font.draw(batch,""+currentLevel.enemyCount,width/2, height /2);
+            font.draw(batch, "total enemy:" +currentLevel.totalEnemies, width/2 + 20, height/ 2+ 20);
             if (weaponState == WeaponState.REGWEAPON) {
                 font.draw(batch, "current weap reg ", 350, 350);
                 hydraButton.sprite.draw(batch);
