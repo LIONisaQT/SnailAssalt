@@ -30,9 +30,12 @@ public class Hose extends Weapon {
 
         }
     }
-    public void Update2(ArrayList<Salt> shakers){
-        if(!enableSalt) {return;}
-        if (Gdx.input.justTouched() && currentSalt!=0 && SnailAssalt.bulletType==SnailAssalt.bulletType.SALT && !SnailAssalt.saltButton.isPressed() && !SnailAssalt.hydraButton.isPressed()) {
+
+    public void Update2(ArrayList<Salt> shakers) {
+        if (!enableSalt) {
+            return;
+        }
+        if (Gdx.input.isTouched() && currentSalt != 0 && SnailAssalt.bulletType == SnailAssalt.bulletType.SALT && !SnailAssalt.saltButton.isPressed() && !SnailAssalt.hydraButton.isPressed()) {
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
             deltaX = touch - sprite.getX();

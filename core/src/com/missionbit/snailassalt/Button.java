@@ -13,15 +13,17 @@ public class Button {
     protected Texture image, imageNope, watergun, Shade;
     protected Rectangle bound;
     protected Vector2 position;
-    protected Sprite sprite, spriteNope, watergunSprite;
+    protected Sprite sprite, spriteNope, spriteShade, watergunSprite;
+    boolean status = false;
 
 
     public Button(float x, float y, String picture, String nope) {
         this(x, y, picture, nope, "bw backbutton.png");
     }
 
+
     public Button(float x, float y, String picture, String nope, String shade) {
-        Shade = new Texture(shade);
+        spriteShade = new Sprite(new Texture(shade));
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
         image = new Texture(picture);
@@ -38,6 +40,8 @@ public class Button {
         spriteNope = new Sprite(new Texture(nope));
         spriteNope.setPosition(getXPos(), getYPos());
         spriteNope.setSize(image.getWidth(), image.getHeight());
+        spriteShade.setPosition(getXPos(), getYPos());
+        spriteShade.setSize(spriteShade.getWidth(), spriteShade.getHeight());
         //sprite.setBounds(getXPos(),getYPos(),this.buttonGetWidth(),this.buttonGetHeight());
         bound = new Rectangle();
         bound.set(getXPos(), getYPos(), this.buttonGetWidth(), this.buttonGetHeight());
@@ -51,7 +55,15 @@ public class Button {
     public float buttonGetHeight() {return sprite.getHeight();}
 
     public boolean isPressed() {
-        return (Gdx.input.justTouched() && this.bound.contains(SnailAssalt.getTapPosition().x, SnailAssalt.getTapPosition().y));
+        return (Gdx.input.isTouched() && this.bound.contains(SnailAssalt.getTapPosition().x, SnailAssalt.getTapPosition().y));
+    }
+
+    public boolean touchup() {
+        if (!Gdx.input.isTouched() && this.bound.contains(SnailAssalt.getTapPosition().x, SnailAssalt.getTapPosition().y)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public boolean pressable() {return true;} //bro can you even press

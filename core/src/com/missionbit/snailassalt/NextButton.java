@@ -1,13 +1,14 @@
 package com.missionbit.snailassalt;
 
+import com.badlogic.gdx.Gdx;
+
 /**
  * Created by ryansheeisaqt on 7/25/14.
  */
 public class NextButton extends Button {
     public NextButton(float x, float y) {
-        super(x, y, "next button.png", "next button.png");
+        super(x, y, "next button.png", "next button.png", "bw next button.png");
     }
-
     public void pressedAction() {
         if (SnailAssalt.gameState == SnailAssalt.GameState.TUTORIAL) {
             if (SnailAssalt.tutState == SnailAssalt.TutorialState.PAGE1) {
@@ -26,6 +27,8 @@ public class NextButton extends Button {
                 SnailAssalt.tutState = SnailAssalt.TutorialState.PAGE8;
             } else if (SnailAssalt.tutState == SnailAssalt.TutorialState.PAGE8) {
                 SnailAssalt.tutState = SnailAssalt.TutorialState.PAGE9;
+            } else {
+                SnailAssalt.gameState = SnailAssalt.GameState.MAINMENU;
             }
         }
             if (SnailAssalt.gameState == SnailAssalt.GameState.INFO) {
