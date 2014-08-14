@@ -759,7 +759,7 @@ public class SnailAssalt extends ApplicationAdapter {
             droppings.clear();
             House.hp = House.maxHP;
             Weapon.currentWater = Weapon.waterSupply;
-            Weapon.currentSalt = Weapon.saltSupply;
+            Weapon.saltSupply = Weapon.currentSalt;
             currentLevel.enemyCount = 0;
             bulletType = BulletType.WATER;
             if (backButtonGameEnd.isPressed()) {
@@ -785,7 +785,7 @@ public class SnailAssalt extends ApplicationAdapter {
                 enemies = currentLevel.getEnemies(); //reloads level's enemies
                 redoLevelButton.pressedAction(); //go to in-game
             }
-            if (nextLevelButton.isPressed()&& nextLevelButton.pressable()){
+            if (nextLevelButton.isPressed()&& currentLevelNumber<=9){
                 enemies = currentLevel.getEnemies(); //enemies arraylist now holds level's enemies
                 currentLevelNumber++;
                 currentLevel = levels.get(currentLevelNumber);
@@ -1072,19 +1072,7 @@ public class SnailAssalt extends ApplicationAdapter {
             }
             font.draw(batch, "hydra salt " + hydra.enableSalt, 300, 400);
             batch.draw(jimmy.sprite, jimmy.bound.x, jimmy.bound.y);
-            if (weaponState == WeaponState.REGWEAPON) {
-                font.draw(batch, "current weap reg ", 350, 350);
-                batch.draw(hydraButton.sprite, hydraButton.position.x, hydraButton.position.y);
-                waterGun.sprite.draw(batch);
-            } else if (weaponState == WeaponState.HYDRA) {
-                font.draw(batch, "current weap hydra", 350, 350);
-                hydra.sprite.draw(batch);
-                batch.draw(hosebut.sprite, hydraButton.position.x, hydraButton.position.y);
-            } else if (weaponState == WeaponState.HOSE) {
-                font.draw(batch, "current weap hose", 350, 350);
-                hose.sprite.draw(batch);
-                batch.draw(hydraButton.watergun, hydraButton.getXPos(), hydraButton.getYPos());
-            }
+
             for (ThrowyThingy proj : water)
                 proj.sprite.draw(batch);
             for (Salt bullet : shakers)
@@ -1155,7 +1143,6 @@ public class SnailAssalt extends ApplicationAdapter {
                 else if (bulletType == BulletType.SALT)
                     saltarm.sprite.draw(batch);
             }
-            saltButton.sprite.draw(batch);
             batch.end();
         }
 
