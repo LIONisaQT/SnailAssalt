@@ -669,6 +669,7 @@ public class SnailAssalt extends ApplicationAdapter {
                     if (proj.bound.overlaps(enemies.get(a).bound)) {
                         projectileHit = true;
                         enemies.get(a).hp = enemies.get(a).hp - Weapon.str;
+                        enemies.get(a).startFlash(.1f);
                         if (enemies.get(a).hp <= 0) {
                             shell.add(new Snailshell((int) enemies.get(a).bound.x, (int) enemies.get(a).bound.y));
                             enemies.remove(a);
@@ -700,6 +701,7 @@ public class SnailAssalt extends ApplicationAdapter {
                     if (bullet.bound.overlaps(enemies.get(a).bound)) {
                         projectileHit = true;
                         enemies.get(a).hp = enemies.get(a).hp - Weapon.str;
+                        enemies.get(a).startFlash(.1f);
                         if (enemies.get(a).hp <= 0) {
                             shell.add(new Snailshell((int) enemies.get(a).bound.x, (int) enemies.get(a).bound.y));
                             enemies.remove(a);
