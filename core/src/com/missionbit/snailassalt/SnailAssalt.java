@@ -418,9 +418,9 @@ public class SnailAssalt extends ApplicationAdapter {
             //go to credits
             if (tutorialButton.touchup()) {
                 tutorialButton.pressedAction();
-                if (infoButton.isPressed()) {
-                    infoButton.pressedAction();
-                }
+            }
+            if (infoButton.touchup()) {
+                infoButton.pressedAction();
 
             }
         }else if (gameState == GameState.SHOP) { //in shop
@@ -555,36 +555,36 @@ public class SnailAssalt extends ApplicationAdapter {
                     if (b == 0) {
                         infoState = InfoState.STANDARD;
                         enemies.clear();
-                        enemies.add(new Enemy(width / 5, height / 2, 0, 0, 0, 0));
+                        enemies.add(new Enemy(width / 11, height / 5, 0, 0, 0, 0));
                     } else if (b == 1) {
                         infoState = InfoState.ACID;
                         enemies.clear();
-                        enemies.add(new AcidSnail(width / 5, height / 2, 0, 0, 0, 0));
+                        enemies.add(new AcidSnail(width / 11, height / 5, 0, 0, 0, 0));
                     } else if (b == 2) {
                         infoState = InfoState.FLYING;
                         enemies.clear();
                         for (int a = 0; a < 1; a++)
-                            enemies.add(new FlyingSnail(width / 5, height / 2, 0, 0, 0, 0));
+                            enemies.add(new FlyingSnail(width / 11, height / 5, 0, 0, 0, 0));
                     } else if (b == 3) {
                         infoState = InfoState.HEALING;
                         enemies.clear();
                         for (int a = 0; a < 1; a++)
-                            enemies.add(new HealerSnail(width / 5, height / 2, 0, 0, 0, 0));
+                            enemies.add(new HealerSnail(width / 11, height / 5, 0, 0, 0, 0));
                     } else if (b == 4) {
                         infoState = InfoState.BOSS;
                         enemies.clear();
                         for (int a = 0; a < 1; a++)
-                            enemies.add(new BossSnail(width / 5, height / 2, 0, 0, 0, 0));
+                            enemies.add(new BossSnail(width / 11, height / 5, 0, 0, 0, 0));
                     } else if (b == 5) {
                         infoState = InfoState.MOTHER;
                         enemies.clear();
                         for (int a = 0; a < 1; a++)
-                            enemies.add(new MotherSnail(width / 5, height / 2, 0, 0, 0, 0));
+                            enemies.add(new MotherSnail(width / 11, height / 5, 0, 0, 0, 0));
                     } else if (b == 6) {
                         infoState = InfoState.PERSON;
                         enemies.clear();
                         for (int a = 0; a < 1; a++)
-                            enemies.add(new Person(width / 5, height / 2, 0, 0, 0, 0));
+                            enemies.add(new Person(width / 11, height / 5, 0, 0, 0, 0));
                     }
                 }
             }

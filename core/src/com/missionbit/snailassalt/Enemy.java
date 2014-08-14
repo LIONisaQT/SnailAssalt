@@ -55,7 +55,11 @@ public class Enemy {
         if (flash) {
             //batch.draw(animation.getKeyFrame(time),bound.x,bound.y);
         } else {
-            batch.draw(animation.getKeyFrame(time), bound.x, bound.y);
+            if(SnailAssalt.gameState==SnailAssalt.gameState.INFO) {
+                batch.draw(animation.getKeyFrame(time), bound.x, bound.y, (float) (frame1.getWidth()*1.5), (float)(frame1.getHeight()*1.5));
+            }else{
+                batch.draw(animation.getKeyFrame(time),bound.x, bound.y);
+            }
         }
     }
     public boolean enemyDead(){return hp < 0 ;}

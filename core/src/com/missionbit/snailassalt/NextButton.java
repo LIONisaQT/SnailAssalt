@@ -35,27 +35,27 @@ public class NextButton extends Button {
                 if (SnailAssalt.infoState == SnailAssalt.InfoState.STANDARD) {
                     SnailAssalt.infoState = SnailAssalt.InfoState.ACID;
                     SnailAssalt.enemies.clear();
-                    SnailAssalt.enemies.add(new AcidSnail(width / 5, height / 2, 0, 0, 0, 0));
+                    SnailAssalt.enemies.add(new AcidSnail(width / 11, height / 5, 0, 0, 0, 0));
                 } else if (SnailAssalt.infoState == SnailAssalt.InfoState.ACID) {
                     SnailAssalt.infoState = SnailAssalt.InfoState.FLYING;
                     SnailAssalt.enemies.clear();
-                    SnailAssalt.enemies.add(new FlyingSnail(width / 5, height / 2, 0, 0, 0, 0));
+                    SnailAssalt.enemies.add(new FlyingSnail(width / 11, height / 5, 0, 0, 0, 0));
                 } else if (SnailAssalt.infoState == SnailAssalt.InfoState.FLYING) {
                     SnailAssalt.infoState = SnailAssalt.InfoState.HEALING;
                     SnailAssalt.enemies.clear();
-                    SnailAssalt.enemies.add(new HealerSnail(width / 5, height / 2, 0, 0, 0, 0));
+                    SnailAssalt.enemies.add(new HealerSnail(width / 11, height / 5, 0, 0, 0, 0));
                 } else if (SnailAssalt.infoState == SnailAssalt.InfoState.HEALING) {
                     SnailAssalt.infoState = SnailAssalt.InfoState.BOSS;
                     SnailAssalt.enemies.clear();
-                    SnailAssalt.enemies.add(new BossSnail(width / 5, height / 2, 0, 0, 0, 0));
+                    SnailAssalt.enemies.add(new BossSnail(width / 11, height / 5, 0, 0, 0, 0));
                 } else if (SnailAssalt.infoState == SnailAssalt.InfoState.BOSS) {
                     SnailAssalt.infoState = SnailAssalt.InfoState.MOTHER;
                     SnailAssalt.enemies.clear();
-                    SnailAssalt.enemies.add(new MotherSnail(width / 5, height / 2, 0, 0, 0, 0));
+                    SnailAssalt.enemies.add(new MotherSnail(width / 11, height / 5, 0, 0, 0, 0));
                 } else if (SnailAssalt.infoState == SnailAssalt.InfoState.MOTHER) {
                     SnailAssalt.infoState = SnailAssalt.InfoState.PERSON;
                     SnailAssalt.enemies.clear();
-                    SnailAssalt.enemies.add(new Person(width / 5, height / 2, 0, 0, 0, 0));
+                    SnailAssalt.enemies.add(new Person(width / 11, height / 5, 0, 0, 0, 0));
                 }
 
             }
