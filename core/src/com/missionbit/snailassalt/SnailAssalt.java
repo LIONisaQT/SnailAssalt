@@ -45,19 +45,21 @@ public class SnailAssalt extends ApplicationAdapter {
             /* credit pages */ credits, specialThanks, hurshalsface1,
             /* tutorial pages */ tutor1, tutor2, tutor3, tutor4, tutor5, tutor6, tutor7, tutor8, tutor9,
             /* backgrounds */ menu, gameover, win, levelSelect, shop, laun, info,
-            /* shop stuff */ spHose, spHydra, spSalt,
+            /* shop stuff */ spHose, spHydra, spSalt, spRaygun,
             /* UI */ hpBar, waterBar, saltBar, progBarSnail, sign;
     protected boolean projectileHit;
     //UI end
     //weapwns start
     private Weapon waterGun;
     private Hydra hydra;
+    private Raygun raygun;
     private Hose hose;
     private SaltArm saltarm;
     private ArrayList<Droppings> droppings;
     private ArrayList<BombDrop> bombs;
     private ArrayList<ThrowyThingy> water; //holds watergun shots
     private ArrayList<Salt> shakers;
+    private ArrayList<Laser> laser;
     private ArrayList<Snailshell> shell;
     //weapwns end
     //buttons start
@@ -71,11 +73,13 @@ public class SnailAssalt extends ApplicationAdapter {
     private InfoButton infoButton;
     protected static HydraButton hydraButton;
     protected static HoseBut hosebut;
+    protected static RaygunButton raygunButton;
     private RedoButton redoLevelButton;
     protected static SaltButton saltButton;
     private SpHydraBut spHydraBut;
     private SpSaltBut spSaltBut;
     private SpHosebutton spHoseBut;
+    private SpRaygunButton spRaygunButton;
     private RachelBut RachelBut;
     private JimmyBut JimmyBut;
     private TutorialButton tutorialButton;
@@ -94,9 +98,9 @@ public class SnailAssalt extends ApplicationAdapter {
     protected static TutorialState tutState;
     protected static enum InfoState {SELECTION, STANDARD, ACID, FLYING, HEALING, BOSS, MOTHER, PERSON}
     protected static InfoState infoState;
-    protected static enum WeaponState {REGWEAPON, HYDRA, HOSE}
+    protected static enum WeaponState {REGWEAPON, HYDRA, HOSE, RAYGUN}
     protected static WeaponState weaponState;
-    protected static enum BulletType {SALT, WATER}
+    protected static enum BulletType {SALT, WATER, LASER}
     protected static BulletType bulletType;
     //enums end
     //sounds start
@@ -218,6 +222,7 @@ public class SnailAssalt extends ApplicationAdapter {
         waterGun.enable = true;
         hose = new Hose();
         hydra = new Hydra();
+        raygun = new Raygun();
 
         if (preferences.getInteger("hydra", 0) == 1) {
             hydra.enable = true;
@@ -229,7 +234,11 @@ public class SnailAssalt extends ApplicationAdapter {
             hydra.enableSalt = true;
             hose.enableSalt = true;
         }
+        laser = new ArrayList<Laser>();
         if (preferences.getInteger("hose", 0) == 1) {
+            hose.enable = true;
+        }
+        if (preferences.getInteger("raygun", 0) == 1){
             hose.enable = true;
         }
 
@@ -278,13 +287,16 @@ public class SnailAssalt extends ApplicationAdapter {
         spHydraBut = new SpHydraBut(width /6, height / 2);
         spSaltBut = new SpSaltBut(width / 2, height / 2);
         spHoseBut = new SpHosebutton(width / 3, height / 2);
+        spRaygunButton = new SpRaygunButton(width / 4, height / 2);
 
         spHose = new Sprite(new Texture("hose icon.png"));
         spHydra = new Sprite(new Texture("weapon icon.png"));
+        spRaygun = new Sprite(new Texture("raygun icon.png"));
         spSalt = new Sprite(new Texture("Salt icon.png"));
         spHydra.setPosition(spHydraBut.getXPos() - 40, spHydraBut.getYPos() + 100);
         spSalt.setPosition(spSaltBut.getXPos() - 40,spSaltBut.getYPos() + 100);
         spHose.setPosition(spHoseBut.getXPos()- 40,spHoseBut.getYPos() +100);
+        spRaygun.setPosition(spRaygunButton.getXPos() - 49, spRaygunButton.getYPos() + 100);
         //shop images end
         SaltButton tempSaltButton = new SaltButton(0, 0);
         saltButton = new SaltButton(width - tempSaltButton.sprite.getWidth(), height - 600);
@@ -292,6 +304,8 @@ public class SnailAssalt extends ApplicationAdapter {
         hydraButton = new HydraButton(width - tempHydraButton.sprite.getWidth(), height - 200);
         HoseBut tempHoseButton = new HoseBut(0, 0);
         hosebut = new HoseBut(width - tempHoseButton.sprite.getWidth(), hydraButton.getYPos());
+        RaygunButton tempRaygunButton = new RaygunButton(0,0);
+        raygunButton = new RaygunButton(width - tempRaygunButton.sprite.getWidth(), height - 200);
         //buttons end #iSuckAtCoding
         //levels start
         levelButtons = new ArrayList<LevelButton>();
@@ -346,11 +360,13 @@ public class SnailAssalt extends ApplicationAdapter {
         hydraButton.position.set(hydraButton.getXPos(), hydraButton.getYPos());
         saltButton.position.set(saltButton.getXPos(), saltButton.getYPos());
         hosebut.position.set(hosebut.getXPos(), hosebut.getYPos());
+        raygunButton.position.set(raygunButton.getXPos(), raygunButton.getYPos());
         RachelBut.position.set(RachelBut.getXPos(),RachelBut.getYPos());
         JimmyBut.position.set(JimmyBut.getXPos(),JimmyBut.getYPos());
         spHydraBut.position.set(spHydraBut.getXPos(), spHydraBut.getYPos());
         spSaltBut.position.set(spSaltBut.getXPos(), spSaltBut.getYPos());
         spHoseBut.position.set(spHoseBut.getXPos(), spHoseBut.getYPos());
+        spRaygunButton.position.set(spRaygunButton.getXPos(), spRaygunButton.getYPos());
         startButtonMenu.position.set(startButtonMenu.getXPos(), startButtonMenu.getYPos());
         shopButtonMenu.position.set(shopButtonMenu.getXPos(), shopButtonMenu.getYPos());
         shopButtonGameEnd.position.set(shopButtonGameEnd.getXPos(), shopButtonGameEnd.getYPos());
@@ -463,6 +479,11 @@ public class SnailAssalt extends ApplicationAdapter {
                 currency -= spHoseBut.price;
                 preferences.putInteger("hose", 1);
                 //preferences.flush();
+            }
+            if (currency >= spRaygunButton.price && spRaygunButton.isPressed() && !spRaygunButton.ownd) {
+                spRaygunButton.ownd = true;
+                currency -= spRaygunButton.price;
+                preferences.putInteger("hose", 1);
             }
             if (preferences.getInteger("hose", 0) == 1) {hose.enable = true;}
             if (preferences.getInteger("salt", 0) == 1) {
@@ -653,6 +674,12 @@ public class SnailAssalt extends ApplicationAdapter {
                         hose.Update2(shakers);
                         //saltarm.Update2(shakers);
                     }
+                }
+            }
+            else if (weaponState == WeaponState.RAYGUN) {
+                if (bulletType == BulletType.LASER){
+                    if (raygun.enable)
+                        raygun.Update (water);
                 }
             }
             for (int i = 0; i < water.size(); i++) { //projectiles
@@ -881,22 +908,27 @@ public class SnailAssalt extends ApplicationAdapter {
             spHydraBut.sprite.draw(batch);
             spSaltBut.sprite.draw(batch);
             spHoseBut.sprite.draw(batch);
+            spRaygunButton.sprite.draw(batch);
             if (spHoseBut.ownd) {
                 spHoseBut.spriteNope.draw(batch);
             }
             if (spHydraBut.ownd) {
                 spHydraBut.spriteNope.draw(batch);
             }
-
+            if (spRaygunButton.ownd) {
+                spRaygunButton.spriteNope.draw(batch);
+            }
 
             spSalt.draw(batch);
             spHydra.draw(batch);
             spHose.draw(batch);
+            spRaygun.draw(batch);
 
             batch.draw(backButtonShop.sprite, backButtonShop.position.x, backButtonShop.position.y);
 
-            font.draw(batch, "$" + spHoseBut.price, spHydraBut.getXPos(), spHydraBut.getYPos() - 10);
+            font.draw(batch, "$" + spHydraBut.price, spHydraBut.getXPos(), spHydraBut.getYPos() - 10);
             font.draw(batch, "$" + spHoseBut.price, spHoseBut.getXPos(), spHoseBut.getYPos() - 10);
+            font.draw(batch, "$" + spRaygunButton.price, spRaygunButton.getXPos(), spRaygunButton.getYPos() - 10);
             font.draw(batch, "$" + spSaltBut.price, spSaltBut.getXPos(), spSaltBut.getYPos() - 10);
 
             font.draw(batch, " salts: " + (int) Weapon.saltSupply, spSaltBut.getXPos() + spSaltBut.buttonGetWidth(), spSaltBut.getYPos() + spSaltBut.buttonGetHeight());
