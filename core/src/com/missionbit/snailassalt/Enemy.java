@@ -53,7 +53,7 @@ public class Enemy {
     }
     public void draw(SpriteBatch batch,float time){
         if (flash) {
-            //batch.draw(animation.getKeyFrame(time),bound.x,bound.y);
+               batch.draw(animation.getKeyFrame(time),bound.x,bound.y);
         } else {
             if(SnailAssalt.gameState==SnailAssalt.gameState.INFO) {
                 batch.draw(animation.getKeyFrame(time), bound.x, bound.y, (float) (frame1.getWidth()*1.5), (float)(frame1.getHeight()*1.5));

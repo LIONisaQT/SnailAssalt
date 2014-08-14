@@ -33,7 +33,7 @@ public class SnailAssalt extends ApplicationAdapter {
     protected int currentLevelNumber = 0;
     protected static int currency;
     protected static int numberOfTypes = 7;
-    private int width, height;
+    private float width, height;
     private static Vector3 tap;
     private FreeTypeFontGenerator fontGenerator;
     private BitmapFont font;
@@ -128,7 +128,7 @@ public class SnailAssalt extends ApplicationAdapter {
         //FONT STUFF
         fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("helvetica.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 20;
+        parameter.size = (int)(20 *(width/1196));
         font = fontGenerator.generateFont(parameter);
 
         shell = new ArrayList<Snailshell>();
@@ -799,7 +799,7 @@ public class SnailAssalt extends ApplicationAdapter {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         shapeRenderer.setProjectionMatrix(camera.combined);
-        font.setScale(1.5f);
+        font.setScale((float) ((width / 1196) * (1.4)));
         font.setColor(0, 0, 0, 1);
         if (gameState == GameState.CHARACTERSELECT) {
             batch.begin();
@@ -891,7 +891,6 @@ public class SnailAssalt extends ApplicationAdapter {
             spHydra.draw(batch);
             spHose.draw(batch);
 
-            font.setScale(1.5f);
             batch.draw(backButtonShop.sprite, backButtonShop.position.x, backButtonShop.position.y);
 
             font.draw(batch, "$" + spHoseBut.price, spHydraBut.getXPos(), spHydraBut.getYPos() - 10);
