@@ -126,9 +126,9 @@ public class SnailAssalt extends ApplicationAdapter {
         camera = new OrthographicCamera(width, height);
 
         //FONT STUFF
-        fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("helvetica.ttf"));
+        fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Chicken Butt.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = (int)(20 *(width/1196));
+        parameter.size = (int)(26 *(width/1196));
         font = fontGenerator.generateFont(parameter);
 
         shell = new ArrayList<Snailshell>();
@@ -629,7 +629,7 @@ public class SnailAssalt extends ApplicationAdapter {
                     if (bulletType == BulletType.SALT) {
                         saltarm.sprite.setRotation(Weapon.rot);
                         waterGun.Update2(shakers);
-                        //saltarm.Update2(shakers);
+                        saltarm.Update2(shakers);
                     }
                 }
             } else if (weaponState == WeaponState.HYDRA) {
@@ -643,7 +643,7 @@ public class SnailAssalt extends ApplicationAdapter {
                     if (bulletType == BulletType.SALT) {
                         saltarm.sprite.setRotation(Weapon.rot);
                         hydra.Update2(shakers);
-                        //saltarm.Update2(shakers);
+                        saltarm.Update2(shakers);
                     }
                 }
             } else if (weaponState == WeaponState.HOSE) {
@@ -655,7 +655,7 @@ public class SnailAssalt extends ApplicationAdapter {
                     if (hose.enableSalt) {
                         saltarm.sprite.setRotation(Weapon.rot);
                         hose.Update2(shakers);
-                        //saltarm.Update2(shakers);
+                        saltarm.Update2(shakers);
                     }
                 }
             }
@@ -791,7 +791,7 @@ public class SnailAssalt extends ApplicationAdapter {
                 enemies = currentLevel.getEnemies(); //reloads level's enemies
                 redoLevelButton.pressedAction(); //go to in-game
             }
-            if (nextLevelButton.isPressed()&& currentLevelNumber<=9){
+            if (nextLevelButton.isPressed()&& currentLevelNumber<=8 && gameState!=gameState.GAMEOVER){
                 enemies = currentLevel.getEnemies(); //enemies arraylist now holds level's enemies
                 currentLevelNumber++;
                 currentLevel = levels.get(currentLevelNumber);
@@ -1212,8 +1212,9 @@ public class SnailAssalt extends ApplicationAdapter {
                 shopButtonGameEnd.spriteShade.draw(batch);
             }
 
-
-            nextLevelButton.sprite.draw(batch);
+            if(currentLevelNumber<=8 && gameState!=gameState.GAMEOVER) {
+                nextLevelButton.sprite.draw(batch);
+            }
 
 
             backButtonGameEnd.spriteNope.draw(batch);
