@@ -3,8 +3,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 /**
@@ -53,12 +51,12 @@ public class Enemy {
     }
     public void draw(SpriteBatch batch,float time){
         if (flash) {
-               batch.draw(animation.getKeyFrame(time),bound.x,bound.y);
+               batch.draw(animation.getKeyFrame(time),bound.x,bound.y,width/1920 * frame1.getWidth(),height/1080 * frame1.getHeight());
         } else {
             if(SnailAssalt.gameState==SnailAssalt.gameState.INFO) {
                 batch.draw(animation.getKeyFrame(time), bound.x, bound.y, (float) (frame1.getWidth()*1.5), (float)(frame1.getHeight()*1.5));
             }else{
-                batch.draw(animation.getKeyFrame(time),bound.x, bound.y);
+                batch.draw(animation.getKeyFrame(time),bound.x, bound.y, width/1920 * frame1.getWidth(),height/1080 * frame1.getHeight());
             }
         }
     }

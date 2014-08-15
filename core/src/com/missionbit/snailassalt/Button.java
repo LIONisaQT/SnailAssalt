@@ -36,12 +36,12 @@ public class Button {
         position = new Vector2();
         sprite = new Sprite(new Texture(picture));
         sprite.setPosition(getXPos(),getYPos());
-        sprite.setSize(image.getWidth(), image.getHeight());
+        sprite.setSize((width/1196)*image.getWidth(), (height/720)*image.getHeight());
         spriteNope = new Sprite(new Texture(nope));
         spriteNope.setPosition(getXPos(), getYPos());
-        spriteNope.setSize(image.getWidth(), image.getHeight());
+        spriteNope.setSize((width/1196)*image.getWidth(), (height/720)*image.getHeight());
         spriteShade.setPosition(getXPos(), getYPos());
-        spriteShade.setSize(spriteShade.getWidth(), spriteShade.getHeight());
+        spriteShade.setSize((width/1196)*spriteShade.getWidth(), (height/720)*spriteShade.getHeight());
         //sprite.setBounds(getXPos(),getYPos(),this.buttonGetWidth(),this.buttonGetHeight());
         bound = new Rectangle();
         bound.set(getXPos(), getYPos(), this.buttonGetWidth(), this.buttonGetHeight());

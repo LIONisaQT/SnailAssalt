@@ -15,7 +15,7 @@ public class Hydra extends Weapon {
         else {return false;}
     }
     public void Update(ArrayList<ThrowyThingy> water) {
-        if (Gdx.input.justTouched() && currentWater != 0 &&  !SnailAssalt.hydraButton.isPressed() && !SnailAssalt.saltButton.isPressed()) {
+        if (Gdx.input.justTouched() && currentWater>= 3 &&  !SnailAssalt.hydraButton.isPressed() && !SnailAssalt.saltButton.isPressed()) {
             watergunsound.play(1.0f);
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
@@ -40,7 +40,7 @@ public class Hydra extends Weapon {
     }
     public void Update2(ArrayList<Salt> shakers){
         if(!enableSalt) {return;}
-        if (Gdx.input.justTouched() && currentSalt!=0 && SnailAssalt.bulletType==SnailAssalt.bulletType.SALT && !SnailAssalt.saltButton.isPressed() && !SnailAssalt.hydraButton.isPressed()) {
+        if (Gdx.input.justTouched() && currentSalt > 0 && SnailAssalt.bulletType==SnailAssalt.bulletType.SALT && !SnailAssalt.saltButton.isPressed() && !SnailAssalt.hydraButton.isPressed()) {
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
             deltaX = touch - sprite.getX();

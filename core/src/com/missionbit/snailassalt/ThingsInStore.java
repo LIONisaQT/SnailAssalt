@@ -28,10 +28,10 @@ public class ThingsInStore {
         yPos = y;
         sprite = new Sprite(new Texture(picture));
         sprite.setPosition(getXPos(), getYPos());
-        sprite.setSize(width/ 9, height/10 );
+        sprite.setSize(width/1196*width/ 9, (height/720)*height/10 );
         spriteNope = new Sprite(new Texture(bought));
         spriteNope.setPosition(getXPos(), getYPos());
-        spriteNope.setSize(width/9,height/10);
+        spriteNope.setSize(width/1196*width/9,(height/720)*height/10);
         position = new Vector2();
         bound = new Rectangle();
         bound.set(getXPos(), getYPos(), sprite.getWidth(), sprite.getHeight());
