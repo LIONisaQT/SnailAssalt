@@ -13,7 +13,7 @@ public class StartButton extends Button {
             SnailAssalt.gameState = SnailAssalt.GameState.TUTORIAL;
         }
         if (SnailAssalt.preferences.getInteger("tutorial", 0) == 2) {
-            SnailAssalt.gameState = SnailAssalt.GameState.LEVELSELECT;
+            SnailAssalt.gameState = SnailAssalt.GameState.CHARACTERSELECT;
         }
     }
 }

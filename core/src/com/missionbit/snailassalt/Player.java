@@ -18,7 +18,7 @@ public class Player {
         rachel = new Sprite(textureRachel,textureRachel.getWidth(),textureRachel.getHeight());
         rachel.setPosition((int)width - texture.getWidth(), (int)(height / 2 - texture.getHeight() / 3));
         sprite = new Sprite(texture, texture.getWidth(), texture.getHeight());
-        sprite.setPosition((int)width - texture.getWidth(), (int)(height / 2 - texture.getHeight() / 3));
+        sprite.setPosition((int)width - texture.getWidth(), height/2 - (height/720)*sprite.getHeight()/2);
         bound = new Rectangle((int)width - texture.getWidth(), (int)(height / 2 - texture.getHeight() / 3), sprite.getWidth(), sprite.getHeight());
     }
     public void playerPosition(float c,float d){

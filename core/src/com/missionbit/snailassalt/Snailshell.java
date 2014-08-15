@@ -21,7 +21,7 @@ public class Snailshell {
         width = Gdx.graphics.getWidth();
         image = new Texture("ghostsnail.png");
         sprite = new Sprite(image);
-        sprite.setSize(image.getWidth(), image.getHeight());
+        sprite.setSize(1920/width * image.getWidth(),1080/height* image.getHeight());
         sprite.setPosition(a, b);
         bounds = new Rectangle();
         bounds.set(a, b, sprite.getWidth(), sprite.getHeight());

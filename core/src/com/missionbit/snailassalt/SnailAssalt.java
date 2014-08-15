@@ -171,7 +171,7 @@ public class SnailAssalt extends ApplicationAdapter {
         //background end
         //credits start
         credits = new Sprite(new Texture("credits.png"));
-        credits.setSize(width/1196 * credits.getWidth(), height/720 * credits.getHeight());
+        credits.setSize(width / 1196 * credits.getWidth(), height / 720 * credits.getHeight());
         credits.setPosition(width/2 - credits.getWidth()/2, height/2 - credits.getHeight()/2);
         hurshalsface1 = new Sprite(new Texture("hurshal's face copy.png"));
         hurshalsface1.setSize(width/1196 *hurshalsface1.getWidth(),height/720 * hurshalsface1.getHeight());
@@ -215,6 +215,7 @@ public class SnailAssalt extends ApplicationAdapter {
         waterGun.enable = true;
         hose = new Hose();
         hydra = new Hydra();
+        hydra.sprite.setPosition(jimmy.bound.x, jimmy.bound.y);
 
         if (preferences.getInteger("hydra", 0) == 1) {
             hydra.enable = true;
@@ -292,9 +293,9 @@ public class SnailAssalt extends ApplicationAdapter {
         spHose.setPosition(spHoseBut.getXPos()+ (spHydraBut.buttonGetWidth()- spHydra.getWidth())/2, spHoseBut.getYPos() + spHydraBut.buttonGetHeight()+ 10);
         //shop images end
         SaltButton tempSaltButton = new SaltButton(0, 0);
-        saltButton = new SaltButton(width - tempSaltButton.sprite.getWidth(), height - 600);
+        saltButton = new SaltButton(width - tempSaltButton.sprite.getWidth(), height/5);
         HydraButton tempHydraButton = new HydraButton(0, 0);
-        hydraButton = new HydraButton(width - tempHydraButton.sprite.getWidth(), height - 200);
+        hydraButton = new HydraButton(width - tempHydraButton.sprite.getWidth(), (4*height)/(5));
         HoseBut tempHoseButton = new HoseBut(0, 0);
         hosebut = new HoseBut(width - tempHoseButton.sprite.getWidth(), hydraButton.getYPos());
         //buttons end #iSuckAtCoding
@@ -338,7 +339,7 @@ public class SnailAssalt extends ApplicationAdapter {
 
     public void resetGame() {
         camera.position.set(width / 2, height / 2, 0);
-        gameState = GameState.CHARACTERSELECT;
+        gameState = GameState.MAINMENU;
         tutState = TutorialState.PAGE1;
         infoState = InfoState.SELECTION;
         prevGameState = null;
@@ -399,14 +400,16 @@ public class SnailAssalt extends ApplicationAdapter {
         float deltaTime = Gdx.graphics.getDeltaTime();
         time += deltaTime;
         music.play();
+
         if (gameState == GameState.CHARACTERSELECT){
             if (RachelBut.isPressed()){
                 buttonstate = 1;
             }
             if (RachelBut.touchup() &&buttonstate == 1){
                 buttonstate = 0;
+
                 rachel.enable = true;
-                gameState = GameState.MAINMENU;
+                gameState = GameState.LEVELSELECT;
             }
             if (JimmyBut.isPressed()){
                 buttonstate = 1;
@@ -414,7 +417,7 @@ public class SnailAssalt extends ApplicationAdapter {
             if (JimmyBut.touchup() && buttonstate == 1){
                 buttonstate = 0;
                 rachel.enable = false;
-                gameState = GameState.MAINMENU;
+                gameState = GameState.LEVELSELECT;
             }
 
         }
@@ -487,19 +490,32 @@ public class SnailAssalt extends ApplicationAdapter {
 
         } else if (gameState == GameState.TUTORIAL) {
             if (tutState == TutorialState.PAGE9) {
-                if (backButtonTutorial.touchup()) {
+                if (backButtonTutorial.isPressed()){
+                    buttonstate = 1;
+                }
+                if (backButtonTutorial.touchup() && buttonstate == 1 ) {
                     backButtonTutorial.pressedAction();
                 } //go to next page of tutorial
-            } else { //tutState == TutorialState.PAGE4
+
+            }
+
                 if (nextTutorial.isPressed()) {
                     buttonstate = 1;
                 }
                 if (nextTutorial.touchup() && buttonstate == 1) {
+
                     nextTutorial.pressedAction();
                     buttonstate = 0;
                 } //go to next page of tutorial
-            }
-        } else if (gameState == GameState.LEVELSELECT) { //in level select
+                if (previousButtontutorial.isPressed()) {
+                    buttonstate = 1;
+                }
+                if (previousButtontutorial.touchup() && buttonstate == 1) {
+                    previousButtontutorial.pressedAction();
+                    buttonstate = 0;
+                }
+
+            } else if (gameState == GameState.LEVELSELECT) { //in level select
                 for (int a = 0; a < numberOfLevels; a++) {
                     if (levelButtons.get(a).isPressed()) {
                         currentLevelNumber = a;
@@ -633,12 +649,10 @@ public class SnailAssalt extends ApplicationAdapter {
                 if (waterGun.enableSalt) {
                     if (saltButton.isPressed())
                         bulletType = BulletType.SALT;
-                    if (bulletType == BulletType.WATER)
-                        waterGun.Update(water);
                     if (bulletType == BulletType.SALT) {
                         saltarm.sprite.setRotation(Weapon.rot);
                         waterGun.Update2(shakers);
-                        //saltarm.Update2(shakers);
+                        saltarm.Update2(shakers);
                     }
                 }
             } else if (weaponState == WeaponState.HYDRA) {
@@ -652,7 +666,7 @@ public class SnailAssalt extends ApplicationAdapter {
                     if (bulletType == BulletType.SALT) {
                         saltarm.sprite.setRotation(Weapon.rot);
                         hydra.Update2(shakers);
-                        //saltarm.Update2(shakers);
+                        saltarm.Update2(shakers);
                     }
                 }
             } else if (weaponState == WeaponState.HOSE) {
@@ -664,7 +678,7 @@ public class SnailAssalt extends ApplicationAdapter {
                     if (hose.enableSalt) {
                         saltarm.sprite.setRotation(Weapon.rot);
                         hose.Update2(shakers);
-                        //saltarm.Update2(shakers);
+                        saltarm.Update2(shakers);
                     }
                 }
             }
@@ -800,7 +814,7 @@ public class SnailAssalt extends ApplicationAdapter {
                 enemies = currentLevel.getEnemies(); //reloads level's enemies
                 redoLevelButton.pressedAction(); //go to in-game
             }
-            if (nextLevelButton.isPressed()&& currentLevelNumber<=9){
+            if (nextLevelButton.isPressed()&& currentLevelNumber<=8 && gameState!=gameState.GAMEOVER){
                 enemies = currentLevel.getEnemies(); //enemies arraylist now holds level's enemies
                 currentLevelNumber++;
                 currentLevel = levels.get(currentLevelNumber);
@@ -819,8 +833,8 @@ public class SnailAssalt extends ApplicationAdapter {
         if (gameState == GameState.CHARACTERSELECT) {
             batch.begin();
             levelSelect.draw(batch);
-            batch.draw(JimmyBut.sprite, JimmyBut.bound.x,JimmyBut.bound.y,width/2 - width/8 ,height- height/8);
-            batch.draw(RachelBut.sprite, RachelBut.bound.x,RachelBut.bound.y,width/2 - width/8 ,height- height/8);
+            batch.draw(JimmyBut.sprite, JimmyBut.bound.x, JimmyBut.bound.y, width / 2 - width / 8, height - height / 8);
+            batch.draw(RachelBut.sprite, RachelBut.bound.x, RachelBut.bound.y, width / 2 - width / 8, height - height / 8);
             font.draw(batch, "Would you like to play as:", width / 6, height - 10);
             font.draw(batch, "Jimmy", JimmyBut.getXPos() + 20, JimmyBut.getYPos());
             font.draw(batch, "Rachel", RachelBut.getXPos() + 20, RachelBut.getYPos());
@@ -871,6 +885,7 @@ public class SnailAssalt extends ApplicationAdapter {
 
             batch.end();
         }
+
         //level
         else if (gameState == GameState.LEVELSELECT) { //in level select
             batch.begin();
@@ -882,8 +897,8 @@ public class SnailAssalt extends ApplicationAdapter {
             backButtonLevelSelect.sprite.draw(batch);
             if (backButtonLevelSelect.isPressed()) {
                 backButtonLevelSelect.spriteShade.draw(batch);
+
             }
-            font.draw(batch, "Current state: level select", 10, height);
             batch.end();
         }
         //shop
@@ -919,6 +934,7 @@ public class SnailAssalt extends ApplicationAdapter {
             batch.end();
         } else if (gameState == GameState.TUTORIAL) {
             batch.begin();
+
             if (tutState == TutorialState.PAGE1) {
                 tutor1.draw(batch);
                 nextTutorial.sprite.draw(batch);
@@ -931,11 +947,19 @@ public class SnailAssalt extends ApplicationAdapter {
                 if (nextTutorial.isPressed()) {
                     nextTutorial.spriteShade.draw(batch);
                 }
+                previousButtontutorial.sprite.draw(batch);
+                if(previousButtontutorial.isPressed()){
+                    previousButtontutorial.spriteShade.draw(batch);
+                }
             } else if (tutState == TutorialState.PAGE3) {
                 tutor3.draw(batch);
                 nextTutorial.sprite.draw(batch);
                 if (nextTutorial.isPressed()) {
                     nextTutorial.spriteShade.draw(batch);
+                }
+                previousButtontutorial.sprite.draw(batch);
+                if(previousButtontutorial.isPressed()){
+                    previousButtontutorial.spriteShade.draw(batch);
                 }
             } else if (tutState == TutorialState.PAGE4) {
                 tutor4.draw(batch);
@@ -943,11 +967,19 @@ public class SnailAssalt extends ApplicationAdapter {
                 if (nextTutorial.isPressed()) {
                     nextTutorial.spriteShade.draw(batch);
                 }
+                previousButtontutorial.sprite.draw(batch);
+                if(previousButtontutorial.isPressed()){
+                    previousButtontutorial.spriteShade.draw(batch);
+                }
             } else if (tutState == TutorialState.PAGE5) {
                 tutor5.draw(batch);
                 nextTutorial.sprite.draw(batch);
                 if (nextTutorial.isPressed()) {
                     nextTutorial.spriteShade.draw(batch);
+                }
+                previousButtontutorial.sprite.draw(batch);
+                if(previousButtontutorial.isPressed()){
+                    previousButtontutorial.spriteShade.draw(batch);
                 }
             } else if (tutState == TutorialState.PAGE6) {
                 tutor6.draw(batch);
@@ -955,17 +987,39 @@ public class SnailAssalt extends ApplicationAdapter {
                 if (nextTutorial.isPressed()) {
                     nextTutorial.spriteShade.draw(batch);
                 }
+                previousButtontutorial.sprite.draw(batch);
+                if(previousButtontutorial.isPressed()){
+                    previousButtontutorial.spriteShade.draw(batch);
+                }
             } else if (tutState == TutorialState.PAGE7) {
                 tutor7.draw(batch);
                 nextTutorial.sprite.draw(batch);
                 if (nextTutorial.isPressed()) {
                     nextTutorial.spriteShade.draw(batch);
                 }
+                previousButtontutorial.sprite.draw(batch);
+                if(previousButtontutorial.isPressed()){
+                    previousButtontutorial.spriteShade.draw(batch);
+                }
             } else if (tutState == TutorialState.PAGE8) {
                 tutor8.draw(batch);
                 nextTutorial.sprite.draw(batch);
                 if (nextTutorial.isPressed()) {
                     nextTutorial.spriteShade.draw(batch);
+                }
+                previousButtontutorial.sprite.draw(batch);
+                if(previousButtontutorial.isPressed()){
+                    previousButtontutorial.spriteShade.draw(batch);
+                }
+            }else if (tutState == TutorialState.PAGE9) {
+                tutor9.draw(batch);
+                nextTutorial.sprite.draw(batch);
+                if (nextTutorial.isPressed()) {
+                    nextTutorial.spriteShade.draw(batch);
+                }
+                previousButtontutorial.sprite.draw(batch);
+                if (previousButtontutorial.isPressed()) {
+                    previousButtontutorial.spriteShade.draw(batch);
                 }
             }
             batch.end();
@@ -988,6 +1042,7 @@ public class SnailAssalt extends ApplicationAdapter {
                 font.draw(batch, "-Speed:slow", sign.getX() + 50, (3 * height) / 4);
                 font.draw(batch, "-Attack:very weak", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
                 font.draw(batch, "-no special powers", sign.getX() + 50, (3 * height) / 4 - (4 * font.getLineHeight()));
+                font.setScale((float) ((width / 1196) * (2.1)));
                 font.draw(batch, "STANDARD SNAIL", width / 9, (2 * font.getLineHeight()));
                 backButtonInfoPerson.sprite.draw(batch);
                 nextInfoAcid.sprite.draw(batch);
@@ -997,9 +1052,11 @@ public class SnailAssalt extends ApplicationAdapter {
                     enemy.draw(batch, time);
                 }
                 sign.draw(batch);
+                font.setScale((float) ((width / 1196) * (1.4)));
                 font.draw(batch, "-Speed:slow", sign.getX() + 50, (3 * height) / 4);
                 font.draw(batch, "-Attack:weak", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
                 font.draw(batch, "-'speed up' slimes ", sign.getX() + 50, (3 * height) / 4 - (4 * font.getLineHeight()));
+                font.setScale((float) ((width / 1196) * (2.1)));
                 font.draw(batch, "ACID SNAIL", width / 9, (2 * font.getLineHeight()));
                 backButtonInfoPerson.sprite.draw(batch);
                 nextInfoAcid.sprite.draw(batch);
@@ -1010,9 +1067,11 @@ public class SnailAssalt extends ApplicationAdapter {
                     enemy.draw(batch, time);
                 }
                 sign.draw(batch);
+                font.setScale((float) ((width / 1196) * (1.4)));
                 font.draw(batch, "-Speed:normal", sign.getX() + 50, (3 * height) / 4);
                 font.draw(batch, "-Attack:normal", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
                 font.draw(batch, "-'speed up' slime bombs", sign.getX() + 50, (3 * height) / 4 - (4 * font.getLineHeight()));
+                font.setScale((float) ((width / 1196) * (2.1)));
                 font.draw(batch, "FLYING SNAIL", width / 9, (2 * font.getLineHeight()));
                 backButtonInfoPerson.sprite.draw(batch);
                 nextInfoAcid.sprite.draw(batch);
@@ -1023,9 +1082,11 @@ public class SnailAssalt extends ApplicationAdapter {
                     enemy.draw(batch, time);
                 }
                 sign.draw(batch);
+                font.setScale((float) ((width / 1196) * (1.4)));
                 font.draw(batch, "-Speed:normal", sign.getX() + 50, (3 * height) / 4);
                 font.draw(batch, "-Attack:normal", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
                 font.draw(batch, "-heals other snails", sign.getX() + 50, (3 * height) / 4 - (4 * font.getLineHeight()));
+                font.setScale((float) ((width / 1196) * (2.1)));
                 font.draw(batch, "HEALING SNAIL", width / 9, (2 * font.getLineHeight()));
                 backButtonInfoPerson.sprite.draw(batch);
                 nextInfoAcid.sprite.draw(batch);
@@ -1036,9 +1097,11 @@ public class SnailAssalt extends ApplicationAdapter {
                     enemy.draw(batch, time);
                 }
                 sign.draw(batch);
+                font.setScale((float) ((width / 1196) * (1.4)));
                 font.draw(batch, "-Speed:normal", sign.getX() + 50, (3 * height) / 4);
                 font.draw(batch, "-Attack:very strong", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
                 font.draw(batch, "-high HP", sign.getX() + 50, (3 * height) / 4 - (4 * font.getLineHeight()));
+                font.setScale((float) ((width / 1196) * (2.1)));
                 font.draw(batch, "KING SNAILEY", width / 9, (2 * font.getLineHeight()));
                 backButtonInfoPerson.sprite.draw(batch);
                 nextInfoAcid.sprite.draw(batch);
@@ -1050,9 +1113,11 @@ public class SnailAssalt extends ApplicationAdapter {
                 }
 
                 sign.draw(batch);
+                font.setScale((float) ((width / 1196) * (1.4)));
                 font.draw(batch, "-Speed:very fast", sign.getX() + 50, (3 * height) / 4);
                 font.draw(batch, "-Attack:weak", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
                 font.draw(batch, "-high HP", sign.getX() + 50, (3 * height) / 4 - (4 * font.getLineHeight()));
+                font.setScale((float) ((width / 1196) * (2.1)));
                 font.draw(batch, "MOTHER SNAIL", width / 9, (2 * font.getLineHeight()));
                 backButtonInfoPerson.sprite.draw(batch);
                 nextInfoAcid.sprite.draw(batch);
@@ -1063,13 +1128,15 @@ public class SnailAssalt extends ApplicationAdapter {
                     enemy.draw(batch, time);
                 }
                 sign.draw(batch);
+                font.setScale((float) ((width / 1196) * (1.4)));
                 font.draw(batch, "-Speed:very fast", sign.getX() + 50, (3 * height) / 4);
                 font.draw(batch, "-Attack:normal", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
                 font.draw(batch, "-no special powers", sign.getX() + 50, (3 * height) / 4 - (4 * font.getLineHeight()));
+                font.setScale((float) ((width / 1196) * (2.1)));
                 font.draw(batch, "ZOMBIE", width / 9, (2 * font.getLineHeight()));
                 backButtonInfoPerson.sprite.draw(batch);
             }
-
+            font.setScale((float) ((width / 1196) * (1.4)));
             font.draw(batch, "Current state: info", 10, height);
             batch.end();
         } else if (gameState == GameState.INGAME) { //in-game
@@ -1080,8 +1147,13 @@ public class SnailAssalt extends ApplicationAdapter {
             font.draw(batch, "hydra salt " + hydra.enableSalt, 300, 400);
             if (!rachel.enable) {
                 batch.draw(jimmy.sprite, width - width / 10, jimmy.bound.y, (width / 1196) * jimmy.sprite.getWidth(), (height / 720) * jimmy.sprite.getHeight());
+                if (width <= 1196 && height <= 720)
+                    waterGun.sprite.setPosition(jimmy.bound.x, 38f/260f * (height/720*jimmy.sprite.getHeight()) +jimmy.bound.y);
+                    hydra.sprite.setPosition(jimmy.bound.x, 38f/260f * (height/720*jimmy.sprite.getHeight()) +jimmy.bound.y);
             } else if (rachel.enable) {
                 batch.draw(rachel.rachel, width - width/10, rachel.bound.y, (width/1196)* rachel.rachel.getWidth(),(height/720)*rachel.rachel.getHeight());
+                waterGun.sprite.setPosition(jimmy.bound.x, 38f/260f * (height/720*jimmy.sprite.getHeight()) +jimmy.bound.y);
+                hydra.sprite.setPosition(jimmy.bound.x, 38f/260f * (height/720*jimmy.sprite.getHeight()) +jimmy.bound.y);
             }
             font.draw(batch, "hydra salt " + hydra.enableSalt, 300, 400);
             for (ThrowyThingy proj : water)
@@ -1176,8 +1248,9 @@ public class SnailAssalt extends ApplicationAdapter {
                 shopButtonGameEnd.spriteShade.draw(batch);
             }
 
-
-            nextLevelButton.sprite.draw(batch);
+            if(currentLevelNumber<=8 && gameState!=gameState.GAMEOVER) {
+                nextLevelButton.sprite.draw(batch);
+            }
 
 
             backButtonGameEnd.spriteNope.draw(batch);
