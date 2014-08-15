@@ -287,9 +287,9 @@ public class SnailAssalt extends ApplicationAdapter {
         spHose.setPosition(spHoseBut.getXPos()- 40,spHoseBut.getYPos() +100);
         //shop images end
         SaltButton tempSaltButton = new SaltButton(0, 0);
-        saltButton = new SaltButton(width - tempSaltButton.sprite.getWidth(), height - 600);
+        saltButton = new SaltButton(width - tempSaltButton.sprite.getWidth(), height/5);
         HydraButton tempHydraButton = new HydraButton(0, 0);
-        hydraButton = new HydraButton(width - tempHydraButton.sprite.getWidth(), height - 200);
+        hydraButton = new HydraButton(width - tempHydraButton.sprite.getWidth(), (4*height)/(5));
         HoseBut tempHoseButton = new HoseBut(0, 0);
         hosebut = new HoseBut(width - tempHoseButton.sprite.getWidth(), hydraButton.getYPos());
         //buttons end #iSuckAtCoding
@@ -1009,6 +1009,7 @@ public class SnailAssalt extends ApplicationAdapter {
                 font.draw(batch, "-Speed:slow", sign.getX() + 50, (3 * height) / 4);
                 font.draw(batch, "-Attack:very weak", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
                 font.draw(batch, "-no special powers", sign.getX() + 50, (3 * height) / 4 - (4 * font.getLineHeight()));
+                font.setScale((float) ((width / 1196) * (2.1)));
                 font.draw(batch, "STANDARD SNAIL", width / 9, (2 * font.getLineHeight()));
                 batch.draw(backButtonInfoStandard.image, backButtonInfoStandard.position.x, backButtonInfoStandard.position.y);
                 batch.draw(nextInfoStandard.image, nextInfoStandard.position.x, nextInfoStandard.position.y);
@@ -1018,9 +1019,11 @@ public class SnailAssalt extends ApplicationAdapter {
                     enemy.draw(batch, time);
                 }
                 sign.draw(batch);
+                font.setScale((float) ((width / 1196) * (1.4)));
                 font.draw(batch, "-Speed:slow", sign.getX() + 50, (3 * height) / 4);
                 font.draw(batch, "-Attack:weak", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
                 font.draw(batch, "-'speed up' slimes ", sign.getX() + 50, (3 * height) / 4 - (4 * font.getLineHeight()));
+                font.setScale((float) ((width / 1196) * (2.1)));
                 font.draw(batch, "ACID SNAIL", width / 9, (2 * font.getLineHeight()));
                 batch.draw(backButtonInfoAcid.image, backButtonInfoAcid.position.x, backButtonInfoAcid.position.y);
                 batch.draw(nextInfoAcid.image, nextInfoAcid.position.x, nextInfoAcid.position.y);
@@ -1031,9 +1034,11 @@ public class SnailAssalt extends ApplicationAdapter {
                     enemy.draw(batch, time);
                 }
                 sign.draw(batch);
+                font.setScale((float) ((width / 1196) * (1.4)));
                 font.draw(batch, "-Speed:normal", sign.getX() + 50, (3 * height) / 4);
                 font.draw(batch, "-Attack:normal", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
                 font.draw(batch, "-'speed up' slime bombs", sign.getX() + 50, (3 * height) / 4 - (4 * font.getLineHeight()));
+                font.setScale((float) ((width / 1196) * (2.1)));
                 font.draw(batch, "FLYING SNAIL", width / 9, (2 * font.getLineHeight()));
                 batch.draw(backButtonInfoFlying.image, backButtonInfoFlying.position.x, backButtonInfoFlying.position.y);
                 batch.draw(nextInfoFlying.image, nextInfoFlying.position.x, nextInfoFlying.position.y);
@@ -1044,9 +1049,11 @@ public class SnailAssalt extends ApplicationAdapter {
                     enemy.draw(batch, time);
                 }
                 sign.draw(batch);
+                font.setScale((float) ((width / 1196) * (1.4)));
                 font.draw(batch, "-Speed:normal", sign.getX() + 50, (3 * height) / 4);
                 font.draw(batch, "-Attack:normal", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
                 font.draw(batch, "-heals other snails", sign.getX() + 50, (3 * height) / 4 - (4 * font.getLineHeight()));
+                font.setScale((float) ((width / 1196) * (2.1)));
                 font.draw(batch, "HEALING SNAIL", width / 9, (2 * font.getLineHeight()));
                 batch.draw(backButtonInfoHealing.image, backButtonInfoHealing.position.x, backButtonInfoHealing.position.y);
                 batch.draw(nextInfoHealing.image, nextInfoHealing.position.x, nextInfoHealing.position.y);
@@ -1057,9 +1064,11 @@ public class SnailAssalt extends ApplicationAdapter {
                     enemy.draw(batch, time);
                 }
                 sign.draw(batch);
+                font.setScale((float) ((width / 1196) * (1.4)));
                 font.draw(batch, "-Speed:normal", sign.getX() + 50, (3 * height) / 4);
                 font.draw(batch, "-Attack:very strong", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
                 font.draw(batch, "-high HP", sign.getX() + 50, (3 * height) / 4 - (4 * font.getLineHeight()));
+                font.setScale((float) ((width / 1196) * (2.1)));
                 font.draw(batch, "KING SNAILEY", width / 9, (2 * font.getLineHeight()));
                 batch.draw(backButtonInfoBoss.image, backButtonInfoBoss.position.x, backButtonInfoBoss.position.y);
                 batch.draw(nextInfoBoss.image, nextInfoBoss.position.x, nextInfoBoss.position.y);
@@ -1071,9 +1080,11 @@ public class SnailAssalt extends ApplicationAdapter {
                 }
 
                 sign.draw(batch);
+                font.setScale((float) ((width / 1196) * (1.4)));
                 font.draw(batch, "-Speed:very fast", sign.getX() + 50, (3 * height) / 4);
                 font.draw(batch, "-Attack:weak", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
                 font.draw(batch, "-high HP", sign.getX() + 50, (3 * height) / 4 - (4 * font.getLineHeight()));
+                font.setScale((float) ((width / 1196) * (2.1)));
                 font.draw(batch, "MOTHER SNAIL", width / 9, (2 * font.getLineHeight()));
                 batch.draw(backButtonInfoMother.image, backButtonInfoMother.position.x, backButtonInfoMother.position.y);
                 batch.draw(nextInfoMother.image, nextInfoMother.position.x, nextInfoMother.position.y);
@@ -1084,13 +1095,15 @@ public class SnailAssalt extends ApplicationAdapter {
                     enemy.draw(batch, time);
                 }
                 sign.draw(batch);
+                font.setScale((float) ((width / 1196) * (1.4)));
                 font.draw(batch, "-Speed:very fast", sign.getX() + 50, (3 * height) / 4);
                 font.draw(batch, "-Attack:normal", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
                 font.draw(batch, "-no special powers", sign.getX() + 50, (3 * height) / 4 - (4 * font.getLineHeight()));
+                font.setScale((float) ((width / 1196) * (2.1)));
                 font.draw(batch, "ZOMBIE", width / 9, (2 * font.getLineHeight()));
                 batch.draw(backButtonInfoPerson.image, backButtonInfoPerson.position.x, backButtonInfoPerson.position.y);
             }
-
+            font.setScale((float) ((width / 1196) * (1.4)));
             font.draw(batch, "Current state: info", 10, height);
             batch.end();
         } else if (gameState == GameState.INGAME) { //in-game
