@@ -22,8 +22,8 @@ public class BackButton extends Button {
                 }
                 SnailAssalt.tutState = SnailAssalt.TutorialState.PAGE1;
                 if (SnailAssalt.preferences.getInteger("tutorial", 0) == 1) {
-                    SnailAssalt.gameState = SnailAssalt.GameState.LEVELSELECT;
-                    if (SnailAssalt.gameState == SnailAssalt.GameState.LEVELSELECT) {
+                    SnailAssalt.gameState = SnailAssalt.GameState.CHARACTERSELECT;
+                    if (SnailAssalt.gameState == SnailAssalt.GameState.CHARACTERSELECT) {
                         SnailAssalt.preferences.putInteger("tutorial", 2);
                     }
                 }
