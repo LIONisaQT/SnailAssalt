@@ -1040,8 +1040,8 @@ public class SnailAssalt extends ApplicationAdapter {
                 }
                 sign.draw(batch);
                 font.draw(batch, "-Speed:slow", sign.getX() + 50, (3 * height) / 4);
-                font.draw(batch, "-Attack:very weak", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
-                font.draw(batch, "-no special powers", sign.getX() + 50, (3 * height) / 4 - (4 * font.getLineHeight()));
+                font.draw(batch, "-Attack:very weak", sign.getX() + 50, (3 * height) / 4 - (font.getLineHeight()));
+                font.draw(batch, "-no special powers", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
                 font.setScale((float) ((width / 1196) * (2.1)));
                 font.draw(batch, "STANDARD SNAIL", width / 9, (2 * font.getLineHeight()));
                 backButtonInfoPerson.sprite.draw(batch);
@@ -1054,8 +1054,8 @@ public class SnailAssalt extends ApplicationAdapter {
                 sign.draw(batch);
                 font.setScale((float) ((width / 1196) * (1.4)));
                 font.draw(batch, "-Speed:slow", sign.getX() + 50, (3 * height) / 4);
-                font.draw(batch, "-Attack:weak", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
-                font.draw(batch, "-'speed up' slimes ", sign.getX() + 50, (3 * height) / 4 - (4 * font.getLineHeight()));
+                font.draw(batch, "-Attack:weak", sign.getX() + 50, (3 * height) / 4 - (font.getLineHeight()));
+                font.draw(batch, "-'speed up' slimes ", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
                 font.setScale((float) ((width / 1196) * (2.1)));
                 font.draw(batch, "ACID SNAIL", width / 9, (2 * font.getLineHeight()));
                 backButtonInfoPerson.sprite.draw(batch);
@@ -1069,8 +1069,8 @@ public class SnailAssalt extends ApplicationAdapter {
                 sign.draw(batch);
                 font.setScale((float) ((width / 1196) * (1.4)));
                 font.draw(batch, "-Speed:normal", sign.getX() + 50, (3 * height) / 4);
-                font.draw(batch, "-Attack:normal", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
-                font.draw(batch, "-'speed up' slime bombs", sign.getX() + 50, (3 * height) / 4 - (4 * font.getLineHeight()));
+                font.draw(batch, "-Attack:normal", sign.getX() + 50, (3 * height) / 4 - (font.getLineHeight()));
+                font.draw(batch, "-'speed up' slime bombs", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
                 font.setScale((float) ((width / 1196) * (2.1)));
                 font.draw(batch, "FLYING SNAIL", width / 9, (2 * font.getLineHeight()));
                 backButtonInfoPerson.sprite.draw(batch);
@@ -1084,8 +1084,8 @@ public class SnailAssalt extends ApplicationAdapter {
                 sign.draw(batch);
                 font.setScale((float) ((width / 1196) * (1.4)));
                 font.draw(batch, "-Speed:normal", sign.getX() + 50, (3 * height) / 4);
-                font.draw(batch, "-Attack:normal", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
-                font.draw(batch, "-heals other snails", sign.getX() + 50, (3 * height) / 4 - (4 * font.getLineHeight()));
+                font.draw(batch, "-Attack:normal", sign.getX() + 50, (3 * height) / 4 - (font.getLineHeight()));
+                font.draw(batch, "-no special powers", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
                 font.setScale((float) ((width / 1196) * (2.1)));
                 font.draw(batch, "HEALING SNAIL", width / 9, (2 * font.getLineHeight()));
                 backButtonInfoPerson.sprite.draw(batch);
@@ -1099,8 +1099,8 @@ public class SnailAssalt extends ApplicationAdapter {
                 sign.draw(batch);
                 font.setScale((float) ((width / 1196) * (1.4)));
                 font.draw(batch, "-Speed:normal", sign.getX() + 50, (3 * height) / 4);
-                font.draw(batch, "-Attack:very strong", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
-                font.draw(batch, "-high HP", sign.getX() + 50, (3 * height) / 4 - (4 * font.getLineHeight()));
+                font.draw(batch, "-Attack:very strong", sign.getX() + 50, (3 * height) / 4 - (font.getLineHeight()));
+                font.draw(batch, "-high HP", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
                 font.setScale((float) ((width / 1196) * (2.1)));
                 font.draw(batch, "KING SNAILEY", width / 9, (2 * font.getLineHeight()));
                 backButtonInfoPerson.sprite.draw(batch);
@@ -1114,9 +1114,9 @@ public class SnailAssalt extends ApplicationAdapter {
 
                 sign.draw(batch);
                 font.setScale((float) ((width / 1196) * (1.4)));
-                font.draw(batch, "-Speed:very fast", sign.getX() + 50, (3 * height) / 4);
-                font.draw(batch, "-Attack:weak", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
-                font.draw(batch, "-high HP", sign.getX() + 50, (3 * height) / 4 - (4 * font.getLineHeight()));
+                font.draw(batch, "-Speed:slow", sign.getX() + 50, (3 * height) / 4);
+                font.draw(batch, "-Attack:weak", sign.getX() + 50, (3 * height) / 4 - (font.getLineHeight()));
+                font.draw(batch, "-high HP", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
                 font.setScale((float) ((width / 1196) * (2.1)));
                 font.draw(batch, "MOTHER SNAIL", width / 9, (2 * font.getLineHeight()));
                 backButtonInfoPerson.sprite.draw(batch);
@@ -1130,8 +1130,8 @@ public class SnailAssalt extends ApplicationAdapter {
                 sign.draw(batch);
                 font.setScale((float) ((width / 1196) * (1.4)));
                 font.draw(batch, "-Speed:very fast", sign.getX() + 50, (3 * height) / 4);
-                font.draw(batch, "-Attack:normal", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
-                font.draw(batch, "-no special powers", sign.getX() + 50, (3 * height) / 4 - (4 * font.getLineHeight()));
+                font.draw(batch, "-Attack:normal", sign.getX() + 50, (3 * height) / 4 - (font.getLineHeight()));
+                font.draw(batch, "-no special powers", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
                 font.setScale((float) ((width / 1196) * (2.1)));
                 font.draw(batch, "ZOMBIE", width / 9, (2 * font.getLineHeight()));
                 backButtonInfoPerson.sprite.draw(batch);
