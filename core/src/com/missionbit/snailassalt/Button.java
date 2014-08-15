@@ -13,17 +13,20 @@ public class Button {
     protected Texture image, imageNope, watergun, Shade;
     protected Rectangle bound;
     protected Vector2 position;
-    protected Sprite sprite, spriteNope, spriteShade, watergunSprite;
-    boolean status = false;
+    protected Sprite sprite, spriteNope, spriteShade, watergunSprite, nextlevelSprite;
+    int buttonstatus = 0;
 
 
     public Button(float x, float y, String picture, String nope) {
         this(x, y, picture, nope, "bw backbutton.png");
     }
-
-
     public Button(float x, float y, String picture, String nope, String shade) {
-        spriteShade = new Sprite(new Texture(shade));
+        this(x, y, picture, nope, shade, "bw levelselect.png");
+    }
+
+    public Button(float x, float y, String picture, String nope, String Shade, String ShadeNextLvl) {
+        spriteShade = new Sprite(new Texture(Shade));
+        nextlevelSprite = new Sprite(new Texture(ShadeNextLvl));
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
         image = new Texture(picture);
@@ -42,10 +45,14 @@ public class Button {
         spriteNope.setSize(image.getWidth(), image.getHeight());
         spriteShade.setPosition(getXPos(), getYPos());
         spriteShade.setSize(spriteShade.getWidth(), spriteShade.getHeight());
+        nextlevelSprite.setPosition(getXPos(), getYPos());
+        nextlevelSprite.setSize(spriteShade.getWidth(), spriteShade.getHeight());
         //sprite.setBounds(getXPos(),getYPos(),this.buttonGetWidth(),this.buttonGetHeight());
         bound = new Rectangle();
         bound.set(getXPos(), getYPos(), this.buttonGetWidth(), this.buttonGetHeight());
+
     }
+
     public float getXPos() {return xPos;}
 
     public float getYPos() {return yPos;}
@@ -55,11 +62,15 @@ public class Button {
     public float buttonGetHeight() {return sprite.getHeight();}
 
     public boolean isPressed() {
+        if (Gdx.input.isTouched() && this.bound.contains(SnailAssalt.getTapPosition().x, SnailAssalt.getTapPosition().y))
+            buttonstatus = 1;
         return (Gdx.input.isTouched() && this.bound.contains(SnailAssalt.getTapPosition().x, SnailAssalt.getTapPosition().y));
+
     }
 
     public boolean touchup() {
-        if (!Gdx.input.isTouched() && this.bound.contains(SnailAssalt.getTapPosition().x, SnailAssalt.getTapPosition().y)) {
+        if (!Gdx.input.isTouched() && this.bound.contains(SnailAssalt.getTapPosition().x, SnailAssalt.getTapPosition().y) && buttonstatus == 1) {
+            buttonstatus = 0;
             return true;
         } else {
             return false;

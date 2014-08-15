@@ -8,4 +8,5 @@ public class HydraButton extends Button {
         sprite.setSize(buttonGetWidth() / 2, buttonGetHeight() / 2);
         bound.setSize(buttonGetWidth(), buttonGetHeight());
     }
+
 }

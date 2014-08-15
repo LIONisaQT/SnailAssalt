@@ -132,6 +132,15 @@ public class Level {
             enemies.add(new HealerSnail(-width * 3, (float) Math.random() * SpawnOffset, 4, 0, 15, 20));
             enemies.add(new HealerSnail(-width * 3, (float) Math.random() * SpawnOffset, 4, 0, 15, 20));
             enemies.add(new HealerSnail(-width * 3, (float) Math.random() * SpawnOffset, 4, 0, 15, 20));
+            //mother snail
+            enemies.add(new MotherSnail(-100, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-100, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-width, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-width, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-width * 2, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-width * 3, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+
+
         }
         if (level == 7) {
             enemies.add(new AcidSnail(-100, (float) Math.random() * SpawnOffset, 5, 0, 1, 10));
@@ -160,6 +169,23 @@ public class Level {
             enemies.add(new HealerSnail(-width * 3, (float) Math.random() * SpawnOffset, 4, 0, 15, 20));
             enemies.add(new HealerSnail(-width * 3, (float) Math.random() * SpawnOffset, 4, 0, 15, 20));
             enemies.add(new HealerSnail(-width * 3, (float) Math.random() * SpawnOffset, 4, 0, 15, 20));
+            //mother snail
+            enemies.add(new MotherSnail(-100, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-100, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-width, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-width, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-width * 2, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-width * 3, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+
+            //Zombie
+            enemies.add(new Person(-100, (float) Math.random() * SpawnOffset, 6, 0, 5, 15));
+            enemies.add(new Person(-100, (float) Math.random() * SpawnOffset, 6, 0, 5, 15));
+            enemies.add(new Person(-width, (float) Math.random() * SpawnOffset, 6, 0, 5, 15));
+            enemies.add(new Person(-width, (float) Math.random() * SpawnOffset, 6, 0, 5, 15));
+            enemies.add(new Person(-width * 2, (float) Math.random() * SpawnOffset, 6, 0, 5, 15));
+            enemies.add(new Person(-width * 2, (float) Math.random() * SpawnOffset, 6, 0, 5, 15));
+
+
         }
         if (level == 8) {
             enemies.add(new AcidSnail(-100, (float) Math.random() * SpawnOffset, 5, 0, 1, 10));
@@ -188,6 +214,23 @@ public class Level {
             enemies.add(new HealerSnail(-width * 3, (float) Math.random() * SpawnOffset, 4, 0, 15, 20));
             enemies.add(new HealerSnail(-width * 3, (float) Math.random() * SpawnOffset, 4, 0, 15, 20));
             enemies.add(new HealerSnail(-width * 3, (float) Math.random() * SpawnOffset, 4, 0, 15, 20));
+            //mother snail
+            enemies.add(new MotherSnail(-100, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-100, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-width, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-width, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-width * 2, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-width * 3, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-width * 3, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-width * 3, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+
+            //Zombie
+            enemies.add(new Person(-100, (float) Math.random() * SpawnOffset, 6, 0, 5, 15));
+            enemies.add(new Person(-100, (float) Math.random() * SpawnOffset, 6, 0, 5, 15));
+            enemies.add(new Person(-width, (float) Math.random() * SpawnOffset, 6, 0, 5, 15));
+            enemies.add(new Person(-width, (float) Math.random() * SpawnOffset, 6, 0, 5, 15));
+            enemies.add(new Person(-width * 2, (float) Math.random() * SpawnOffset, 6, 0, 5, 15));
+            enemies.add(new Person(-width * 2, (float) Math.random() * SpawnOffset, 6, 0, 5, 15));
         }
         if (level == 9) {
             enemies.add(new AcidSnail(-100, (float) Math.random() * SpawnOffset, 5, 0, 1, 10));
@@ -216,6 +259,26 @@ public class Level {
             enemies.add(new HealerSnail(-width * 3, (float) Math.random() * SpawnOffset, 4, 0, 15, 20));
             enemies.add(new HealerSnail(-width * 3, (float) Math.random() * SpawnOffset, 4, 0, 15, 20));
             enemies.add(new HealerSnail(-width * 3, (float) Math.random() * SpawnOffset, 4, 0, 15, 20));
+            //mother snail
+            enemies.add(new MotherSnail(-100, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-100, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-width, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-width, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-width * 2, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-width * 3, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-width * 3, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-width * 3, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+
+            //Zombie
+            enemies.add(new Person(-100, (float) Math.random() * SpawnOffset, 6, 0, 5, 15));
+            enemies.add(new Person(-100, (float) Math.random() * SpawnOffset, 6, 0, 5, 15));
+            enemies.add(new Person(-width, (float) Math.random() * SpawnOffset, 6, 0, 5, 15));
+            enemies.add(new Person(-width, (float) Math.random() * SpawnOffset, 6, 0, 5, 15));
+            enemies.add(new Person(-width * 2, (float) Math.random() * SpawnOffset, 6, 0, 5, 15));
+            enemies.add(new Person(-width * 2, (float) Math.random() * SpawnOffset, 6, 0, 5, 15));
+            enemies.add(new Person(-width * 2, (float) Math.random() * SpawnOffset, 6, 0, 5, 15));
+            enemies.add(new Person(-width * 2, (float) Math.random() * SpawnOffset, 6, 0, 5, 15));
+            enemies.add(new Person(-width * 2, (float) Math.random() * SpawnOffset, 6, 0, 5, 15));
         }
         if (level == 10) {
             enemies.add(new AcidSnail(-100, (float) Math.random() * SpawnOffset, 5, 0, 1, 10));
@@ -244,8 +307,31 @@ public class Level {
             enemies.add(new HealerSnail(-width * 3, (float) Math.random() * SpawnOffset, 4, 0, 15, 20));
             enemies.add(new HealerSnail(-width * 3, (float) Math.random() * SpawnOffset, 4, 0, 15, 20));
             enemies.add(new HealerSnail(-width * 3, (float) Math.random() * SpawnOffset, 4, 0, 15, 20));
+            //mother snail
+            enemies.add(new MotherSnail(-100, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-100, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-width, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-width, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-width * 2, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-width * 3, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-width * 3, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+            enemies.add(new MotherSnail(-width * 3, (float) Math.random() * SpawnOffset, 2, 0, 2, 40));
+
+            //Zombie
+            enemies.add(new Person(-100, (float) Math.random() * SpawnOffset, 6, 0, 5, 15));
+            enemies.add(new Person(-100, (float) Math.random() * SpawnOffset, 6, 0, 5, 15));
+            enemies.add(new Person(-width, (float) Math.random() * SpawnOffset, 6, 0, 5, 15));
+            enemies.add(new Person(-width, (float) Math.random() * SpawnOffset, 6, 0, 5, 15));
+            enemies.add(new Person(-width * 2, (float) Math.random() * SpawnOffset, 6, 0, 5, 15));
+            enemies.add(new Person(-width * 2, (float) Math.random() * SpawnOffset, 6, 0, 5, 15));
+            enemies.add(new Person(-width * 2, (float) Math.random() * SpawnOffset, 6, 0, 5, 15));
+            enemies.add(new Person(-width * 2, (float) Math.random() * SpawnOffset, 6, 0, 5, 15));
+            enemies.add(new Person(-width * 2, (float) Math.random() * SpawnOffset, 6, 0, 5, 15));
+            //boss
             enemies.add(new BossSnail(-width, height / 2, 1, 0, 15, 75));
-            enemies.add(new BossSnail(-width, height / 2, 1, 0, 15, 75));
+            enemies.add(new BossSnail(-width * 2, height / 2, 1, 0, 15, 75));
+            enemies.add(new BossSnail(-width * 3, height / 2, 1, 0, 15, 75));
+
         }
         return enemies;
     }

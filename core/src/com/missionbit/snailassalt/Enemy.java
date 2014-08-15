@@ -1,4 +1,5 @@
 package com.missionbit.snailassalt;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -7,11 +8,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+
 /**
  * Created by douglas on 6/17/14.
  */
 public class Enemy {
-    public  Texture snail1, snail2;
+    public Texture snail1, snail2;
     protected Rectangle bound;
     protected Vector2 speed;
     protected float width, height, hp;
@@ -21,18 +23,20 @@ public class Enemy {
     float seconds = 0;
     private Animation animation;
     protected float Attack, SpawnOffset;
-    public Enemy(float x, float y, float xSpeed, float ySpeed,float attack,float hp) {
+
+    public Enemy(float x, float y, float xSpeed, float ySpeed, float attack, float hp) {
         this(x, y, xSpeed, ySpeed, attack, hp, "snail.png", "standardsnail2.png");
     }
+
     public Enemy(float x, float y, float xSpeed, float ySpeed, float attack, float hit, String name, String name2) {
         float maxHP;
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
         snail1 = new Texture(name);
         snail2 = new Texture(name2);
-        frame1=new Sprite(snail1);
-        frame2=new Sprite(snail2);
-        animation=new Animation(0.5f,frame1,frame2);
+        frame1 = new Sprite(snail1);
+        frame2 = new Sprite(snail2);
+        animation = new Animation(0.5f, frame1, frame2);
         speed = new Vector2();
         bound = new Rectangle(x, y, frame1.getWidth(), frame1.getHeight());
         speed.set(xSpeed, ySpeed);
@@ -41,7 +45,8 @@ public class Enemy {
         Attack = attack;
         SpawnOffset = 15;
     }
-    public void Update (float dt, SnailAssalt game) {
+
+    public void Update(float dt, SnailAssalt game) {
         seconds = Math.max(seconds - dt, 0);
         flash = seconds > 0;
         this.bound.x = this.bound.x + this.speed.x;
@@ -51,18 +56,22 @@ public class Enemy {
             House.hp -= this.Attack * dt;
         }
     }
-    public void draw(SpriteBatch batch,float time){
+
+    public void draw(SpriteBatch batch, float time) {
         if (flash) {
-               batch.draw(animation.getKeyFrame(time),bound.x,bound.y);
+            // batch.draw(animation.getKeyFrame(time),bound.x,bound.y);
         } else {
-            if(SnailAssalt.gameState==SnailAssalt.gameState.INFO) {
-                batch.draw(animation.getKeyFrame(time), bound.x, bound.y, (float) (frame1.getWidth()*1.5), (float)(frame1.getHeight()*1.5));
-            }else{
-                batch.draw(animation.getKeyFrame(time),bound.x, bound.y);
+            if (SnailAssalt.gameState == SnailAssalt.gameState.INFO) {
+                batch.draw(animation.getKeyFrame(time), bound.x, bound.y, (float) (frame1.getWidth() * 1.5), (float) (frame1.getHeight() * 1.5));
+            } else {
+                batch.draw(animation.getKeyFrame(time), bound.x, bound.y);
             }
         }
     }
-    public boolean enemyDead(){return hp < 0 ;}
+
+    public boolean enemyDead() {
+        return hp < 0;
+    }
 
     public void startFlash(float i) {
         flash = true;

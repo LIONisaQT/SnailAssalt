@@ -5,7 +5,10 @@ package com.missionbit.snailassalt;
  */
 public class InfoButton extends Button {
     public InfoButton(float x, float y) {
-        super(x, y, "infoButton.png", "infoButton.png");
+        super(x, y, "infoButton.png", "infoButton.png", "bw infoButton.png");
     }
-    public void pressedAction() {SnailAssalt.gameState = SnailAssalt.GameState.INFO;}
+
+    public void pressedAction() {
+        SnailAssalt.gameState = SnailAssalt.GameState.INFO;
+    }
 }
