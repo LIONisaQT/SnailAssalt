@@ -137,11 +137,11 @@ public class SnailAssalt extends ApplicationAdapter {
         hpBar = new Sprite(hpBarTexture);
         hpBar.setSize(width / 4, hpBarTexture.getHeight());
         hpBar.setPosition(width - hpBar.getWidth() - 5, height - 50);
-        Texture waterBarTexture = new Texture("hpbar.png");
+        Texture waterBarTexture = new Texture("water bar.png");
         waterBar = new Sprite(waterBarTexture);
         waterBar.setSize(width / 4, waterBarTexture.getHeight());
         waterBar.setPosition(width - 2 * hpBar.getWidth() - 10, height - 50);
-        Texture saltBarTexture = new Texture("hpbar.png");
+        Texture saltBarTexture = new Texture("salt bar.png");
         saltBar = new Sprite(saltBarTexture);
         saltBar.setSize(width / 4, saltBarTexture.getHeight());
         saltBar.setPosition(width - 3 * hpBar.getWidth() - 15, height - 50);
