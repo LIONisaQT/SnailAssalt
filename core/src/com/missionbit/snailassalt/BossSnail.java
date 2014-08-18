@@ -4,7 +4,7 @@ package com.missionbit.snailassalt;
  */
 public class BossSnail extends Enemy {
     public BossSnail(float x, float y, float xSpeed, float ySpeed,float attack, float hp) {
-        super(x, y, xSpeed, ySpeed,attack,hp,"boss.png","boss2.png");
+        super(x, y, xSpeed, ySpeed,attack,hp,"images/enemies/boss.png","images/enemies/boss2.png");
     }
 }
 

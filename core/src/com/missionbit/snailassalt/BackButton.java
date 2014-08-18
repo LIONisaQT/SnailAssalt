@@ -5,7 +5,7 @@ package com.missionbit.snailassalt;
  */
 public class BackButton extends Button {
     public BackButton(float x, float y) {
-        super(x, y, "back button.png", "levelselect.png", "bw backbutton.png");
+        super(x, y, "images/buttons/back button.png", "images/buttons/levelselect.png", "images/buttons/bw buttons/bw backbutton.png");
     }
 
     public void pressedAction() {

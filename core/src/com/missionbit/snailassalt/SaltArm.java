@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class SaltArm extends Weapon {
     public SaltArm() {
-        super("salt arm.png");
+        super("images/weapons/salt arm.png");
     }
 
     public void Update2(ArrayList<Salt> shakers){

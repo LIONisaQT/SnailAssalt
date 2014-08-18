@@ -9,9 +9,12 @@ public class Droppings {
     public Texture slime;
     public Rectangle bound;
     public Droppings(float x, float y) {
-        this.slime = new Texture("slime.png");
+        this.slime = new Texture("images/enemies/slime.png");
         bound = new Rectangle();
         bound.set(x, y, this.slime.getWidth(), this.slime.getHeight());
+    }
+    public void dispose() {
+        slime.dispose();
     }
     public void draw(SpriteBatch batch){
         batch.draw(slime, bound.x, bound.y);

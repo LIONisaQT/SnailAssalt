@@ -16,15 +16,15 @@ public class House {
     public House() {
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
-        house1 = new Texture("balconyy.png");
+        house1 = new Texture("images/house/balconyy.png");
         houseFull = new Sprite(house1);
         houseFull.setSize((width/1196)*house1.getWidth(), (int)height);
         houseFull.setPosition(width - (width/1196)*house1.getWidth(), 0);
-        house2 = new Texture("balconyz.png");
+        house2 = new Texture("images/house/balconyz.png");
         houseHalf = new Sprite(house2);
         houseHalf.setSize((width/1196)*house2.getWidth(), (int)height);
         houseHalf.setPosition(width - (width/1196)*house2.getWidth(), 0);
-        house3 = new Texture("balconya.png");
+        house3 = new Texture("images/house/balconya.png");
         houseZero = new Sprite(house3);
         houseZero.setSize((width/1196)*house3.getWidth(), (int)height);
         houseZero.setPosition(width - (width/1196)*house3.getWidth(), 0);

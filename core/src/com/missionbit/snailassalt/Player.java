@@ -13,8 +13,8 @@ public class Player {
         float width, height;
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
-        texture = new Texture("jimmy.png");
-        textureRachel = new Texture("rachel.png");
+        texture = new Texture("images/player/jimmy.png");
+        textureRachel = new Texture("images/player/rachel.png");
         rachel = new Sprite(textureRachel,textureRachel.getWidth(),textureRachel.getHeight());
         rachel.setPosition((int)width - texture.getWidth(), (int)(height / 2 - texture.getHeight() / 3));
         sprite = new Sprite(texture, texture.getWidth(), texture.getHeight());

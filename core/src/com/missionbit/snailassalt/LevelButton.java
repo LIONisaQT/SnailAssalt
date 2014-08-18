@@ -20,8 +20,8 @@ public class LevelButton {
     public boolean on;
     ArrayList<TextureRegion> levelButtonImages;
     public LevelButton(float x, float y) {
-        tempPic= new Texture("level10.png");
-        sprite=new Sprite(new TextureRegion(new Texture("levels1-10.png")));
+        tempPic= new Texture("images/buttons/level10.png");
+        sprite=new Sprite(new TextureRegion(new Texture("images/buttons/levels1-10.png")));
         xPos = x+(Gdx.graphics.getWidth() - sprite.getWidth())/2;
         yPos = y+(Gdx.graphics.getHeight() - sprite.getHeight())/2;
         position = new Vector2();

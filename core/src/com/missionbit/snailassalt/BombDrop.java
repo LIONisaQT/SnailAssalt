@@ -9,7 +9,7 @@ public class BombDrop {
     public Texture bomb;
     public Rectangle bound;
     public BombDrop(float x, float y) {
-        this.bomb = new Texture("bomb.png");
+        this.bomb = new Texture("images/enemies/bomb.png");
         bound = new Rectangle();
         bound.set(x, y, this.bomb.getWidth(), this.bomb.getHeight());
     }

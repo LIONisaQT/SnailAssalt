@@ -22,9 +22,9 @@ public class Weapon {
     static public int str;
     private Sound hydrasound;
     protected Sound watergunsound;
-    public Weapon(){this("watergun arm.png");}
+    public Weapon() {this("images/weapons/watergun arm.png");}
     public Weapon(String image) {
-        watergunsound = Gdx.audio.newSound(Gdx.files.internal("water.mp3"));
+        //watergunsound = Gdx.audio.newSound(Gdx.files.internal("sounds/weapons/water.mp3"));
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
         texture = new Texture(image);
@@ -46,7 +46,7 @@ public class Weapon {
     public void Update(ArrayList<ThrowyThingy> water) {
         if(!enable){return;}
         if (Gdx.input.justTouched() && currentWater > 0 && SnailAssalt.weaponState == SnailAssalt.WeaponState.REGWEAPON && SnailAssalt.bulletType == SnailAssalt.BulletType.WATER && !SnailAssalt.hydraButton.isPressed() && !SnailAssalt.saltButton.isPressed()) {
-            watergunsound.play(1.0f);
+            //watergunsound.play(1.0f);
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
             deltaX = touch - sprite.getX();

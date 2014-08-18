@@ -7,7 +7,7 @@ import com.badlogic.gdx.Gdx;
  */
 public class NextButton extends Button {
     public NextButton(float x, float y) {
-        super(x, y, "next button.png", "next button.png", "bw next button.png");
+        super(x, y, "images/buttons/next button.png", "images/buttons/next button.png", "images/buttons/bw buttons/bw next button.png");
     }
     public void pressedAction() {
         if (SnailAssalt.gameState == SnailAssalt.GameState.TUTORIAL) {

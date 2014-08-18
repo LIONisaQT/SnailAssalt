@@ -5,7 +5,7 @@ package com.missionbit.snailassalt;
  */
 public class ShopButton extends Button {
     public ShopButton(float x, float y) {
-        super(x, y, "shopButton.png", "shopButton.png", "bw shopbutton.png");
+        super(x, y, "images/buttons/shopButton.png", "images/buttons/shopButton.png", "images/buttons/bw buttons/bw shopbutton.png");
     }
 
     public void pressedAction() {

@@ -5,7 +5,7 @@ package com.missionbit.snailassalt;
  */
 public class LoseButton extends Button {
     public LoseButton(float x, float y) {
-        super(x, y, "quit button.png", "quit button.png", "bw quit button.png");
+        super(x, y, "images/buttons/quit button.png", "images/buttons/quit button.png", "images/buttons/bw buttons/bw quit button.png");
         sprite.setSize(3 * buttonGetWidth() / 2, 2 * buttonGetHeight() / 3);
         bound.setSize(3 * buttonGetWidth() / 2, 2 * buttonGetHeight() / 3);
     }

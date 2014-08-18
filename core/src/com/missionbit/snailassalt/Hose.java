@@ -10,12 +10,12 @@ import java.util.ArrayList;
  */
 public class Hose extends Weapon {
     public Hose() {
-        super("hoseArm.png");
+        super("images/weapons/hoseArm.png");
     }
 
     public void Update(ArrayList<ThrowyThingy> water) {
         if (Gdx.input.isTouched() && currentWater >0&& !SnailAssalt.saltButton.isPressed() && !SnailAssalt.hydraButton.isPressed()) {
-            watergunsound.play(1.0f);
+            //watergunsound.play(1.0f);
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
             deltaX = touch - sprite.getX();

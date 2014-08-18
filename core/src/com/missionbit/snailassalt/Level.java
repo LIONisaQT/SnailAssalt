@@ -17,7 +17,7 @@ public class Level {
         SpawnOffset = height - 200;
     }
     public int getLevelNumber() {return level;}
-    public int numberOfEnemies() {return getEnemies().size() ;}
+    public int numberOfEnemies() {return getEnemies().size();}
     public ArrayList<Enemy> getEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<Enemy>();
         for (int a = 0; a < level; a++) {

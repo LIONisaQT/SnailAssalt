@@ -22,8 +22,8 @@ public class SnailInfo {
     public boolean on;
     ArrayList<TextureRegion> snailImages;
     public SnailInfo(float x, float y) {
-        tempPic= new Texture("level10.png");
-        sprite=new Sprite(new TextureRegion(new Texture("snailinfo.png")));
+        tempPic= new Texture("images/buttons/level10.png");
+        sprite=new Sprite(new TextureRegion(new Texture("images/buttons/snailinfo.png")));
         xPos = x+(Gdx.graphics.getWidth() - sprite.getWidth())/2;
         yPos = y+(Gdx.graphics.getHeight() - sprite.getHeight())/2;
         position = new Vector2();

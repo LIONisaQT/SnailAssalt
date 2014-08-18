@@ -4,6 +4,6 @@ package com.missionbit.snailassalt;
  */
 public class HealerSnail extends Enemy {
     public HealerSnail(float x, float y, float xSpeed, float ySpeed,float attack,float hp) {
-        super(x, y, xSpeed, ySpeed, attack,hp, "healsnail.png", "healsnail2.png");
+        super(x, y, xSpeed, ySpeed, attack,hp, "images/enemies/healsnail.png", "images/enemies/healsnail2.png");
     }
 }

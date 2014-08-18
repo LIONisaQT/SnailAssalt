@@ -5,7 +5,7 @@ package com.missionbit.snailassalt;
  */
 public class StartButton extends Button {
     public StartButton(float x, float y) {
-        super(x, y, "start.png", "bw start.png", "bw start.png");
+        super(x, y, "images/buttons/start.png", "images/buttons/bw buttons/bw start.png", "images/buttons/bw buttons/bw start.png");
     }
 
     public void pressedAction() {

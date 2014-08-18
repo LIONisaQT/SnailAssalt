@@ -133,7 +133,7 @@ public class SnailAssalt extends ApplicationAdapter {
         house = new House();
 
         //UI start
-        Texture hpBarTexture = new Texture("hpbar.png");
+        Texture hpBarTexture = new Texture("images/house/hpbar.png");
         hpBar = new Sprite(hpBarTexture);
         hpBar.setSize(width / 4, hpBarTexture.getHeight());
         hpBar.setPosition(width - hpBar.getWidth() - 5, height - 50);
@@ -145,60 +145,60 @@ public class SnailAssalt extends ApplicationAdapter {
         saltBar = new Sprite(saltBarTexture);
         saltBar.setSize(width / 4, saltBarTexture.getHeight());
         saltBar.setPosition(width - 3 * hpBar.getWidth() - 15, height - 50);
-        Texture progBar = new Texture("snail2.png");
+        Texture progBar = new Texture("images/enemies/snail.png");
         progBarSnail = new Sprite(progBar);
         progBarSnail.setSize(progBar.getWidth(), progBar.getHeight());
         progBarSnail.setPosition(0, 0);
         //UI end
         //backgrounds start
-        menu = new Sprite(new Texture("sidewaysmenu.png"));
+        menu = new Sprite(new Texture("images/backgrounds/sidewaysmenu.png"));
         menu.setSize(width, height);
-        levelSelect = new Sprite(new Texture("levelscreen.png"));
+        levelSelect = new Sprite(new Texture("images/backgrounds/levelscreen.png"));
         levelSelect.setSize(width, height);
-        shop = new Sprite(new Texture("levelscreen.png"));
+        shop = new Sprite(new Texture("images/backgrounds/levelscreen.png"));
         shop.setSize(width, height);
-        gameover = new Sprite(new Texture("gameover.png"));
+        gameover = new Sprite(new Texture("images/backgrounds/gameover.png"));
         gameover.setSize(width, height);
-        win = new Sprite(new Texture("win screen.png"));
+        win = new Sprite(new Texture("images/backgrounds/win screen.png"));
         win.setSize(width, height);
-        laun = new Sprite(new Texture("lawn.jpeg"));
+        laun = new Sprite(new Texture("images/backgrounds/lawn.jpeg"));
         laun.setSize(width, height);
-        info = new Sprite(new Texture("info.png"));
+        info = new Sprite(new Texture("images/backgrounds/info.png"));
         info.setSize(width, height);
-        sign = new Sprite( new Texture("sign.png"));
+        sign = new Sprite( new Texture("images/backgrounds/sign.png"));
         sign.setSize(width/2 ,height);
         sign.setPosition( width/2 , 0);
         //background end
         //credits start
-        credits = new Sprite(new Texture("credits.png"));
+        credits = new Sprite(new Texture("images/backgrounds/credits.png"));
         credits.setSize(width / 1196 * credits.getWidth(), height / 720 * credits.getHeight());
         credits.setPosition(width/2 - credits.getWidth()/2, height/2 - credits.getHeight()/2);
-        hurshalsface1 = new Sprite(new Texture("hurshal's face copy.png"));
+        hurshalsface1 = new Sprite(new Texture("images/backgrounds/hurshal's face copy.png"));
         hurshalsface1.setSize(width/1196 *hurshalsface1.getWidth(),height/720 * hurshalsface1.getHeight());
         hurshalsface1.setPosition(width- hurshalsface1.getWidth(), 0);
-        specialThanks = new Sprite(new Texture("hurshal.png"));
+        specialThanks = new Sprite(new Texture("images/backgrounds/hurshal.png"));
         specialThanks.setSize(width/1196 *specialThanks.getWidth(), height/720 * specialThanks.getHeight());
         specialThanks.setPosition(width / 2 - specialThanks.getWidth()/2, height / 2 - 100);
         //credits end
         //tutorial start
         tutorials = new ArrayList<Sprite>();
-        tutor1 = new Sprite(new Texture("tutorial 1.jpeg"));
+        tutor1 = new Sprite(new Texture("images/tutorials/tutorial 1.jpeg"));
         tutorials.add(tutor1);
-        tutor2 = new Sprite(new Texture("tutorial 2.jpeg"));
+        tutor2 = new Sprite(new Texture("images/tutorials/tutorial 2.jpeg"));
         tutorials.add(tutor2);
-        tutor3 = new Sprite(new Texture("tutorial 3.jpeg"));
+        tutor3 = new Sprite(new Texture("images/tutorials/tutorial 3.jpeg"));
         tutorials.add(tutor3);
-        tutor4 = new Sprite(new Texture("tutorial4.jpeg"));
+        tutor4 = new Sprite(new Texture("images/tutorials/tutorial4.jpeg"));
         tutorials.add(tutor4);
-        tutor5 = new Sprite(new Texture("tutorial5.jpeg"));
+        tutor5 = new Sprite(new Texture("images/tutorials/tutorial5.jpeg"));
         tutorials.add(tutor5);
-        tutor6 = new Sprite(new Texture("tutorial 6.jpeg"));
+        tutor6 = new Sprite(new Texture("images/tutorials/tutorial 6.jpeg"));
         tutorials.add(tutor6);
-        tutor7 = new Sprite(new Texture("tutorial7.jpeg"));
+        tutor7 = new Sprite(new Texture("images/tutorials/tutorial7.jpeg"));
         tutorials.add(tutor7);
-        tutor8 = new Sprite(new Texture("tutorial8.jpeg"));
+        tutor8 = new Sprite(new Texture("images/tutorials/tutorial8.jpeg"));
         tutorials.add(tutor8);
-        tutor9 = new Sprite(new Texture("tutorial9.jpeg"));
+        tutor9 = new Sprite(new Texture("images/tutorials/tutorial9.jpeg"));
         tutorials.add(tutor9);
         for (Sprite tutor : tutorials) {
             tutor.setSize(width, height);
@@ -276,15 +276,14 @@ public class SnailAssalt extends ApplicationAdapter {
         backButtonInfoMother = new BackButton (0, height-nextTutorial.sprite.getHeight());
         nextInfoMother=new NextButton (width-backButtonGameEnd.sprite.getWidth(),height-nextTutorial.sprite.getHeight());
         backButtonInfoPerson= new BackButton (0, height-nextTutorial.sprite.getHeight());
-        Sprite tempsp = new Sprite(new Texture("hose icon.png"));
+        Sprite tempsp = new Sprite(new Texture("images/buttons/hose icon.png"));
         tempsp.setSize(width/1196 * tempsp.getWidth(), height/720 * tempsp.getHeight());
         spHydraBut = new SpHydraBut(width/12 , height / 2);
         spHoseBut = new SpHosebutton(spHydraBut.getXPos() + tempsp.getWidth() +20 , height / 2);
         spSaltBut = new SpSaltBut(spHoseBut.getXPos() + tempsp.getWidth() + 20, height / 2);
-
-        spHose = new Sprite(new Texture("hose icon.png"));
-        spHydra = new Sprite(new Texture("weapon icon.png"));
-        spSalt = new Sprite(new Texture("Salt icon.png"));
+        spHose = new Sprite(new Texture("images/buttons/hose icon.png"));
+        spHydra = new Sprite(new Texture("images/buttons/weapon icon.png"));
+        spSalt = new Sprite(new Texture("images/buttons/Salt icon.png"));
         spHydra.setSize(width/1196* spHydra.getWidth(),height/720 *spHydra.getHeight());
         spSalt.setSize(width/1196* spSalt.getWidth(),height/720 *spSalt.getHeight());
         spHose.setSize(width/1196* spHose.getWidth(),height/720 *spHose.getHeight());
@@ -333,7 +332,7 @@ public class SnailAssalt extends ApplicationAdapter {
         currencysound = Gdx.audio.newSound(Gdx.files.internal("money.mp3"));
         waterlimitsound = Gdx.audio.newSound(Gdx.files.internal ("waterlimit.mp3"));
         snaildeadsound = Gdx.audio.newSound(Gdx.files.internal("snaildead.mp3"));*/
-        music = Gdx.audio.newMusic(Gdx.files.internal("background music.mp3"));
+        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/menu_bgm.mp3"));
         resetGame();
     }
 
@@ -711,6 +710,7 @@ public class SnailAssalt extends ApplicationAdapter {
                     }
                 }
                 if (projectileHit) {
+                    water.get(i).dispose();
                     water.remove(i);
                 }
             }
@@ -731,10 +731,11 @@ public class SnailAssalt extends ApplicationAdapter {
                         enemies.get(a).startFlash(.1f);
                         if (enemies.get(a).hp <= 0) {
                             shell.add(new Snailshell((int) enemies.get(a).bound.x, (int) enemies.get(a).bound.y));
+                            enemies.get(a).dispose();
                             enemies.remove(a);
                             currentLevel.enemyCount++;
                             a--;
-                            currency += 5;//TODO:
+                            currency += 5;
                         }
                     }
                 }
@@ -745,6 +746,7 @@ public class SnailAssalt extends ApplicationAdapter {
             for (int b = 0; b < shell.size(); b++) {
                 shell.get(b).Update();
                 if (shell.get(b).bounds.y > height) {
+                    shell.get(b).dispose();
                     shell.remove(b);
                     b--;
                 }
@@ -763,6 +765,7 @@ public class SnailAssalt extends ApplicationAdapter {
                     Droppings droppies = droppings.get(i);
                     if (enemy.bound.overlaps(droppies.bound) && !(enemy instanceof AcidSnail)) {
                         enemy.speed.x++;
+                        droppings.get(i).dispose();
                         droppings.remove(i);
                         i--;
                     }
@@ -781,6 +784,10 @@ public class SnailAssalt extends ApplicationAdapter {
             //in game over OR win
             preferences.putInteger("currency", currency);//TODO: place when level ends
             //preferences.flush();
+            for (Snailshell shells : shell) {shells.dispose();}
+            for (ThrowyThingy waters : water) {waters.dispose();}
+            for (Droppings derpies : droppings) {derpies.dispose();}
+            for (Enemy enemy : enemies) {enemy.dispose();}
             shell.clear();
             water.clear();
             shakers.clear();
@@ -808,8 +815,6 @@ public class SnailAssalt extends ApplicationAdapter {
                     prevGameState = GameState.WIN;
                 shopButtonGameEnd.pressedAction();
             }
-
-
             if (redoLevelButton.touchup()) {
                 enemies = currentLevel.getEnemies(); //reloads level's enemies
                 redoLevelButton.pressedAction(); //go to in-game
@@ -1147,10 +1152,10 @@ public class SnailAssalt extends ApplicationAdapter {
             font.draw(batch, "hydra salt " + hydra.enableSalt, 300, 400);
             if (!rachel.enable) {
                 batch.draw(jimmy.sprite, width - width / 10, jimmy.bound.y, (width / 1196) * jimmy.sprite.getWidth(), (height / 720) * jimmy.sprite.getHeight());
-                if (width <= 1196 && height <= 720)
-                    waterGun.sprite.setPosition(jimmy.bound.x, 38f/260f * (height/720*jimmy.sprite.getHeight()) +jimmy.bound.y);
-                    hydra.sprite.setPosition(jimmy.bound.x, 38f/260f * (height/720*jimmy.sprite.getHeight()) +jimmy.bound.y);
-            } else if (rachel.enable) {
+                waterGun.sprite.setPosition(jimmy.bound.x, 38f / 260f * (height / 720 * jimmy.sprite.getHeight()) + jimmy.bound.y);
+                hydra.sprite.setPosition(jimmy.bound.x, 38f / 260f * (height / 720 * jimmy.sprite.getHeight()) + jimmy.bound.y);
+            }
+            else if (rachel.enable) {
                 batch.draw(rachel.rachel, width - width/10, rachel.bound.y, (width/1196)* rachel.rachel.getWidth(),(height/720)*rachel.rachel.getHeight());
                 waterGun.sprite.setPosition(jimmy.bound.x, 38f/260f * (height/720*jimmy.sprite.getHeight()) +jimmy.bound.y);
                 hydra.sprite.setPosition(jimmy.bound.x, 38f/260f * (height/720*jimmy.sprite.getHeight()) +jimmy.bound.y);
@@ -1168,8 +1173,8 @@ public class SnailAssalt extends ApplicationAdapter {
                 enemy.draw(batch, time);
             font.draw(batch, "" + projectileHit, 300, 300);
             for (Snailshell snailshell : shell) {
-                batch.draw(snailshell.image, snailshell.bounds.x, snailshell.bounds.y);
-                //snailshell.sprite.draw(batch);
+                font.draw(batch, "number of shells: " + shell.size(), 200, 200);
+                snailshell.sprite.draw(batch);
             }
             font.draw(batch,"resolution:" +width+ ","+height, width/2, height/2);
             font.draw(batch, "Current level: " + currentLevel.getLevelNumber(), 10, 90);

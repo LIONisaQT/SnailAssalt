@@ -4,7 +4,7 @@ package com.missionbit.snailassalt;
  */
 public class FlyingSnail extends Enemy {
     public FlyingSnail(float x, float y, float xSpeed, float ySpeed, float attack, float hp) {
-        super(x, y, xSpeed, ySpeed, attack, hp, "flying snail.png", "flying snail2.png");
+        super(x, y, xSpeed, ySpeed, attack, hp, "images/enemies/flying snail.png", "images/enemies/flying snail2.png");
     }
 
     public void Update(float dt, SnailAssalt game) {

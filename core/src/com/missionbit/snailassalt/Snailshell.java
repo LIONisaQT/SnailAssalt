@@ -19,7 +19,7 @@ public class Snailshell {
     public Snailshell(int a,int b) {
         height = Gdx.graphics.getHeight();
         width = Gdx.graphics.getWidth();
-        image = new Texture("ghostsnail.png");
+        image = new Texture("images/enemies/ghostsnail.png");
         sprite = new Sprite(image);
         sprite.setSize(1920/width * image.getWidth(),1080/height* image.getHeight());
         sprite.setPosition(a, b);
@@ -27,6 +27,9 @@ public class Snailshell {
         bounds.set(a, b, sprite.getWidth(), sprite.getHeight());
         speed = new Vector2();
         speed.set(0, 5);
+    }
+    public void dispose() {
+        sprite.getTexture().dispose();
     }
     public void Update() {
         this.bounds.y += speed.y;

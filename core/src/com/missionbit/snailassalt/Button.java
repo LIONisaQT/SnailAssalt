@@ -18,7 +18,7 @@ public class Button {
 
 
     public Button(float x, float y, String picture, String nope) {
-        this(x, y, picture, nope, "bw backbutton.png");
+        this(x, y, picture, nope, "images/buttons/bw buttons/bw backbutton.png");
     }
 
 
@@ -30,7 +30,7 @@ public class Button {
         imageNope = new Texture(nope);
         xPos = x;
         yPos = y;
-        watergun = new Texture("watergunicon.png");
+        watergun = new Texture("images/buttons/watergunicon.png");
         watergunSprite = new Sprite(watergun);
         watergunSprite.setSize(watergunSprite.getWidth() / 2, watergunSprite.getHeight() / 2);
         position = new Vector2();

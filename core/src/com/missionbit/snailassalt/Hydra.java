@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Hydra extends Weapon {
     public Hydra()
     {
-        super("hydra arm.png");
+        super("images/weapons/hydra arm.png");
     }
     public boolean on(int x) {
         if (x == 1) {return true;}
@@ -16,7 +16,7 @@ public class Hydra extends Weapon {
     }
     public void Update(ArrayList<ThrowyThingy> water) {
         if (Gdx.input.justTouched() && currentWater>= 3 &&  !SnailAssalt.hydraButton.isPressed() && !SnailAssalt.saltButton.isPressed()) {
-            watergunsound.play(1.0f);
+            //watergunsound.play(1.0f);
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
             deltaX = touch - sprite.getX();

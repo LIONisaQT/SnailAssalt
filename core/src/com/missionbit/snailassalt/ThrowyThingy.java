@@ -15,7 +15,7 @@ public class ThrowyThingy {
     public Vector2 speed;
     public boolean enable;
     public ThrowyThingy() {
-        image = new Texture("water.png");
+        image = new Texture("images/weapons/water.png");
         sprite = new Sprite(image,0,0, image.getWidth(), image.getHeight());
         bound = new Rectangle();
         bound.set(30, 300, image.getWidth(), image.getHeight());
@@ -28,6 +28,9 @@ public class ThrowyThingy {
         bound.y = y;
         sprite.setX(x);
         sprite.setY(y);
+    }
+    public void dispose() {
+        sprite.getTexture().dispose();
     }
     public void Update() {
         this.move(this.bound.x + this.speed.x, this.bound.y + this.speed.y);

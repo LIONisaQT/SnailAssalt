@@ -5,7 +5,7 @@ package com.missionbit.snailassalt;
  */
 public class HoseBut extends Button {
     public HoseBut(float x, float y) {
-        super(x, y, "hose icon.png", "hose icon.png");
+        super(x, y, "images/buttons/hose icon.png", "images/buttons/hose icon.png");
         sprite.setSize(buttonGetWidth() / 2, buttonGetHeight() / 2);
         bound.setSize(buttonGetWidth() , buttonGetHeight() );
 
