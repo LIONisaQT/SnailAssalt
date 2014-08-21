@@ -4,7 +4,7 @@ package com.missionbit.snailassalt;
  */
 public class Zombie extends Enemy {
     public Zombie(float x, float y, float xSpeed, float ySpeed, float attack, float hp) {
-        super(x, y, xSpeed, ySpeed,attack,hp, "images/enemies/person.png", "images/enemies/person2.png");
+        super(x, y, xSpeed, ySpeed,attack,hp, "images/enemies/zombie.png", "images/enemies/zombie2.png");
     }
 }
 
