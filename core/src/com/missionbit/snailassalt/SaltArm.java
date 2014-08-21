@@ -10,12 +10,12 @@ import java.util.ArrayList;
  */
 public class SaltArm extends Weapon {
     public SaltArm() {
-        super("images/weapons/salt arm.png");
+        super("images/weapons/saltArm.png");
     }
 
-    public void Update2(ArrayList<Salt> shakers){
+    public void Update2(ArrayList<SaltProjectile> shakers){
         if(!enableSalt){return;}
-        if (Gdx.input.justTouched() && currentSalt!=0 && SnailAssalt.bulletType==SnailAssalt.bulletType.SALT && !SnailAssalt.saltButton.isPressed() && !SnailAssalt.hydraButton.isPressed()) {
+        if (Gdx.input.justTouched() && currentSalt!=0 && SnailAssalt.bulletType == SnailAssalt.BulletType.SALT && !SnailAssalt.saltButton.isPressed() && !SnailAssalt.hydraButton.isPressed()) {
             sprite.setSize(width/1196, height/720);
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
@@ -23,7 +23,7 @@ public class SaltArm extends Weapon {
             deltaY = touchY - sprite.getY();
             rot = MathUtils.atan2(deltaY, deltaX) * 180 / MathUtils.PI;
             sprite.setRotation(rot);
-            Salt bullet= new Salt();
+            SaltProjectile bullet= new SaltProjectile();
             shakers.add(bullet);
             bullet.bound.setPosition(this.bound.x, this.bound.y);
             bullet.speed.setAngleRad(MathUtils.degreesToRadians * rot);

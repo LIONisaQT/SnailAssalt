@@ -11,7 +11,6 @@ import java.util.ArrayList;
  * Created by douglas on 6/18/14.
  */
 public class Weapon {
-    private Texture texture;
     public Sprite sprite;
     public boolean enable;
     public boolean enableSalt;
@@ -22,12 +21,11 @@ public class Weapon {
     static public int str;
     private Sound hydrasound;
     protected Sound watergunsound;
-    public Weapon() {this("images/weapons/watergun arm.png");}
+    public Weapon() {this("images/weapons/watergunArm.png");}
     public Weapon(String image) {
-        //watergunsound = Gdx.audio.newSound(Gdx.files.internal("sounds/weapons/water.mp3"));
+        watergunsound = Gdx.audio.newSound(Gdx.files.internal("sounds/weapons/water.mp3"));
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
-        texture = new Texture(image);
         sprite = new Sprite(new Texture(image));
         sprite.setPosition(width - 2 * sprite.getWidth() / 3, height / 2 + 20);
         sprite.setSize(width/1196 * sprite.getWidth(),height/720 * sprite.getHeight());
@@ -40,13 +38,14 @@ public class Weapon {
         rot = 0;
         str = 2;
         //TODO FIX THIS
-        waterSupply=50;
-        currentWater=waterSupply;
+        waterSupply = 50;
+        currentWater = waterSupply;
     }
+
     public void Update(ArrayList<ThrowyThingy> water) {
-        if(!enable){return;}
+        if(!enable) {return;}
         if (Gdx.input.justTouched() && currentWater > 0 && SnailAssalt.weaponState == SnailAssalt.WeaponState.REGWEAPON && SnailAssalt.bulletType == SnailAssalt.BulletType.WATER && !SnailAssalt.hydraButton.isPressed() && !SnailAssalt.saltButton.isPressed()) {
-            //watergunsound.play(1.0f);
+            watergunsound.play(1.0f);
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
             deltaX = touch - sprite.getX();
@@ -58,11 +57,12 @@ public class Weapon {
             water.add(proj);
             proj.bound.setPosition(this.bound.x, this.bound.y);
             proj.speed.setAngleRad(MathUtils.degreesToRadians * rot);
-            currentWater--;
+            currentWater -- ;
         }
     }
-    public void Update2(ArrayList<Salt> shakers){
-        if(!enableSalt){return;}
+
+    public void Update2(ArrayList<SaltProjectile> shakers){
+        if(!enableSalt) {return;}
         if (Gdx.input.justTouched() && currentSalt>0 && SnailAssalt.bulletType==SnailAssalt.BulletType.SALT && !SnailAssalt.saltButton.isPressed() && !SnailAssalt.hydraButton.isPressed()) {
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
@@ -70,11 +70,11 @@ public class Weapon {
             deltaY = touchY - sprite.getY();
             rot = MathUtils.atan2(deltaY, deltaX) * 180 / MathUtils.PI;
             sprite.setRotation(rot);
-            Salt bullet= new Salt();
+            SaltProjectile bullet= new SaltProjectile();
             shakers.add(bullet);
             bullet.bound.setPosition(this.bound.x, this.bound.y);
             bullet.speed.setAngleRad(MathUtils.degreesToRadians * rot);
-            currentSalt--;
+            currentSalt -- ;
         }
     }
 }

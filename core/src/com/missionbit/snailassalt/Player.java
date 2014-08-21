@@ -21,10 +21,4 @@ public class Player {
         sprite.setPosition((int)width - texture.getWidth(), height/2 - (height/720)*sprite.getHeight()/2);
         bound = new Rectangle((int)width - texture.getWidth(), (int)(height / 2 - texture.getHeight() / 3), sprite.getWidth(), sprite.getHeight());
     }
-    public void playerPosition(float c,float d){
-        bound.setX(c);
-        bound.setY(d);
-        sprite.setX(c);
-        sprite.setY(d);
-    }
 }

@@ -4,6 +4,6 @@ package com.missionbit.snailassalt;
  */
 public class MotherSnail extends Enemy {
     public MotherSnail(float x, float y, float xSpeed, float ySpeed,float attack,float hp) {
-        super(x, y, xSpeed, ySpeed, attack ,hp, "images/enemies/mother snail.png", "images/enemies/mother snail2.png");
+        super(x, y, xSpeed, ySpeed, attack ,hp, "images/enemies/motherSnail.png", "images/enemies/motherSnail2.png");
     }
 }

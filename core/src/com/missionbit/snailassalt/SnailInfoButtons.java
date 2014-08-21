@@ -12,7 +12,7 @@ import java.util.ArrayList;
 /**
  * Created by vivianlam on 8/5/14.
  */
-public class SnailInfo {
+public class SnailInfoButtons {
     protected Texture tempPic;
     protected float xPos, yPos;
     protected Rectangle bound;
@@ -21,9 +21,9 @@ public class SnailInfo {
     protected Sprite sprite;
     public boolean on;
     ArrayList<TextureRegion> snailImages;
-    public SnailInfo(float x, float y) {
+    public SnailInfoButtons(float x, float y) {
         tempPic= new Texture("images/buttons/level10.png");
-        sprite=new Sprite(new TextureRegion(new Texture("images/buttons/snailinfo.png")));
+        sprite=new Sprite(new TextureRegion(new Texture("images/buttons/snailInfo.png")));
         xPos = x+(Gdx.graphics.getWidth() - sprite.getWidth())/2;
         yPos = y+(Gdx.graphics.getHeight() - sprite.getHeight())/2;
         position = new Vector2();
@@ -35,12 +35,19 @@ public class SnailInfo {
             else if (b >= 5) {snailImages.add(new TextureRegion(sprite, (b - 5) * 200, 200, tempPic.getWidth(), tempPic.getHeight()));}
         }
     }
+
     public TextureRegion getButtonImage(int type) {return snailImages.get(type - 1);}
+
     public float getXPos() {return xPos;}
+
     public float getYPos() {return yPos;}
+
     public float buttonGetWidth() {return tempPic.getWidth();}
+
     public float buttonGetHeight() {return tempPic.getHeight();}
+
     public void pressedAction() {SnailAssalt.gameState = SnailAssalt.GameState.INFO;}
+
     public boolean isPressed() {
         return (Gdx.input.justTouched() && this.bound.contains(SnailAssalt.getTapPosition().x,SnailAssalt.getTapPosition().y));
     }

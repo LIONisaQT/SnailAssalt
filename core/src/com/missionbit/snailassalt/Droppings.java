@@ -13,10 +13,10 @@ public class Droppings {
         bound = new Rectangle();
         bound.set(x, y, this.slime.getWidth(), this.slime.getHeight());
     }
+
     public void dispose() {
         slime.dispose();
     }
-    public void draw(SpriteBatch batch){
-        batch.draw(slime, bound.x, bound.y);
-    }
+
+    public void draw(SpriteBatch batch){batch.draw(slime, bound.x, bound.y);}
 }

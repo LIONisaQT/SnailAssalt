@@ -8,15 +8,19 @@ import java.util.ArrayList;
 public class Hydra extends Weapon {
     public Hydra()
     {
-        super("images/weapons/hydra arm.png");
+        super("images/weapons/hydraArm.png");
     }
+
     public boolean on(int x) {
-        if (x == 1) {return true;}
-        else {return false;}
+        if (x == 1)
+            return true;
+        else
+            return false;
     }
+
     public void Update(ArrayList<ThrowyThingy> water) {
         if (Gdx.input.justTouched() && currentWater>= 3 &&  !SnailAssalt.hydraButton.isPressed() && !SnailAssalt.saltButton.isPressed()) {
-            //watergunsound.play(1.0f);
+            watergunsound.play(1.0f);
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
             deltaX = touch - sprite.getX();
@@ -35,23 +39,24 @@ public class Hydra extends Weapon {
             water.add(proj3);
             proj3.bound.setPosition(this.bound.x, this.bound.y);
             proj3.speed.setAngleRad(MathUtils.degreesToRadians * (rot+15));
-            currentWater -=3;
+            currentWater -= 3;
         }
     }
-    public void Update2(ArrayList<Salt> shakers){
+
+    public void Update2(ArrayList<SaltProjectile> shakers){
         if(!enableSalt) {return;}
-        if (Gdx.input.justTouched() && currentSalt > 0 && SnailAssalt.bulletType==SnailAssalt.bulletType.SALT && !SnailAssalt.saltButton.isPressed() && !SnailAssalt.hydraButton.isPressed()) {
+        if (Gdx.input.justTouched() && currentSalt > 0 && SnailAssalt.bulletType==SnailAssalt.BulletType.SALT && !SnailAssalt.saltButton.isPressed() && !SnailAssalt.hydraButton.isPressed()) {
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
             deltaX = touch - sprite.getX();
             deltaY = touchY - sprite.getY();
             rot = MathUtils.atan2(deltaY, deltaX) * 180 / MathUtils.PI;
             sprite.setRotation(rot);
-            Salt bullet = new Salt();
+            SaltProjectile bullet = new SaltProjectile();
             shakers.add(bullet);
             bullet.bound.setPosition(this.bound.x, this.bound.y);
             bullet.speed.setAngleRad(MathUtils.degreesToRadians * rot);
-            currentSalt --;
+            currentSalt--;
         }
     }
 }

@@ -14,13 +14,9 @@ public class Button {
     protected Rectangle bound;
     protected Vector2 position;
     protected Sprite sprite, spriteNope, spriteShade, watergunSprite;
-    boolean status = false;
-
-
     public Button(float x, float y, String picture, String nope) {
-        this(x, y, picture, nope, "images/buttons/bw buttons/bw backbutton.png");
+        this(x, y, picture, nope, "images/buttons/bw buttons/bw backButton.png");
     }
-
 
     public Button(float x, float y, String picture, String nope, String shade) {
         spriteShade = new Sprite(new Texture(shade));
@@ -30,22 +26,23 @@ public class Button {
         imageNope = new Texture(nope);
         xPos = x;
         yPos = y;
-        watergun = new Texture("images/buttons/watergunicon.png");
+        watergun = new Texture("images/buttons/watergunIcon.png");
         watergunSprite = new Sprite(watergun);
         watergunSprite.setSize(watergunSprite.getWidth() / 2, watergunSprite.getHeight() / 2);
         position = new Vector2();
         sprite = new Sprite(new Texture(picture));
         sprite.setPosition(getXPos(),getYPos());
-        sprite.setSize((width/1196)*image.getWidth(), (height/720)*image.getHeight());
+        sprite.setSize((width / 1196) * image.getWidth(), (height / 720) * image.getHeight());
         spriteNope = new Sprite(new Texture(nope));
         spriteNope.setPosition(getXPos(), getYPos());
-        spriteNope.setSize((width/1196)*image.getWidth(), (height/720)*image.getHeight());
+        spriteNope.setSize((width / 1196) * image.getWidth(), (height / 720) * image.getHeight());
         spriteShade.setPosition(getXPos(), getYPos());
-        spriteShade.setSize((width/1196)*spriteShade.getWidth(), (height/720)*spriteShade.getHeight());
+        spriteShade.setSize((width / 1196) * spriteShade.getWidth(), (height / 720) * spriteShade.getHeight());
         //sprite.setBounds(getXPos(),getYPos(),this.buttonGetWidth(),this.buttonGetHeight());
         bound = new Rectangle();
         bound.set(getXPos(), getYPos(), this.buttonGetWidth(), this.buttonGetHeight());
     }
+
     public float getXPos() {return xPos;}
 
     public float getYPos() {return yPos;}

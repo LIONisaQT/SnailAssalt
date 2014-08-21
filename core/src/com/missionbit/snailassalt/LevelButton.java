@@ -33,12 +33,19 @@ public class LevelButton {
             else if (a >= 5) {levelButtonImages.add(new TextureRegion(sprite, (a - 5) * 200, 200, tempPic.getWidth(), tempPic.getHeight()));}
         }
     }
+
     public TextureRegion getButtonImage(int level) {return levelButtonImages.get(level - 1);}
+
     public float getXPos() {return xPos;}
+
     public float getYPos() {return yPos;}
+
     public float buttonGetWidth() {return tempPic.getWidth();}
+
     public float buttonGetHeight() {return tempPic.getHeight();}
+
     public void pressedAction() {SnailAssalt.gameState = SnailAssalt.GameState.INGAME;}
+
     public boolean isPressed() {
         return (Gdx.input.justTouched() && this.bound.contains(SnailAssalt.getTapPosition().x,SnailAssalt.getTapPosition().y));
     }

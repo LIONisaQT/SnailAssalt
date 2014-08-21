@@ -12,7 +12,6 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class ThingsInStore {
     protected float xPos, yPos;
-    protected Texture image;
     protected Rectangle bound;
     protected Vector2 position;
     protected float width, height;
@@ -20,7 +19,7 @@ public class ThingsInStore {
     protected int price;
     public boolean on;
 
-    public ThingsInStore(float x, float y, String picture,String bought, int cost) {
+    public ThingsInStore(float x, float y, String picture, String bought, int cost) {
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
         price = cost;
@@ -28,7 +27,7 @@ public class ThingsInStore {
         yPos = y;
         sprite = new Sprite(new Texture(picture));
         sprite.setPosition(getXPos(), getYPos());
-        sprite.setSize(width/1196*width/ 9, (height/720)*height/10 );
+        sprite.setSize(width / 1196 * width / 9, (height / 720) * height / 10 );
         spriteNope = new Sprite(new Texture(bought));
         spriteNope.setPosition(getXPos(), getYPos());
         spriteNope.setSize(width/1196*width/9,(height/720)*height/10);

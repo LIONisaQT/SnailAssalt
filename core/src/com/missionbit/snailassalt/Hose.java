@@ -15,7 +15,7 @@ public class Hose extends Weapon {
 
     public void Update(ArrayList<ThrowyThingy> water) {
         if (Gdx.input.isTouched() && currentWater >0&& !SnailAssalt.saltButton.isPressed() && !SnailAssalt.hydraButton.isPressed()) {
-            //watergunsound.play(1.0f);
+            watergunsound.play(1.0f);
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
             deltaX = touch - sprite.getX();
@@ -31,18 +31,18 @@ public class Hose extends Weapon {
         }
     }
 
-    public void Update2(ArrayList<Salt> shakers) {
+    public void Update2(ArrayList<SaltProjectile> shakers) {
         if (!enableSalt) {
             return;
         }
-        if (Gdx.input.isTouched() && currentSalt >0 && SnailAssalt.bulletType == SnailAssalt.bulletType.SALT && !SnailAssalt.saltButton.isPressed() && !SnailAssalt.hydraButton.isPressed()) {
+        if (Gdx.input.isTouched() && currentSalt >0 && SnailAssalt.bulletType == SnailAssalt.BulletType.SALT && !SnailAssalt.saltButton.isPressed() && !SnailAssalt.hydraButton.isPressed()) {
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
             deltaX = touch - sprite.getX();
             deltaY = touchY - sprite.getY();
             rot = MathUtils.atan2(deltaY, deltaX) * 180 / MathUtils.PI;
             sprite.setRotation(rot);
-            Salt bullet = new Salt();
+            SaltProjectile bullet = new SaltProjectile();
             shakers.add(bullet);
             bullet.bound.setPosition(this.bound.x, this.bound.y);
             bullet.speed.setAngleRad(MathUtils.degreesToRadians * rot);

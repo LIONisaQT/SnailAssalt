@@ -1,12 +1,11 @@
 package com.missionbit.snailassalt;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 
 /**
  * Created by douglas on 8/5/14.
  */
-public class MyinputProcessor implements InputProcessor {
+public class MyInputProcessor implements InputProcessor {
     @Override
     public boolean keyDown(int keycode) {
         return false;

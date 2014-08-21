@@ -10,16 +10,16 @@ import java.security.spec.PSSParameterSpec;
 /**
  * Created by douglas on 6/24/14.
  */
-public class Snailshell {
+public class GhostSnails {
     public Texture image;
     public Sprite sprite;
     public Rectangle bounds;
     public Vector2 speed;
     protected float height, width;
-    public Snailshell(int a,int b) {
+    public GhostSnails(int a, int b) {
         height = Gdx.graphics.getHeight();
         width = Gdx.graphics.getWidth();
-        image = new Texture("images/enemies/ghostsnail.png");
+        image = new Texture("images/enemies/ghostSnail.png");
         sprite = new Sprite(image);
         sprite.setSize(1920/width * image.getWidth(),1080/height* image.getHeight());
         sprite.setPosition(a, b);
@@ -28,9 +28,9 @@ public class Snailshell {
         speed = new Vector2();
         speed.set(0, 5);
     }
-    public void dispose() {
-        sprite.getTexture().dispose();
-    }
+
+    public void dispose() {sprite.getTexture().dispose();}
+
     public void Update() {
         this.bounds.y += speed.y;
     }

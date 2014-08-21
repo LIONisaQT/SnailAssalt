@@ -5,6 +5,6 @@ package com.missionbit.snailassalt;
  */
 public class NextLevelButton extends Button {
     public NextLevelButton(float x, float y) {
-        super(x, y, "next level button.png", "next level button.png");
+        super(x, y, "images/buttons/nextLevelButton.png", "images/buttons/nextLevelButton.png");
     }
-    }
+}

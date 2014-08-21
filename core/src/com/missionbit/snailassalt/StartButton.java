@@ -9,12 +9,8 @@ public class StartButton extends Button {
     }
 
     public void pressedAction() {
-        if (SnailAssalt.preferences.getInteger("tutorial", 0) == 0) {
-            SnailAssalt.gameState = SnailAssalt.GameState.TUTORIAL;
-        }
-        if (SnailAssalt.preferences.getInteger("tutorial", 0) == 2) {
-            SnailAssalt.gameState = SnailAssalt.GameState.CHARACTERSELECT;
-        }
+        if (SnailAssalt.preferences.getInteger("tutorial", 0) == 0) {SnailAssalt.gameState = SnailAssalt.GameState.TUTORIAL;}
+        if (SnailAssalt.preferences.getInteger("tutorial", 0) == 2) {SnailAssalt.gameState = SnailAssalt.GameState.CHARACTERSELECT;}
     }
 }
 

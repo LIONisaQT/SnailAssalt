@@ -5,9 +5,8 @@ package com.missionbit.snailassalt;
  */
 public class TutorialButton extends Button {
     public TutorialButton(float x, float y) {
-        super(x, y, "images/buttons/tutorialButton.png", "images/buttons/tutorialButton.png", "images/buttons/bw buttons/bwtutorialBut.png");
+        super(x, y, "images/buttons/tutorialButton.png", "images/buttons/tutorialButton.png", "images/buttons/bw buttons/bw tutorialButton.png");
     }
-
     public void pressedAction() {
         SnailAssalt.gameState = SnailAssalt.GameState.TUTORIAL;
     }

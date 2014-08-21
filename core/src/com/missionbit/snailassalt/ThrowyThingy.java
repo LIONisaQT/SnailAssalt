@@ -23,15 +23,18 @@ public class ThrowyThingy {
         speed = new Vector2();
         speed.set(6, 6);
     }
+
     public void move(float x,float y) {
         bound.x = x;
         bound.y = y;
         sprite.setX(x);
         sprite.setY(y);
     }
+
     public void dispose() {
         sprite.getTexture().dispose();
     }
+
     public void Update() {
         this.move(this.bound.x + this.speed.x, this.bound.y + this.speed.y);
     }

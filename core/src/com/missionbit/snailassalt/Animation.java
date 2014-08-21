@@ -10,14 +10,12 @@ import java.util.ArrayList;
 public class Animation {
     private float dt;
     private ArrayList<Sprite> sprites;
-
     public Animation(float v, Sprite img1, Sprite img2) {
         this.dt = v;
         this.sprites = new ArrayList<Sprite>();
         this.sprites.add(img1);
         this.sprites.add(img2);
     }
-
 
     public Sprite getKeyFrame(float elapsedTime) {
         int idx = (int)((elapsedTime % (sprites.size() * dt)) / dt);

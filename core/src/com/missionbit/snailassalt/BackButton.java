@@ -5,22 +5,23 @@ package com.missionbit.snailassalt;
  */
 public class BackButton extends Button {
     public BackButton(float x, float y) {
-        super(x, y, "images/buttons/back button.png", "images/buttons/levelselect.png", "images/buttons/bw buttons/bw backbutton.png");
+        super(x, y, "images/buttons/backButton.png", "images/buttons/levelselect.png", "images/buttons/bw buttons/bw backButton.png");
     }
 
     public void pressedAction() {
-
-        if (SnailAssalt.prevGameState == SnailAssalt.GameState.GAMEOVER || SnailAssalt.prevGameState == SnailAssalt.GameState.WIN) {SnailAssalt.gameState = SnailAssalt.prevGameState;}
-        else if (SnailAssalt.gameState == SnailAssalt.GameState.WIN || SnailAssalt.gameState == SnailAssalt.GameState.GAMEOVER) {SnailAssalt.gameState = SnailAssalt.GameState.LEVELSELECT;}
-        else if (SnailAssalt.gameState == SnailAssalt.GameState.TUTORIAL) {
-            if (SnailAssalt.tutState == SnailAssalt.TutorialState.PAGE9) {
+        if (SnailAssalt.prevGameState == SnailAssalt.GameState.GAMEOVER || SnailAssalt.prevGameState == SnailAssalt.GameState.WIN) {
+            SnailAssalt.gameState = SnailAssalt.prevGameState;
+        } else if (SnailAssalt.gameState == SnailAssalt.GameState.WIN || SnailAssalt.gameState == SnailAssalt.GameState.GAMEOVER) {
+            SnailAssalt.gameState = SnailAssalt.GameState.LEVELSELECT;
+        } else if (SnailAssalt.gameState == SnailAssalt.GameState.TUTORIAL) {
+            if (SnailAssalt.tutorialState == SnailAssalt.TutorialState.PAGE9) {
                 if (SnailAssalt.preferences.getInteger("tutorial", 0) == 0) {
                     SnailAssalt.preferences.putInteger("tutorial", 1);
                 }
                 if (SnailAssalt.preferences.getInteger("tutorial", 0) == 2) {
                     SnailAssalt.gameState = SnailAssalt.GameState.MAINMENU;
                 }
-                SnailAssalt.tutState = SnailAssalt.TutorialState.PAGE1;
+                SnailAssalt.tutorialState = SnailAssalt.TutorialState.PAGE1;
                 if (SnailAssalt.preferences.getInteger("tutorial", 0) == 1) {
                     SnailAssalt.gameState = SnailAssalt.GameState.CHARACTERSELECT;
                     if (SnailAssalt.gameState == SnailAssalt.GameState.CHARACTERSELECT) {
@@ -28,19 +29,15 @@ public class BackButton extends Button {
                     }
                 }
             }
-        }
-        else if (SnailAssalt.gameState == SnailAssalt.GameState.INFO){
+        } else if (SnailAssalt.gameState == SnailAssalt.GameState.INFO){
             if(SnailAssalt.infoState== SnailAssalt.InfoState.STANDARD ||SnailAssalt.infoState== SnailAssalt.InfoState.ACID ||SnailAssalt.infoState== SnailAssalt.InfoState.FLYING ||SnailAssalt.infoState== SnailAssalt.InfoState.HEALING ||SnailAssalt.infoState== SnailAssalt.InfoState.MOTHER ||SnailAssalt.infoState== SnailAssalt.InfoState.PERSON ||SnailAssalt.infoState== SnailAssalt.InfoState.BOSS){
                 SnailAssalt.infoState= SnailAssalt.InfoState.SELECTION;
-            }else if (SnailAssalt.infoState==SnailAssalt.InfoState.SELECTION){
+            } else if (SnailAssalt.infoState==SnailAssalt.InfoState.SELECTION){
                 SnailAssalt.gameState = SnailAssalt.GameState.MAINMENU;
             }
-        }
-        else {
-
+        } else {
             SnailAssalt.gameState = SnailAssalt.GameState.MAINMENU;
         }
         SnailAssalt.prevGameState = null; //clear prevGameState
     }
-
 }
