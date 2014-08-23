@@ -13,6 +13,9 @@ public class BombDrop {
         bound = new Rectangle();
         bound.set(x, y, this.bomb.getWidth(), this.bomb.getHeight());
     }
+
+    public void dispose() {bomb.dispose();}
+
     public void draw(SpriteBatch batch){
         batch.draw(bomb, bound.x, bound.y);
     }

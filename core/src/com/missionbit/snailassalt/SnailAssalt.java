@@ -845,6 +845,7 @@ public class SnailAssalt extends ApplicationAdapter {
             for (ThrowyThingy waters : water) {waters.dispose();}
             for (Droppings derpies : droppings) {derpies.dispose();}
             for (Enemy enemy : enemies) {enemy.dispose();}
+            for (BombDrop booms : bombs) {booms.dispose();}
 
             //CLEAR
             deadSnails.clear();
@@ -958,9 +959,7 @@ public class SnailAssalt extends ApplicationAdapter {
 
             }
             batch.end();
-        }
-        //shop
-        else if (gameState == GameState.SHOP) {
+        } else if (gameState == GameState.SHOP) {
             batch.begin();
             shop.draw(batch);
             shopHydraButton.sprite.draw(batch);
