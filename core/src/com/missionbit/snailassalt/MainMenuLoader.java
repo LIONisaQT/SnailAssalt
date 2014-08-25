@@ -35,9 +35,9 @@ public class MainMenuLoader extends AssetsLoader {
 
     public void draw() {
         batch.begin();
+        background.draw(batch);
 
         //BUTTONS
-        background.draw(batch);
         startButton.sprite.draw(batch);
         creditsButton.sprite.draw(batch);
         shopButton.sprite.draw(batch);

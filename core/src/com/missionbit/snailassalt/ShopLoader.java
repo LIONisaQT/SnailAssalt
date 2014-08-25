@@ -98,6 +98,7 @@ public class ShopLoader extends AssetsLoader {
         SnailAssalt.font.setScale((float) ((width / 1196) * (1.4)));
         SnailAssalt.font.setColor(0, 0, 0, 1);
         batch.begin();
+        background.draw(batch);
 
         //BUTTONS
         backButton.sprite.draw(batch);
