@@ -21,5 +21,7 @@ public abstract class AssetsLoader {
 
     public abstract void create();
 
+    public abstract void update();
+
     public abstract void draw();
 }

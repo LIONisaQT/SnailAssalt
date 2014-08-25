@@ -28,7 +28,7 @@ public class SnailAssalt extends ApplicationAdapter {
 
     protected static Preferences preferences; //saving3hard5me
     private FreeTypeFontGenerator fontGenerator; //handles .ttf --> .fnt
-    private BitmapFont font;
+    protected static BitmapFont font;
     private MyInputProcessor inputProcessor; //handles touchUp and touchDown
 
     protected static int numberOfLevels = 10; //hard-coded number of levels
@@ -43,36 +43,32 @@ public class SnailAssalt extends ApplicationAdapter {
     private Sprite
             /* credit pages */ credits, specialThanks, hurshalsface1,
             /* tutorial pages */ tutor1, tutor2, tutor3, tutor4, tutor5, tutor6, tutor7, tutor8, tutor9,
-            /* backgrounds */ menu, gameover, win, levelSelect, shop, laun, info,
-            /* shop stuff */ shopHose, shopHydra, shopSalt,
+            /* backgrounds */ gameover, win, levelSelect, laun, info,
             /* UI */ hpBar, waterBar, saltBar, progBarSnail, sign;
     protected ArrayList<Sprite> tutorials;
 
     //WEAPONS
-    private Weapon waterGun; //default watergun
-    private Hydra hydra; //hydra
-    private Hose hose; //hose
-    private SaltArm saltarm; //salt
+    protected static Weapon waterGun; //default watergun
+    protected static Hydra hydra; //hydra
+    protected static Hose hose; //hose
+    protected SaltArm saltarm; //salt
     private ArrayList<ThrowyThingy> water; //holds watergun shots
     private ArrayList<SaltProjectile> shakers; //holds salt shakers thrown
     protected boolean projectileHit;
 
     //LOADERS
     private MainMenuLoader mainMenuLoader;
+    private ShopLoader shopLoader;
 
     //BUTTONS
     private RachelButton rachelButton; //select rachel to play as
     private JimmyButton jimmyButton; //select jimmy to play as
 
-    private StartButton startButtonMenu;
-    private CreditsButton creditsButton;
-    private ShopButton shopButtonMenu, shopButtonGameEnd;
-    private InfoButton infoButton;
+    private ShopButton shopButtonGameEnd;
     private NextButton nextTutorial, nextInfoStandard, nextInfoAcid, nextInfoFlying, nextInfoHealing, nextInfoBoss, nextInfoMother;
     private QuitButton quitButton;
     private RedoButton redoLevelButton;
     private NextLevelButton nextLevelButton;
-    private TutorialButton tutorialButton;
     private PreviousButton previousButtonTutorial;
     private BackButton backButtonShop, backButtonGameEnd, backButtonLevelSelect, backButtonCredits, backButtonTutorial, backButtonInfoSelection,
             /* snail info back buttons */ backButtonInfoStandard, backButtonInfoAcid, backButtonInfoFlying, backButtonInfoHealing, backButtonInfoBoss, backButtonInfoMother,backButtonInfoPerson;
@@ -85,11 +81,6 @@ public class SnailAssalt extends ApplicationAdapter {
     //SNAIL INFO
     private ArrayList<SnailInfoButtons> snailInfoButtons;
 
-    //SHOP BUTTONS
-    private ShopHydraButton shopHydraButton;
-    private ShopSaltButton shopSaltButton;
-    private ShopHoseButton shopHoseButton;
-
     //LEVEL-RELATED
     public  static  ArrayList<Enemy> enemies; //temporarily holds level's enemy arraylist
     private ArrayList<LevelButton> levelButtons; //holds all level buttons
@@ -101,7 +92,7 @@ public class SnailAssalt extends ApplicationAdapter {
     private ArrayList<BombDrop> bombs; //flying snail droppings
     private ArrayList<GhostSnails> deadSnails; //holds dead snails that go to heaven
 
-    //ENUMS
+    //ENUMS AND STATES
     protected static enum GameState {CHARACTERSELECT, MAINMENU, TUTORIAL, INGAME, GAMEOVER, WIN, SHOP, LEVELSELECT, CREDITS, CREDITS_HURSHAL, INFO}
     protected static GameState gameState, prevGameState;
     protected static enum TutorialState {PAGE1, PAGE2, PAGE3, PAGE4, PAGE5, PAGE6, PAGE7, PAGE8, PAGE9}
@@ -173,12 +164,8 @@ public class SnailAssalt extends ApplicationAdapter {
         progBarSnail.setPosition(0, 0);
 
         //BACKGROUNDS
-        menu = new Sprite(new Texture("images/backgrounds/sidewaysmenu.png"));
-        menu.setSize(width, height);
         levelSelect = new Sprite(new Texture("images/backgrounds/levelscreen.png"));
         levelSelect.setSize(width, height);
-        shop = new Sprite(new Texture("images/backgrounds/levelscreen.png"));
-        shop.setSize(width, height);
         gameover = new Sprite(new Texture("images/backgrounds/gameover.png"));
         gameover.setSize(width, height);
         win = new Sprite(new Texture("images/backgrounds/win.png"));
@@ -230,6 +217,8 @@ public class SnailAssalt extends ApplicationAdapter {
         //LOADERS
         mainMenuLoader = new MainMenuLoader();
         mainMenuLoader.create();
+        shopLoader = new ShopLoader();
+        shopLoader.create();
 
         //SNAIL INFO
         snailInfoButtons = new ArrayList<SnailInfoButtons>();
@@ -263,22 +252,17 @@ public class SnailAssalt extends ApplicationAdapter {
 
         //BACK BUTTONS
         backButtonGameEnd = new BackButton(0, 0);
-        backButtonShop = new BackButton(width - backButtonGameEnd.sprite.getWidth(), 10);
+
         backButtonLevelSelect = new BackButton(width - backButtonGameEnd.sprite.getWidth(), 10);
-        backButtonTutorial = new BackButton(width - backButtonGameEnd.sprite.getWidth(), height - backButtonShop.buttonGetHeight());
-        backButtonCredits = new BackButton(width - backButtonGameEnd.sprite.getWidth(), height - backButtonShop.buttonGetHeight());
+        backButtonTutorial = new BackButton(width - backButtonGameEnd.sprite.getWidth(), height - shopLoader.backButton.buttonGetHeight());
+        backButtonCredits = new BackButton(width - backButtonGameEnd.sprite.getWidth(), height - shopLoader.backButton.buttonGetHeight());
 
         //START MENU BUTTONS
-        startButtonMenu = new StartButton(width / 2 - width / (4.38f), height / 2 - height / (4.5f));
-        infoButton = new InfoButton(startButtonMenu.getXPos(), startButtonMenu.getYPos() - startButtonMenu.buttonGetHeight() - 10);
-        creditsButton = new CreditsButton(infoButton.getXPos() + infoButton.sprite.getWidth() + 20, infoButton.getYPos());
-        tutorialButton = new TutorialButton(creditsButton.getXPos() + creditsButton.sprite.getWidth() + 20, creditsButton.getYPos());
-        shopButtonMenu = new ShopButton(startButtonMenu.getXPos() + startButtonMenu.sprite.getWidth() + 10, startButtonMenu.getYPos());
-        nextTutorial = new NextButton(width - backButtonGameEnd.sprite.getWidth(), height - backButtonShop.buttonGetHeight());
-        previousButtonTutorial = new PreviousButton(20, height - backButtonShop.buttonGetHeight());
+        nextTutorial = new NextButton(width - backButtonGameEnd.sprite.getWidth(), height - shopLoader.backButton.buttonGetHeight());
+        previousButtonTutorial = new PreviousButton(20, height - shopLoader.backButton.buttonGetHeight());
 
         //JIMMY AND RACHEL BUTTONS
-        rachelButton = new RachelButton(width / 2 + 100 , 50 );
+        rachelButton = new RachelButton(width / 2 + 100 , 50);
         rachelButton.bound.set(rachelButton.getXPos(), rachelButton.getYPos(), width / 2 - width / 8, height - height / 8);
         jimmyButton = new JimmyButton(100, 50);
         jimmyButton.bound.set(jimmyButton.getXPos(), jimmyButton.getYPos(), width / 2 - width / 8, height - height / 8);
@@ -288,8 +272,8 @@ public class SnailAssalt extends ApplicationAdapter {
         quitButton = new QuitButton(0, height - tempQuitButton.sprite.getHeight());
         nextLevelButton = new NextLevelButton(width - width / (6.39f), 0);
         redoLevelButton = new RedoButton(width / 2 - width / 6, height / 2 - width / 6);
-        redoLevelButton.sprite.setSize(redoLevelButton.sprite.getWidth() + redoLevelButton.sprite.getWidth() / 8 , startButtonMenu.buttonGetHeight());
-        redoLevelButton.spriteNope.setSize(redoLevelButton.sprite.getWidth()+ redoLevelButton.sprite.getWidth() / 8 , startButtonMenu.buttonGetHeight());
+        redoLevelButton.sprite.setSize(redoLevelButton.sprite.getWidth() + redoLevelButton.sprite.getWidth() / 8 , mainMenuLoader.startButton.buttonGetHeight());
+        redoLevelButton.spriteNope.setSize(redoLevelButton.sprite.getWidth()+ redoLevelButton.sprite.getWidth() / 8 , mainMenuLoader.startButton.buttonGetHeight());
         shopButtonGameEnd = new ShopButton(redoLevelButton.getXPos() + redoLevelButton.sprite.getWidth() + width / 36, redoLevelButton.getYPos());
 
         //SNAIL INFO BUTTONS
@@ -307,28 +291,6 @@ public class SnailAssalt extends ApplicationAdapter {
         backButtonInfoMother = new BackButton(0, height - nextTutorial.sprite.getHeight());
         nextInfoMother = new NextButton(width - backButtonGameEnd.sprite.getWidth(), height - nextTutorial.sprite.getHeight());
         backButtonInfoPerson = new BackButton(0, height - nextTutorial.sprite.getHeight());
-
-        //SHOP BUTTONS
-        Sprite tempShopButton = new Sprite(new Texture("images/buttons/hoseIcon.png"));
-        tempShopButton.setSize(width / 1196 * tempShopButton.getWidth(), height / 720 * tempShopButton.getHeight());
-
-        //SHOP: BUY HYDRA BUTTON
-        shopHydra = new Sprite(new Texture("images/buttons/weaponIcon.png"));
-        shopHydraButton = new ShopHydraButton(width / 12 , height / 2);
-        shopHydra.setSize(width / 1196 * shopHydra.getWidth(), height / 720 * shopHydra.getHeight());
-        shopHydra.setPosition(shopHydraButton.getXPos() + (shopHydraButton.buttonGetWidth() - shopHydra.getWidth()) / 2, shopHydraButton.getYPos() + shopHydraButton.buttonGetHeight() + 10);
-
-        //SHOP: BUY HOSE BUTTON
-        shopHose = new Sprite(new Texture("images/buttons/hoseIcon.png"));
-        shopHoseButton = new ShopHoseButton(shopHydraButton.getXPos() + tempShopButton.getWidth() + 20 , height / 2);
-        shopHose.setSize(width / 1196 * shopHose.getWidth(), height / 720 * shopHose.getHeight());
-        shopHose.setPosition(shopHoseButton.getXPos() + (shopHydraButton.buttonGetWidth() - shopHydra.getWidth()) / 2, shopHoseButton.getYPos() + shopHydraButton.buttonGetHeight() + 10);
-
-        //SHOP: BUY SALT BUTTON
-        shopSaltButton = new ShopSaltButton(shopHoseButton.getXPos() + tempShopButton.getWidth() + 20, height / 2);
-        shopSalt = new Sprite(new Texture("images/buttons/saltIcon.png"));
-        shopSalt.setSize(width / 1196 * shopSalt.getWidth(), height / 720 * shopSalt.getHeight());
-        shopSalt.setPosition(shopSaltButton.getXPos() + (shopHydraButton.buttonGetWidth() - shopHydra.getWidth()) / 2, shopSaltButton.getYPos() + shopHydraButton.buttonGetHeight() + 10);
 
         //IN-GAME WEAPON BUTTONS
         SaltButton tempSaltButton = new SaltButton(0, 0);
@@ -401,16 +363,12 @@ public class SnailAssalt extends ApplicationAdapter {
         jimmyButton.position.set(jimmyButton.getXPos(), jimmyButton.getYPos());
 
         //SHOP BUTTONS
-        shopHydraButton.position.set(shopHydraButton.getXPos(), shopHydraButton.getYPos());
-        shopSaltButton.position.set(shopSaltButton.getXPos(), shopSaltButton.getYPos());
-        shopHoseButton.position.set(shopHoseButton.getXPos(), shopHoseButton.getYPos());
         shopButtonGameEnd.position.set(shopButtonGameEnd.getXPos(), shopButtonGameEnd.getYPos());
 
         //BACK BUTTONS
         backButtonGameEnd.position.set(backButtonGameEnd.getXPos(), backButtonGameEnd.getYPos());
         backButtonLevelSelect.position.set(backButtonLevelSelect.getXPos(), backButtonLevelSelect.getYPos());
         backButtonCredits.position.set(backButtonCredits.getXPos(), backButtonCredits.getYPos());
-        backButtonShop.position.set(backButtonShop.getXPos(), backButtonShop.getYPos());
         backButtonTutorial.position.set(backButtonTutorial.getXPos(), backButtonTutorial.getYPos());
 
         //SNAIL INFO BUTTONS
@@ -456,7 +414,7 @@ public class SnailAssalt extends ApplicationAdapter {
             if (rachelButton.isPressed()) {
                 buttonstate = 1;
             }
-            if (rachelButton.touchup() &&buttonstate == 1) {
+            if (rachelButton.touchup() && buttonstate == 1) {
                 buttonstate = 0;
                 rachel.enable = true;
                 gameState = GameState.LEVELSELECT;
@@ -470,70 +428,9 @@ public class SnailAssalt extends ApplicationAdapter {
                 gameState = GameState.LEVELSELECT;
             }
         } else if (gameState == GameState.MAINMENU) {
-            if (mainMenuLoader.startButton.touchup()) {
-                mainMenuLoader.startButton.pressedAction();
-            }
-            if (mainMenuLoader.shopButton.touchup()) {
-                mainMenuLoader.shopButton.pressedAction();
-            }
-            if (mainMenuLoader.creditsButton.touchup()) {
-                mainMenuLoader.creditsButton.pressedAction();
-            }
-            if (mainMenuLoader.tutorialButton.touchup()) {
-                mainMenuLoader.tutorialButton.pressedAction();
-            }
-            if (mainMenuLoader.infoButton.touchup()) {
-                mainMenuLoader.infoButton.pressedAction();
-            }
+            mainMenuLoader.update();
         } else if (gameState == GameState.SHOP) {
-
-            if (backButtonShop.touchup()) {
-                gameState = GameState.MAINMENU;
-            }
-
-            //DOUGLAS'S TRIAL STUFF -- LEAVE UNTIL FURTHER NOTICE
-            /*if (backButtonShop.pressable() && backButtonShop.isPressed() && backButtonShop.status == false) {
-                backButtonShop.status = true;
-
-            }
-            if (!backButtonShop.isPressed() && backButtonShop.status == true) {
-                gameState = gameState.MAINMENU;
-                backButtonShop.status = false;
-            }*/
-
-            //BUY HYDRA
-            if (currency > shopHydraButton.price && shopHydraButton.isPressed()) {
-                shopHydraButton.ownd = true;
-                currency -= shopHydraButton.price;
-                preferences.putInteger("hydra", 1);
-                //preferences.flush();
-            }
-            if (preferences.getInteger("hydra", 0) == 1)
-                hydra.enable = true;
-
-            //BUY HOSE
-            if (currency >= shopHoseButton.price && shopHoseButton.isPressed() && !shopHoseButton.ownd) {
-                shopHoseButton.ownd = true;
-                currency -= shopHoseButton.price;
-                preferences.putInteger("hose", 1);
-                //preferences.flush();
-            }
-            if (preferences.getInteger("hose", 0) == 1)
-                hose.enable = true;
-
-            //BUY SALT
-            if (currency > shopSaltButton.price && shopSaltButton.isPressed()) {
-                currency -= shopSaltButton.price;
-                Weapon.saltSupply++;
-                Weapon.currentSalt = Weapon.saltSupply;
-                preferences.putInteger("saltsupply", (int) Weapon.saltSupply);
-                //preferences.flush();
-            }
-            if (preferences.getInteger("salt", 0) == 1) {
-                waterGun.enableSalt = true;
-                hydra.enableSalt = true;
-                hose.enableSalt = true;
-            }
+            shopLoader.update();
         } else if (gameState == GameState.TUTORIAL) {
             if (tutorialState == TutorialState.PAGE9) {
                 if (backButtonTutorial.isPressed()){
@@ -909,11 +806,7 @@ public class SnailAssalt extends ApplicationAdapter {
             font.draw(batch, "Rachel", rachelButton.getXPos() + 20, rachelButton.getYPos());
             batch.end();
         } else if (gameState == GameState.MAINMENU) {
-            batch.begin();
-            menu.draw(batch);
             mainMenuLoader.draw();
-
-            batch.end();
         } else if (gameState == GameState.CREDITS) {
             batch.begin();
             levelSelect.draw(batch);
@@ -943,36 +836,7 @@ public class SnailAssalt extends ApplicationAdapter {
             }
             batch.end();
         } else if (gameState == GameState.SHOP) {
-            batch.begin();
-            shop.draw(batch);
-            shopHydraButton.sprite.draw(batch);
-            shopSaltButton.sprite.draw(batch);
-            shopHoseButton.sprite.draw(batch);
-            if (shopHoseButton.ownd) {
-                shopHoseButton.spriteNope.draw(batch);
-            }
-            if (shopHydraButton.ownd) {
-                shopHydraButton.spriteNope.draw(batch);
-            }
-
-            //ITEM SPRITES
-            shopSalt.draw(batch);
-            shopHydra.draw(batch);
-            shopHose.draw(batch);
-
-            //PRICE TAGS
-            font.draw(batch, "$" + shopHoseButton.price, shopHydraButton.getXPos(), shopHydraButton.getYPos() - 10);
-            font.draw(batch, "$" + shopHoseButton.price, shopHoseButton.getXPos(), shopHoseButton.getYPos() - 10);
-            font.draw(batch, "$" + shopSaltButton.price, shopSaltButton.getXPos(), shopSaltButton.getYPos() - 10);
-
-            //POOR EXCUSE FOR INVENTORY
-            font.draw(batch, " salts: " + (int) Weapon.saltSupply, shopSaltButton.getXPos() + shopSaltButton.sprite.getWidth(), shopSaltButton.getYPos() + shopSaltButton.buttonGetHeight());
-            font.draw(batch, "shells: " + currency, 10, height);
-            backButtonShop.sprite.draw(batch);
-            if (backButtonShop.isPressed()) {
-                backButtonShop.spriteShade.draw(batch);
-            }
-            batch.end();
+            shopLoader.draw();
         } else if (gameState == GameState.TUTORIAL) {
             batch.begin();
             if (tutorialState == TutorialState.PAGE1) {

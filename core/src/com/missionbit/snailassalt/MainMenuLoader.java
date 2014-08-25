@@ -14,6 +14,7 @@ public class MainMenuLoader extends AssetsLoader {
     protected TutorialButton tutorialButton;
     public MainMenuLoader() {
         background = new Sprite(new Texture("images/backgrounds/sidewaysmenu.png"));
+        background.setSize(width, height);
     }
 
     public void create() {
@@ -24,13 +25,26 @@ public class MainMenuLoader extends AssetsLoader {
         shopButton = new ShopButton(startButton.getXPos() + startButton.sprite.getWidth() + 10, startButton.getYPos());
     }
 
+    public void update() {
+        if (startButton.touchup()) {startButton.pressedAction();}
+        if (shopButton.touchup()) {shopButton.pressedAction();}
+        if (creditsButton.touchup()) {creditsButton.pressedAction();}
+        if (tutorialButton.touchup()) {tutorialButton.pressedAction();}
+        if (infoButton.touchup()) {infoButton.pressedAction();}
+    }
+
     public void draw() {
         batch.begin();
+
+        //BUTTONS
+        background.draw(batch);
         startButton.sprite.draw(batch);
         creditsButton.sprite.draw(batch);
         shopButton.sprite.draw(batch);
         infoButton.sprite.draw(batch);
         tutorialButton.sprite.draw(batch);
+
+        //PRESSED BUTTONS
         if (startButton.isPressed()) {
             startButton.spriteShade.draw(batch);
         }
@@ -43,6 +57,7 @@ public class MainMenuLoader extends AssetsLoader {
         if (shopButton.isPressed()) {
             shopButton.spriteShade.draw(batch);
         }
+
         batch.end();
     }
 }
