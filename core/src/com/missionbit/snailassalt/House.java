@@ -38,6 +38,12 @@ public class House {
         healthScale = (hp / maxHP) * 2;
     }
 
+    public void dispose() {
+        houseFull.getTexture().dispose();
+        houseHalf.getTexture().dispose();
+        houseZero.getTexture().dispose();
+    }
+
     public void draw(SpriteBatch batch){
         if (hp >= 2 * maxHP / 3) {houseFull.draw(batch);}
         else if (hp < 2 * maxHP / 3 && hp > maxHP / 3) {houseHalf.draw(batch);}

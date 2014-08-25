@@ -57,6 +57,9 @@ public class SnailAssalt extends ApplicationAdapter {
     private ArrayList<SaltProjectile> shakers; //holds salt shakers thrown
     protected boolean projectileHit;
 
+    //LOADERS
+    private MainMenuLoader mainMenuLoader;
+
     //BUTTONS
     private RachelButton rachelButton; //select rachel to play as
     private JimmyButton jimmyButton; //select jimmy to play as
@@ -224,6 +227,10 @@ public class SnailAssalt extends ApplicationAdapter {
             tutor.setPosition(0, 0);
         }
 
+        //LOADERS
+        mainMenuLoader = new MainMenuLoader();
+        mainMenuLoader.create();
+
         //SNAIL INFO
         snailInfoButtons = new ArrayList<SnailInfoButtons>();
 
@@ -380,11 +387,6 @@ public class SnailAssalt extends ApplicationAdapter {
         Weapon.currentWater = Weapon.waterSupply; //set current water to max water
         Weapon.saltSupply = Weapon.currentSalt; //sets max salt to salt bought; dynamically changes depending on how much used in a level
 
-        //MAIN MENU BUTTONS
-        startButtonMenu.position.set(startButtonMenu.getXPos(), startButtonMenu.getYPos());
-        shopButtonMenu.position.set(shopButtonMenu.getXPos(), shopButtonMenu.getYPos());
-        creditsButton.position.set(creditsButton.getXPos(), creditsButton.getYPos());
-
         //LEVEL SELECT
         for (int a = 0; a < numberOfLevels; a++)
             levelButtons.get(a).position.set(levelButtons.get(a).getXPos(), levelButtons.get(a).getYPos());
@@ -468,20 +470,20 @@ public class SnailAssalt extends ApplicationAdapter {
                 gameState = GameState.LEVELSELECT;
             }
         } else if (gameState == GameState.MAINMENU) {
-            if (startButtonMenu.touchup()) {
-                startButtonMenu.pressedAction();
+            if (mainMenuLoader.startButton.touchup()) {
+                mainMenuLoader.startButton.pressedAction();
             }
-            if (shopButtonMenu.touchup()) {
-                gameState = GameState.SHOP;
+            if (mainMenuLoader.shopButton.touchup()) {
+                mainMenuLoader.shopButton.pressedAction();
             }
-            if (creditsButton.touchup()) {
-                creditsButton.pressedAction();
+            if (mainMenuLoader.creditsButton.touchup()) {
+                mainMenuLoader.creditsButton.pressedAction();
             }
-            if (tutorialButton.touchup()) {
-                tutorialButton.pressedAction();
+            if (mainMenuLoader.tutorialButton.touchup()) {
+                mainMenuLoader.tutorialButton.pressedAction();
             }
-            if (infoButton.touchup()) {
-                infoButton.pressedAction();
+            if (mainMenuLoader.infoButton.touchup()) {
+                mainMenuLoader.infoButton.pressedAction();
             }
         } else if (gameState == GameState.SHOP) {
 
@@ -865,12 +867,10 @@ public class SnailAssalt extends ApplicationAdapter {
             //BUTTONS
             if (backButtonGameEnd.isPressed()) {
                 buttonstate = 1;
-                System.out.println(buttonstate);
             }
             if (backButtonGameEnd.touchup() && buttonstate == 1) {
                 backButtonGameEnd.pressedAction();
                 buttonstate = 0;
-                System.out.println(buttonstate);
             }
             if (shopButtonGameEnd.touchup()) { //go to shop
                 if (gameState == GameState.GAMEOVER)
@@ -911,25 +911,8 @@ public class SnailAssalt extends ApplicationAdapter {
         } else if (gameState == GameState.MAINMENU) {
             batch.begin();
             menu.draw(batch);
-            startButtonMenu.sprite.draw(batch);
-            creditsButton.sprite.draw(batch);
-            shopButtonMenu.sprite.draw(batch);
-            infoButton.sprite.draw(batch);
-            if (startButtonMenu.isPressed()) {
-                startButtonMenu.spriteShade.draw(batch);
-            }
-            if (preferences.getInteger("tutorial", 0) == 2) {
-                tutorialButton.sprite.draw(batch);
-            }
-            if (tutorialButton.isPressed()) {
-                tutorialButton.spriteShade.draw(batch);
-            }
-            if (creditsButton.isPressed()) {
-                creditsButton.spriteShade.draw(batch);
-            }
-            if (shopButtonMenu.isPressed()) {
-                shopButtonMenu.spriteShade.draw(batch);
-            }
+            mainMenuLoader.draw();
+
             batch.end();
         } else if (gameState == GameState.CREDITS) {
             batch.begin();

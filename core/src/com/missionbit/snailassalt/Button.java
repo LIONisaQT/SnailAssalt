@@ -67,6 +67,12 @@ public class Button {
 
     public void pressedAction() {}
 
+    public void dispose() {
+        sprite.getTexture().dispose();
+        spriteNope.getTexture().dispose();
+        spriteShade.getTexture().dispose();
+    }
+
     public void draw(SpriteBatch batch) {
         if (pressable()) {
             batch.draw(this.image, this.position.x, this.position.y);
