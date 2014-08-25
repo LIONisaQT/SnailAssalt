@@ -12,7 +12,7 @@ public class Level {
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
         level = lvl;
-        enemyCount = numberOfEnemies();
+        enemyCount = 0;
         totalEnemies = numberOfEnemies();
         SpawnOffset = height - 200;
     }

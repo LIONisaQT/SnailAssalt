@@ -228,7 +228,7 @@ public class SnailAssalt extends ApplicationAdapter {
         snailInfoButtons = new ArrayList<SnailInfoButtons>();
 
         //WEAPONS
-        Weapon.saltSupply = preferences.getInteger("saltsupply", 0);
+        Weapon.saltSupply = preferences.getInteger("salt", 0);
         waterGun = new Weapon();
         waterGun.enable = true;
         hose = new Hose();
@@ -242,7 +242,7 @@ public class SnailAssalt extends ApplicationAdapter {
             hydra.enable = true;
         if (preferences.getInteger("hose", 0) == 1)
             hose.enable = true;
-        if (preferences.getInteger("salt", 0) == 1) {
+        if (preferences.getInteger("salt", 0) >= 1) {
             waterGun.enableSalt = true;
             hydra.enableSalt = true;
             hose.enableSalt = true;
@@ -500,7 +500,7 @@ public class SnailAssalt extends ApplicationAdapter {
             }*/
 
             //BUY HYDRA
-            if (currency > shopHydraButton.price && shopHydraButton.isPressed()) {
+            if (currency > shopHydraButton.price && shopHydraButton.isPressed()&& !shopHydraButton.ownd ) {
                 shopHydraButton.ownd = true;
                 currency -= shopHydraButton.price;
                 preferences.putInteger("hydra", 1);
@@ -523,8 +523,7 @@ public class SnailAssalt extends ApplicationAdapter {
             if (currency > shopSaltButton.price && shopSaltButton.isPressed()) {
                 currency -= shopSaltButton.price;
                 Weapon.saltSupply++;
-                Weapon.currentSalt = Weapon.saltSupply;
-                preferences.putInteger("saltsupply", (int) Weapon.saltSupply);
+                preferences.putInteger("salt", (int) Weapon.saltSupply);
                 //preferences.flush();
             }
             if (preferences.getInteger("salt", 0) == 1) {
@@ -572,48 +571,14 @@ public class SnailAssalt extends ApplicationAdapter {
                 gameState = GameState.MAINMENU;
                 buttonstate = 0;
             }
-        } else if (gameState == GameState.INFO) {
-            if (backButtonInfoSelection.isPressed()) {
-                backButtonInfoSelection.pressedAction();
-            }
-            else if (backButtonInfoStandard.isPressed()) {
-                backButtonInfoStandard.pressedAction();
-            }
-            else if (backButtonInfoAcid.isPressed()) {
-                backButtonInfoAcid.pressedAction();
-            }
-            else if (backButtonInfoFlying.isPressed()) {
-                backButtonInfoFlying.pressedAction();
-            }
-            else if (backButtonInfoHealing.isPressed()) {
-                backButtonInfoHealing.pressedAction();
-            }
-            else if (backButtonInfoBoss.isPressed()) {
-                backButtonInfoBoss.pressedAction();
-            }
-            else if (backButtonInfoMother.isPressed()) {
-                backButtonInfoMother.pressedAction();
-            }
-            else if (backButtonInfoPerson.isPressed()) {
-                backButtonInfoPerson.pressedAction();
-            }
-            if(nextInfoStandard.isPressed()){
-                nextInfoStandard.pressedAction();
-            }
-            else if(nextInfoAcid.isPressed()){
-                nextInfoAcid.pressedAction();
-            }
-            else if(nextInfoFlying.isPressed()){
-                nextInfoFlying.pressedAction();
-            }
-            else if(nextInfoHealing.isPressed()){
-                nextInfoHealing.pressedAction();
-            }
-            else if(nextInfoBoss.isPressed()){
-                nextInfoBoss.pressedAction();
-            }
-            else if(nextInfoMother.isPressed()){
-                nextInfoMother.pressedAction();
+        } else if (gameState == GameState.INFO) {//TODO
+            if(SnailAssalt.infoState== SnailAssalt.InfoState.STANDARD ||SnailAssalt.infoState== SnailAssalt.InfoState.ACID ||SnailAssalt.infoState== SnailAssalt.InfoState.FLYING ||SnailAssalt.infoState== SnailAssalt.InfoState.HEALING ||SnailAssalt.infoState== SnailAssalt.InfoState.MOTHER ||SnailAssalt.infoState== SnailAssalt.InfoState.PERSON ||SnailAssalt.infoState== SnailAssalt.InfoState.BOSS){
+                if (backButtonInfoPerson.isPressed()){
+                    buttonstate = 1;
+                }
+                if (backButtonInfoPerson.touchup() && buttonstate ==1) {
+                    infoState = InfoState.SELECTION;
+                }
             }
 
             for (int b = 0; b < numberOfTypes; b++) {
@@ -653,7 +618,17 @@ public class SnailAssalt extends ApplicationAdapter {
                         for (int a = 0; a < 1; a++)
                             enemies.add(new Zombie(width / 11, height / 5, 0, 0, 0, 0));
                     }
+
                 }
+                if (infoState == InfoState.SELECTION) {
+                    if (backButtonInfoSelection.isPressed()) {
+                        buttonstate = 1;
+                    }
+                    if (backButtonInfoSelection.touchup() && buttonstate == 1) {
+                        backButtonInfoSelection.pressedAction();
+                    }
+                }
+
             }
         } else if (gameState == GameState.CREDITS) {
             if (Gdx.input.justTouched())
@@ -671,13 +646,17 @@ public class SnailAssalt extends ApplicationAdapter {
 
             //this seems to only run if we have hydra, but not hose?
             if (hydra.enable) {
-                if (hydraButton.isPressed()) {
+                if (hydraButton.isPressed()){
+                    buttonstate = 1;
+                }
+                if (hydraButton.touchup()&& buttonstate == 1) {
                     if (weaponState == WeaponState.REGWEAPON)
                         weaponState = WeaponState.HYDRA;
                     else if (weaponState == WeaponState.HYDRA)
                         weaponState = WeaponState.HOSE;
                     else if (weaponState == WeaponState.HOSE)
                         weaponState = WeaponState.REGWEAPON;
+                    buttonstate= 0;
                 }
             }
 
@@ -1203,11 +1182,12 @@ public class SnailAssalt extends ApplicationAdapter {
             if (!rachel.enable) {
                 batch.draw(jimmy.sprite, width - width / 10, jimmy.bound.y, (width / 1196) * jimmy.sprite.getWidth(), (height / 720) * jimmy.sprite.getHeight());
                 waterGun.sprite.setPosition(jimmy.bound.x, 38f / 260f * (height / 720 * jimmy.sprite.getHeight()) + jimmy.bound.y);
-                hydra.sprite.setPosition(jimmy.bound.x, 38f / 260f * (height / 720 * jimmy.sprite.getHeight()) + jimmy.bound.y);
-            } else if (rachel.enable) { //TODO: wtf fix this
+                hydra.sprite.setPosition(jimmy.bound.x, height/2);
+                hose.sprite.setPosition(jimmy.bound.x,height/2 - (hose.sprite.getHeight() -hydra.sprite.getHeight()/2));
+            } else if (rachel.enable) {
                 batch.draw(rachel.rachel, width - width/10, rachel.bound.y, (width/1196)* rachel.rachel.getWidth(),(height/720)*rachel.rachel.getHeight());
                 waterGun.sprite.setPosition(jimmy.bound.x, 38f/260f * (height/720*jimmy.sprite.getHeight()) +jimmy.bound.y);
-                hydra.sprite.setPosition(jimmy.bound.x, 38f/260f * (height/720*jimmy.sprite.getHeight()) +jimmy.bound.y);
+                hose.sprite.setPosition(jimmy.bound.x,height/2 - (hose.sprite.getHeight() -hydra.sprite.getHeight()/2));
             }
 
             //PROJECTILES

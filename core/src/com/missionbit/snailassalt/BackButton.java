@@ -35,8 +35,6 @@ public class BackButton extends Button {
             } else if (SnailAssalt.infoState==SnailAssalt.InfoState.SELECTION){
                 SnailAssalt.gameState = SnailAssalt.GameState.MAINMENU;
             }
-        } else {
-            SnailAssalt.gameState = SnailAssalt.GameState.MAINMENU;
         }
         SnailAssalt.prevGameState = null; //clear prevGameState
     }
