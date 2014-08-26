@@ -6,20 +6,20 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 /**
  * Created by ryanisaqt on 8/24/14.
  */
-public class ShopLoader extends AssetsLoader {
+public class Shop extends GameStates {
     protected BackButton backButton;
     protected ShopHydraButton shopHydraButton;
     protected ShopSaltButton shopSaltButton;
     protected ShopHoseButton shopHoseButton;
     protected Sprite shopHydra, shopHose, shopSalt;
-    public ShopLoader() {
+    public Shop() {
         background = new Sprite(new Texture("images/backgrounds/levelscreen.png"));
         background.setSize(width, height);
     }
 
     public void create() {
         BackButton tempBackButton = new BackButton(0, 0);
-        backButton = new BackButton(width - tempBackButton.sprite.getWidth(), 10);
+        backButton = new BackButton(width - tempBackButton.buttonGetWidth(), 10);
 
         //SHOP BUTTONS
         Sprite tempShopButton = new Sprite(new Texture("images/buttons/hoseIcon.png"));

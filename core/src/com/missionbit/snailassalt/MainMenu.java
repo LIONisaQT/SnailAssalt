@@ -6,13 +6,13 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 /**
  * Created by ryanisaqt on 8/24/14.
  */
-public class MainMenuLoader extends AssetsLoader {
+public class MainMenu extends GameStates {
     protected StartButton startButton;
     protected CreditsButton creditsButton;
     protected ShopButton shopButton;
     protected InfoButton infoButton;
     protected TutorialButton tutorialButton;
-    public MainMenuLoader() {
+    public MainMenu() {
         background = new Sprite(new Texture("images/backgrounds/sidewaysmenu.png"));
         background.setSize(width, height);
     }
@@ -20,9 +20,9 @@ public class MainMenuLoader extends AssetsLoader {
     public void create() {
         startButton = new StartButton(width / 2 - width / (4.38f), height / 2 - height / (4.5f));
         infoButton = new InfoButton(startButton.getXPos(), startButton.getYPos() - startButton.buttonGetHeight() - 10);
-        creditsButton = new CreditsButton(infoButton.getXPos() + infoButton.sprite.getWidth() + 20, infoButton.getYPos());
-        tutorialButton = new TutorialButton(creditsButton.getXPos() + creditsButton.sprite.getWidth() + 20, creditsButton.getYPos());
-        shopButton = new ShopButton(startButton.getXPos() + startButton.sprite.getWidth() + 10, startButton.getYPos());
+        creditsButton = new CreditsButton(infoButton.getXPos() + infoButton.buttonGetWidth() + 20, infoButton.getYPos());
+        tutorialButton = new TutorialButton(creditsButton.getXPos() + creditsButton.buttonGetWidth() + 20, creditsButton.getYPos());
+        shopButton = new ShopButton(startButton.getXPos() + startButton.buttonGetWidth() + 10, startButton.getYPos());
     }
 
     public void update() {

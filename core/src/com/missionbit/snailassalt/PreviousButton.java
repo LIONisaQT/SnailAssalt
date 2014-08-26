@@ -8,14 +8,14 @@ public class PreviousButton extends Button {
         super(x, y, "images/buttons/previousButton.png", "images/buttons/previousButton.png", "images/buttons/previousButton.png");} //TODO: bw previousButton.png needed
     public void pressedAction(){
         if (SnailAssalt.gameState == SnailAssalt.GameState.TUTORIAL) {
-            if (SnailAssalt.tutorialState == SnailAssalt.TutorialState.PAGE2) {SnailAssalt.tutorialState = SnailAssalt.TutorialState.PAGE1;}
-            else if (SnailAssalt.tutorialState == SnailAssalt.TutorialState.PAGE3) {SnailAssalt.tutorialState = SnailAssalt.TutorialState.PAGE2;}
-            else if (SnailAssalt.tutorialState == SnailAssalt.TutorialState.PAGE4) {SnailAssalt.tutorialState = SnailAssalt.TutorialState.PAGE3;}
-            else if (SnailAssalt.tutorialState == SnailAssalt.TutorialState.PAGE5) {SnailAssalt.tutorialState = SnailAssalt.TutorialState.PAGE4;}
-            else if (SnailAssalt.tutorialState == SnailAssalt.TutorialState.PAGE6) {SnailAssalt.tutorialState = SnailAssalt.TutorialState.PAGE5;}
-            else if (SnailAssalt.tutorialState == SnailAssalt.TutorialState.PAGE7) {SnailAssalt.tutorialState = SnailAssalt.TutorialState.PAGE6;}
-            else if (SnailAssalt.tutorialState == SnailAssalt.TutorialState.PAGE8) {SnailAssalt.tutorialState = SnailAssalt.TutorialState.PAGE7;}
-            else if (SnailAssalt.tutorialState == SnailAssalt.TutorialState.PAGE9) {SnailAssalt.tutorialState = SnailAssalt.TutorialState.PAGE8;}
+            if (Tutorial.tutorialState == Tutorial.TutorialState.PAGE2) {Tutorial.tutorialState = Tutorial.TutorialState.PAGE1;}
+            else if (Tutorial.tutorialState == Tutorial.TutorialState.PAGE3) {Tutorial.tutorialState = Tutorial.TutorialState.PAGE2;}
+            else if (Tutorial.tutorialState == Tutorial.TutorialState.PAGE4) {Tutorial.tutorialState = Tutorial.TutorialState.PAGE3;}
+            else if (Tutorial.tutorialState == Tutorial.TutorialState.PAGE5) {Tutorial.tutorialState = Tutorial.TutorialState.PAGE4;}
+            else if (Tutorial.tutorialState == Tutorial.TutorialState.PAGE6) {Tutorial.tutorialState = Tutorial.TutorialState.PAGE5;}
+            else if (Tutorial.tutorialState == Tutorial.TutorialState.PAGE7) {Tutorial.tutorialState = Tutorial.TutorialState.PAGE6;}
+            else if (Tutorial.tutorialState == Tutorial.TutorialState.PAGE8) {Tutorial.tutorialState = Tutorial.TutorialState.PAGE7;}
+            else if (Tutorial.tutorialState == Tutorial.TutorialState.PAGE9) {Tutorial.tutorialState = Tutorial.TutorialState.PAGE8;}
         }
     }
 }

@@ -42,10 +42,8 @@ public class SnailAssalt extends ApplicationAdapter {
     //SPRITES
     private Sprite
             /* credit pages */ credits, specialThanks, hurshalsface1,
-            /* tutorial pages */ tutor1, tutor2, tutor3, tutor4, tutor5, tutor6, tutor7, tutor8, tutor9,
             /* backgrounds */ gameover, win, levelSelect, laun, info,
             /* UI */ hpBar, waterBar, saltBar, progBarSnail, sign;
-    protected ArrayList<Sprite> tutorials;
 
     //WEAPONS
     protected static Weapon waterGun; //default watergun
@@ -57,20 +55,20 @@ public class SnailAssalt extends ApplicationAdapter {
     protected boolean projectileHit;
 
     //LOADERS
-    private MainMenuLoader mainMenuLoader;
-    private ShopLoader shopLoader;
+    private static MainMenu mainMenu;
+    private static Shop shop;
+    private static Tutorial tutorial;
 
     //BUTTONS
     private RachelButton rachelButton; //select rachel to play as
     private JimmyButton jimmyButton; //select jimmy to play as
 
     private ShopButton shopButtonGameEnd;
-    private NextButton nextTutorial, nextInfoStandard, nextInfoAcid, nextInfoFlying, nextInfoHealing, nextInfoBoss, nextInfoMother;
+    private NextButton nextInfoStandard, nextInfoAcid, nextInfoFlying, nextInfoHealing, nextInfoBoss, nextInfoMother;
     private QuitButton quitButton;
     private RedoButton redoLevelButton;
     private NextLevelButton nextLevelButton;
-    private PreviousButton previousButtonTutorial;
-    private BackButton backButtonShop, backButtonGameEnd, backButtonLevelSelect, backButtonCredits, backButtonTutorial, backButtonInfoSelection,
+    private BackButton backButtonGameEnd, backButtonLevelSelect, backButtonCredits, backButtonInfoSelection,
             /* snail info back buttons */ backButtonInfoStandard, backButtonInfoAcid, backButtonInfoFlying, backButtonInfoHealing, backButtonInfoBoss, backButtonInfoMother,backButtonInfoPerson;
 
     //WEAPON BUTTONS
@@ -95,8 +93,6 @@ public class SnailAssalt extends ApplicationAdapter {
     //ENUMS AND STATES
     protected static enum GameState {CHARACTERSELECT, MAINMENU, TUTORIAL, INGAME, GAMEOVER, WIN, SHOP, LEVELSELECT, CREDITS, CREDITS_HURSHAL, INFO}
     protected static GameState gameState, prevGameState;
-    protected static enum TutorialState {PAGE1, PAGE2, PAGE3, PAGE4, PAGE5, PAGE6, PAGE7, PAGE8, PAGE9}
-    protected static TutorialState tutorialState;
     protected static enum InfoState {SELECTION, STANDARD, ACID, FLYING, HEALING, BOSS, MOTHER, PERSON}
     protected static InfoState infoState;
     protected static enum WeaponState {REGWEAPON, HYDRA, HOSE}
@@ -189,36 +185,13 @@ public class SnailAssalt extends ApplicationAdapter {
         specialThanks.setSize(width / 1196 * specialThanks.getWidth(), height / 720 * specialThanks.getHeight());
         specialThanks.setPosition(width / 2 - specialThanks.getWidth()/2, height / 2 - 100);
 
-        //TUTORIALS
-        tutorials = new ArrayList<Sprite>();
-        tutor1 = new Sprite(new Texture("images/tutorials/tutorial1.jpeg"));
-        tutorials.add(tutor1);
-        tutor2 = new Sprite(new Texture("images/tutorials/tutorial2.jpeg"));
-        tutorials.add(tutor2);
-        tutor3 = new Sprite(new Texture("images/tutorials/tutorial3.jpeg"));
-        tutorials.add(tutor3);
-        tutor4 = new Sprite(new Texture("images/tutorials/tutorial4.jpeg"));
-        tutorials.add(tutor4);
-        tutor5 = new Sprite(new Texture("images/tutorials/tutorial5.jpeg"));
-        tutorials.add(tutor5);
-        tutor6 = new Sprite(new Texture("images/tutorials/tutorial6.jpeg"));
-        tutorials.add(tutor6);
-        tutor7 = new Sprite(new Texture("images/tutorials/tutorial7.jpeg"));
-        tutorials.add(tutor7);
-        tutor8 = new Sprite(new Texture("images/tutorials/tutorial8.jpeg"));
-        tutorials.add(tutor8);
-        tutor9 = new Sprite(new Texture("images/tutorials/tutorial9.jpeg"));
-        tutorials.add(tutor9);
-        for (Sprite tutor : tutorials) {
-            tutor.setSize(width, height);
-            tutor.setPosition(0, 0);
-        }
-
         //LOADERS
-        mainMenuLoader = new MainMenuLoader();
-        mainMenuLoader.create();
-        shopLoader = new ShopLoader();
-        shopLoader.create();
+        mainMenu = new MainMenu();
+        mainMenu.create();
+        shop = new Shop();
+        shop.create();
+        tutorial = new Tutorial();
+        tutorial.create();
 
         //SNAIL INFO
         snailInfoButtons = new ArrayList<SnailInfoButtons>();
@@ -254,12 +227,7 @@ public class SnailAssalt extends ApplicationAdapter {
         backButtonGameEnd = new BackButton(0, 0);
 
         backButtonLevelSelect = new BackButton(width - backButtonGameEnd.sprite.getWidth(), 10);
-        backButtonTutorial = new BackButton(width - backButtonGameEnd.sprite.getWidth(), height - shopLoader.backButton.buttonGetHeight());
-        backButtonCredits = new BackButton(width - backButtonGameEnd.sprite.getWidth(), height - shopLoader.backButton.buttonGetHeight());
-
-        //START MENU BUTTONS
-        nextTutorial = new NextButton(width - backButtonGameEnd.sprite.getWidth(), height - shopLoader.backButton.buttonGetHeight());
-        previousButtonTutorial = new PreviousButton(20, height - shopLoader.backButton.buttonGetHeight());
+        backButtonCredits = new BackButton(width - backButtonGameEnd.sprite.getWidth(), height - shop.backButton.buttonGetHeight());
 
         //JIMMY AND RACHEL BUTTONS
         rachelButton = new RachelButton(width / 2 + 100 , 50);
@@ -272,25 +240,25 @@ public class SnailAssalt extends ApplicationAdapter {
         quitButton = new QuitButton(0, height - tempQuitButton.sprite.getHeight());
         nextLevelButton = new NextLevelButton(width - width / (6.39f), 0);
         redoLevelButton = new RedoButton(width / 2 - width / 6, height / 2 - width / 6);
-        redoLevelButton.sprite.setSize(redoLevelButton.sprite.getWidth() + redoLevelButton.sprite.getWidth() / 8 , mainMenuLoader.startButton.buttonGetHeight());
-        redoLevelButton.spriteNope.setSize(redoLevelButton.sprite.getWidth()+ redoLevelButton.sprite.getWidth() / 8 , mainMenuLoader.startButton.buttonGetHeight());
+        redoLevelButton.sprite.setSize(redoLevelButton.sprite.getWidth() + redoLevelButton.sprite.getWidth() / 8, mainMenu.startButton.buttonGetHeight());
+        redoLevelButton.spriteNope.setSize(redoLevelButton.sprite.getWidth()+ redoLevelButton.sprite.getWidth() / 8 , mainMenu.startButton.buttonGetHeight());
         shopButtonGameEnd = new ShopButton(redoLevelButton.getXPos() + redoLevelButton.sprite.getWidth() + width / 36, redoLevelButton.getYPos());
 
         //SNAIL INFO BUTTONS
-        backButtonInfoSelection = new BackButton(0, height - nextTutorial.sprite.getHeight());
-        backButtonInfoStandard = new BackButton (0, height - nextTutorial.sprite.getHeight());
-        nextInfoStandard = new NextButton(width - backButtonGameEnd.sprite.getWidth(),height - nextTutorial.sprite.getHeight());
-        backButtonInfoAcid = new BackButton(0, height - nextTutorial.sprite.getHeight());
-        nextInfoAcid = new NextButton(width - backButtonGameEnd.sprite.getWidth(), height - nextTutorial.sprite.getHeight());
-        backButtonInfoFlying = new BackButton(0, height - nextTutorial.sprite.getHeight());
-        nextInfoFlying = new NextButton(width - backButtonGameEnd.sprite.getWidth(), height - nextTutorial.sprite.getHeight());
-        backButtonInfoHealing = new BackButton(0, height - nextTutorial.sprite.getHeight());
-        nextInfoHealing = new NextButton(width - backButtonGameEnd.sprite.getWidth(), height - nextTutorial.sprite.getHeight());
-        backButtonInfoBoss = new BackButton (0, height - nextTutorial.sprite.getHeight());
-        nextInfoBoss = new NextButton(width - backButtonGameEnd.sprite.getWidth(), height - nextTutorial.sprite.getHeight());
-        backButtonInfoMother = new BackButton(0, height - nextTutorial.sprite.getHeight());
-        nextInfoMother = new NextButton(width - backButtonGameEnd.sprite.getWidth(), height - nextTutorial.sprite.getHeight());
-        backButtonInfoPerson = new BackButton(0, height - nextTutorial.sprite.getHeight());
+        backButtonInfoSelection = new BackButton(0, height - tempQuitButton.buttonGetHeight());
+        backButtonInfoStandard = new BackButton (0, height - tempQuitButton.buttonGetHeight());
+        nextInfoStandard = new NextButton(width - backButtonGameEnd.sprite.getWidth(),height - tutorial.nextButton.sprite.getHeight());
+        backButtonInfoAcid = new BackButton(0, height - tutorial.nextButton.sprite.getHeight());
+        nextInfoAcid = new NextButton(width - backButtonGameEnd.sprite.getWidth(), height - tutorial.nextButton.sprite.getHeight());
+        backButtonInfoFlying = new BackButton(0, height - tutorial.nextButton.sprite.getHeight());
+        nextInfoFlying = new NextButton(width - backButtonGameEnd.sprite.getWidth(), height - tutorial.nextButton.sprite.getHeight());
+        backButtonInfoHealing = new BackButton(0, height - tutorial.nextButton.sprite.getHeight());
+        nextInfoHealing = new NextButton(width - backButtonGameEnd.sprite.getWidth(), height - tutorial.nextButton.sprite.getHeight());
+        backButtonInfoBoss = new BackButton (0, height - tutorial.nextButton.sprite.getHeight());
+        nextInfoBoss = new NextButton(width - backButtonGameEnd.sprite.getWidth(), height - tutorial.nextButton.sprite.getHeight());
+        backButtonInfoMother = new BackButton(0, height - tutorial.nextButton.sprite.getHeight());
+        nextInfoMother = new NextButton(width - backButtonGameEnd.sprite.getWidth(), height - tutorial.nextButton.sprite.getHeight());
+        backButtonInfoPerson = new BackButton(0, height - tutorial.nextButton.sprite.getHeight());
 
         //IN-GAME WEAPON BUTTONS
         SaltButton tempSaltButton = new SaltButton(0, 0);
@@ -339,7 +307,6 @@ public class SnailAssalt extends ApplicationAdapter {
     public void resetGame() {
         camera.position.set(width / 2, height / 2, 0);
         gameState = GameState.MAINMENU; //set game state
-        tutorialState = TutorialState.PAGE1; //set tutorial page
         infoState = InfoState.SELECTION; //set snail info page
         prevGameState = null; //set previous game state
         weaponState = WeaponState.REGWEAPON; //set first weapon
@@ -369,7 +336,6 @@ public class SnailAssalt extends ApplicationAdapter {
         backButtonGameEnd.position.set(backButtonGameEnd.getXPos(), backButtonGameEnd.getYPos());
         backButtonLevelSelect.position.set(backButtonLevelSelect.getXPos(), backButtonLevelSelect.getYPos());
         backButtonCredits.position.set(backButtonCredits.getXPos(), backButtonCredits.getYPos());
-        backButtonTutorial.position.set(backButtonTutorial.getXPos(), backButtonTutorial.getYPos());
 
         //SNAIL INFO BUTTONS
         for (int b = 0; b < numberOfTypes; b++)
@@ -388,10 +354,6 @@ public class SnailAssalt extends ApplicationAdapter {
         backButtonInfoMother.position.set(backButtonInfoMother.getXPos(), backButtonInfoMother.getYPos());
         nextInfoMother.position.set(nextInfoMother.getXPos(),nextInfoMother.getYPos());
         backButtonInfoPerson.position.set(backButtonInfoPerson.getXPos(), backButtonInfoPerson.getYPos());
-
-        //TUTORIAL BUTTONS
-        previousButtonTutorial.position.set(previousButtonTutorial.getXPos(), previousButtonTutorial.getYPos());
-        nextTutorial.position.set(nextTutorial.getXPos(), nextTutorial.getYPos());
 
         //IN-GAME / GAME OVER / WIN
         quitButton.position.set(quitButton.getXPos(), quitButton.getYPos());
@@ -428,32 +390,11 @@ public class SnailAssalt extends ApplicationAdapter {
                 gameState = GameState.LEVELSELECT;
             }
         } else if (gameState == GameState.MAINMENU) {
-            mainMenuLoader.update();
+            mainMenu.update();
         } else if (gameState == GameState.SHOP) {
-            shopLoader.update();
+            shop.update();
         } else if (gameState == GameState.TUTORIAL) {
-            if (tutorialState == TutorialState.PAGE9) {
-                if (backButtonTutorial.isPressed()){
-                    buttonstate = 1;
-                }
-                if (backButtonTutorial.touchup() && buttonstate == 1 ) {
-                    backButtonTutorial.pressedAction();
-                }
-            }
-            if (nextTutorial.isPressed()) {
-                buttonstate = 1;
-            }
-            if (nextTutorial.touchup() && buttonstate == 1) {
-                nextTutorial.pressedAction();
-                buttonstate = 0;
-            }
-            if (previousButtonTutorial.isPressed()) {
-                buttonstate = 1;
-            }
-            if (previousButtonTutorial.touchup() && buttonstate == 1) {
-                previousButtonTutorial.pressedAction();
-                buttonstate = 0;
-            }
+            tutorial.update();
         } else if (gameState == GameState.LEVELSELECT) {
             for (int a = 0; a < numberOfLevels; a++) {
                 if (levelButtons.get(a).isPressed()) {
@@ -806,7 +747,7 @@ public class SnailAssalt extends ApplicationAdapter {
             font.draw(batch, "Rachel", rachelButton.getXPos() + 20, rachelButton.getYPos());
             batch.end();
         } else if (gameState == GameState.MAINMENU) {
-            mainMenuLoader.draw();
+            mainMenu.draw();
         } else if (gameState == GameState.CREDITS) {
             batch.begin();
             levelSelect.draw(batch);
@@ -836,97 +777,9 @@ public class SnailAssalt extends ApplicationAdapter {
             }
             batch.end();
         } else if (gameState == GameState.SHOP) {
-            shopLoader.draw();
+            shop.draw();
         } else if (gameState == GameState.TUTORIAL) {
-            batch.begin();
-            if (tutorialState == TutorialState.PAGE1) {
-                tutor1.draw(batch);
-                nextTutorial.sprite.draw(batch);
-                if (nextTutorial.isPressed()) {
-                    nextTutorial.spriteShade.draw(batch);
-                }
-            } else if (tutorialState == TutorialState.PAGE2) {
-                tutor2.draw(batch);
-                nextTutorial.sprite.draw(batch);
-                if (nextTutorial.isPressed()) {
-                    nextTutorial.spriteShade.draw(batch);
-                }
-                previousButtonTutorial.sprite.draw(batch);
-                if(previousButtonTutorial.isPressed()){
-                    previousButtonTutorial.spriteShade.draw(batch);
-                }
-            } else if (tutorialState == TutorialState.PAGE3) {
-                tutor3.draw(batch);
-                nextTutorial.sprite.draw(batch);
-                if (nextTutorial.isPressed()) {
-                    nextTutorial.spriteShade.draw(batch);
-                }
-                previousButtonTutorial.sprite.draw(batch);
-                if(previousButtonTutorial.isPressed()){
-                    previousButtonTutorial.spriteShade.draw(batch);
-                }
-            } else if (tutorialState == TutorialState.PAGE4) {
-                tutor4.draw(batch);
-                nextTutorial.sprite.draw(batch);
-                if (nextTutorial.isPressed()) {
-                    nextTutorial.spriteShade.draw(batch);
-                }
-                previousButtonTutorial.sprite.draw(batch);
-                if(previousButtonTutorial.isPressed()){
-                    previousButtonTutorial.spriteShade.draw(batch);
-                }
-            } else if (tutorialState == TutorialState.PAGE5) {
-                tutor5.draw(batch);
-                nextTutorial.sprite.draw(batch);
-                if (nextTutorial.isPressed()) {
-                    nextTutorial.spriteShade.draw(batch);
-                }
-                previousButtonTutorial.sprite.draw(batch);
-                if(previousButtonTutorial.isPressed()){
-                    previousButtonTutorial.spriteShade.draw(batch);
-                }
-            } else if (tutorialState == TutorialState.PAGE6) {
-                tutor6.draw(batch);
-                nextTutorial.sprite.draw(batch);
-                if (nextTutorial.isPressed()) {
-                    nextTutorial.spriteShade.draw(batch);
-                }
-                previousButtonTutorial.sprite.draw(batch);
-                if(previousButtonTutorial.isPressed()){
-                    previousButtonTutorial.spriteShade.draw(batch);
-                }
-            } else if (tutorialState == TutorialState.PAGE7) {
-                tutor7.draw(batch);
-                nextTutorial.sprite.draw(batch);
-                if (nextTutorial.isPressed()) {
-                    nextTutorial.spriteShade.draw(batch);
-                }
-                previousButtonTutorial.sprite.draw(batch);
-                if(previousButtonTutorial.isPressed()){
-                    previousButtonTutorial.spriteShade.draw(batch);
-                }
-            } else if (tutorialState == TutorialState.PAGE8) {
-                tutor8.draw(batch);
-                nextTutorial.sprite.draw(batch);
-                if (nextTutorial.isPressed()) {
-                    nextTutorial.spriteShade.draw(batch);
-                }
-                previousButtonTutorial.sprite.draw(batch);
-                if(previousButtonTutorial.isPressed()){
-                    previousButtonTutorial.spriteShade.draw(batch);
-                }
-            } else if (tutorialState == TutorialState.PAGE9) {
-                tutor9.draw(batch);
-                nextTutorial.sprite.draw(batch);
-                if (nextTutorial.isPressed()) {
-                    nextTutorial.spriteShade.draw(batch);
-                }
-                previousButtonTutorial.sprite.draw(batch);
-                if (previousButtonTutorial.isPressed()) {
-                    previousButtonTutorial.spriteShade.draw(batch);
-                }
-            }
-            batch.end();
+            tutorial.draw();
         } else if (gameState == GameState.INFO) {
             batch.begin();
             font.setScale((float) ((width / 1196) * (1.4)));

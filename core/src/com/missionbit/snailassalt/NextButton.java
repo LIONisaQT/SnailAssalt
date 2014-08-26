@@ -10,15 +10,29 @@ public class NextButton extends Button {
 
     public void pressedAction() {
         if (SnailAssalt.gameState == SnailAssalt.GameState.TUTORIAL) {
-            if (SnailAssalt.tutorialState == SnailAssalt.TutorialState.PAGE1) {SnailAssalt.tutorialState = SnailAssalt.TutorialState.PAGE2;}
-            else if (SnailAssalt.tutorialState == SnailAssalt.TutorialState.PAGE2) {SnailAssalt.tutorialState = SnailAssalt.TutorialState.PAGE3;}
-            else if (SnailAssalt.tutorialState == SnailAssalt.TutorialState.PAGE3) {SnailAssalt.tutorialState = SnailAssalt.TutorialState.PAGE4;}
-            else if (SnailAssalt.tutorialState == SnailAssalt.TutorialState.PAGE4) {SnailAssalt.tutorialState = SnailAssalt.TutorialState.PAGE5;}
-            else if (SnailAssalt.tutorialState == SnailAssalt.TutorialState.PAGE5) {SnailAssalt.tutorialState = SnailAssalt.TutorialState.PAGE6;}
-            else if (SnailAssalt.tutorialState == SnailAssalt.TutorialState.PAGE6) {SnailAssalt.tutorialState = SnailAssalt.TutorialState.PAGE7;}
-            else if (SnailAssalt.tutorialState == SnailAssalt.TutorialState.PAGE7) {SnailAssalt.tutorialState = SnailAssalt.TutorialState.PAGE8;}
-            else if (SnailAssalt.tutorialState == SnailAssalt.TutorialState.PAGE8) {SnailAssalt.tutorialState = SnailAssalt.TutorialState.PAGE9;}
-            else {SnailAssalt.gameState = SnailAssalt.GameState.MAINMENU;}
+            if (Tutorial.tutorialState == Tutorial.TutorialState.PAGE1) {Tutorial.tutorialState = Tutorial.TutorialState.PAGE2;}
+            else if (Tutorial.tutorialState == Tutorial.TutorialState.PAGE2) {Tutorial.tutorialState = Tutorial.TutorialState.PAGE3;}
+            else if (Tutorial.tutorialState == Tutorial.TutorialState.PAGE3) {Tutorial.tutorialState = Tutorial.TutorialState.PAGE4;}
+            else if (Tutorial.tutorialState == Tutorial.TutorialState.PAGE4) {Tutorial.tutorialState = Tutorial.TutorialState.PAGE5;}
+            else if (Tutorial.tutorialState == Tutorial.TutorialState.PAGE5) {Tutorial.tutorialState = Tutorial.TutorialState.PAGE6;}
+            else if (Tutorial.tutorialState == Tutorial.TutorialState.PAGE6) {Tutorial.tutorialState = Tutorial.TutorialState.PAGE7;}
+            else if (Tutorial.tutorialState == Tutorial.TutorialState.PAGE7) {Tutorial.tutorialState = Tutorial.TutorialState.PAGE8;}
+            else if (Tutorial.tutorialState == Tutorial.TutorialState.PAGE8) {Tutorial.tutorialState = Tutorial.TutorialState.PAGE9;}
+            else {
+                if (SnailAssalt.preferences.getInteger("tutorial", 0) == 0) {
+                    SnailAssalt.preferences.putInteger("tutorial", 1);
+                }
+                if (SnailAssalt.preferences.getInteger("tutorial", 0) == 2) {
+                    SnailAssalt.gameState = SnailAssalt.GameState.MAINMENU;
+                }
+                Tutorial.tutorialState = Tutorial.TutorialState.PAGE1;
+                if (SnailAssalt.preferences.getInteger("tutorial", 0) == 1) {
+                    SnailAssalt.gameState = SnailAssalt.GameState.CHARACTERSELECT;
+                    if (SnailAssalt.gameState == SnailAssalt.GameState.CHARACTERSELECT) {
+                        SnailAssalt.preferences.putInteger("tutorial", 2);
+                    }
+                }
+            }
         }
         if (SnailAssalt.gameState == SnailAssalt.GameState.INFO) {
             if (SnailAssalt.infoState == SnailAssalt.InfoState.STANDARD) {

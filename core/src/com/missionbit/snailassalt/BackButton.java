@@ -13,23 +13,7 @@ public class BackButton extends Button {
             SnailAssalt.gameState = SnailAssalt.prevGameState;
         } else if (SnailAssalt.gameState == SnailAssalt.GameState.WIN || SnailAssalt.gameState == SnailAssalt.GameState.GAMEOVER) {
             SnailAssalt.gameState = SnailAssalt.GameState.LEVELSELECT;
-        } else if (SnailAssalt.gameState == SnailAssalt.GameState.TUTORIAL) {
-            if (SnailAssalt.tutorialState == SnailAssalt.TutorialState.PAGE9) {
-                if (SnailAssalt.preferences.getInteger("tutorial", 0) == 0) {
-                    SnailAssalt.preferences.putInteger("tutorial", 1);
-                }
-                if (SnailAssalt.preferences.getInteger("tutorial", 0) == 2) {
-                    SnailAssalt.gameState = SnailAssalt.GameState.MAINMENU;
-                }
-                SnailAssalt.tutorialState = SnailAssalt.TutorialState.PAGE1;
-                if (SnailAssalt.preferences.getInteger("tutorial", 0) == 1) {
-                    SnailAssalt.gameState = SnailAssalt.GameState.CHARACTERSELECT;
-                    if (SnailAssalt.gameState == SnailAssalt.GameState.CHARACTERSELECT) {
-                        SnailAssalt.preferences.putInteger("tutorial", 2);
-                    }
-                }
-            }
-        } else if (SnailAssalt.gameState == SnailAssalt.GameState.INFO){
+        }  else if (SnailAssalt.gameState == SnailAssalt.GameState.INFO){
             if(SnailAssalt.infoState== SnailAssalt.InfoState.STANDARD ||SnailAssalt.infoState== SnailAssalt.InfoState.ACID ||SnailAssalt.infoState== SnailAssalt.InfoState.FLYING ||SnailAssalt.infoState== SnailAssalt.InfoState.HEALING ||SnailAssalt.infoState== SnailAssalt.InfoState.MOTHER ||SnailAssalt.infoState== SnailAssalt.InfoState.PERSON ||SnailAssalt.infoState== SnailAssalt.InfoState.BOSS){
                 SnailAssalt.infoState= SnailAssalt.InfoState.SELECTION;
             } else if (SnailAssalt.infoState==SnailAssalt.InfoState.SELECTION){

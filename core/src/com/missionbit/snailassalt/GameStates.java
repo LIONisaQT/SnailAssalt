@@ -8,11 +8,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 /**
  * Created by ryanisaqt on 8/24/14.
  */
-public abstract class AssetsLoader {
+public abstract class GameStates {
     protected float width, height;
     protected SpriteBatch batch;
     protected Sprite background;
-    public AssetsLoader() {
+    public GameStates() {
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
         batch = new SpriteBatch();
