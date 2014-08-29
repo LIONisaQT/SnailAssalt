@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class Tutorial extends GameStates {
     protected ArrayList<Sprite> tutorials;
-    private int buttonstate = 0; //this may be able to be moved
+    private int buttonstate;
 
     protected NextButton nextButton;
     protected PreviousButton previousButton;
@@ -18,7 +18,9 @@ public class Tutorial extends GameStates {
 
     protected static enum TutorialState {PAGE1, PAGE2, PAGE3, PAGE4, PAGE5, PAGE6, PAGE7, PAGE8, PAGE9}
     protected static TutorialState tutorialState;
-    public Tutorial() {/*no background trololololol*/}
+    public Tutorial(SnailAssalt game) {
+        super(game);
+    }
 
     public void create() {
         tutorialState = TutorialState.PAGE1;
@@ -38,13 +40,13 @@ public class Tutorial extends GameStates {
         }
 
         BackButton tempBackButton = new BackButton(0, 0);
-        backButton = new BackButton(0, height - tempBackButton.buttonGetHeight());
+        backButton = new BackButton(0, height - tempBackButton.getHeight());
 
         NextButton tempNextButton = new NextButton(0, 0);
-        nextButton = new NextButton(width - tempNextButton.buttonGetWidth(), height - tempNextButton.buttonGetHeight());
+        nextButton = new NextButton(width - tempNextButton.getWidth(), height - tempNextButton.getHeight());
 
         PreviousButton tempPreviousButton = new PreviousButton(0, 0);
-        previousButton = new PreviousButton(0, height - tempPreviousButton.buttonGetHeight());
+        previousButton = new PreviousButton(0, height - tempPreviousButton.getHeight());
     }
 
     public void update() {

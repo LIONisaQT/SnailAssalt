@@ -35,30 +35,30 @@ public class NextButton extends Button {
             }
         }
         if (SnailAssalt.gameState == SnailAssalt.GameState.INFO) {
-            if (SnailAssalt.infoState == SnailAssalt.InfoState.STANDARD) {
-                SnailAssalt.infoState = SnailAssalt.InfoState.ACID;
-                SnailAssalt.enemies.clear();
-                SnailAssalt.enemies.add(new AcidSnail(width / 11, height / 5, 0, 0, 0, 0));
-            } else if (SnailAssalt.infoState == SnailAssalt.InfoState.ACID) {
-                SnailAssalt.infoState = SnailAssalt.InfoState.FLYING;
-                SnailAssalt.enemies.clear();
-                SnailAssalt.enemies.add(new FlyingSnail(width / 11, height / 5, 0, 0, 0, 0));
-            } else if (SnailAssalt.infoState == SnailAssalt.InfoState.FLYING) {
-                SnailAssalt.infoState = SnailAssalt.InfoState.HEALING;
-                SnailAssalt.enemies.clear();
-                SnailAssalt.enemies.add(new HealerSnail(width / 11, height / 5, 0, 0, 0, 0));
-            } else if (SnailAssalt.infoState == SnailAssalt.InfoState.HEALING) {
-                SnailAssalt.infoState = SnailAssalt.InfoState.BOSS;
-                SnailAssalt.enemies.clear();
-                SnailAssalt.enemies.add(new BossSnail(width / 11, height / 5, 0, 0, 0, 0));
-            } else if (SnailAssalt.infoState == SnailAssalt.InfoState.BOSS) {
-                SnailAssalt.infoState = SnailAssalt.InfoState.MOTHER;
-                SnailAssalt.enemies.clear();
-                SnailAssalt.enemies.add(new MotherSnail(width / 11, height / 5, 0, 0, 0, 0));
-            } else if (SnailAssalt.infoState == SnailAssalt.InfoState.MOTHER) {
-                SnailAssalt.infoState = SnailAssalt.InfoState.PERSON;
-                SnailAssalt.enemies.clear();
-                SnailAssalt.enemies.add(new Zombie(width / 11, height / 5, 0, 0, 0, 0));
+            if (SnailInfo.infoState == SnailInfo.InfoState.STANDARD) {
+                SnailInfo.infoState = SnailInfo.InfoState.ACID;
+                SnailInfo.enemies.clear();
+                SnailInfo.enemies.add(new AcidSnail(width / 11, height / 5, 0, 0, 0, 0));
+            } else if (SnailInfo.infoState == SnailInfo.InfoState.ACID) {
+                SnailInfo.infoState = SnailInfo.InfoState.FLYING;
+                SnailInfo.enemies.clear();
+                SnailInfo.enemies.add(new FlyingSnail(width / 11, height / 5, 0, 0, 0, 0));
+            } else if (SnailInfo.infoState == SnailInfo.InfoState.FLYING) {
+                SnailInfo.infoState = SnailInfo.InfoState.HEALING;
+                SnailInfo.enemies.clear();
+                SnailInfo.enemies.add(new HealerSnail(width / 11, height / 5, 0, 0, 0, 0));
+            } else if (SnailInfo.infoState == SnailInfo.InfoState.HEALING) {
+                SnailInfo.infoState = SnailInfo.InfoState.BOSS;
+                SnailInfo.enemies.clear();
+                SnailInfo.enemies.add(new BossSnail(width / 11, height / 5, 0, 0, 0, 0));
+            } else if (SnailInfo.infoState == SnailInfo.InfoState.BOSS) {
+                SnailInfo.infoState = SnailInfo.InfoState.MOTHER;
+                SnailInfo.enemies.clear();
+                SnailInfo.enemies.add(new MotherSnail(width / 11, height / 5, 0, 0, 0, 0));
+            } else if (SnailInfo.infoState == SnailInfo.InfoState.MOTHER) {
+                SnailInfo.infoState = SnailInfo.InfoState.PERSON;
+                SnailInfo.enemies.clear();
+                SnailInfo.enemies.add(new Zombie(width / 11, height / 5, 0, 0, 0, 0));
             }
         }
     }

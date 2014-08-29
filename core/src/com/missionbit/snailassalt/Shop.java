@@ -12,14 +12,15 @@ public class Shop extends GameStates {
     protected ShopSaltButton shopSaltButton;
     protected ShopHoseButton shopHoseButton;
     protected Sprite shopHydra, shopHose, shopSalt;
-    public Shop() {
+    public Shop(SnailAssalt game) {
+        super(game);
         background = new Sprite(new Texture("images/backgrounds/levelscreen.png"));
         background.setSize(width, height);
     }
 
     public void create() {
         BackButton tempBackButton = new BackButton(0, 0);
-        backButton = new BackButton(width - tempBackButton.buttonGetWidth(), 10);
+        backButton = new BackButton(width - tempBackButton.getWidth(), 10);
 
         //SHOP BUTTONS
         Sprite tempShopButton = new Sprite(new Texture("images/buttons/hoseIcon.png"));

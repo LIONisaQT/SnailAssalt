@@ -14,10 +14,11 @@ public class BackButton extends Button {
         } else if (SnailAssalt.gameState == SnailAssalt.GameState.WIN || SnailAssalt.gameState == SnailAssalt.GameState.GAMEOVER) {
             SnailAssalt.gameState = SnailAssalt.GameState.LEVELSELECT;
         }  else if (SnailAssalt.gameState == SnailAssalt.GameState.INFO){
-            if(SnailAssalt.infoState== SnailAssalt.InfoState.STANDARD ||SnailAssalt.infoState== SnailAssalt.InfoState.ACID ||SnailAssalt.infoState== SnailAssalt.InfoState.FLYING ||SnailAssalt.infoState== SnailAssalt.InfoState.HEALING ||SnailAssalt.infoState== SnailAssalt.InfoState.MOTHER ||SnailAssalt.infoState== SnailAssalt.InfoState.PERSON ||SnailAssalt.infoState== SnailAssalt.InfoState.BOSS){
-                SnailAssalt.infoState= SnailAssalt.InfoState.SELECTION;
-            } else if (SnailAssalt.infoState==SnailAssalt.InfoState.SELECTION){
+            if (SnailInfo.infoState == SnailInfo.InfoState.SELECTION) {
                 SnailAssalt.gameState = SnailAssalt.GameState.MAINMENU;
+            }
+            else {
+                SnailInfo.infoState = SnailInfo.InfoState.SELECTION;
             }
         } else {
             SnailAssalt.gameState = SnailAssalt.GameState.MAINMENU;

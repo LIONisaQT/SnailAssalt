@@ -2,7 +2,6 @@ package com.missionbit.snailassalt;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 /**
@@ -38,18 +37,18 @@ public class Button {
         spriteNope.setSize((width / 1196) * image.getWidth(), (height / 720) * image.getHeight());
         spriteShade.setPosition(getXPos(), getYPos());
         spriteShade.setSize((width / 1196) * spriteShade.getWidth(), (height / 720) * spriteShade.getHeight());
-        //sprite.setBounds(getXPos(),getYPos(),this.buttonGetWidth(),this.buttonGetHeight());
+        //sprite.setBounds(getXPos(),getYPos(),this.getWidth(),this.getHeight());
         bound = new Rectangle();
-        bound.set(getXPos(), getYPos(), this.buttonGetWidth(), this.buttonGetHeight());
+        bound.set(getXPos(), getYPos(), this.getWidth(), this.getHeight());
     }
 
     public float getXPos() {return xPos;}
 
     public float getYPos() {return yPos;}
 
-    public float buttonGetWidth() {return sprite.getWidth();}
+    public float getWidth() {return sprite.getWidth();}
 
-    public float buttonGetHeight() {return sprite.getHeight();}
+    public float getHeight() {return sprite.getHeight();}
 
     public boolean isPressed() {
         return (Gdx.input.isTouched() && this.bound.contains(SnailAssalt.getTapPosition().x, SnailAssalt.getTapPosition().y));

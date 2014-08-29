@@ -12,17 +12,19 @@ public class MainMenu extends GameStates {
     protected ShopButton shopButton;
     protected InfoButton infoButton;
     protected TutorialButton tutorialButton;
-    public MainMenu() {
+    public MainMenu(SnailAssalt game) {
+        super(game);
         background = new Sprite(new Texture("images/backgrounds/sidewaysmenu.png"));
         background.setSize(width, height);
     }
 
+
     public void create() {
         startButton = new StartButton(width / 2 - width / (4.38f), height / 2 - height / (4.5f));
-        infoButton = new InfoButton(startButton.getXPos(), startButton.getYPos() - startButton.buttonGetHeight() - 10);
-        creditsButton = new CreditsButton(infoButton.getXPos() + infoButton.buttonGetWidth() + 20, infoButton.getYPos());
-        tutorialButton = new TutorialButton(creditsButton.getXPos() + creditsButton.buttonGetWidth() + 20, creditsButton.getYPos());
-        shopButton = new ShopButton(startButton.getXPos() + startButton.buttonGetWidth() + 10, startButton.getYPos());
+        infoButton = new InfoButton(startButton.getXPos(), startButton.getYPos() - startButton.getHeight() - 10);
+        creditsButton = new CreditsButton(infoButton.getXPos() + infoButton.getWidth() + 20, infoButton.getYPos());
+        tutorialButton = new TutorialButton(creditsButton.getXPos() + creditsButton.getWidth() + 20, creditsButton.getYPos());
+        shopButton = new ShopButton(startButton.getXPos() + startButton.getWidth() + 10, startButton.getYPos());
     }
 
     public void update() {

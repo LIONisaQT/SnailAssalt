@@ -30,7 +30,7 @@ public class SnailInfoButtons {
         bound = new Rectangle();
         bound.set(getXPos(), getYPos(), this.buttonGetWidth(), this.buttonGetHeight());
         snailImages = new ArrayList<TextureRegion>();
-        for (int b = 0; b < SnailAssalt.numberOfTypes; b++) {
+        for (int b = 0; b < SnailInfo.numberOfTypes; b++) {
             if (b < 5) {snailImages.add(new TextureRegion(sprite, b * 200, 0, tempPic.getWidth(), tempPic.getHeight()));}
             else if (b >= 5) {snailImages.add(new TextureRegion(sprite, (b - 5) * 200, 200, tempPic.getWidth(), tempPic.getHeight()));}
         }
