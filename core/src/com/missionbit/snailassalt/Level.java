@@ -22,18 +22,12 @@ public class Level {
 
     public ArrayList<Enemy> getEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-        for (int a = 0; a < level; a++) {
+
             enemies.add(new Enemy(-100, (float) Math.random() * SpawnOffset, 5, 0, 1, 10));
-        }
-        for (int a = 0; a < level; a++) {
             enemies.add(new Enemy(-width, (float) Math.random() * SpawnOffset, 5, 0, 1, 10));
-        }
-        for (int a = 0; a < level; a++) {
             enemies.add(new Enemy(-width * 2, (float) Math.random() * SpawnOffset, 5, 0, 1, 10));
-        }
-        for (int a = 0; a < level; a++) {
             enemies.add(new Enemy(-width * 3, (float) Math.random() * SpawnOffset, 5, 0, 1, 10));
-        }
+
 
         if (level == 2) {
             enemies.add(new AcidSnail(-100, (float) Math.random() * SpawnOffset, 5, 0, 1, 10));
