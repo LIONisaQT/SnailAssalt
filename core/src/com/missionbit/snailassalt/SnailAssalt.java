@@ -1050,13 +1050,13 @@ public class SnailAssalt extends ApplicationAdapter {
         } else if (gameState == GameState.INFO) {
             batch.begin();
             font.setScale((float) ((width / 1196) * (1.4)));
+            backButtonInfo.sprite.draw(batch);
             if (infoState == InfoState.SELECTION) {
                 info.draw(batch);
                 for (int b = 0; b < numberOfTypes; b++) {
                     SnailInfoButtons lb = snailInfoButtons.get(b);
                     batch.draw(lb.getButtonImage(b + 1), lb.bound.x, lb.bound.y);
                 }
-                backButtonInfo.sprite.draw(batch);
             } else if (infoState == InfoState.STANDARD) {
                 info.draw(batch);
                 for (Enemy enemy : enemies) {
@@ -1068,7 +1068,6 @@ public class SnailAssalt extends ApplicationAdapter {
                 font.draw(batch, "-no special powers", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
                 font.setScale((float) ((width / 1196) * (2.1)));
                 font.draw(batch, "STANDARD SNAIL", width / 9, (2 * font.getLineHeight()));
-                backButtonInfo.sprite.draw(batch);
                 nextButtonInfo.sprite.draw(batch);
             } else if (infoState == InfoState.ACID) {
                 info.draw(batch);
@@ -1082,7 +1081,6 @@ public class SnailAssalt extends ApplicationAdapter {
                 font.draw(batch, "-'speed up' slimes ", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
                 font.setScale((float) ((width / 1196) * (2.1)));
                 font.draw(batch, "ACID SNAIL", width / 9, (2 * font.getLineHeight()));
-                backButtonInfo.sprite.draw(batch);
                 nextButtonInfo.sprite.draw(batch);
 
             } else if (infoState == InfoState.FLYING) {
@@ -1097,7 +1095,6 @@ public class SnailAssalt extends ApplicationAdapter {
                 font.draw(batch, "-'speed up' slime bombs", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
                 font.setScale((float) ((width / 1196) * (2.1)));
                 font.draw(batch, "FLYING SNAIL", width / 9, (2 * font.getLineHeight()));
-                backButtonInfo.sprite.draw(batch);
                 nextButtonInfo.sprite.draw(batch);
 
             } else if (infoState == InfoState.HEALING) {
@@ -1112,7 +1109,6 @@ public class SnailAssalt extends ApplicationAdapter {
                 font.draw(batch, "-no special powers", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
                 font.setScale((float) ((width / 1196) * (2.1)));
                 font.draw(batch, "HEALING SNAIL", width / 9, (2 * font.getLineHeight()));
-                backButtonInfo.sprite.draw(batch);
                 nextButtonInfo.sprite.draw(batch);
 
             } else if (infoState == InfoState.BOSS) {
@@ -1127,7 +1123,6 @@ public class SnailAssalt extends ApplicationAdapter {
                 font.draw(batch, "-high HP", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
                 font.setScale((float) ((width / 1196) * (2.1)));
                 font.draw(batch, "KING SNAILEY", width / 9, (2 * font.getLineHeight()));
-                backButtonInfo.sprite.draw(batch);
                 nextButtonInfo.sprite.draw(batch);
 
             } else if (infoState == InfoState.MOTHER) {
@@ -1142,7 +1137,6 @@ public class SnailAssalt extends ApplicationAdapter {
                 font.draw(batch, "-high HP", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
                 font.setScale((float) ((width / 1196) * (2.1)));
                 font.draw(batch, "MOTHER SNAIL", width / 9, (2 * font.getLineHeight()));
-                backButtonInfo.sprite.draw(batch);
                 nextButtonInfo.sprite.draw(batch);
             } else if (infoState == InfoState.PERSON) {
                 info.draw(batch);
@@ -1156,9 +1150,7 @@ public class SnailAssalt extends ApplicationAdapter {
                 font.draw(batch, "-no special powers", sign.getX() + 50, (3 * height) / 4 - (2 * font.getLineHeight()));
                 font.setScale((float) ((width / 1196) * (2.1)));
                 font.draw(batch, "ZOMBIE", width / 9, (2 * font.getLineHeight()));
-                backButtonInfo.sprite.draw(batch);
             }
-            font.setScale((float) ((width / 1196) * (1.4)));
             batch.end();
         } else if (gameState == GameState.INGAME) { //in-game
             batch.begin();
