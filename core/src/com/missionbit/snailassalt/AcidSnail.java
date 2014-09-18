@@ -5,11 +5,8 @@ public class AcidSnail extends Enemy {
         super(x, y, xSpeed, ySpeed, attack, hp, "images/enemies/acidSnail.png", "images/enemies/acidSnail2.png");
     }
 
-    public void Update(float dt, SnailAssalt game) {
-        super.Update(dt,game);
-        if (Math.random() > 0.95) {
-            game.addSlime(new Droppings(this.bound.x,this.bound.y));
-        }
+    public void Update(float dt) {
+        super.Update(dt);
         seconds = Math.max(seconds - dt, 0);
         flash = seconds > 0;
         this.bound.x = this.bound.x + this.speed.x;

@@ -12,8 +12,7 @@ public class MainMenu extends GameStates {
     protected ShopButton shopButton;
     protected InfoButton infoButton;
     protected TutorialButton tutorialButton;
-    public MainMenu(SnailAssalt game) {
-        super(game);
+    public MainMenu() {
         background = new Sprite(new Texture("images/backgrounds/sidewaysmenu.png"));
         background.setSize(width, height);
     }

@@ -19,8 +19,7 @@ public class LevelSelect extends GameStates {
     protected static Level currentLevel;
 
     protected BackButton backButton;
-    public LevelSelect(SnailAssalt game) {
-        super(game);
+    public LevelSelect() {
         background = new Sprite(new Texture("images/backgrounds/levelscreen.png"));
         background.setSize(width, height);
     }

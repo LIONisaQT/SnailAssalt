@@ -12,8 +12,7 @@ public class Shop extends GameStates {
     protected ShopSaltButton shopSaltButton;
     protected ShopHoseButton shopHoseButton;
     protected Sprite shopHydra, shopHose, shopSalt;
-    public Shop(SnailAssalt game) {
-        super(game);
+    public Shop() {
         background = new Sprite(new Texture("images/backgrounds/levelscreen.png"));
         background.setSize(width, height);
     }

@@ -13,8 +13,7 @@ public class GameStates {
     protected SpriteBatch batch;
     protected Sprite background;
     protected SnailAssalt game;
-    public GameStates(SnailAssalt game) {
-        this.game = game;
+    public GameStates() {
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
         batch = new SpriteBatch();

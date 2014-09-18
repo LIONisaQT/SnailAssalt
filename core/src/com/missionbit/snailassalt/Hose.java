@@ -14,7 +14,7 @@ public class Hose extends Weapon {
     }
 
     public void Update(ArrayList<ThrowyThingy> water) {
-        if (Gdx.input.isTouched() && currentWater >0&& !SnailAssalt.saltButton.isPressed() && !SnailAssalt.hydraButton.isPressed()) {
+        if (Gdx.input.isTouched() && currentWater >0&& !InGame.saltButton.isPressed() && !InGame.hydraButton.isPressed()) {
             watergunsound.play(1.0f);
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
@@ -35,7 +35,7 @@ public class Hose extends Weapon {
         if (!enableSalt) {
             return;
         }
-        if (Gdx.input.isTouched() && currentSalt >0 && SnailAssalt.bulletType == SnailAssalt.BulletType.SALT && !SnailAssalt.saltButton.isPressed() && !SnailAssalt.hydraButton.isPressed()) {
+        if (Gdx.input.isTouched() && currentSalt >0 && InGame.bulletType == InGame.BulletType.SALT && !InGame.saltButton.isPressed() && !InGame.hydraButton.isPressed()) {
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
             deltaX = touch - sprite.getX();

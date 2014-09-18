@@ -40,7 +40,7 @@ public class Enemy {
         SpawnOffset = 15;
     }
 
-    public void Update (float dt, SnailAssalt game) {
+    public void Update (float dt) {
         seconds = Math.max(seconds - dt, 0);
         flash = seconds > 0;
         this.bound.x = this.bound.x + this.speed.x;

@@ -18,8 +18,7 @@ public class Tutorial extends GameStates {
 
     protected static enum TutorialState {PAGE1, PAGE2, PAGE3, PAGE4, PAGE5, PAGE6, PAGE7, PAGE8, PAGE9}
     protected static TutorialState tutorialState;
-    public Tutorial(SnailAssalt game) {
-        super(game);
+    public Tutorial() {
     }
 
     public void create() {

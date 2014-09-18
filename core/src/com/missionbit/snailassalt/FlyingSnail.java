@@ -7,7 +7,7 @@ public class FlyingSnail extends Enemy {
         super(x, y, xSpeed, ySpeed, attack, hp, "images/enemies/flyingSnail.png", "images/enemies/flyingSnail2.png");
     }
 
-    public void Update(float dt, SnailAssalt game) {
+    public void Update(float dt) {
         seconds = Math.max(seconds - dt, 0);
         flash = seconds > 0;
         this.bound.x = this.bound.x + this.speed.x;
@@ -22,9 +22,6 @@ public class FlyingSnail extends Enemy {
         }
         if (this.bound.y <= 0) {
             this.speed.y = this.speed.y * -1;
-        }
-        if (Math.random() > 0.995) {
-            game.addBomb(new BombDrop(this.bound.x, this.bound.y));
         }
     }
 }

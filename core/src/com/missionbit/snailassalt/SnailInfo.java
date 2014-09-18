@@ -19,8 +19,7 @@ public class SnailInfo extends GameStates {
 
     protected static enum InfoState {SELECTION, STANDARD, ACID, FLYING, HEALING, BOSS, MOTHER, PERSON}
     protected static InfoState infoState;
-    public SnailInfo(SnailAssalt game) {
-        super(game);
+    public SnailInfo() {
         background = new Sprite(new Texture("images/backgrounds/info.png"));
         background.setSize(width, height);
         sign = new Sprite(new Texture("images/backgrounds/sign.png"));
