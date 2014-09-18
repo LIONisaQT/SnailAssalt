@@ -13,16 +13,37 @@ public class BackButton extends Button {
             SnailAssalt.gameState = SnailAssalt.prevGameState;
         } else if (SnailAssalt.gameState == SnailAssalt.GameState.WIN || SnailAssalt.gameState == SnailAssalt.GameState.GAMEOVER) {
             SnailAssalt.gameState = SnailAssalt.GameState.LEVELSELECT;
-        }  else if (SnailAssalt.gameState == SnailAssalt.GameState.INFO){
-            if (SnailInfo.infoState == SnailInfo.InfoState.SELECTION) {
+        } else if (SnailAssalt.gameState == SnailAssalt.GameState.TUTORIAL) {
+            if (Tutorial.tutorialState == Tutorial.TutorialState.PAGE9) {
+                if (SnailAssalt.preferences.getInteger("tutorial", 0) == 0) {
+                    SnailAssalt.preferences.putInteger("tutorial", 1);
+                }
+                if (SnailAssalt.preferences.getInteger("tutorial", 0) == 2) {
+                    SnailAssalt.gameState = SnailAssalt.GameState.MAINMENU;
+                }
+                Tutorial.tutorialState = Tutorial.TutorialState.PAGE1;
+                if (SnailAssalt.preferences.getInteger("tutorial", 0) == 1) {
+                    SnailAssalt.gameState = SnailAssalt.GameState.CHARACTERSELECT;
+                    if (SnailAssalt.gameState == SnailAssalt.GameState.CHARACTERSELECT) {
+                        SnailAssalt.preferences.putInteger("tutorial", 2);
+                    }
+                }
+            }
+        } else if (SnailAssalt.gameState == SnailAssalt.GameState.INFO){
+            if (SnailInfo.infoState == SnailInfo.InfoState.SELECTION){
                 SnailAssalt.gameState = SnailAssalt.GameState.MAINMENU;
             }
-            else {
+            /*if (SnailInfo.infoState == SnailInfo.InfoState.STANDARD||SnailInfo.infoState== SnailInfo.InfoState.ACID ||SnailInfo.infoState== SnailInfo.InfoState.FLYING ||SnailInfo.infoState== SnailInfo.InfoState.HEALING ||SnailInfo.infoState== SnailInfo.InfoState.MOTHER ||SnailInfo.infoState== SnailInfo.InfoState.PERSON ||SnailAssalt.infoState== SnailAssalt.InfoState.BOSS){
+                SnailAssalt.infoState = SnailAssalt.InfoState.SELECTION;
+            }*/
+
+            else
                 SnailInfo.infoState = SnailInfo.InfoState.SELECTION;
-            }
-        } else {
+
+        }
+        else {
             SnailAssalt.gameState = SnailAssalt.GameState.MAINMENU;
         }
-        SnailAssalt.prevGameState = null; //clear prevGameState
+
     }
 }
