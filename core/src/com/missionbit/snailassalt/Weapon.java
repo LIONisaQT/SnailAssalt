@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Weapon {
     public Sprite sprite;
     public boolean enable;
-    public boolean enableSalt;
+    public static boolean enableSalt;
     public Rectangle bound;
     public Vector2 speed;
     protected float width, height;

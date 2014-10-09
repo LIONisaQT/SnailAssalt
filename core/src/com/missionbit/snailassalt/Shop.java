@@ -85,6 +85,7 @@ public class Shop extends GameStates {
             Weapon.saltSupply++;
             Weapon.currentSalt = Weapon.saltSupply;
             SnailAssalt.preferences.putInteger("saltsupply", (int) Weapon.saltSupply);
+            Weapon.enableSalt = true;
             //preferences.flush();
         }
         if (SnailAssalt.preferences.getInteger("salt", 0) == 1) {

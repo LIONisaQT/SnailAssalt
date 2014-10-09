@@ -16,7 +16,6 @@ public class SaltArm extends Weapon {
     public void Update2(ArrayList<SaltProjectile> shakers) {
         if(!enableSalt) {return;}
         if (Gdx.input.justTouched() && currentSalt!=0 && InGame.bulletType == InGame.BulletType.SALT && !InGame.saltButton.isPressed() && !InGame.hydraButton.isPressed()) {
-            sprite.setSize(width/1196, height/720);
             touch = SnailAssalt.getTapPosition().x;
             touchY = SnailAssalt.getTapPosition().y;
             deltaX = touch - sprite.getX();

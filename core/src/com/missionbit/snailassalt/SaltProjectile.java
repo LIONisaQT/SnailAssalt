@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class SaltProjectile extends ThrowyThingy {
     public SaltProjectile(){
-        image = new Texture("images/weapons/salt.png");
+        image = new Texture("images/weapons/Salt.png");
         sprite = new Sprite(image,image.getWidth(), image.getHeight());
         bound = new Rectangle();
         bound.set(30, 300, image.getWidth(), image.getHeight());

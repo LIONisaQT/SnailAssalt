@@ -112,10 +112,7 @@ public class InGame extends GameStates {
             if (SnailAssalt.waterGun.enable)
                 SnailAssalt.waterGun.Update(water);
             if (SnailAssalt.waterGun.enableSalt) {
-                if (saltButton.isPressed())
-                    bulletType = BulletType.SALT;
                 if (bulletType == BulletType.SALT) {
-                    SnailAssalt.saltarm.sprite.setRotation(Weapon.rot);
                     SnailAssalt.waterGun.Update2(shakers);
                     SnailAssalt.saltarm.Update2(shakers);
                 }
@@ -129,7 +126,6 @@ public class InGame extends GameStates {
                 if (saltButton.isPressed())
                     bulletType = BulletType.SALT;
                 if (bulletType == BulletType.SALT) {
-                    SnailAssalt.saltarm.sprite.setRotation(Weapon.rot);
                     SnailAssalt.hydra.Update2(shakers);
                     SnailAssalt.saltarm.Update2(shakers);
                 }
