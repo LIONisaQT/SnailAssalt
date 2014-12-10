@@ -21,6 +21,9 @@ public class BackButton extends Button {
                 SnailInfo.infoState = SnailInfo.InfoState.SELECTION;
             }
         } else {
+            if (SnailAssalt.gameState == SnailAssalt.GameState.CREDITS) {
+                Credits.state = Credits.CreditState.PAGE1;
+            }
             SnailAssalt.gameState = SnailAssalt.GameState.MAINMENU;
         }
         SnailAssalt.prevGameState = null; //clear prevGameState

@@ -41,7 +41,6 @@ public class SnailAssalt extends ApplicationAdapter {
 
     //SPRITES
     private Sprite
-            /* credit pages */ credits, specialThanks, hurshalsface1,
             /* backgrounds */ gameover, win;
 
     //GAME STATES
@@ -53,17 +52,18 @@ public class SnailAssalt extends ApplicationAdapter {
     private static CharacterSelect characterSelect;
     private static InGame inGame;
     private static GameOver gameOver;
+    private static Credits credits;
 
     //BUTTONS
     private ShopButton shopButtonGameEnd;
 
     private RedoButton redoLevelButton;
     private NextLevelButton nextLevelButton;
-    private BackButton backButtonGameEnd, backButtonCredits;
+    private BackButton backButtonGameEnd;
 
     //ENUMS AND STATES
     protected static enum GameState {
-        CHARACTERSELECT, MAINMENU, TUTORIAL, INGAME, GAMEOVER, WIN, SHOP, LEVELSELECT, CREDITS, CREDITS_HURSHAL, INFO
+        CHARACTERSELECT, MAINMENU, TUTORIAL, INGAME, GAMEOVER, WIN, SHOP, LEVELSELECT, CREDITS, INFO
     }
 
     protected static GameState gameState, prevGameState;
@@ -116,17 +116,6 @@ public class SnailAssalt extends ApplicationAdapter {
         win = new Sprite(new Texture("images/backgrounds/win.png"));
         win.setSize(width, height);
 
-        //CREDITS
-        credits = new Sprite(new Texture("images/backgrounds/credits.png"));
-        credits.setSize(width / 1196 * credits.getWidth(), height / 720 * credits.getHeight());
-        credits.setPosition(width / 2 - credits.getWidth() / 2, height / 2 - credits.getHeight() / 2);
-        hurshalsface1 = new Sprite(new Texture("images/backgrounds/hurshalsFace.png"));
-        hurshalsface1.setSize(width / 1196 * hurshalsface1.getWidth(), height / 720 * hurshalsface1.getHeight());
-        hurshalsface1.setPosition(width - hurshalsface1.getWidth(), 0);
-        specialThanks = new Sprite(new Texture("images/backgrounds/specialThanks.png"));
-        specialThanks.setSize(width / 1196 * specialThanks.getWidth(), height / 720 * specialThanks.getHeight());
-        specialThanks.setPosition(width / 2 - specialThanks.getWidth() / 2, height / 2 - 100);
-
         //GAME STATES
         mainMenu = new MainMenu();
         mainMenu.create();
@@ -142,6 +131,10 @@ public class SnailAssalt extends ApplicationAdapter {
         characterSelect.create();
         inGame = new InGame();
         inGame.create();
+        credits = new Credits();
+        credits.create();
+        gameOver = new GameOver();
+        gameOver.create();
 
         //PREFERENCES CHECK
         if (preferences.getInteger("hydra", 0) == 1)
@@ -156,7 +149,6 @@ public class SnailAssalt extends ApplicationAdapter {
 
         //BACK BUTTONS
         backButtonGameEnd = new BackButton(0, 0);
-        backButtonCredits = new BackButton(width - backButtonGameEnd.sprite.getWidth(), height - shop.backButton.getHeight());
 
         //IN-GAME / GAME OVER / WIN BUTTONS
         nextLevelButton = new NextLevelButton(width - width / (6.39f), 0);
@@ -191,7 +183,6 @@ public class SnailAssalt extends ApplicationAdapter {
 
         //BACK BUTTONS
         backButtonGameEnd.position.set(backButtonGameEnd.getXPos(), backButtonGameEnd.getYPos());
-        backButtonCredits.position.set(backButtonCredits.getXPos(), backButtonCredits.getYPos());
 
         //IN-GAME / GAME OVER / WIN
         redoLevelButton.position.set(redoLevelButton.getXPos(), redoLevelButton.getYPos());
@@ -220,12 +211,7 @@ public class SnailAssalt extends ApplicationAdapter {
         } else if (gameState == GameState.INFO) {
             snailInfo.update();
         } else if (gameState == GameState.CREDITS) {
-            if (Gdx.input.justTouched())
-                gameState = GameState.CREDITS_HURSHAL;
-        } else if (gameState == GameState.CREDITS_HURSHAL) {
-            if (backButtonCredits.touchup()) {
-                backButtonCredits.pressedAction();
-            }
+            credits.update();
         } else if (gameState == GameState.INGAME) {
             inGame.update();
         } else if (gameState == GameState.GAMEOVER || gameState == GameState.WIN) {
@@ -296,18 +282,7 @@ public class SnailAssalt extends ApplicationAdapter {
         } else if (gameState == GameState.MAINMENU) {
             mainMenu.draw();
         } else if (gameState == GameState.CREDITS) {
-            batch.begin();
-            credits.draw(batch);
-            batch.end();
-        } else if (gameState == GameState.CREDITS_HURSHAL) {
-            batch.begin();
-            hurshalsface1.draw(batch);
-            specialThanks.draw(batch);
-            backButtonCredits.sprite.draw(batch);
-            if (backButtonCredits.isPressed()) {
-                backButtonCredits.spriteShade.draw(batch);
-            }
-            batch.end();
+            credits.draw();
         } else if (gameState == GameState.LEVELSELECT) {
             levelSelect.draw();
         } else if (gameState == GameState.SHOP) {

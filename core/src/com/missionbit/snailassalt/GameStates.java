@@ -12,7 +12,7 @@ public class GameStates {
     protected float width, height;
     protected SpriteBatch batch;
     protected Sprite background;
-    protected SnailAssalt game;
+    //protected SnailAssalt game;
     public GameStates() {
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();

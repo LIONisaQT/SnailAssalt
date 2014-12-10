@@ -7,11 +7,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
  * Created by ryanisaqt on 8/24/14.
  */
 public class MainMenu extends GameStates {
-    protected StartButton startButton;
-    protected CreditsButton creditsButton;
-    protected ShopButton shopButton;
-    protected InfoButton infoButton;
-    protected TutorialButton tutorialButton;
+    protected static StartButton startButton;
+    protected static CreditsButton creditsButton;
+    protected static ShopButton shopButton;
+    protected static InfoButton infoButton;
+    protected static TutorialButton tutorialButton;
     public MainMenu() {
         background = new Sprite(new Texture("images/backgrounds/sidewaysmenu.png"));
         background.setSize(width, height);
