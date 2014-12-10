@@ -16,6 +16,7 @@ public class SnailInfo extends GameStates {
     protected ArrayList<SnailInfoButtons> snailInfoButtons;
     protected NextButton nextButton;
     protected BackButton backButton;
+    private int buttonstate = 0;
 
     protected static enum InfoState {SELECTION, STANDARD, ACID, FLYING, HEALING, BOSS, MOTHER, PERSON}
     protected static InfoState infoState;
@@ -46,7 +47,12 @@ public class SnailInfo extends GameStates {
     }
 
     public void update() {
-        if (backButton.isPressed()) {
+        if (backButton.isPressed() && buttonstate == 0) {
+            buttonstate = 1;
+        }
+
+        if (backButton.touchup() && buttonstate == 1){
+            buttonstate = 0;
             backButton.pressedAction();
         }
         for (int b = 0; b < numberOfTypes; b++) {
@@ -95,12 +101,19 @@ public class SnailInfo extends GameStates {
         SnailAssalt.font.setScale((float) ((width / 1196) * (1.4)));
         SnailAssalt.font.setColor(0, 0, 0, 1);
         background.draw(batch);
+        backButton.sprite.draw(batch);
+        if (infoState != InfoState.SELECTION) {
+            nextButton.sprite.draw(batch);
+        }
+        if (buttonstate == 1){
+            backButton.spriteShade.draw(batch);
+        }
         if (infoState == InfoState.SELECTION) {
             for (int b = 0; b < numberOfTypes; b++) {
                 SnailInfoButtons lb = snailInfoButtons.get(b);
                 batch.draw(lb.getButtonImage(b + 1), lb.bound.x, lb.bound.y);
             }
-            backButton.sprite.draw(batch);
+
         } else if (infoState == InfoState.STANDARD) {
             for (Enemy enemy : enemies) {
                 enemy.draw(batch, SnailAssalt.time);
@@ -111,8 +124,6 @@ public class SnailInfo extends GameStates {
             SnailAssalt.font.draw(batch, "-no special powers", sign.getX() + 50, (3 * height) / 4 - (2 * SnailAssalt.font.getLineHeight()));
             SnailAssalt.font.setScale((float) ((width / 1196) * (2.1)));
             SnailAssalt.font.draw(batch, "STANDARD SNAIL", width / 9, (2 * SnailAssalt.font.getLineHeight()));
-            backButton.sprite.draw(batch);
-            nextButton.sprite.draw(batch);
         } else if (infoState == InfoState.ACID) {
             for (Enemy enemy : enemies) {
                 enemy.draw(batch, SnailAssalt.time);
@@ -124,8 +135,6 @@ public class SnailInfo extends GameStates {
             SnailAssalt.font.draw(batch, "-'speed up' slimes ", sign.getX() + 50, (3 * height) / 4 - (2 * SnailAssalt.font.getLineHeight()));
             SnailAssalt.font.setScale((float) ((width / 1196) * (2.1)));
             SnailAssalt.font.draw(batch, "ACID SNAIL", width / 9, (2 * SnailAssalt.font.getLineHeight()));
-            backButton.sprite.draw(batch);
-            nextButton.sprite.draw(batch);
 
         } else if (infoState == InfoState.FLYING) {
             for (Enemy enemy : enemies) {
@@ -138,8 +147,6 @@ public class SnailInfo extends GameStates {
             SnailAssalt.font.draw(batch, "-'speed up' slime bombs", sign.getX() + 50, (3 * height) / 4 - (2 * SnailAssalt.font.getLineHeight()));
             SnailAssalt.font.setScale((float) ((width / 1196) * (2.1)));
             SnailAssalt.font.draw(batch, "FLYING SNAIL", width / 9, (2 * SnailAssalt.font.getLineHeight()));
-            backButton.sprite.draw(batch);
-            nextButton.sprite.draw(batch);
 
         } else if (infoState == InfoState.HEALING) {
             for (Enemy enemy : enemies) {
@@ -152,8 +159,6 @@ public class SnailInfo extends GameStates {
             SnailAssalt.font.draw(batch, "-no special powers", sign.getX() + 50, (3 * height) / 4 - (2 * SnailAssalt.font.getLineHeight()));
             SnailAssalt.font.setScale((float) ((width / 1196) * (2.1)));
             SnailAssalt.font.draw(batch, "HEALING SNAIL", width / 9, (2 * SnailAssalt.font.getLineHeight()));
-            backButton.sprite.draw(batch);
-            nextButton.sprite.draw(batch);
 
         } else if (infoState == InfoState.BOSS) {
             for (Enemy enemy : enemies) {
@@ -166,8 +171,6 @@ public class SnailInfo extends GameStates {
             SnailAssalt.font.draw(batch, "-high HP", sign.getX() + 50, (3 * height) / 4 - (2 * SnailAssalt.font.getLineHeight()));
             SnailAssalt.font.setScale((float) ((width / 1196) * (2.1)));
             SnailAssalt.font.draw(batch, "KING SNAILEY", width / 9, (2 * SnailAssalt.font.getLineHeight()));
-            backButton.sprite.draw(batch);
-            nextButton.sprite.draw(batch);
 
         } else if (infoState == InfoState.MOTHER) {
             for (Enemy enemy : enemies) {
@@ -180,8 +183,6 @@ public class SnailInfo extends GameStates {
             SnailAssalt.font.draw(batch, "-high HP", sign.getX() + 50, (3 * height) / 4 - (2 * SnailAssalt.font.getLineHeight()));
             SnailAssalt.font.setScale((float) ((width / 1196) * (2.1)));
             SnailAssalt.font.draw(batch, "MOTHER SNAIL", width / 9, (2 * SnailAssalt.font.getLineHeight()));
-            backButton.sprite.draw(batch);
-            nextButton.sprite.draw(batch);
         } else if (infoState == InfoState.PERSON) {
             for (Enemy enemy : enemies) {//draws and animates enemies
                 enemy.draw(batch, SnailAssalt.time);
@@ -193,7 +194,6 @@ public class SnailInfo extends GameStates {
             SnailAssalt.font.draw(batch, "-no special powers", sign.getX() + 50, (3 * height) / 4 - (2 * SnailAssalt.font.getLineHeight()));
             SnailAssalt.font.setScale((float) ((width / 1196) * (2.1)));
             SnailAssalt.font.draw(batch, "ZOMBIE", width / 9, (2 * SnailAssalt.font.getLineHeight()));
-            backButton.sprite.draw(batch);
         }
         batch.end();
     }
